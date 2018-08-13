@@ -9,7 +9,7 @@ export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
 	Signup: { screen: Signup },
-	// PassengerHome: { screen: PassengerHome },
+	PassengerHome: { screen: PassengerHome },
 	// DriverHome: { screen: DriverHome }
 }, {
 	initialRouteName: 'Welcome',

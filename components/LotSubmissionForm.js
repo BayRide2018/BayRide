@@ -10,6 +10,9 @@ import style from '../public/style';
 
 export default class LotSubmissionForm extends Component {
 
+  // This thing still needs to navigate back to the home
+  // Also, consider moving the creation to the firemethods
+
 	state = {
 		screenshot: '',
 		pickupTime: '',
@@ -27,15 +30,22 @@ export default class LotSubmissionForm extends Component {
 		const dropoffLocation = this.state.dropoffLocation;
 		const offer = this.state.offer;
 		const passengerId = this.state.passengerId;
-		const driverId = this.state.driverId;
+    
+    firestore.collection("lots").add({
+      screenshot,
+      pickupTime,
+      pickupLocation,
+      dropoffLocation,
+      offer,
+      passengerId,
+      driverId: null
+    });
 
-		const result = await signup(name, phone, email, password, carMake, carModel, carColor, license);
-
-		if (typeof result === 'string') {
-			this.setState({ response: result });
-		} else {
-			this.props.navigation.navigate('Menu');
-		}
+		// if (typeof result === 'string') {
+		// 	this.setState({ response: result });
+		// } else {
+		// 	this.props.navigation.navigate('Menu');
+		// }
   }
   
   render () {
@@ -74,4 +84,3 @@ export default class LotSubmissionForm extends Component {
     );
   }
 }
-export default LotSubmissionForm;

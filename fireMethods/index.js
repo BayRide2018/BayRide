@@ -52,4 +52,16 @@ async function login (email, password) {
 	}
 }
 
+// async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer, passengerId) {
+// 	firestore.collection("lots").add({
+// 		screenshot,
+// 		pickupTime,
+// 		pickupLocation,
+// 		dropoffLocation,
+// 		offer,
+// 		passengerId,
+// 		driverId: null
+// 	});
+// }
+
 export { signup,login };

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import LotSubmissionForm from './LotSubmissionForm';
+import React from 'react';
+import Drawer from './Drawer';
 
-export default class PassengerHome extends Component {
-  render(){
-    return(
-      <Text>In PassengerHome</Text>
-    )
-  }
+export default class PassengerHome extends React.Component{
+	render(){
+		return(
+			<Drawer />
+		)
+	}
 }

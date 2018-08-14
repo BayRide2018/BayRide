@@ -8,6 +8,7 @@ import { firebase } from '@firebase/app';
 const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
 import LotBanner from './LotBanner'
+import Drawer from './Drawer';
 
 
 export default class PassengerHome extends Component {
@@ -43,7 +44,7 @@ export default class PassengerHome extends Component {
     const { location, marker, showBanner } = this.state;
     return(
       <View style={styles.container}>
-
+      <Drawer />
       <MapView style={styles.map}
         onRegionChangeComplete={this.onRegionChangeComplete}
         showsUserLocation={true}

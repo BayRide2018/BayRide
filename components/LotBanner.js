@@ -1,19 +1,19 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import style from '../public/style';
 
 
 
-const LotBanner = ({ navigation, pickupTime, pickupLocation, dropoffLocation, bidPrice, passengerId, driverId }) => (
+const LotBanner = ({ }) => (
   <View style={style.container}>
-    <Text style={style.title}>BayRide</Text>
-    <View style={style.containerRow}>
-      <Text style={style.title}>Pick Up: {pickupTime}</Text>
-      <Text style={style.title}>Location: {pickupLocation}</Text>
-      <Text style={style.title}>Drop Off location: {pickupLocation}</Text>
-      <Text style={style.title}>Bid Price: {bidPrice}</Text>
-      <Button>Offer Lower Price</Button>
+    <View style={style.banner}>
+    <Text style={style.font}>BayRide</Text>
+      <Text style={style.font}>Pick Up: </Text>
+      <Text style={style.font}>Location: </Text>
+      <Text style={style.font}>Drop Off location: </Text>
+      <Text style={style.font}>Bid Price: </Text>
+      <Button style={style.menuButtonStyle}>Offer Lower Price</Button>
     </View>
   </View>
 );

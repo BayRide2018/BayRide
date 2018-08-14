@@ -16,6 +16,7 @@ export default class LotBanner extends React.Component {
       <View>
         <Text>BayRide</Text>
         <View>
+          <Text>Screenshot: {this.state.screenshot}</Text>
           <Text>Pick Up: {this.state.pickupTime}</Text>
           <Text>Location: {this.state.pickupLocation}</Text>
           <Text>Drop Off location: {this.state.pickupLocation}</Text>

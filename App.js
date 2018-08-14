@@ -12,7 +12,7 @@ export default createStackNavigator({
 	PassengerHome: { screen: PassengerHome },
 	DriverHome: { screen: DriverHome }
 }, {
-	initialRouteName: 'DriverHome',
+	initialRouteName: 'Welcome',
 	navigationOptions: {
 		title: 'BayRide',
 		headerLeft: null,

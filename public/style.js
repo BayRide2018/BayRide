@@ -44,18 +44,23 @@ module.exports = StyleSheet.create({
 		borderRadius: 5,
 		padding: 5
 	},
-	container: {
-		padding: 50,
+	banner: {
 		flex: 1,
-		backgroundColor: '#969694',
-		justifyContent: 'space-evenly',
+		backgroundColor: 'white',
+		justifyContent: 'center',
 		alignItems: 'center',
+},
+	container: {
+		height: 300,
+		width: 450,
+		backgroundColor: '#969694',
+		justifyContent: 'center',
+		alignItems: 'center'
 },
 	containerRow: {
 		flex: 1,
-		backgroundColor: '#969694',
-		width: 400,
 		flexDirection: 'row',
+
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
 	},
@@ -77,6 +82,12 @@ module.exports = StyleSheet.create({
 		fontSize: 75,
 		fontWeight: 'bold',
 		width: 500,
+		backgroundColor: '#969694',
+		textAlign: 'center',
+		color: 'white'
+	},
+	font: {
+		fontSize: 15,
 		backgroundColor: '#969694',
 		textAlign: 'center',
 		color: 'white'

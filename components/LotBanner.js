@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import style from '../public/style';
 import firebase from 'firebase';
 import firestore from '../firestore';
@@ -25,8 +25,8 @@ export default class LotBanner extends React.Component {
     firestore.collection("lots").doc(this.state.id).update({
       driverId
     });
-  }
 
+  }
   render () {
     console.log(this.state);
     const buttonTitle = this.state.driverId ? "Offer a lower price" : "Bid at this price!";

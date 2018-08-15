@@ -22,7 +22,10 @@ async function signup (name, phone, email, password) {
 		name,
 		phone,
 		email,
-		password
+		password,
+		defaultSetting: "passenger",
+		paymentInformation: {},
+		drivingInformation: {}
 	});
 	return true;
 }
@@ -52,16 +55,25 @@ async function login (email, password) {
 	}
 }
 
-// async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer, passengerId) {
-// 	firestore.collection("lots").add({
-// 		screenshot,
-// 		pickupTime,
-// 		pickupLocation,
-// 		dropoffLocation,
-// 		offer,
-// 		passengerId,
-// 		driverId: null
-// 	});
-// }
+async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer, passengerId) {
+	// With comments for the validations that should be added later, once things are a little more solid
+	firestore.collection("lots").add({
+		// Needs to actually be a picture.. Can they submit a lot without a screenshot?
+		screenshot,
+		// Pickup Time must be in the next... 4 hours? Verifiable with a menu of options, not text input, right?
+		pickupTime,
+		// To start off, this can be just your location, but I think that it will wind up being important for there to be
+		//		Something similar to Uber's set your pickup location. This would make it more useful for the "I'm going to the airport in 20 minutes"
+		// 		Scenario, because you could do thus while you're 15 minutes away from where you want to be picked up
+		pickupLocation,
+		dropoffLocation,
+		// I think it might be a good idea to round all offers down to the nearest quarter (2.5 => 2.5; 2.3 => 2.25; 2.2 => 2.0) We could skim off 
+		//		the difference, and then, when you place an offer, it has to be a multiple of a quarter. This prevents people from doing things
+		//		like at the last second, outbidding someone by 1 cent.
+		offer,
+		passengerId,
+		driverId: null
+	});
+}
 
-export { signup,login };
+export { signup, login, createLot };

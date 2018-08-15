@@ -4,17 +4,20 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import PassengerHome from './components/PassengerHome';
 import DriverHome from './components/DriverHome';
+import LotSubmissionForm from './components/LotSubmissionForm';
 import Account from './components/Account';
+
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
 	Signup: { screen: Signup },
 	PassengerHome: { screen: PassengerHome },
+	LotSubmissionForm: { screen: LotSubmissionForm },
 	DriverHome: { screen: DriverHome },
 	Account: { screen: Account }
 }, {
-	initialRouteName: 'Welcome',
+	initialRouteName: 'Login',
 	navigationOptions: {
 		title: 'BayRide',
 		headerLeft: null,

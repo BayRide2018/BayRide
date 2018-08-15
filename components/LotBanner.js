@@ -1,16 +1,14 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import style from '../public/style';
 
 
 export default class LotBanner extends React.Component {
-
   constructor (props) {
     super(props);
     this.state = props.lotData;
   }
-
   render () {
     return (
       <View>

@@ -55,7 +55,17 @@ async function login (email, password) {
 	}
 }
 
-async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer, passengerId) {
+async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer) {
+	const passengerEmail = firebase.auth().currentUser.email;
+	let passengerId;
+	firestore.collection("users").where("email", "==", "passengerEmail").get().then(users => {
+		users.forEach(user => {
+			passengerId = user.id;
+		})
+	})
+	if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
+		return "Please fill out all of the forms."
+	}
 	// With comments for the validations that should be added later, once things are a little more solid
 	firestore.collection("lots").add({
 		// Needs to actually be a picture.. Can they submit a lot without a screenshot?

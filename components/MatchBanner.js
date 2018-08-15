@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import style from '../public/style';
 import firestore from '../firestore';
 
-export default class LotBanner extends React.Component {
+export default class MatchBanner extends React.Component {
 
   // props is just the lot information from firestore
   // so it has driverId, dropoffLocation, offer, passengerId, pickupLocation, pickupTime, screenshot

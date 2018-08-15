@@ -10,7 +10,7 @@ export default createStackNavigator({
 	Login: { screen: Login },
 	Signup: { screen: Signup },
 	PassengerHome: { screen: PassengerHome },
-	// DriverHome: { screen: DriverHome }
+	DriverHome: { screen: DriverHome }
 }, {
 	initialRouteName: 'Welcome',
 	navigationOptions: {

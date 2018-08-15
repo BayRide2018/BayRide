@@ -4,18 +4,26 @@ import { Button } from 'react-native-elements';
 import style from '../public/style';
 
 
+export default class LotBanner extends React.Component {
 
-const LotBanner = ({ navigation, pickupTime, pickupLocation, dropoffLocation, bidPrice, passengerId, driverId }) => (
-  <View style={style.container}>
-    <Text style={style.title}>BayRide</Text>
-    <View style={style.containerRow}>
-      <Text style={style.title}>Pick Up: {pickupTime}</Text>
-      <Text style={style.title}>Location: {pickupLocation}</Text>
-      <Text style={style.title}>Drop Off location: {pickupLocation}</Text>
-      <Text style={style.title}>Bid Price: {bidPrice}</Text>
-      <Button>Offer Lower Price</Button>
-    </View>
-  </View>
-);
+  constructor (props) {
+    super(props);
+    this.state = props.lotData;
+  }
 
-export default LotBanner;
+  render () {
+    return (
+      <View>
+        <Text>BayRide</Text>
+        <View>
+          <Text>Screenshot: {this.state.screenshot}</Text>
+          <Text>Pick Up: {this.state.pickupTime}</Text>
+          <Text>Location: {this.state.pickupLocation}</Text>
+          <Text>Drop Off location: {this.state.pickupLocation}</Text>
+          <Text>Bid Price: {this.state.offer}</Text>
+          <Button title="Offer Lower Price" />
+        </View>
+      </View>
+    )
+  }
+}

@@ -4,18 +4,24 @@ import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-nativ
 import style from '../public/style';
 
 
-
-const LotBanner = ({ }) => (
-  <View style={style.container}>
-    <View style={style.banner}>
-    <Text style={style.font}>BayRide</Text>
-      <Text style={style.font}>Pick Up: </Text>
-      <Text style={style.font}>Location: </Text>
-      <Text style={style.font}>Drop Off location: </Text>
-      <Text style={style.font}>Bid Price: </Text>
-      <Button style={style.menuButtonStyle}>Offer Lower Price</Button>
-    </View>
-  </View>
-);
-
-export default LotBanner;
+export default class LotBanner extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = props.lotData;
+  }
+  render () {
+    return (
+      <View>
+        <Text>BayRide</Text>
+        <View>
+          <Text>Screenshot: {this.state.screenshot}</Text>
+          <Text>Pick Up: {this.state.pickupTime}</Text>
+          <Text>Location: {this.state.pickupLocation}</Text>
+          <Text>Drop Off location: {this.state.pickupLocation}</Text>
+          <Text>Bid Price: {this.state.offer}</Text>
+          <Button title="Offer Lower Price" />
+        </View>
+      </View>
+    )
+  }
+}

@@ -4,13 +4,15 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import PassengerHome from './components/PassengerHome';
 import DriverHome from './components/DriverHome';
+import LotSubmissionForm from './components/LotSubmissionForm';
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
 	Signup: { screen: Signup },
 	PassengerHome: { screen: PassengerHome },
-	DriverHome: { screen: DriverHome }
+	DriverHome: { screen: DriverHome },
+	LotSubmissionForm: { screen: LotSubmissionForm }
 }, {
 	initialRouteName: 'Welcome',
 	navigationOptions: {

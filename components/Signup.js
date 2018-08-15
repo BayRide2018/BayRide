@@ -23,7 +23,7 @@ export default class Signup extends Component {
 		if (typeof result === 'string') {
 			this.setState({ response: result });
 		} else {
-			this.props.navigation.navigate('PassengerHome');
+			this.props.navigation.navigate('PassengererHome');
 		}
 	}
 

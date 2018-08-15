@@ -4,11 +4,13 @@ import {  StyleSheet, Text, Dimensions, View, Platform, Alert } from 'react-nati
 import { Button } from 'react-native-elements';
 import firestore from '../firestore';
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { firebase } from '@firebase/app';
+import firebase from 'firebase';
+import firestore from '../firestore';
 const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
 import LotBanner from './LotBanner'
 import Drawer from './Drawer';
+import MatchBanner from './MatchBanner';
 
 
 export default class PassengerHome extends Component {
@@ -17,11 +19,26 @@ export default class PassengerHome extends Component {
     location: null,
     errorMessage: null,
     marker: { latitude: null, longitude: null },
-    showBanner: false
+	showBanner: false,
+	lotSubmission: null
   }
 
-  componentDidMount() {
-    this._getLocationAsync()
+  async componentDidMount() {
+	this._getLocationAsync()
+	
+	// see if the user is matched
+	const passEmail = await firebase.auth().currentUser.email;
+	let passId;
+	await firestore.collection("users").where("email", "==", passEmail).get().then(users => {
+		users.forEach(user => {
+			passId = user.id;
+		})
+	});
+	await firestore.collection("lots").where("passengerId", "==", passId).get().then(lots => {
+		lots.forEach(lot => {
+			this.state.lotSubmission = lot.data();
+		})
+	})
   }
 
   _getLocationAsync = async () => {
@@ -37,7 +54,7 @@ export default class PassengerHome extends Component {
   };
 
   handleSubmit = async () => {
-      this.setState({ showBanner: true })
+    this.setState({ showBanner: true })
 	}
 
   render(){
@@ -56,11 +73,14 @@ export default class PassengerHome extends Component {
       </MapView>
 
       <Button
-            title="Where to?"
-            style={styles.button}
-            backgroundColor='white'
-            color='grey'
-            onPress={this.handleSubmit} />
+        title="Where to?"
+        style={styles.button}
+        backgroundColor='white'
+        color='grey'
+        onPress={this.handleSubmit} />
+
+      {!this.state.lotSubmission ? <MatchBanner matchdata={this.state.lotSubmission} /> : null}
+
     </View>
     )
   }

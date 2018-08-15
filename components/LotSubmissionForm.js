@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, Text } from 'react-native';
+import { StyleSheet, ScrollView, View, Button, Text, CameraRoll } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { signup } from '../fireMethods';
 import firestore from '../firestore';
@@ -30,7 +30,7 @@ export default class LotSubmissionForm extends Component {
 		const dropoffLocation = this.state.dropoffLocation;
 		const offer = this.state.offer;
 		const passengerId = this.state.passengerId;
-    
+
     firestore.collection("lots").add({
       screenshot,
       pickupTime,
@@ -47,7 +47,7 @@ export default class LotSubmissionForm extends Component {
 		// 	this.props.navigation.navigate('Menu');
 		// }
   }
-  
+
   render () {
     return (
       <View>

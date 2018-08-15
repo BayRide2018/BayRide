@@ -9,86 +9,88 @@ const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
 import LotBanner from './LotBanner'
 import Drawer from './Drawer';
+import CameraRoll from './Camera';
 
 
 export default class PassengerHome extends Component {
 
-  state = {
-    location: null,
-    errorMessage: null,
-    marker: { latitude: null, longitude: null },
-    showBanner: false
-  }
-
-  componentDidMount() {
-    this._getLocationAsync()
-  }
-
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
-  };
-
-  handleSubmit = async () => {
-      this.setState({ showBanner: true })
+	state = {
+		location: null,
+		errorMessage: null,
+		marker: { latitude: null, longitude: null },
+		showBanner: false
 	}
 
-  render(){
-    const { location, marker, showBanner } = this.state;
-    return(
-      <View style={styles.container}>
-      <Drawer />
-      <MapView style={styles.map}
-        onRegionChangeComplete={this.onRegionChangeComplete}
-        showsUserLocation={true}
-        followsUserLocation={true}
-        onRegionChangeComplete={this.onRegionChangeComplete}>
-        {marker.latitude ? <Marker
-          coordinate={marker}
-        /> : null}
-      </MapView>
+	componentDidMount() {
+		this._getLocationAsync()
+	}
 
-      <Button
-            title="Where to?"
-            style={styles.button}
-            backgroundColor='white'
-            color='grey'
-            onPress={this.handleSubmit} />
-    </View>
-    )
-  }
+	_getLocationAsync = async () => {
+		let { status } = await Permissions.askAsync(Permissions.LOCATION);
+		if (status !== 'granted') {
+			this.setState({
+				errorMessage: 'Permission to access location was denied',
+			});
+		}
+
+		let location = await Location.getCurrentPositionAsync({});
+		this.setState({ location });
+	};
+
+	handleSubmit = async () => {
+		this.setState({ showBanner: true })
+	}
+
+	render(){
+		const { location, marker, showBanner } = this.state;
+		return(
+			<View style={styles.container}>
+
+			<MapView style={styles.map}
+				onRegionChangeComplete={this.onRegionChangeComplete}
+				showsUserLocation={true}
+				followsUserLocation={true}
+				onRegionChangeComplete={this.onRegionChangeComplete}>
+				{marker.latitude ? <Marker
+					coordinate={marker}
+				/> : null}
+			</MapView>
+
+			<Button
+						title="Where to?"
+						style={styles.button}
+						backgroundColor='white'
+						color='grey'
+						onPress={this.handleSubmit} />
+				<CameraRoll />
+		</View>
+		)
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-    flex: 1
-  },
+	container: {
+		...StyleSheet.absoluteFillObject,
+		backgroundColor: 'transparent',
+		flex: 1
+	},
 
-  scrollview: {
-    alignItems: 'center',
-  },
+	scrollview: {
+		alignItems: 'center',
+	},
 
-  map: {
-    zIndex: -1,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    flex: 1,
-  },
+	map: {
+		zIndex: -1,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		flex: 1,
+	},
 
-  button: {
-    zIndex: 10,
-    top: 70
-  }
+	button: {
+		zIndex: 10,
+		top: 70
+	}
 });

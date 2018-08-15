@@ -61,7 +61,6 @@ export default class PassengerHome extends Component {
             backgroundColor='white'
             color='grey'
             onPress={this.handleSubmit} />
-      { showBanner ? <LotBanner /> : null }
     </View>
     )
   }

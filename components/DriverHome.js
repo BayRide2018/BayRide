@@ -18,7 +18,8 @@ export default class DriverHome extends Component {
 
     firestore.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
-        this.setState({ allLots: [...this.state.allLots, lot.data()] })
+        const copy = Object.assign({ id: lot.id }, lot.data()); // Putting the doc id in here becomes very useful in LotBanner.js
+        this.setState({ allLots: [...this.state.allLots, copy] })
       })
     })
   }

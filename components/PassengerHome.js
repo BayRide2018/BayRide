@@ -9,8 +9,7 @@ const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
 import LotBanner from './LotBanner'
 import Drawer from './Drawer';
-import CameraRoll from './Camera';
-
+import ViewPhotos from './ViewPhotos';
 
 export default class PassengerHome extends Component {
 
@@ -62,7 +61,8 @@ export default class PassengerHome extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
-				<CameraRoll />
+						<ViewPhotos />
+						<uploadImage />
 		</View>
 		)
 	}

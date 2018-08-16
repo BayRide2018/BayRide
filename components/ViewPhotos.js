@@ -1,74 +1,44 @@
 import React, { Component } from 'react';
 import {
-  Image,
-  View,
-  ListView,
-  StyleSheet,
-  Text,
-  TouchableHighlight
+	Image,
+	View,
+	Button
 } from 'react-native';
-import SelectedPhoto from './SelectedPhoto';
+import {ImagePicker, Permissions} from 'expo';
 
-class ViewPhotos extends Component {
-  state = {
-    ds: new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    }),
-    showSelectedPhoto: false,
-    uri: ''
-  }
+export default class ViewPhotos extends Component {
+	state = {
+		image: null,
+	};
 
-  renderRow(rowData) {
-    const { uri } = rowData.node.image;
-    return (
-      <TouchableHighlight
-        onPress={() => this.setState({ showSelectedPhoto: true, uri: uri })}>
-        <Image
-          source={{ uri: rowData.node.image.uri }}
-          style={styles.image} />
-      </TouchableHighlight>
-    )
-  }
+	askPermissionsAsync = async () => {
+		await Permissions.askAsync(Permissions.CAMERA_ROLL);
+	};
 
-  render() {
-    const { showSelectedPhoto, uri } = this.state;
+	render(){
+		let { image } = this.state;
+		return (
+			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+				<Button
+					title="Pick an image from camera roll"
+					onPress={this._pickImage}
+				/>
+				{image &&
+					<Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+			</View>
+		);
+	}
 
-    if (showSelectedPhoto) {
-      return (
-        <SelectedPhoto
-          uri={uri} />
-      )
-    }
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={{ alignItems: 'center', marginTop: 15 }}>
-          <Text style={{ fontSize: 20, fontWeight: '600' }}>Pick A Photo </Text>
-        </View>
-        <ListView
-          contentContainerStyle={styles.list}
-          dataSource={this.state.ds.cloneWithRows(this.props.photoArray)}
-          renderRow={(rowData) => this.renderRow(rowData)}
-          enableEmptySections={true} />
-      </View>
-    );
-  }
+	_pickImage = async () => {
+		await this.askPermissionsAsync();
+		let result = await ImagePicker.launchImageLibraryAsync({
+			allowsEditing: true,
+			aspect: [4, 3],
+		});
+
+		console.log(result);
+		if (!result.cancelled) {
+			this.setState({ image: result.uri });
+		}
+	}
 }
-
-const styles = StyleSheet.create({
-  list: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-
-  image: {
-    width: 110,
-    height: 120,
-    marginLeft: 10,
-    marginTop: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#979797'
-  }
-})
-
-export default ViewPhotos;

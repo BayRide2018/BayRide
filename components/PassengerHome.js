@@ -7,7 +7,7 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { firebase } from '@firebase/app';
 const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
-import LotBanner from './LotBanner'
+import LotSubmissionForm from './LotSubmissionForm'
 import Drawer from './Drawer';
 
 
@@ -17,7 +17,7 @@ export default class PassengerHome extends Component {
     location: null,
     errorMessage: null,
     marker: { latitude: null, longitude: null },
-    showBanner: false
+    showLot: false
   }
 
   componentDidMount() {
@@ -37,14 +37,13 @@ export default class PassengerHome extends Component {
   };
 
   handleSubmit = async () => {
-      this.setState({ showBanner: true })
+		this.props.navigation.navigate('LotSubmissionForm');
 	}
 
   render(){
-    const { location, marker, showBanner } = this.state;
+    const { location, marker, showLot } = this.state;
     return(
       <View style={styles.container}>
-      <Drawer />
       <MapView style={styles.map}
         onRegionChangeComplete={this.onRegionChangeComplete}
         showsUserLocation={true}
@@ -53,7 +52,8 @@ export default class PassengerHome extends Component {
         {marker.latitude ? <Marker
           coordinate={marker}
         /> : null}
-      </MapView>
+			</MapView>
+
 
       <Button
             title="Where to?"
@@ -71,7 +71,12 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'transparent',
     flex: 1
-  },
+	},
+	lot: {
+		flex: 1,
+		alignItems: 'center',
+		backgroundColor: 'black'
+	},
 
   scrollview: {
     alignItems: 'center',

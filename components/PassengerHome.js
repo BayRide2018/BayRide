@@ -7,18 +7,17 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { firebase } from '@firebase/app';
 const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
-import LotBanner from './LotBanner'
-import Drawer from './Drawer';
+import LotSubmissionForm from './LotSubmissionForm'
 import ViewPhotos from './ViewPhotos';
 
 export default class PassengerHome extends Component {
 
-	state = {
-		location: null,
-		errorMessage: null,
-		marker: { latitude: null, longitude: null },
-		showBanner: false
-	}
+  state = {
+    location: null,
+    errorMessage: null,
+    marker: { latitude: null, longitude: null },
+    showLot: false
+  }
 
 	componentDidMount() {
 		this._getLocationAsync()
@@ -36,14 +35,24 @@ export default class PassengerHome extends Component {
 		this.setState({ location });
 	};
 
-	handleSubmit = async () => {
-		this.setState({ showBanner: true })
+  handleSubmit = async () => {
+		this.props.navigation.navigate('LotSubmissionForm');
 	}
 
-	render(){
-		const { location, marker, showBanner } = this.state;
-		return(
-			<View style={styles.container}>
+  render(){
+    const { location, marker, showLot } = this.state;
+    return(
+      <View style={styles.container}>
+      <MapView style={styles.map}
+        onRegionChangeComplete={this.onRegionChangeComplete}
+        showsUserLocation={true}
+        followsUserLocation={true}
+        onRegionChangeComplete={this.onRegionChangeComplete}>
+        {marker.latitude ? <Marker
+          coordinate={marker}
+        /> : null}
+			</MapView>
+
 
 			<MapView style={styles.map}
 				onRegionChangeComplete={this.onRegionChangeComplete}
@@ -61,18 +70,21 @@ export default class PassengerHome extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
-						<ViewPhotos />
-						<uploadImage />
 		</View>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		...StyleSheet.absoluteFillObject,
-		backgroundColor: 'transparent',
-		flex: 1
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'transparent',
+    flex: 1
+	},
+	lot: {
+		flex: 1,
+		alignItems: 'center',
+		backgroundColor: 'black'
 	},
 
 	scrollview: {

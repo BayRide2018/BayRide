@@ -6,6 +6,7 @@ import firestore from '../firestore';
 import firebase from 'firebase';
 import style from '../public/style';
 import { Picker, DatePicker } from 'react-native-wheel-pick';
+import ViewPhotos from './ViewPhotos';
 
 
 
@@ -34,6 +35,14 @@ export default class LotSubmissionForm extends Component {
     const dropoffLocation = this.state.dropoffLocation;
     const offer = this.state.offer;
     const passengerId = this.state.passengerId;
+  }
+	handleSubmit = async () => {
+		const screenshot = this.state.screenshot;
+		const pickupTime = this.state.pickupTime;
+		const pickupLocation = this.state.pickupLocation;
+		const dropoffLocation = this.state.dropoffLocation;
+		const offer = this.state.offer;
+		const passengerId = this.state.passengerId;
 
     firestore.collection("lots").add({
       screenshot,
@@ -76,7 +85,8 @@ export default class LotSubmissionForm extends Component {
           <FormInput
           placeholder="Please enter your screenshot"
             onChangeText={screenshot => this.setState({ screenshot })}
-          />
+            />
+            <ViewPhotos />
           <FormLabel>Pickup Time</FormLabel>
           <FormInput
             placeholder="Minutes"

@@ -8,8 +8,7 @@ import { firebase } from '@firebase/app';
 const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
 import LotSubmissionForm from './LotSubmissionForm'
-import Drawer from './Drawer';
-
+import ViewPhotos from './ViewPhotos';
 
 export default class PassengerHome extends Component {
 
@@ -20,21 +19,21 @@ export default class PassengerHome extends Component {
     showLot: false
   }
 
-  componentDidMount() {
-    this._getLocationAsync()
-  }
+	componentDidMount() {
+		this._getLocationAsync()
+	}
 
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
+	_getLocationAsync = async () => {
+		let { status } = await Permissions.askAsync(Permissions.LOCATION);
+		if (status !== 'granted') {
+			this.setState({
+				errorMessage: 'Permission to access location was denied',
+			});
+		}
 
-    let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
-  };
+		let location = await Location.getCurrentPositionAsync({});
+		this.setState({ location });
+	};
 
   handleSubmit = async () => {
 		this.props.navigation.navigate('LotSubmissionForm');
@@ -55,15 +54,25 @@ export default class PassengerHome extends Component {
 			</MapView>
 
 
-      <Button
-            title="Where to?"
-            style={styles.button}
-            backgroundColor='white'
-            color='grey'
-            onPress={this.handleSubmit} />
-    </View>
-    )
-  }
+			<MapView style={styles.map}
+				onRegionChangeComplete={this.onRegionChangeComplete}
+				showsUserLocation={true}
+				followsUserLocation={true}
+				onRegionChangeComplete={this.onRegionChangeComplete}>
+				{marker.latitude ? <Marker
+					coordinate={marker}
+				/> : null}
+			</MapView>
+
+			<Button
+						title="Where to?"
+						style={styles.button}
+						backgroundColor='white'
+						color='grey'
+						onPress={this.handleSubmit} />
+		</View>
+		)
+	}
 }
 
 const styles = StyleSheet.create({
@@ -78,22 +87,22 @@ const styles = StyleSheet.create({
 		backgroundColor: 'black'
 	},
 
-  scrollview: {
-    alignItems: 'center',
-  },
+	scrollview: {
+		alignItems: 'center',
+	},
 
-  map: {
-    zIndex: -1,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    flex: 1,
-  },
+	map: {
+		zIndex: -1,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		flex: 1,
+	},
 
-  button: {
-    zIndex: 10,
-    top: 70
-  }
+	button: {
+		zIndex: 10,
+		top: 70
+	}
 });

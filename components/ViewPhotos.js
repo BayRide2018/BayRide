@@ -5,6 +5,7 @@ import {
 	Button
 } from 'react-native';
 import {ImagePicker, Permissions} from 'expo';
+import { uploadImage } from './uploadImage';
 
 export default class ViewPhotos extends Component {
 	state = {
@@ -34,6 +35,14 @@ export default class ViewPhotos extends Component {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			allowsEditing: true,
 			aspect: [4, 3],
+		}, response => {
+			uploadImage(response.uri)
+				.then(() => {
+					console.log(response.uri);
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		});
 
 		console.log(result);

@@ -8,6 +8,7 @@ import {ImagePicker, Permissions} from 'expo';
 // import { uploadImage } from './uploadImage';
 import firebase from 'firebase';
 import uuid from 'uuid';
+// ^^This library is used to generate random id's
 
 export default class ViewPhotos extends Component {
 	state = {
@@ -56,9 +57,9 @@ export default class ViewPhotos extends Component {
 		// });
 
 		// console.log(result);
-		// if (!result.cancelled) {
-		// 	this.setState({ image: result.uri });
-		// }
+		if (!pickerResult.cancelled) {
+			this.setState({ image: result.uri });
+		}
 	}
 }
 

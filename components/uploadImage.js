@@ -47,3 +47,8 @@ class upload extends Component {
       );
     }
   };
+
+
+/**
+ * I believe that this whole file can be deleted. ~Thomas
+ */

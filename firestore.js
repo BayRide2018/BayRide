@@ -20,5 +20,29 @@ const settings = {
 
 firestore.settings(settings);
 
+// Replace everything with the below, and change the name of this file to 
+// fire.js
+// :
+/** 
+ * import * as firebase from 'firebase';
+ * import 'firebase/firestore';
+ * 
+ * 
+ * const config = { ... };
+ * firebase.initializeApp(config);
+ * 
+ * 
+ * const auth = firebase.auth();
+ * 
+ * const store = firebase.firestore();
+ * const settings = { timstampsInSnapshots: true };
+ * store.settings(settings);
+ * 
+ * const imgStorageRef = firebase.storage().ref().child("images");
+ * 
+ * 
+ * export { auth, store, imgStorageRef };
+*/
+
 export default firestore;
 

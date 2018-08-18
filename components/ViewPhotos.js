@@ -68,6 +68,7 @@ async function uploadImageAsync(uri) {
 	const ref = firebase
 	  .storage()
 	  .ref()
+	  .child("images")
 	  .child(uuid.v4());
   
 	const snapshot = await ref.put(blob);

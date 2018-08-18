@@ -5,7 +5,9 @@ import {
 	Button
 } from 'react-native';
 import {ImagePicker, Permissions} from 'expo';
-import { uploadImage } from './uploadImage';
+// import { uploadImage } from './uploadImage';
+import firebase from 'firebase';
+import uuid from 'uuid';
 
 export default class ViewPhotos extends Component {
 	state = {
@@ -30,24 +32,44 @@ export default class ViewPhotos extends Component {
 		);
 	}
 
+
 	_pickImage = async () => {
 		await this.askPermissionsAsync();
-		let result = await ImagePicker.launchImageLibraryAsync({
+
+		let pickerResult = await ImagePicker.launchImageLibraryAsync({
 			allowsEditing: true,
 			aspect: [4, 3],
-		}, response => {
-			uploadImage(response.uri)
-				.then(() => {
-					console.log(response.uri);
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		});
+		  });
 
-		console.log(result);
-		if (!result.cancelled) {
-			this.setState({ image: result.uri });
-		}
+		  uploadImageAsync(pickerResult.uri);
+		// let result = await ImagePicker.launchImageLibraryAsync({
+		// 	allowsEditing: true,
+		// 	aspect: [4, 3],
+		// }, response => {
+		// 	uploadImageAsync(response.uri)
+		// 		.then(() => {
+		// 			console.log(response.uri);
+		// 		})
+		// 		.catch(error => {
+		// 			console.log(error);
+		// 		});
+		// });
+
+		// console.log(result);
+		// if (!result.cancelled) {
+		// 	this.setState({ image: result.uri });
+		// }
 	}
 }
+
+async function uploadImageAsync(uri) {
+	const response = await fetch(uri);
+	const blob = await response.blob();
+	const ref = firebase
+	  .storage()
+	  .ref()
+	  .child(uuid.v4());
+  
+	const snapshot = await ref.put(blob);
+	return snapshot.downloadURL;
+  }

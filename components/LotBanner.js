@@ -32,7 +32,7 @@ export default class LotBanner extends React.Component {
 				driverId = user.id;
 			});
 		});
-		firestore.collection("lots").doc(this.state.id).update({
+		firestore.collection("lots").doc(this.state.lotData.id).update({
 			driverId
 		});
 	}

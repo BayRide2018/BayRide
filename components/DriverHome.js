@@ -29,7 +29,7 @@ export default class DriverHome extends Component {
       <View>
         <View>
           {this.state.allLots.map((lot, i) => {
-            return <LotBanner key={i} lotData={lot} />
+            return <LotBanner key={i} lotData={lot} />;
           })}
         </View>
         <Text>Hello, This was DriverHome</Text>

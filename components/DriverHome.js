@@ -27,7 +27,6 @@ export default class DriverHome extends Component {
   render(){
     return(
       <View>
-        <Text>Hello, This is DriverHome</Text>
         <View>
           {this.state.allLots.map((lot, i) => {
             return <LotBanner key={i} lotData={lot} />;

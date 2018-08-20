@@ -2,7 +2,6 @@ import { createStackNavigator } from 'react-navigation';
 import Welcome from './components/Welcome';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import PassengerHome from './components/PassengerHome';
 import DriverHome from './components/DriverHome';
 import LotSubmissionForm from './components/LotSubmissionForm';
 import Account from './components/Account';

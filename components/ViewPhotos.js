@@ -40,7 +40,8 @@ export default class ViewPhotos extends Component {
 		let pickerResult = await ImagePicker.launchImageLibraryAsync({
 			allowsEditing: true,
 			aspect: [4, 3],
-		  });
+		});
+
 
 		  const photoId = uuid.v4();
 		  const passengerId = thos.props.passengerId;
@@ -59,10 +60,8 @@ export default class ViewPhotos extends Component {
 		// 			console.log(error);
 		// 		});
 		// });
-
-		// console.log(result);
 		if (!pickerResult.cancelled) {
-			this.setState({ image: result.uri });
+			this.setState({ image: pickerResult.uri });
 		}
 	}
 }
@@ -79,4 +78,4 @@ async function uploadImageAsync(uri, photoId, passengerId) {
   
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;
-  }
+}

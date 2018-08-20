@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, Button, Text, Platform } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { signup } from '../fireMethods';
-import firestore from '../firestore';
+import { store } from '../fire';
 import firebase from 'firebase';
 import style from '../public/style';
 import { Picker, DatePicker } from 'react-native-wheel-pick';
@@ -44,7 +44,7 @@ export default class LotSubmissionForm extends Component {
 		const offer = this.state.offer;
 		const passengerId = this.state.passengerId;
 
-    firestore.collection("lots").add({
+    store.collection("lots").add({
       screenshot,
       pickupTime,
       pickupLocation,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, Button, Text, Platform } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { signup } from '../fireMethods';
-import firestore from '../firestore';
+import { store, auth } from '../fire';
 import firebase from 'firebase';
 import style from '../public/style';
 import { Picker, DatePicker } from 'react-native-wheel-pick';
@@ -13,14 +13,14 @@ export default class DriverRegistration extends Component {
 
 	handleSubmit = async () => {
 
-    const userEmail = await firebase.auth().currentUser.email;
+    const userEmail = await auth.currentUser.email;
     let userId;
-    await firestore.collection("users").where("email", "==", userEmail).get().then(users => {
+    await store.collection("users").where("email", "==", userEmail).get().then(users => {
       users.forEach(user => {
         userId = user.id;
       })
     })
-    await firestore.collection("users").doc(userId).update({
+    await store.collection("users").doc(userId).update({
       drivingInformation: { canDrive: true }
     })
     this.props.navigation.navigate('DriverHome');

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import firebase from 'firebase';
-import firestore from '../firestore';
+import { store } from '../fire';
 import LotBanner from './LotBanner';
 
 export default class DriverHome extends Component {

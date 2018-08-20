@@ -28,14 +28,17 @@ export default class LotSubmissionForm extends Component {
 
   };
 
-  handleSubmit = async () => {
-    const screenshot = this.state.screenshot;
-    const pickupTime = this.state.pickupTime;
-    const pickupLocation = this.state.pickupLocation;
-    const dropoffLocation = this.state.dropoffLocation;
-    const offer = this.state.offer;
-    const passengerId = this.state.passengerId;
+  componentDidMount = async () => {
+    const passengerEmail = await firebase.auth().currentUser.email;
+    let passengerId;
+    await firestore.collection("users").where("email", "==", passengerEmail).get().then(users => {
+      users.forEach(user => {
+        passengerId = user.id;
+      })
+    });
+    this.setState({ passengerId });
   }
+
 	handleSubmit = async () => {
 		const screenshot = this.state.screenshot;
 		const pickupTime = this.state.pickupTime;
@@ -61,6 +64,9 @@ export default class LotSubmissionForm extends Component {
     // }
   }
 
+  setScreenshotId (photoID) {
+    this.setState({ screenshot: photoID })
+  }
 
   handleBack = async () => {
     this.props.navigation.navigate('PassengerHome');
@@ -82,11 +88,11 @@ export default class LotSubmissionForm extends Component {
         onPress={() => this.setState({ showPicker: true })}
       /> }
           <FormLabel>Screenshot</FormLabel>
-          <FormInput
+          {/* <FormInput
           placeholder="Please enter your screenshot"
             onChangeText={screenshot => this.setState({ screenshot })}
-            />
-            <ViewPhotos />
+            /> */}
+            <ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
           <FormLabel>Pickup Time</FormLabel>
           <FormInput
             placeholder="Minutes"

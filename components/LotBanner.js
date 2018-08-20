@@ -14,6 +14,13 @@ export default class LotBanner extends React.Component {
   // }
   state = this.props.lotData;
 
+  componentDidMount () {
+    // Get the reference to the passenger, from the Lot
+    // Get the reference to screenshot, from the Lot
+    // Reference passenger/screenshotID
+    // Display the referenced image
+  }
+
   handlePress = async () => { // All this function is doing for now is updating Firestore about who the driver is
     const driverEmail = await firebase.auth().currentUser.email;
     let driverId;
@@ -25,8 +32,8 @@ export default class LotBanner extends React.Component {
     firestore.collection("lots").doc(this.state.id).update({
       driverId
     });
-
   }
+
   render () {
     console.log(this.state);
     const buttonTitle = this.state.driverId ? "Offer a lower price" : "Bid at this price!";

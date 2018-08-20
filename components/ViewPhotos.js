@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { imgStorageRef } from '../fire';
 import {
 	Image,
 	View,
 	Button
 } from 'react-native';
-import {ImagePicker, Permissions} from 'expo';
+import { ImagePicker, Permissions } from 'expo';
 // import { uploadImage } from './uploadImage';
 import firebase from 'firebase';
 import uuid from 'uuid';
@@ -58,13 +59,8 @@ export default class ViewPhotos extends Component {
 async function uploadImageAsync(uri, photoId, passengerId) {
 	const response = await fetch(uri);
 	const blob = await response.blob();
-	const ref = firebase
-	  .storage()
-	  .ref()
-	  .child("images")
-	  .child(passengerId)
+	const ref = imgStorageRef
 	  .child(photoId);
-
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;
 };

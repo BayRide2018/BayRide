@@ -3,12 +3,25 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import style from '../public/style';
 import firebase from 'firebase';
-import firestore from '../firestore';
+import { store, auth } from '../fire';
 
 
 export default class LotBanner extends React.Component {
 
 	state = { lotData: this.props.lotData, imgURL: '' };
+
+
+  handlePress = async () => { // All this function is doing for now is updating Firestore about who the driver is
+    const driverEmail = await auth.currentUser.email;
+    let driverId;
+    await store.collection("users").where("email", "==", driverEmail).get().then(users => {
+      users.forEach(user => {
+        driverId = user.id;
+      });
+    });
+    store.collection("lots").doc(this.state.id).update({
+      driverId
+    });
 
 	componentDidMount () {
 		// Get the reference to the passenger, from the Lot
@@ -23,6 +36,7 @@ export default class LotBanner extends React.Component {
 				this.setState({ imgURL: url});
 			});
 	}
+
 
 	handlePress = async () => { // All this function is doing for now is updating Firestore about who the driver is
 		const driverEmail = await firebase.auth().currentUser.email;

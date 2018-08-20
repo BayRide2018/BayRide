@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import firestore from '../firestore';
+import { store, auth } from '../fire';
 
 async function signup (name, phone, email, password) {
 
@@ -12,13 +12,13 @@ async function signup (name, phone, email, password) {
 
 	// Auth Signup
 	let res = null;
-	await firebase.auth().createUserWithEmailAndPassword(email, password).catch(err => {
+	await auth.createUserWithEmailAndPassword(email, password).catch(err => {
 		res = `It seems there was an error: ${err}`;
 	});
 	if (res) return res;
 
 	// DB Signup
-	await firestore.collection("users").add({
+	await store.collection("users").add({
 		name,
 		phone,
 		email,
@@ -37,7 +37,7 @@ async function login (email, password) {
 	email = email.toLowerCase();
 	let exists = false;
 	let res = null;
-	await firestore.collection("users").where("email", "==", email).get()
+	await store.collection("users").where("email", "==", email).get()
 		.then(allUsers => {
 			allUsers.forEach(user => {
 				if (user.data().password !== password) {
@@ -48,7 +48,7 @@ async function login (email, password) {
 		});
 	if (res) return res;
 	if (exists) {
-		await firebase.auth().signInWithEmailAndPassword(email, password)
+		await auth.signInWithEmailAndPassword(email, password)
 		return true; // This is the successful login case
 	} else {
 		return "That is not a registered user. Try a different email or signing up.";
@@ -56,9 +56,9 @@ async function login (email, password) {
 }
 
 async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer) {
-	const passengerEmail = firebase.auth().currentUser.email;
+	const passengerEmail = auth.currentUser.email;
 	let passengerId;
-	firestore.collection("users").where("email", "==", "passengerEmail").get().then(users => {
+	store.collection("users").where("email", "==", "passengerEmail").get().then(users => {
 		users.forEach(user => {
 			passengerId = user.id;
 		})
@@ -67,7 +67,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		return "Please fill out all of the forms."
 	}
 	// With comments for the validations that should be added later, once things are a little more solid
-	firestore.collection("lots").add({
+	store.collection("lots").add({
 		// Needs to actually be a picture.. Can they submit a lot without a screenshot?
 		screenshot,
 		// Pickup Time must be in the next... 4 hours? Verifiable with a menu of options, not text input, right?

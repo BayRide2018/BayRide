@@ -27,7 +27,7 @@ export default class LotSubmissionForm extends Component {
   async componentDidMount() {
 
 			const passengerEmail = await firebase.auth().currentUser.email;
-			await firestore.collection('users').where('email',
+			await store.collection('users').where('email',
 			'==', passengerEmail).get()
 			.then(users => {
 				users.forEach(user => {

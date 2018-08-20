@@ -18,7 +18,7 @@ export default class Login extends Component {
 		const password = this.state.password;
 		const result = await login(email, password);
 		if (result === true) {
-			this.props.navigation.navigate('DriverHome');
+			this.props.navigation.navigate('DrawerNavigator');
 		} else {
 			this.setState({response: result});
 		}

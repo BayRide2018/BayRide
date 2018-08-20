@@ -8,9 +8,6 @@ import style from '../public/style';
 import { Picker, DatePicker } from 'react-native-wheel-pick';
 import ViewPhotos from './ViewPhotos';
 
-
-
-
 export default class LotSubmissionForm extends Component {
 
 	// This thing still needs to navigate back to the home

@@ -25,17 +25,20 @@ export default class LotSubmissionForm extends Component {
     driverId: '',
     showPicker: false,
     pickupTime: 'Pick up time in'
-
   };
 
-  handleSubmit = async () => {
-    const screenshot = this.state.screenshot;
-    const pickupTime = this.state.pickupTime;
-    const pickupLocation = this.state.pickupLocation;
-    const dropoffLocation = this.state.dropoffLocation;
-    const offer = this.state.offer;
-    const passengerId = this.state.passengerId;
+  async componentDidMount() {
+
+			const passengerEmail = await firebase.auth().currentUser.email;
+			await firestore.collection('users').where('email',
+			'==', passengerEmail).get()
+			.then(users => {
+				users.forEach(user => {
+					this.setState({passengerId: user.id});
+        });
+      });
   }
+
 	handleSubmit = async () => {
 		const screenshot = this.state.screenshot;
 		const pickupTime = this.state.pickupTime;
@@ -51,7 +54,7 @@ export default class LotSubmissionForm extends Component {
       dropoffLocation,
       offer,
       passengerId,
-      driverId: null,
+      driverId: null
     });
 
     // if (typeof result === 'string') {

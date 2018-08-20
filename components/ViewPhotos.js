@@ -58,7 +58,7 @@ export default class ViewPhotos extends Component {
 
 		// console.log(result);
 		if (!pickerResult.cancelled) {
-			this.setState({ image: result.uri });
+			this.setState({ image: pickerResult.uri });
 		}
 	}
 }
@@ -71,7 +71,7 @@ async function uploadImageAsync(uri) {
 	  .ref()
 	  .child("images")
 	  .child(uuid.v4());
-  
+
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;
   }

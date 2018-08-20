@@ -16,11 +16,40 @@ export default class PassengerHome extends Component {
     location: null,
     errorMessage: null,
     marker: { latitude: null, longitude: null },
-    showLot: false
+		showLot: false,
+		showBid: false,
+		offer: '',
+		driverId: ''
   }
 
-	componentDidMount() {
-		this._getLocationAsync()
+	async componentDidMount() {
+		this._getLocationAsync();
+		await firestore.collection('lots').onSnapshot( allLots => {
+			let driver = '';
+			let id;
+			const passengerEmail = firebase.auth().currentUser.email;
+
+			firestore.collection('users').where('email',
+			'==', passengerEmail).get()
+			.then(users => {
+				users.forEach(user => {
+					id = user.id;
+				});
+			});
+
+
+      allLots.docChanges().forEach(lot => {
+				console.log('ohboy');
+				if (lot.doc.data().length) {
+					console.log('almost changed', id);
+						driver = lot.doc.data().driverId;
+						//Not sure if needs another if statement but bid info should not changed unless its another bid
+						if (lot.doc.data().passengerId === id ) {
+							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
+						}
+					}
+      });
+		});
 	}
 
 	_getLocationAsync = async () => {
@@ -39,8 +68,16 @@ export default class PassengerHome extends Component {
 		this.props.navigation.navigate('LotSubmissionForm');
 	}
 
+	handleMatch = async () => {
+		this.setState({showBid: false});
+	}
+
+	handleCancel = async () => {
+		this.setState({showBid: false});
+	}
+
   render(){
-    const { location, marker, showLot } = this.state;
+    const { marker, showBid, driverId, offer} = this.state;
     return(
       <View style={styles.container}>
       <MapView style={styles.map}
@@ -53,16 +90,15 @@ export default class PassengerHome extends Component {
         /> : null}
 			</MapView>
 
-
-			<MapView style={styles.map}
-				onRegionChangeComplete={this.onRegionChangeComplete}
-				showsUserLocation={true}
-				followsUserLocation={true}
-				onRegionChangeComplete={this.onRegionChangeComplete}>
-				{marker.latitude ? <Marker
-					coordinate={marker}
-				/> : null}
-			</MapView>
+					{showBid ? Alert.alert(
+						`New Bid! ${driverId} has bid ${offer}!`,
+						'Sound Good?',
+						[
+							{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
+							{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
+						],
+						{ cancelable: false }
+					) : null}
 
 			<Button
 						title="Where to?"

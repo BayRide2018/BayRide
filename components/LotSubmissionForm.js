@@ -22,19 +22,19 @@ export default class LotSubmissionForm extends Component {
 		driverId: '',
 		showPicker: false,
 		pickupTime: 'Pick up time in'
+  }
 
-	};
+  async componentDidMount() {
 
-	componentDidMount = async () => {
-		const passengerEmail = await firebase.auth().currentUser.email;
-		let passengerId;
-		await firestore.collection("users").where("email", "==", passengerEmail).get().then(users => {
-			users.forEach(user => {
-				passengerId = user.id;
-			})
-		});
-		this.setState({ passengerId });
-	}
+			const passengerEmail = await firebase.auth().currentUser.email;
+			await firestore.collection('users').where('email',
+			'==', passengerEmail).get()
+			.then(users => {
+				users.forEach(user => {
+					this.setState({passengerId: user.id});
+        });
+      });
+  }
 
 	handleSubmit = async () => {
 		const screenshot = this.state.screenshot;
@@ -44,22 +44,17 @@ export default class LotSubmissionForm extends Component {
 		const offer = this.state.offer;
 		const passengerId = this.state.passengerId;
 
-		firestore.collection("lots").add({
-			screenshot,
-			pickupTime,
-			pickupLocation,
-			dropoffLocation,
-			offer,
-			passengerId,
-			driverId: null,
-		});
-
-		// if (typeof result === 'string') {
-		// 	this.setState({ response: result });
-		// } else {
-		// 	this.props.navigation.navigate('Menu');
-		// }
+    firestore.collection("lots").add({
+      screenshot,
+      pickupTime,
+      pickupLocation,
+      dropoffLocation,
+      offer,
+      passengerId,
+      driverId: null
+    });
 	}
+
 
 	setScreenshotId =  (photoID) => {
 		this.setState({ screenshot: photoID });
@@ -85,10 +80,7 @@ export default class LotSubmissionForm extends Component {
 				onPress={() => this.setState({ showPicker: true })}
 			/> }
 					<FormLabel>Screenshot</FormLabel>
-					{/* <FormInput
-					placeholder="Please enter your screenshot"
-						onChangeText={screenshot => this.setState({ screenshot })}
-						/> */}
+
 						<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
 					<FormLabel>Pickup Time</FormLabel>
 					<FormInput
@@ -121,5 +113,5 @@ export default class LotSubmissionForm extends Component {
 				</View>
 			</View>
 		);
-	}
+  }
 }

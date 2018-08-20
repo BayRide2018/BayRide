@@ -3,11 +3,7 @@ import { AppRegistry, Dimensions } from 'react-native';
 import { createDrawerNavigator } from 'react-navigation';
 
 import SideMenu from './SideMenu';
-import stackNav from './StackNav';
-import app from '../App';
-import PassengerHome from './PassengerHome';
 import MainScreen from './MainScreen';
-import DetailScreen from './DetailScreen';
 
 const drawernav = createDrawerNavigator({
 	Item1: {

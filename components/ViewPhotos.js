@@ -43,7 +43,7 @@ export default class ViewPhotos extends Component {
 		  });
 
 		  const photoId = uuid.v4();
-		  const passengerId = thos.props.passengerId;
+		  const passengerId = this.props.passengerId;
 		  uploadImageAsync(pickerResult.uri, photoId, passengerId);
 
 		  this.props.setScreenshotId(photoId);
@@ -62,7 +62,7 @@ export default class ViewPhotos extends Component {
 
 		// console.log(result);
 		if (!pickerResult.cancelled) {
-			this.setState({ image: result.uri });
+			this.setState({ image: pickerResult.uri });
 		}
 	}
 }
@@ -76,7 +76,7 @@ async function uploadImageAsync(uri, photoId, passengerId) {
 	  .child("images")
 	  .child(passengerId)
 	  .child(photoId);
-  
+
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;
   }

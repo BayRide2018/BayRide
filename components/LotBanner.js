@@ -11,7 +11,7 @@ export default class LotBanner extends React.Component {
 	state = { lotData: this.props.lotData, imgURL: '' };
 
 
-  handlePress = async () => { // All this function is doing for now is updating Firestore about who the driver is
+  handlePress = async () => { // All this function is doing for now is updating store about who the driver is
     const driverEmail = await auth.currentUser.email;
     let driverId;
     await store.collection("users").where("email", "==", driverEmail).get().then(users => {
@@ -22,6 +22,7 @@ export default class LotBanner extends React.Component {
     store.collection("lots").doc(this.state.id).update({
       driverId
     });
+	}
 
 	componentDidMount () {
 		// Get the reference to the passenger, from the Lot
@@ -38,15 +39,15 @@ export default class LotBanner extends React.Component {
 	}
 
 
-	handlePress = async () => { // All this function is doing for now is updating Firestore about who the driver is
-		const driverEmail = await firebase.auth().currentUser.email;
+	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
+		const driverEmail = await auth.currentUser.email;
 		let driverId;
-		await firestore.collection("users").where("email", "==", driverEmail).get().then(users => {
+		await store.collection("users").where("email", "==", driverEmail).get().then(users => {
 			users.forEach(user => {
 				driverId = user.id;
 			});
 		});
-		firestore.collection("lots").doc(this.state.lotData.id).update({
+		store.collection("lots").doc(this.state.lotData.id).update({
 			driverId
 		});
 	}

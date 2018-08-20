@@ -42,7 +42,11 @@ export default class ViewPhotos extends Component {
 			aspect: [4, 3],
 		  });
 
-		  uploadImageAsync(pickerResult.uri);
+		  const photoId = uuid.v4();
+		  const passengerId = thos.props.passengerId;
+		  uploadImageAsync(pickerResult.uri, photoId, passengerId);
+
+		  this.props.setScreenshotId(photoId);
 		// let result = await ImagePicker.launchImageLibraryAsync({
 		// 	allowsEditing: true,
 		// 	aspect: [4, 3],
@@ -63,14 +67,15 @@ export default class ViewPhotos extends Component {
 	}
 }
 
-async function uploadImageAsync(uri) {
+async function uploadImageAsync(uri, photoId, passengerId) {
 	const response = await fetch(uri);
 	const blob = await response.blob();
 	const ref = firebase
 	  .storage()
 	  .ref()
 	  .child("images")
-	  .child(uuid.v4());
+	  .child(passengerId)
+	  .child(photoId);
   
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;

@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import { MapView, Constants, Location, Permissions } from 'expo';
-import {  StyleSheet, Text, Dimensions, View, Platform, Alert } from 'react-native';
+import { MapView, Location, Permissions } from 'expo';
+import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import firestore from '../firestore';
-import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker } from 'react-native-maps';
 import { firebase } from '@firebase/app';
-const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
-import getDirections from 'react-native-google-maps-directions'
-import LotSubmissionForm from './LotSubmissionForm'
-import ViewPhotos from './ViewPhotos';
-import DrawerNavigator from './DrawerNavigator';
 
 class MainScreen extends Component {
 
@@ -17,11 +12,35 @@ class MainScreen extends Component {
     location: null,
     errorMessage: null,
     marker: { latitude: null, longitude: null },
-    showLot: false
+		showLot: false,
+		showBid: false,
+		offer: '',
+		driverId: ''
   }
 
-	componentDidMount() {
-		this._getLocationAsync()
+	async componentDidMount() {
+		let driver = '';
+		let id;
+
+		const passengerEmail = firebase.auth().currentUser.email;
+		await firestore.collection('users').where('email',
+		'==', passengerEmail).get()
+		.then(users => {
+			users.forEach(user => {
+				id = user.id;
+			});
+		});
+		this._getLocationAsync();
+		await firestore.collection('lots').onSnapshot( allLots => {
+
+      allLots.docChanges().forEach(lot => {
+						driver = lot.doc.data().driverId;
+						//Not sure if needs another if statement but bid info should not changed unless its another bid
+						if (lot.doc.data().passengerId === id && lot.doc.data().driverId !== null) {
+							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
+						}
+      });
+		});
 	}
 
 	_getLocationAsync = async () => {
@@ -40,8 +59,16 @@ class MainScreen extends Component {
 		this.props.navigation.navigate('LotSubmissionForm');
 	}
 
+	handleMatch = async () => {
+		this.setState({showBid: false});
+	}
+
+	handleCancel = async () => {
+		this.setState({showBid: false});
+	}
+
   render(){
-    const { location, marker, showLot } = this.state;
+    const { marker, showBid, driverId, offer} = this.state;
     return(
       <View style={styles.container}>
       <MapView style={styles.map}
@@ -54,16 +81,15 @@ class MainScreen extends Component {
         /> : null}
 			</MapView>
 
-
-			<MapView style={styles.map}
-				onRegionChangeComplete={this.onRegionChangeComplete}
-				showsUserLocation={true}
-				followsUserLocation={true}
-				onRegionChangeComplete={this.onRegionChangeComplete}>
-				{marker.latitude ? <Marker
-					coordinate={marker}
-				/> : null}
-			</MapView>
+					{showBid ? Alert.alert(
+						`New Bid! ${driverId} has bid ${offer}!`,
+						'Sound Good?',
+						[
+							{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
+							{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
+						],
+						{ cancelable: false }
+					) : null}
 
 			<Button
 						title="Where to?"
@@ -110,4 +136,3 @@ const styles = StyleSheet.create({
 });
 
 export default MainScreen;
-

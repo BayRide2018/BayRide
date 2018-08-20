@@ -8,10 +8,6 @@ import firestore from '../firestore';
 
 export default class LotBanner extends React.Component {
 
-	// constructor (props) {
-	//   super(props);
-	//   this.state = props.lotData;
-	// }
 	state = { lotData: this.props.lotData, imgURL: '' };
 
 	componentDidMount () {
@@ -42,7 +38,6 @@ export default class LotBanner extends React.Component {
 	}
 
 	render () {
-		console.log(this.state);
 		const buttonTitle = this.state.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
 			<View>
@@ -59,6 +54,6 @@ export default class LotBanner extends React.Component {
 					<Button title={buttonTitle} onPress={this.handlePress} />
 				</View>
 			</View>
-		)
+		);
 	}
 }

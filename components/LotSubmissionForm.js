@@ -54,11 +54,6 @@ export default class LotSubmissionForm extends Component {
       driverId: null
     });
 	}
-		// if (typeof result === 'string') {
-		// 	this.setState({ response: result });
-		// } else {
-		// 	this.props.navigation.navigate('Menu');
-		// }
 
 
 	setScreenshotId =  (photoID) => {
@@ -85,10 +80,7 @@ export default class LotSubmissionForm extends Component {
 				onPress={() => this.setState({ showPicker: true })}
 			/> }
 					<FormLabel>Screenshot</FormLabel>
-					{/* <FormInput
-					placeholder="Please enter your screenshot"
-						onChangeText={screenshot => this.setState({ screenshot })}
-						/> */}
+
 						<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
 					<FormLabel>Pickup Time</FormLabel>
 					<FormInput

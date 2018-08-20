@@ -48,18 +48,7 @@ export default class ViewPhotos extends Component {
 		  uploadImageAsync(pickerResult.uri, photoId, passengerId);
 
 		  this.props.setScreenshotId(photoId);
-		// let result = await ImagePicker.launchImageLibraryAsync({
-		// 	allowsEditing: true,
-		// 	aspect: [4, 3],
-		// }, response => {
-		// 	uploadImageAsync(response.uri)
-		// 		.then(() => {
-		// 			console.log(response.uri);
-		// 		})
-		// 		.catch(error => {
-		// 			console.log(error);
-		// 		});
-		// });
+
 		if (!pickerResult.cancelled) {
 			this.setState({ image: pickerResult.uri });
 		}

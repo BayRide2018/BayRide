@@ -6,12 +6,14 @@ import PassengerHome from './components/PassengerHome';
 import DriverHome from './components/DriverHome';
 import LotSubmissionForm from './components/LotSubmissionForm';
 import Account from './components/Account';
+import MainScreen from './components/MainScreen';
+import DrawerNavigator from './components/DrawerNavigator';
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
 	Signup: { screen: Signup },
-	PassengerHome: { screen: PassengerHome },
+	DrawerNavigator: {screen: DrawerNavigator},
 	DriverHome: { screen: DriverHome },
 	LotSubmissionForm: { screen: LotSubmissionForm },
 	Account: { screen: Account }
@@ -24,3 +26,5 @@ export default createStackNavigator({
 		header: null,
 	}
 });
+
+

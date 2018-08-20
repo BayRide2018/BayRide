@@ -9,8 +9,9 @@ const key = 'AIzaSyDVmcW1my0uG8kBPgSHWvRhZozepAXqL_A';
 import getDirections from 'react-native-google-maps-directions'
 import LotSubmissionForm from './LotSubmissionForm'
 import ViewPhotos from './ViewPhotos';
+import DrawerNavigator from './DrawerNavigator';
 
-export default class PassengerHome extends Component {
+class PassengerHome extends Component {
 
   state = {
     location: null,
@@ -70,6 +71,7 @@ export default class PassengerHome extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
+
 		</View>
 		)
 	}
@@ -106,3 +108,5 @@ const styles = StyleSheet.create({
 		top: 70
 	}
 });
+
+export default PassengerHome;

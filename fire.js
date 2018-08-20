@@ -41,7 +41,7 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 
 const store = firebase.firestore();
-const settings = { timstampsInSnapshots: true };
+const settings = { timestampsInSnapshots: true };
 store.settings(settings);
 
 const imgStorageRef = firebase.storage().ref().child("images");

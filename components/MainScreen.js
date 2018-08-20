@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MapView, Location, Permissions } from 'expo';
 import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
-import firestore from '../firestore';
+import {store, auth} from '../fire';
 import { Marker } from 'react-native-maps';
 import { firebase } from '@firebase/app';
 
@@ -22,8 +22,8 @@ class MainScreen extends Component {
 		let driver = '';
 		let id;
 
-		const passengerEmail = firebase.auth().currentUser.email;
-		await firestore.collection('users').where('email',
+		const passengerEmail = auth.currentUser.email;
+		await store.collection('users').where('email',
 		'==', passengerEmail).get()
 		.then(users => {
 			users.forEach(user => {
@@ -31,7 +31,7 @@ class MainScreen extends Component {
 			});
 		});
 		this._getLocationAsync();
-		await firestore.collection('lots').onSnapshot( allLots => {
+		await store.collection('lots').onSnapshot( allLots => {
 
       allLots.docChanges().forEach(lot => {
 						driver = lot.doc.data().driverId;
@@ -71,11 +71,11 @@ class MainScreen extends Component {
     const { marker, showBid, driverId, offer} = this.state;
     return(
       <View style={styles.container}>
-      <MapView style={styles.map}
+			<MapView
+			  style={styles.map}
         onRegionChangeComplete={this.onRegionChangeComplete}
         showsUserLocation={true}
-        followsUserLocation={true}
-        onRegionChangeComplete={this.onRegionChangeComplete}>
+        followsUserLocation={true}>
         {marker.latitude ? <Marker
           coordinate={marker}
         /> : null}
@@ -89,7 +89,7 @@ class MainScreen extends Component {
 							{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
 						],
 						{ cancelable: false }
-					) : null}
+					) : Alert.alert('Awaiting bids!', 'Please be patient!')}
 
 			<Button
 						title="Where to?"

@@ -6,6 +6,9 @@ import {store, auth} from '../fire';
 import { Marker } from 'react-native-maps';
 import { firebase } from '@firebase/app';
 
+import { MapView, Constants, Location, Permissions } from 'expo';
+
+
 class MainScreen extends Component {
 
   state = {

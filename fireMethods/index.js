@@ -66,6 +66,8 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
 		return "Please fill out all of the forms."
 	}
+	const currentTime = new Date()
+	pickupTime = new Date(currentTime.getTime() + pickupTime*60000)
 	// With comments for the validations that should be added later, once things are a little more solid
 	store.collection("lots").add({
 		// Needs to actually be a picture.. Can they submit a lot without a screenshot?

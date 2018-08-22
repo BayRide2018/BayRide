@@ -3,8 +3,25 @@ import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
 import {ScrollView, Text, View, StyleSheet} from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { store, auth } from '../fire';
 
 class SideMenu extends Component {
+
+	state = {};
+
+	componentDidMount () {
+		store.collection("users").where("email", "==", auth.currentUser.email).get().then(users => {
+			users.forEach(user => {
+				this.setState({ ...user.data() })
+			})
+		})
+	}
+
+	handleLogout = async () => {
+		await auth.signOut()
+		this.navigateToScreen('Welcome')();
+	}
+
 	navigateToScreen = (route) => () => {
 		const navigateAction = NavigationActions.navigate({
 			routeName: route
@@ -16,51 +33,37 @@ class SideMenu extends Component {
 		return (
 			<View style={styles.container}>
 				<ScrollView>
-					<View>
-						<Text style={styles.sectionHeadingStyle}>
-							Section 1
+					<View style={styles.navSectionStyle}>
+						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Account')}>
+							My Account
 						</Text>
-						<View style={styles.navSectionStyle}>
-							<Text style={styles.navItemStyle} onPress={this.navigateToScreen('DriverHome')}>
-							Switch to Driver
+						{this.state.currentlyPassenger
+						? <Text style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.navigateToScreen('DriverHome') : this.navigateToScreen('DriverRegistration')}>
+								Switch to Driver
 							</Text>
-						</View>
-					</View>
-					<View>
-						<Text style={styles.sectionHeadingStyle}>
-							Section 2
-						</Text>
-						<View style={styles.navSectionStyle}>
-							<Text style={styles.navItemStyle} onPress={this.navigateToScreen('MainScreen')}>
+						: <Text style={styles.navItemStyle} onPress={this.navigateToScreen('MainScreen')}>
 								Switch to Passenger
-							</Text>
-							<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page3')}>
-								Page3
-							</Text>
-						</View>
-					</View>
-					<View>
-						<Text style={styles.sectionHeadingStyle}>
-							Section 3
+							</Text> }
+						
+						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Payments')}>
+							Payments
+						</Text>						
+						<Text style={styles.navItemStyle} onPress={this.handleLogout}>
+							Log Out
 						</Text>
-						<View style={styles.navSectionStyle}>
-							<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page4')}>
-							Page4
-							</Text>
-						</View>
 					</View>
 				</ScrollView>
 				<View style={styles.footerContainer}>
-					<Text>This is my fixed footer</Text>
+					<Text>This. is. parkupied.</Text>
 				</View>
 			</View>
 		);
 	}
 }
 
-SideMenu.propTypes = {
-	navigation: PropTypes.object
-};
+// SideMenu.propTypes = {
+// 	navigation: PropTypes.object
+// };
 
 const styles = StyleSheet.create({
 	container: {

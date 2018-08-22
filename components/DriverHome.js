@@ -17,6 +17,9 @@ export default class DriverHome extends Component {
     // We'll also need to have something that show's if they have a bid already in place (I think maybe that banner could be outlined in green).
     // Much much later, we could worry about things like throttling and maybe more complicated sorting algos.
 
+    this._getLocationAsync();
+
+
     store.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
         const copy = Object.assign({ id: lot.id }, lot.data()); // Putting the doc id in here becomes very useful in LotBanner.js
@@ -24,6 +27,18 @@ export default class DriverHome extends Component {
       })
     })
   }
+
+  _getLocationAsync = async () => {
+		let { status } = await Permissions.askAsync(Permissions.LOCATION);
+		if (status !== 'granted') {
+			this.setState({
+				errorMessage: 'Permission to access location was denied',
+			});
+		}
+
+		let location = await Location.getCurrentPositionAsync({});
+		this.setState({ location });
+	};
 
   render(){
     return(

@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import style from '../public/style';
 import { Picker, DatePicker } from 'react-native-wheel-pick';
 import ViewPhotos from './ViewPhotos';
+import GooglePlacesInput from './GooglePlacesInput';
 
 export default class LotSubmissionForm extends Component {
 
@@ -26,16 +27,16 @@ export default class LotSubmissionForm extends Component {
 		location: null
   }
 
-  async componentDidMount() {
+	async componentDidMount() {
 
 			const passengerEmail = await firebase.auth().currentUser.email;
 			await store.collection('users').where('email', '==', passengerEmail).get()
 			.then(users => {
 				users.forEach(user => {
 					this.setState({passengerId: user.id});
-        });
-      });
-  }
+				});
+			});
+	}
 
 	handleSubmit = async () => {
 		const screenshot = this.state.screenshot;
@@ -45,15 +46,15 @@ export default class LotSubmissionForm extends Component {
 		const offer = this.state.offer;
 		const passengerId = this.state.passengerId;
 
-    store.collection("lots").add({
-      screenshot,
-      pickupTime,
-      pickupLocation,
-      dropoffLocation,
-      offer,
-      passengerId,
-      driverId: null
-    });
+		store.collection("lots").add({
+			screenshot,
+			pickupTime,
+			pickupLocation,
+			dropoffLocation,
+			offer,
+			passengerId,
+			driverId: null
+		});
 	}
 
 	handleUseCurrentLocation = async () => {
@@ -109,10 +110,7 @@ export default class LotSubmissionForm extends Component {
 						onChangeText={pickupTime => this.setState({ pickupTime })}
 					/>
 					<FormLabel>Pickup Location</FormLabel>
-					<FormInput
-					placeholder="Please enter pickup location"
-						onChangeText={pickupLocation => this.setState({ pickupLocation })}
-					/>
+					<GooglePlacesInput />
 					<Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
 					<FormLabel>Drop off Location</FormLabel>
 					<FormInput
@@ -135,5 +133,5 @@ export default class LotSubmissionForm extends Component {
 				</View>
 			</View>
 		);
-  }
+	}
 }

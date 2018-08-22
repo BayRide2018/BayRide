@@ -17,7 +17,7 @@ export default createStackNavigator({
 	LotSubmissionForm: { screen: LotSubmissionForm },
 	Account: { screen: Account }
 }, {
-	initialRouteName: 'Login',
+	initialRouteName: 'Signup',
 	navigationOptions: {
 		title: 'BayRide',
 		headerLeft: null,

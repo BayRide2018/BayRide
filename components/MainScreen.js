@@ -9,15 +9,15 @@ import { firebase } from '@firebase/app';
 
 class MainScreen extends Component {
 
-  state = {
-    location: null,
-    errorMessage: null,
-    marker: { latitude: null, longitude: null },
+	state = {
+		location: null,
+		errorMessage: null,
+		marker: { latitude: null, longitude: null },
 		showLot: false,
 		showBid: false,
 		offer: '',
 		driverId: ''
-  }
+	}
 
 	async componentDidMount() {
 		let driver = '';
@@ -25,22 +25,22 @@ class MainScreen extends Component {
 
 		const passengerEmail = auth.currentUser.email;
 		await store.collection('users').where('email',
-		'==', passengerEmail).get()
-		.then(users => {
-			users.forEach(user => {
-				id = user.id;
+			'==', passengerEmail).get()
+			.then(users => {
+				users.forEach(user => {
+					id = user.id;
+				});
 			});
-		});
 		this._getLocationAsync();
 		await store.collection('lots').onSnapshot( allLots => {
 
-      allLots.docChanges().forEach(lot => {
+			allLots.docChanges().forEach(lot => {
 						driver = lot.doc.data().driverId;
 						//Not sure if needs another if statement but bid info should not changed unless its another bid
 						if (lot.doc.data().passengerId === id && lot.doc.data().driverId !== null) {
 							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
 						}
-      });
+			});
 		});
 		console.log(">>>>>>>>>", this.state)
 	}
@@ -98,7 +98,7 @@ class MainScreen extends Component {
 		this.setState({ location });
 	};
 
-  handleSubmit = async () => {
+	handleSubmit = async () => {
 		this.props.navigation.navigate('LotSubmissionForm');
 	}
 
@@ -110,21 +110,21 @@ class MainScreen extends Component {
 		this.setState({showBid: false});
 	}
 
-  render() {
+	render(){
 		const { marker, showBid, driverId, offer} = this.state;
-		console.log(">>>>>>>>>", this.state)
-
-    return(
-      <View style={styles.container}>
+		return(
+			<View style={styles.container}>
+			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
+			}} />
 			<MapView
-			  style={styles.map}
-        onRegionChangeComplete={this.onRegionChangeComplete}
-        showsUserLocation={true}
-        followsUserLocation={true}>
-        {marker.latitude ? <Marker
-          coordinate={marker}
-        /> : null}
-			></MapView>
+				style={styles.map}
+				onRegionChangeComplete={this.onRegionChangeComplete}
+				showsUserLocation={true}
+				followsUserLocation={true}>
+				{marker.latitude ? <Marker
+					coordinate={marker}
+				/> : null}
+			</MapView>
 
 					{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering
 								frequently, and every time it does, a new alert is sent.*/}
@@ -151,10 +151,10 @@ class MainScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-    flex: 1
+	container: {
+		...StyleSheet.absoluteFillObject,
+		backgroundColor: 'transparent',
+		flex: 1
 	},
 	lot: {
 		flex: 1,

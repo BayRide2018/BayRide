@@ -56,34 +56,34 @@ class MainScreen extends Component {
 	 * 3. For that matter, what is 'origin'? It's just a string version of the location..
 	 * 4. What's the difference (or at least difference in purpose) between onRegionChangeComplete and _getLocationAsync?
 	 */
-	onRegionChangeComplete = async (location) => {
-		// Is there a reason that origin is set to a string??
-    let origin = `${location.latitude}, ${location.longitude}`;
-		// if (!this.state.showFinalAlert && !this.state.showMatch && !this.state.showNoPSAlert) 
-		this.setState({ movinglocation: origin });
+	// onRegionChangeComplete = async (location) => {
+	// 	// Is there a reason that origin is set to a string??
+  //   let origin = `${location.latitude}, ${location.longitude}`;
+	// 	// if (!this.state.showFinalAlert && !this.state.showMatch && !this.state.showNoPSAlert) 
+	// 	this.setState({ movinglocation: origin });
 
-    // let matchingEmail = '';
-    let myLocation = '';
-    await store.collection('users').where('email', '==', auth.currentUser.email).get().then(allUsers => {
-      allUsers.forEach(user => {
-        const id = user.id;
-        //Updates your data with matched user email
-        // if (user.data().matches.email) matchingEmail = user.data().matches.email;
-        // myLocation = user.data().location;
-        store.collection('users').doc(id).update({ location: this.state.movinglocation })
-      })
-    })
-  //   if (matchingEmail) {
-  //     store.collection('users').where('email', '==', matchingEmail).get().then(allUsers => {
-  //       allUsers.forEach(user => {
-  //         const id = user.id;
-  //         //Updates your data with matched user email
-  //         firestore.collection('users').doc(id).update({ matches: { email: authcurrentUser.email, location: myLocation } })
-  //       })
+  //   // let matchingEmail = '';
+  //   let myLocation = '';
+  //   await store.collection('users').where('email', '==', auth.currentUser.email).get().then(allUsers => {
+  //     allUsers.forEach(user => {
+  //       const id = user.id;
+  //       //Updates your data with matched user email
+  //       // if (user.data().matches.email) matchingEmail = user.data().matches.email;
+  //       // myLocation = user.data().location;
+  //       store.collection('users').doc(id).update({ location: this.state.movinglocation })
   //     })
-	// 	}
-	}
-	///////////
+  //   })
+  // //   if (matchingEmail) {
+  // //     store.collection('users').where('email', '==', matchingEmail).get().then(allUsers => {
+  // //       allUsers.forEach(user => {
+  // //         const id = user.id;
+  // //         //Updates your data with matched user email
+  // //         firestore.collection('users').doc(id).update({ matches: { email: authcurrentUser.email, location: myLocation } })
+  // //       })
+  // //     })
+	// // 	}
+	// }
+	// ///////////
 
 
 	_getLocationAsync = async () => {

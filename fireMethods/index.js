@@ -48,8 +48,10 @@ async function login (email, password) {
 		});
 	if (res) return res;
 	if (exists) {
-		await auth.signInWithEmailAndPassword(email, password)
-		return true; // This is the successful login case
+		// await	auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+			await auth.signInWithEmailAndPassword(email, password);
+			return true;
+		// This is the successful login case
 	} else {
 		return "That is not a registered user. Try a different email or signing up.";
 	}
@@ -77,7 +79,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		// 		Scenario, because you could do thus while you're 15 minutes away from where you want to be picked up
 		pickupLocation,
 		dropoffLocation,
-		// I think it might be a good idea to round all offers down to the nearest quarter (2.5 => 2.5; 2.3 => 2.25; 2.2 => 2.0) We could skim off 
+		// I think it might be a good idea to round all offers down to the nearest quarter (2.5 => 2.5; 2.3 => 2.25; 2.2 => 2.0) We could skim off
 		//		the difference, and then, when you place an offer, it has to be a multiple of a quarter. This prevents people from doing things
 		//		like at the last second, outbidding someone by 1 cent.
 		offer,

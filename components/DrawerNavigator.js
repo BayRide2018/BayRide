@@ -4,10 +4,14 @@ import { createDrawerNavigator } from 'react-navigation';
 
 import SideMenu from './SideMenu';
 import MainScreen from './MainScreen';
+import DriverHome from './DriverHome';
 
 const drawernav = createDrawerNavigator({
-	Item1: {
+	MainScreen: {
 		screen: MainScreen
+	},
+	DriverHome: {
+		screen: DriverHome
 	}
 }, {
 	contentComponent: SideMenu,

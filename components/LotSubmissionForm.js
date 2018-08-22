@@ -54,7 +54,7 @@ export default class LotSubmissionForm extends Component {
     });
 	}
 	
-	handleUseCurrentLocation = () => {
+	handleUseCurrentLocation = async () => {
 		/**
 		 * location has this form:
 		 * 	   "location": Object {

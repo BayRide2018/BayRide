@@ -54,7 +54,7 @@ class MainScreen extends Component {
 	 * 		It seems that the location param is the location of the user.. Is that correct?
 	 * 2. Again, what is movingLocation vs. location?
 	 * 3. For that matter, what is 'origin'? It's just a string version of the location..
-	 * 4. 
+	 * 4. What's the difference (or at least difference in purpose) between onRegionChangeComplete and _getLocationAsync?
 	 */
 	onRegionChangeComplete = async (location) => {
 		// Is there a reason that origin is set to a string??

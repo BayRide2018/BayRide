@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import firebase from 'firebase';
 import { store } from '../fire';
 import LotBanner from './LotBanner';
+import LotBannerWrapper from './LotBannerWrapper';
 
 export default class DriverHome extends Component {
 
@@ -29,7 +30,7 @@ export default class DriverHome extends Component {
       <View>
         <View>
           {this.state.allLots.map((lot, i) => {
-            return <LotBanner key={i} lotData={lot} />;
+            return <LotBannerWrapper key={i} lotData={lot} />;
           })}
         </View>
         <Text>Hello, This was DriverHome</Text>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, Button, Text, Platform } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { Location } from 'expo';
 import { signup } from '../fireMethods';
 import { store } from '../fire';
 import firebase from 'firebase';
@@ -52,7 +53,26 @@ export default class LotSubmissionForm extends Component {
       driverId: null
     });
 	}
-
+	
+	handleUseCurrentLocation = async () => {
+		/**
+		 * location has this form:
+		 * 	   "location": Object {
+		 *		     "coords": Object {
+		 *		       "accuracy": 65,
+		 *		       "altitude": 9.289741516113281,
+		 *		       "altitudeAccuracy": 10,
+		 *		       "heading": -1,
+		 *		       "latitude": 40.70523666448243,
+		 *		       "longitude": -74.0134370542345,
+		 *		       "speed": -1,
+		 *		     },
+		 *		     "timestamp": 1534919691811.1948,
+		 *		   },
+		 */
+		let location = await Location.getCurrentPositionAsync({});
+		this.setState({ pickupLocation: location })
+	}
 
 	setScreenshotId =  (photoID) => {
 		this.setState({ screenshot: photoID });
@@ -90,6 +110,7 @@ export default class LotSubmissionForm extends Component {
 					placeholder="Please enter pickup location"
 						onChangeText={pickupLocation => this.setState({ pickupLocation })}
 					/>
+					<Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
 					<FormLabel>Drop off Location</FormLabel>
 					<FormInput
 					placeholder="Please enter drop off location"

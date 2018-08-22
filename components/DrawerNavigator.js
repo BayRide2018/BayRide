@@ -8,7 +8,7 @@ import DriverHome from './DriverHome';
 import Account from './Account';
 import Payment from './Payment';
 
-const drawernav = createDrawerNavigator({
+const DrawerNavigator = createDrawerNavigator({
 	MainScreen: {
 		screen: MainScreen
 	},
@@ -26,6 +26,6 @@ const drawernav = createDrawerNavigator({
 	drawerWidth: Dimensions.get('window').width - 120,
 });
 
-AppRegistry.registerComponent('Demo', () => drawernav);
+AppRegistry.registerComponent('Demo', () => DrawerNavigator);
 
-export default drawernav;
+export default DrawerNavigator;

@@ -12,17 +12,14 @@ class SideMenu extends Component {
 	componentDidMount () {
 		store.collection("users").where("email", "==", auth.currentUser.email).get().then(users => {
 			users.forEach(user => {
-				this.setState({ ...user.doc.data() })
+				this.setState({ ...user.data() })
 			})
 		})
 	}
 
-	handleLogout () {
-		// auth log out
-		auth.signOut().then(() => {
-			
-		})
-		// move to welcome ?? How??
+	handleLogout = async () => {
+		await auth.signOut()
+		this.navigateToScreen('Welcome')();
 	}
 
 	navigateToScreen = (route) => () => {
@@ -64,9 +61,9 @@ class SideMenu extends Component {
 	}
 }
 
-SideMenu.propTypes = {
-	navigation: PropTypes.object
-};
+// SideMenu.propTypes = {
+// 	navigation: PropTypes.object
+// };
 
 const styles = StyleSheet.create({
 	container: {

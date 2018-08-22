@@ -54,6 +54,7 @@ export default class LotBanner extends React.Component {
 
 	render () {
 		const buttonTitle = this.state.driverId ? "Offer a lower price" : "Bid at this price!";
+		console.log("<><><>", this.state);
 		return (
 			<View>
 				<Text>BayRide</Text>

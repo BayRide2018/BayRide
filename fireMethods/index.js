@@ -24,7 +24,7 @@ async function signup (name, phone, email, password) {
 		email,
 		password,
 		location: [],
-		defaultSetting: "passenger",
+		currentlyPassenger: true,
 		paymentInformation: {},
 		drivingInformation: { canDrive: false }
 	});

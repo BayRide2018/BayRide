@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { MapView, Location, Permissions } from 'expo';
 import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
-import {store, auth} from '../fire';
+import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
 import { firebase } from '@firebase/app';
-
-import { MapView, Constants, Location, Permissions } from 'expo';
 
 
 class MainScreen extends Component {
@@ -44,7 +42,49 @@ class MainScreen extends Component {
 						}
       });
 		});
+		console.log(">>>>>>>>>", this.state)
 	}
+
+
+	///////////
+	/**
+	 * 0. I left most of the old parkupied code in as comments. Most of it's just logic that we don't want
+	 * 		anymore, but it's so convoluted that I couldn't tell if it was important or not
+	 * 1. Is there a reason that we don't simply get current user, and set it's state location to location?
+	 * 		It seems that the location param is the location of the user.. Is that correct?
+	 * 2. Again, what is movingLocation vs. location?
+	 * 3. For that matter, what is 'origin'? It's just a string version of the location..
+	 * 4. 
+	 */
+	onRegionChangeComplete = async (location) => {
+		// Is there a reason that origin is set to a string??
+    let origin = `${location.latitude}, ${location.longitude}`;
+		// if (!this.state.showFinalAlert && !this.state.showMatch && !this.state.showNoPSAlert) 
+		this.setState({ movinglocation: origin });
+
+    // let matchingEmail = '';
+    let myLocation = '';
+    await store.collection('users').where('email', '==', auth.currentUser.email).get().then(allUsers => {
+      allUsers.forEach(user => {
+        const id = user.id;
+        //Updates your data with matched user email
+        // if (user.data().matches.email) matchingEmail = user.data().matches.email;
+        // myLocation = user.data().location;
+        store.collection('users').doc(id).update({ location: this.state.movinglocation })
+      })
+    })
+  //   if (matchingEmail) {
+  //     store.collection('users').where('email', '==', matchingEmail).get().then(allUsers => {
+  //       allUsers.forEach(user => {
+  //         const id = user.id;
+  //         //Updates your data with matched user email
+  //         firestore.collection('users').doc(id).update({ matches: { email: authcurrentUser.email, location: myLocation } })
+  //       })
+  //     })
+	// 	}
+	}
+	///////////
+
 
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -70,8 +110,10 @@ class MainScreen extends Component {
 		this.setState({showBid: false});
 	}
 
-  render(){
-    const { marker, showBid, driverId, offer} = this.state;
+  render() {
+		const { marker, showBid, driverId, offer} = this.state;
+		console.log(">>>>>>>>>", this.state)
+
     return(
       <View style={styles.container}>
 			<MapView
@@ -82,8 +124,10 @@ class MainScreen extends Component {
         {marker.latitude ? <Marker
           coordinate={marker}
         /> : null}
-			</MapView>
+			></MapView>
 
+					{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering
+								frequently, and every time it does, a new alert is sent.*/}
 					{showBid ? Alert.alert(
 						`New Bid! ${driverId} has bid ${offer}!`,
 						'Sound Good?',

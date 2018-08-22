@@ -46,46 +46,6 @@ class MainScreen extends Component {
 	}
 
 
-	///////////
-	/**
-	 * 0. I left most of the old parkupied code in as comments. Most of it's just logic that we don't want
-	 * 		anymore, but it's so convoluted that I couldn't tell if it was important or not
-	 * 1. Is there a reason that we don't simply get current user, and set it's state location to location?
-	 * 		It seems that the location param is the location of the user.. Is that correct?
-	 * 2. Again, what is movingLocation vs. location?
-	 * 3. For that matter, what is 'origin'? It's just a string version of the location..
-	 * 4. What's the difference (or at least difference in purpose) between onRegionChangeComplete and _getLocationAsync?
-	 */
-	// onRegionChangeComplete = async (location) => {
-	// 	// Is there a reason that origin is set to a string??
-  //   let origin = `${location.latitude}, ${location.longitude}`;
-	// 	// if (!this.state.showFinalAlert && !this.state.showMatch && !this.state.showNoPSAlert) 
-	// 	this.setState({ movinglocation: origin });
-
-  //   // let matchingEmail = '';
-  //   let myLocation = '';
-  //   await store.collection('users').where('email', '==', auth.currentUser.email).get().then(allUsers => {
-  //     allUsers.forEach(user => {
-  //       const id = user.id;
-  //       //Updates your data with matched user email
-  //       // if (user.data().matches.email) matchingEmail = user.data().matches.email;
-  //       // myLocation = user.data().location;
-  //       store.collection('users').doc(id).update({ location: this.state.movinglocation })
-  //     })
-  //   })
-  // //   if (matchingEmail) {
-  // //     store.collection('users').where('email', '==', matchingEmail).get().then(allUsers => {
-  // //       allUsers.forEach(user => {
-  // //         const id = user.id;
-  // //         //Updates your data with matched user email
-  // //         firestore.collection('users').doc(id).update({ matches: { email: authcurrentUser.email, location: myLocation } })
-  // //       })
-  // //     })
-	// // 	}
-	// }
-	// ///////////
-
-
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {
@@ -136,7 +96,7 @@ class MainScreen extends Component {
 							{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
 						],
 						{ cancelable: false }
-					) : Alert.alert('Awaiting bids!', 'Please be patient!')}
+					) : null}
 
 			<Button
 						title="Where to?"

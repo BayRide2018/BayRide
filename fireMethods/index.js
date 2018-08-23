@@ -61,7 +61,7 @@ async function login (email, password) {
 async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer) {
 	const passengerEmail = auth.currentUser.email;
 	let passengerId;
-	store.collection("users").where("email", "==", "passengerEmail").get().then(users => {
+	store.collection("users").where("email", "==", passengerEmail).get().then(users => {
 		users.forEach(user => {
 			passengerId = user.id;
 		})

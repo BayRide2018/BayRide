@@ -19,12 +19,16 @@ export default class LotBannerWrapper extends React.Component {
   }
 
   render () {
+    const { pickupTime } = this.props.lotData;
+    const now = new Date();
+
+    console.log(">>>>>", pickupTime - now);
     return (
       <View>
         {this.state.showThisBanner 
         ? <View>
             <TimerCountdown
-              initialSecondsRemaining={1000*60}
+              initialSecondsRemaining={pickupTime - now}
               onTick={secondsRemaining => console.log('tick', secondsRemaining)}
               onTimeElapsed={this.handleFinish}
               allowFontScaling={true}

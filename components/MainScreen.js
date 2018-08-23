@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
 import { firebase } from '@firebase/app';
-
+import Winner from './Winner';
 
 class MainScreen extends Component {
 
@@ -16,7 +16,8 @@ class MainScreen extends Component {
 		showLot: false,
 		showBid: false,
 		offer: '',
-		driverId: ''
+		driverId: '',
+		winner: false
 	}
 
 	async componentDidMount() {
@@ -42,7 +43,6 @@ class MainScreen extends Component {
 						}
 			});
 		});
-		console.log(">>>>>>>>>", this.state)
 	}
 
 
@@ -69,6 +69,7 @@ class MainScreen extends Component {
 	handleCancel = async () => {
 		this.setState({showBid: false});
 	}
+
 
 	render(){
 		const { marker, showBid, driverId, offer} = this.state;
@@ -104,6 +105,7 @@ class MainScreen extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
+
 
 		</View>
 		)

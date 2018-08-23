@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { store } from '../fire';
 import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';
+import Winner from './Winner';
 
 export default class DriverHome extends Component {
 
@@ -23,9 +24,9 @@ export default class DriverHome extends Component {
     store.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
         const copy = Object.assign({ id: lot.id }, lot.data()); // Putting the doc id in here becomes very useful in LotBanner.js
-        this.setState({ allLots: [...this.state.allLots, copy] })
-      })
-    })
+        this.setState({ allLots: [...this.state.allLots, copy] });
+      });
+    });
   }
 
   _getLocationAsync = async () => {
@@ -43,12 +44,9 @@ export default class DriverHome extends Component {
   render(){
     return(
       <View>
-        <View>
           {this.state.allLots.map((lot, i) => {
             return <LotBannerWrapper key={i} lotData={lot} />;
           })}
-        </View>
-        <Text>Hello, This was DriverHome</Text>
       </View>
     )
   }

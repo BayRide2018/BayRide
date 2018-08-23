@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import LotBanner from "./LotBanner";
 import style from '../public/style';
 import TimerCountdown from 'react-native-timer-countdown';
 
- 
+
 export default class LotBannerWrapper extends React.Component {
 
   state = {
@@ -21,7 +21,7 @@ export default class LotBannerWrapper extends React.Component {
   render () {
     return (
       <View>
-        {this.state.showThisBanner 
+        {this.state.showThisBanner
         ? <View>
             <TimerCountdown
               initialSecondsRemaining={1000*60}
@@ -30,7 +30,7 @@ export default class LotBannerWrapper extends React.Component {
               allowFontScaling={true}
               style={{ fontSize: 20 }}
             />
-            <LotBanner lotData={this.props.lotData} /> 
+            <LotBanner lotData={this.props.lotData} />
           </View>
         : null}
       </View>

@@ -1,43 +1,49 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import LotBanner from "./LotBanner";
 import style from '../public/style';
 import TimerCountdown from 'react-native-timer-countdown';
+import { store } from '../fire';
 
- 
+
 export default class LotBannerWrapper extends React.Component {
 
-  state = {
-    showThisBanner: true
-  }
+	state = {
+		showThisBanner: true
+	}
 
-  handleFinish = () => {
-    // Very Important Whatever happens here...
-    // Send a notification to the Passenger (they can adjust the bid [add time or lower price] or just have it deleted)
-    // and hide this for now
-    this.setState({ showThisBanner: false })
-  }
+	handleFinish = () => {
+		// Very Important Whatever happens here...
+		// Send a notification to the Passenger (they can adjust the bid [add time or lower price] or just have it deleted)
+		// and hide this for now
+		this.setState({ showThisBanner: false });
+		store.collection("lots").where('passengerId', '==', this.props.lotData.passengerId).get()
+			.then((lots) => {
+				lots.forEach(lot => lot.ref.delete());
+			});
+	}
 
-  render () {
-    const { pickupTime } = this.props.lotData;
-    const now = new Date();
+	render () {
+		let { pickupTime } = this.props.lotData;
+		pickupTime = pickupTime.toDate();
+		const now = new Date().getTime();
 
-    console.log(">>>>>", pickupTime - now);
-    return (
-      <View>
-        {this.state.showThisBanner 
-        ? <View>
-            <TimerCountdown
-              initialSecondsRemaining={pickupTime - now}
-              onTick={secondsRemaining => console.log('tick', secondsRemaining)}
-              onTimeElapsed={this.handleFinish}
-              allowFontScaling={true}
-              style={{ fontSize: 20 }}
-            />
-            <LotBanner lotData={this.props.lotData} /> 
-          </View>
-        : null}
-      </View>
-    )
-  }
+		return (
+			<ScrollView>
+			<View>
+				{this.state.showThisBanner
+				? <View>
+						<TimerCountdown
+							initialSecondsRemaining={pickupTime - now}
+							onTimeElapsed={this.handleFinish}
+							allowFontScaling={true}
+							style={{ fontSize: 20 }}
+						/>
+						<LotBanner lotData={this.props.lotData} />
+					</View>
+				: null}
+			</View>
+			</ScrollView>
+		)
+	}
 }

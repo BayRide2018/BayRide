@@ -45,13 +45,13 @@ export default class LotBanner extends React.Component {
 				<Text>BayRide</Text>
 				<View>
 					{this.state.imgURL &&
-						<Image source={{ uri: this.state.imgURL }} style={{ width: 200, height: 200 }} />}
-					<Text>Screenshot: {this.state.screenshot}</Text>
-					<Text>Pick Up: {this.state.pickupTime}</Text>
-					<Text>Location: {this.state.pickupLocation}</Text>
-					<Text>Drop Off location: {this.state.pickupLocation}</Text>
-					<Text>Bid Price: {this.state.offer}</Text>
-					{!this.state.driverId && <Text>Be the first one to bid on this!!!</Text>}
+						<Image source={{ uri: this.state.lotData.imgURL }} style={{ width: 200, height: 200 }} />}
+					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
+					<Text>Pick Up: {this.state.lotData.pickupTime.seconds}</Text>
+
+					<Text>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
+					<Text>Bid Price: {this.state.lotData.offer}</Text>
+					{!this.state.lotData.driverId && <Text>Be the first one to bid on this!!!</Text>}
 					<Button title={buttonTitle} onPress={this.handlePress} />
 				</View>
 			</View>

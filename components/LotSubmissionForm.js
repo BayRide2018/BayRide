@@ -40,12 +40,13 @@ export default class LotSubmissionForm extends Component {
 	}
 
 	handleSubmit = () => {
-
 		createLot(this.state.screenshot,
 			this.state.pickupTime,
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
-			this.state.offer)
+			this.state.offer);
+			this.props.navigation.navigate('DrawerNavigator');
+
 		// store.collection("lots").add({
 		// 	screenshot,
 		// 	pickupTime,

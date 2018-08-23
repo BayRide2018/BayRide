@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { store } from '../fire';
 import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';
+import { Permissions, Location } from 'expo';
 
 export default class DriverHome extends Component {
 

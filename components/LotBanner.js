@@ -24,20 +24,6 @@ export default class LotBanner extends React.Component {
     });
 	}
 
-	componentDidMount () {
-		// Get the reference to the passenger, from the Lot
-		// Get the reference to screenshot, from the Lot
-		const { passengerId, screenshot } = this.state.lotData;
-		// Reference passenger/screenshotID
-		const ref = firebase.storage().ref()
-			.child("images")
-			.child(passengerId)
-			.child(screenshot.toString())
-			.getDownloadURL().then(url => {
-				this.setState({ imgURL: url});
-			});
-	}
-
 
 	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
 		const driverEmail = await auth.currentUser.email;
@@ -58,15 +44,15 @@ export default class LotBanner extends React.Component {
 			<View>
 				<Text>BayRide</Text>
 				<View>
-					{!!this.state.lotData.screenshot &&
-						<Image source={{ uri: this.state.lotData.screenshot }} style={{ width: 200, height: 200 }} />}
-					<Text>Screenshot: {this.state.screenshot}</Text>
-					<Text>Pick Up: {this.state.pickupTime}</Text>
-					<Text>Location: {this.state.pickupLocation}</Text>
-					<Text>Drop Off location: {this.state.pickupLocation}</Text>
-					<Text>Bid Price: {this.state.offer}</Text>
-					{!this.state.driverId && <Text>Be the first one to bid on this!!!</Text>}
-					<Button onPress={this.handlePress}>{buttonTitle}</Button>
+					{!!this.state.lotData.screenshot &&&
+						<Image source={{ uri: this.state.lotData.imgURL }} style={{ width: 200, height: 200 }} />}
+					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
+					<Text>Pick Up: {this.state.lotData.pickupTime.seconds}</Text>
+
+					<Text>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
+					<Text>Bid Price: {this.state.lotData.offer}</Text>
+					{!this.state.lotData.driverId && <Text>Be the first one to bid on this!!!</Text>}
+					<Button title={buttonTitle} onPress={this.handlePress} />
 				</View>
 			</View>
 		);

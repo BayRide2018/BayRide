@@ -5,6 +5,7 @@ import { store } from '../fire';
 import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';
 import Winner from './Winner';
+import { Permissions, Location } from 'expo';
 
 export default class DriverHome extends Component {
 

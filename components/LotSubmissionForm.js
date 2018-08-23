@@ -9,6 +9,7 @@ import style from '../public/style';
 import { Picker, DatePicker } from 'react-native-wheel-pick';
 import ViewPhotos from './ViewPhotos';
 import GooglePlacesInput from './GooglePlacesInput';
+import { createLot } from '../fireMethods';
 
 export default class LotSubmissionForm extends Component {
 
@@ -38,23 +39,23 @@ export default class LotSubmissionForm extends Component {
 			});
 	}
 
-	handleSubmit = async () => {
-		const screenshot = this.state.screenshot;
-		const pickupTime = this.state.pickupTime;
-		const pickupLocation = this.state.pickupLocation;
-		const dropoffLocation = this.state.dropoffLocation;
-		const offer = this.state.offer;
-		const passengerId = this.state.passengerId;
+	handleSubmit = () => {
+		createLot(this.state.screenshot,
+			this.state.pickupTime,
+			this.state.pickupLocation,
+			this.state.dropoffLocation,
+			this.state.offer);
+			this.props.navigation.navigate('DrawerNavigator');
 
-		store.collection("lots").add({
-			screenshot,
-			pickupTime,
-			pickupLocation,
-			dropoffLocation,
-			offer,
-			passengerId,
-			driverId: null
-		});
+		// store.collection("lots").add({
+		// 	screenshot,
+		// 	pickupTime,
+		// 	pickupLocation,
+		// 	dropoffLocation,
+		// 	offer,
+		// 	passengerId,
+		// 	driverId: null
+		// });
 	}
 
 	handleUseCurrentLocation = async () => {

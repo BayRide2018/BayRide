@@ -44,7 +44,7 @@ export default class LotBanner extends React.Component {
 			<View>
 				<Text>BayRide</Text>
 				<View>
-					{!!this.state.lotData.screenshot &&&
+					{!!this.state.lotData.screenshot &&
 						<Image source={{ uri: this.state.lotData.imgURL }} style={{ width: 200, height: 200 }} />}
 					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
 					<Text>Pick Up: {this.state.lotData.pickupTime.seconds}</Text>

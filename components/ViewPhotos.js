@@ -60,7 +60,7 @@ async function uploadImageAsync(uri, photoId, passengerId) {
 	const response = await fetch(uri);
 	const blob = await response.blob();
 	const ref = imgStorageRef
-	  .child(photoId);
+	  .child(passengerId).child(photoId);
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;
 };

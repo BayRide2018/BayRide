@@ -24,20 +24,6 @@ export default class LotBanner extends React.Component {
     });
 	}
 
-	componentDidMount () {
-		// Get the reference to the passenger, from the Lot
-		// Get the reference to screenshot, from the Lot
-		const { passengerId, screenshot } = this.state.lotData;
-		// Reference passenger/screenshotID
-		const ref = firebase.storage().ref()
-			.child("images")
-			.child(passengerId)
-			.child(screenshot.toString())
-			.getDownloadURL().then(url => {
-				this.setState({ imgURL: url});
-			});
-	}
-
 
 	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
 		const driverEmail = await auth.currentUser.email;

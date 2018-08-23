@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import LotBanner from "./LotBanner";
 import style from '../public/style';
 import TimerCountdown from 'react-native-timer-countdown';
@@ -35,6 +35,7 @@ export default class LotBannerWrapper extends React.Component {
 	pickupTime = pickupTime.toDate();
 	const now = new Date().getTime();
 
+
 	return (
 		<ScrollView>
 		<View>
@@ -53,4 +54,5 @@ export default class LotBannerWrapper extends React.Component {
 		</ScrollView>
 	)
 	}
+
 }

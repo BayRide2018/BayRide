@@ -29,7 +29,8 @@ export default class Account extends Component {
     }
 
 	handleSubmit = async () => {
-        console.log("This is where the edits should happen. (Nothing happens yet).")
+        console.log("This is where the edits should happen. (Nothing happens yet).");
+        console.log("Please note: We can't just let users edit their emails... Important to talk about this");
 	}
 
 	render() {
@@ -37,6 +38,7 @@ export default class Account extends Component {
 		return (
 			<View>
                 <Text>This is your profile!!</Text>
+                <Text>Please note: We can't just let users edit their emails... Important to talk about this</Text>
                 <Text>Name: </Text>
                 <Text>{name}</Text>
                 <Text>email: </Text>

@@ -18,7 +18,7 @@ async function signup (name, phone, email, password) {
 	if (res) return res;
 
 	// DB Signup
-	await store.collection("users").add({
+	await store.collection("users").doc(email).set({
 		name,
 		phone,
 		email,

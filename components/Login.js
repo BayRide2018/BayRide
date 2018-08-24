@@ -3,6 +3,8 @@ import { StyleSheet, View, Button, Text } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { login } from '../fireMethods';
 import style from '../public/style';
+import { store, auth } from '../fire';
+
 
 
 export default class Login extends Component {
@@ -17,8 +19,20 @@ export default class Login extends Component {
 		const email = this.state.email;
 		const password = this.state.password;
 		const result = await login(email, password);
-		if (result === true) {
+		const userEmail = await auth.currentUser.email;
+		let userId;
+		let bool;
+		await store.collection("users").where("email", "==", userEmail).get().then(users => {
+			users.forEach(user => {
+				userId = user.id;
+				bool = user.data().currentlyPassenger;
+			});
+		});
+		if (result === true && bool === true) {
+			this.props.navigation.navigate('DrawerNavigator');
+		} else if (result === true && bool === false) {
 			this.props.navigation.navigate('DriverHome');
+			// CAUTIOUS !!! Drawer still not being rendered here
 		} else {
 			this.setState({response: result});
 		}

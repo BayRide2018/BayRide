@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView, Button } from 'react-native';
 import firebase from 'firebase';
 import { store, auth } from '../fire';
 import LotBanner from './LotBanner';
@@ -64,5 +64,17 @@ export default class DriverHome extends Component {
           { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
       </View>
     );
+    return(
+      <ScrollView>
+      <View>
+      {this.state.allLots.map((lot, i) => {
+        return <LotBannerWrapper key={i} lotData={lot} />;
+      })}
+          { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+      </View>
+      <Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
+      }} />
+      </ScrollView>
+    )
   }
 }

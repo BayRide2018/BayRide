@@ -37,7 +37,7 @@ export default class LotBannerWrapper extends React.Component {
 
 
 	return (
-		<ScrollView>
+
 		<View>
 		{this.state.showThisBanner
 		? <View>
@@ -51,7 +51,7 @@ export default class LotBannerWrapper extends React.Component {
 			</View>
 		: null}
 		</View>
-		</ScrollView>
+
 	)
 	}
 

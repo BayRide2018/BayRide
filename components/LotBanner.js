@@ -10,19 +10,19 @@ export default class LotBanner extends React.Component {
 
 	state = { lotData: this.props.lotData, imgURL: '' };
 
-
-  handlePress = async () => { // All this function is doing for now is updating store about who the driver is
-    const driverEmail = await auth.currentUser.email;
-    let driverId;
-    await store.collection("users").where("email", "==", driverEmail).get().then(users => {
-      users.forEach(user => {
-        driverId = user.id;
-      });
-    });
-    store.collection("lots").doc(this.state.id).update({
-      driverId
-    });
-	}
+	// Why were there two copies of this?
+  // handlePress = async () => { // All this function is doing for now is updating store about who the driver is
+  //   const driverEmail = await auth.currentUser.email;
+  //   let driverId;
+  //   await store.collection("users").where("email", "==", driverEmail).get().then(users => {
+  //     users.forEach(user => {
+  //       driverId = user.id;
+  //     });
+  //   });
+  //   store.collection("lots").doc(this.state.id).update({
+  //     driverId
+  //   });
+	// }
 
 
 	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
@@ -33,8 +33,10 @@ export default class LotBanner extends React.Component {
 				driverId = user.id;
 			});
 		});
-		store.collection("lots").doc(this.state.lotData.id).update({
-			driverId
+		store.collection("lots").where("screenshot", "==", this.state.lotData.screenshot).get().then(lots => {
+			lots.forEach(lot => {
+				lot.ref.update({ driverId: auth.currentUser.email });
+			})
 		});
 	}
 

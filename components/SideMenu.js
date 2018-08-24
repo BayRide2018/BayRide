@@ -62,23 +62,30 @@ class SideMenu extends Component {
 	render () {
 		return (
 			<View style={styles.container}>
-				<ScrollView>
 					<View style={styles.navSectionStyle}>
 						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Account')}>
 							My Account
 						</Text>
-						{this.state.currentlyPassenger ? <Button title='Switch to Driver' onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.navigateToScreen('DriverRegistration')} /> : <Button title='Switch to Passenger' onPress={this.handleSwitchPassenger} /> }
-
+						{this.state.currentlyPassenger
+						? <Text style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.navigateToScreen('DriverHome') : this.navigateToScreen('DriverRegistration')}>
+								Switch to Driver
+							</Text>
+						: <Text style={styles.navItemStyle} onPress={this.navigateToScreen('MainScreen')}>
+								Switch to Passenger
+							</Text> }
+						
 						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Payment')}>
-							Payments
+							Payment
+						</Text>
+						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('History')}>
+							History
 						</Text>
 						<Text style={styles.navItemStyle} onPress={this.handleLogout}>
 							Log Out
 						</Text>
 					</View>
-				</ScrollView>
 				<View style={styles.footerContainer}>
-					<Text>This. is. parkupied.</Text>
+					<Text>Welcome to BayRide</Text>
 				</View>
 			</View>
 		);

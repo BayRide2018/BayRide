@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
 import Winner from './Winner';
+import MatchBanner from './MatchBanner';
 
 class MainScreen extends Component {
 
@@ -16,7 +17,10 @@ class MainScreen extends Component {
 		showBid: false,
 		offer: '',
 		driverId: '',
-		winner: false
+		winner: false,
+		// Added by Thomas. This is for the component that a passenger can see on home
+		// It shows the status of the Lot
+		lotId: ''
 	}
 
 	async componentDidMount() {
@@ -40,6 +44,11 @@ class MainScreen extends Component {
 						if (lot.doc.data().passengerId === id && lot.doc.data().driverId !== null) {
 							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
 						}
+			});
+		});
+		store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
+			lots.forEach(lot => {
+				this.setState({ lotId: lot.id });
 			});
 		});
 	}
@@ -72,6 +81,7 @@ class MainScreen extends Component {
 
 	render(){
 		const { marker, showBid, driverId, offer} = this.state;
+		console.log("This is state: ", this.state);
 		return(
 			<View style={styles.container}>
 			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
@@ -104,7 +114,8 @@ class MainScreen extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
-
+ 
+			{<Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
 
 		</View>
 		)
@@ -140,6 +151,11 @@ const styles = StyleSheet.create({
 	button: {
 		zIndex: 10,
 		top: 70
+	},
+
+	match: {
+		zIndex: 20,
+		top: 80
 	}
 });
 

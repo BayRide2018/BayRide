@@ -74,7 +74,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	pickupTime = new Date(currentTime.getTime() + pickupTime*60000);
 
 	// This could be better, maybe? Parsefloat should return a float, and cut out random text
-	offer = parseFloat(offer);
+	offer = Number.parseFloat(Number.parseFloat(offer).toFixed(2));
 
 	// With comments for the validations that should be added later, once things are a little more solid
 	store.collection("lots").add({

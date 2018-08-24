@@ -4,7 +4,6 @@ import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
-import { firebase } from '@firebase/app';
 import Winner from './Winner';
 
 class MainScreen extends Component {

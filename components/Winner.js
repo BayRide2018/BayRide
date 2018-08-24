@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import style from '../public/style';
-import firebase from 'firebase';
 import { store, auth } from '../fire';
 import Modal from "react-native-modal";
 import getDirections from 'react-native-google-maps-directions'
@@ -39,10 +38,43 @@ export default class Winner extends React.Component {
 			getDirections(data);
 		}
 
-	componentDidMount () {
-		// Get the lot that you (the driver) have won off of firestore
-		// Save that stuff in state and then keep the passengerId from the lot
-		// and save that in state
+		handleGetDirectionsTwo = () => {
+			const data = {
+				destination: {
+					latitude: -33.8602024,
+					longitude: 18.697459
+				},
+				params: [
+					{
+						key: 'travelmode',
+						value: 'driving'
+					},
+					{
+						key: 'dir_action"',
+						value: 'navigate'       // this instantly initializes navigation using the given travel mode
+					}
+				]
+			};
+			getDirections(data);
+		}
+
+	async componentDidMount () {
+		console.log("winning", this.state)
+		console.log("winningprops", this.props)
+    const currEmail = auth.currentUser.email
+
+		await store.collection("lots").where("email", "==", currEmail).get().then(allUsers => {
+      allUsers.forEach(user => {
+        // spotEmail = user.data().matches.email;
+        // secondEmail = currEmail;
+        if (spotEmail === currEmail) {
+          secondEmail = user.data().matches.email;
+        } else {
+          spotEmail = user.data().matches.email;
+          secondEmail = currEmail;
+        }
+      })
+    })
 	}
 
 	render () {
@@ -59,9 +91,11 @@ export default class Winner extends React.Component {
 					<Text>Passenger location</Text>
 					<Text>Destination time</Text>
 					<Button
-					style={{color: 'Blue'}}
-					title="Drive there!"
-					onClick={this.handleGetDirections} />
+					title="Drive to Passenger!"
+					onPress={this.handleGetDirections} />
+					<Button
+					title="Drive to Passenger's destination!"
+					onPress={this.handleGetDirectionsTwo} />
 					<TouchableOpacity onPress={this._toggleModal}>
 						<Text style={style.font}>Close</Text>
 					</TouchableOpacity>

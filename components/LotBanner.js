@@ -26,16 +26,22 @@ export default class LotBanner extends React.Component {
 
 
 	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
-		const driverEmail = await auth.currentUser.email;
-		let driverId;
-		await store.collection("users").where("email", "==", driverEmail).get().then(users => {
-			users.forEach(user => {
-				driverId = user.id;
-			});
-		});
+		// const driverEmail = await auth.currentUser.email;
+		// let driverId;
+		// await store.collection("users").doc("email", "==", driverEmail).get().then(users => {
+		// 	users.forEach(user => {
+		// 		driverId = user.id;
+		// 	});
+		// });
+		// It'd be nice to make this query more efficient
 		store.collection("lots").where("screenshot", "==", this.state.lotData.screenshot).get().then(lots => {
 			lots.forEach(lot => {
-				lot.ref.update({ driverId: auth.currentUser.email });
+				if (lot.data().driverId) {
+					let newOffer = lot.data().offer - 0.25 ;
+					lot.ref.update({ driverId: auth.currentUser.email, offer: newOffer});
+				} else {
+					lot.ref.update({ driverId: auth.currentUser.email });
+				}
 			})
 		});
 	}

@@ -7,6 +7,8 @@ import LotSubmissionForm from './components/LotSubmissionForm';
 import Account from './components/Account';
 import MainScreen from './components/MainScreen';
 import DrawerNavigator from './components/DrawerNavigator';
+import DriverRegistration from './components/DriverRegistration';
+import Payment from './components/Payment';
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
@@ -14,8 +16,10 @@ export default createStackNavigator({
 	Signup: { screen: Signup },
 	DrawerNavigator: {screen: DrawerNavigator},
 	DriverHome: { screen: DriverHome },
+	DriverRegistration: { screen: DriverRegistration},
 	LotSubmissionForm: { screen: LotSubmissionForm },
-	Account: { screen: Account }
+	Account: { screen: Account },
+	Payment: { screen: Payment },
 }, {
 	initialRouteName: 'Welcome',
 	navigationOptions: {

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Text, View, ScrollView } from 'react-native';
+=======
+import { Text, View, ScrollView, Button } from 'react-native';
+>>>>>>> d60639a9b09844e47145b33fc8ed91b23c63b024
 import firebase from 'firebase';
 import { store } from '../fire';
 import LotBanner from './LotBanner';
@@ -44,6 +48,7 @@ export default class DriverHome extends Component {
 
   render(){
     return(
+      <ScrollView>
       <View>
         <ScrollView>
           {this.state.allLots.map((lot, i) => {
@@ -51,6 +56,9 @@ export default class DriverHome extends Component {
           })}
         </ScrollView>
       </View>
+      <Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
+      }} />
+      </ScrollView>
     )
   }
 }

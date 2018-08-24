@@ -114,7 +114,7 @@ class MainScreen extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
-
+ 
 			{<Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
 
 		</View>

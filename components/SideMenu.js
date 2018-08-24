@@ -45,16 +45,19 @@ class SideMenu extends Component {
 								Switch to Passenger
 							</Text> }
 						
-						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Payments')}>
-							Payments
-						</Text>						
+						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Payment')}>
+							Payment
+						</Text>
+						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('History')}>
+							History
+						</Text>
 						<Text style={styles.navItemStyle} onPress={this.handleLogout}>
 							Log Out
 						</Text>
 					</View>
 				</ScrollView>
 				<View style={styles.footerContainer}>
-					<Text>This. is. parkupied.</Text>
+					<Text>Welcome to BayRide</Text>
 				</View>
 			</View>
 		);

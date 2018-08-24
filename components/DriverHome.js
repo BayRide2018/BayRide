@@ -26,6 +26,12 @@ export default class DriverHome extends Component {
 
 
 
+    store.collection("lots").get().then(allLots => {
+      allLots.forEach(lot => {
+        this.setState({ allLots: [...this.state.allLots, lot.data()] })
+      })
+    })
+
     const driverEmail = auth.currentUser.email;
 		await store.collection('users').where('email',
 			'==', driverEmail).get()
@@ -56,25 +62,17 @@ export default class DriverHome extends Component {
 	};
 
   render(){
-    return (
-      <View>
+    return(
+      <ScrollView>
+        <View>
           {this.state.allLots.map((lot, i) => {
             return <LotBannerWrapper key={i} lotData={lot} />;
           })}
-          { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
-      </View>
-    );
-    return(
-      <ScrollView>
-      <View>
-      {this.state.allLots.map((lot, i) => {
-        return <LotBannerWrapper key={i} lotData={lot} />;
-      })}
-          { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
-      </View>
-      <Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
-      }} />
+            { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+        </View>
+        <Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
+        }} />
       </ScrollView>
-    )
+    );
   }
 }

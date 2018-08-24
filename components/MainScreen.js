@@ -46,6 +46,11 @@ class MainScreen extends Component {
 						}
 			});
 		});
+		store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
+			lots.forEach(lot => {
+				this.setState({ lotId: lot.id });
+			});
+		});
 	}
 
 
@@ -110,7 +115,7 @@ class MainScreen extends Component {
 						color='grey'
 						onPress={this.handleSubmit} />
 
-			{!!this.state.lotId && <Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
+			{<Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
 
 		</View>
 		)

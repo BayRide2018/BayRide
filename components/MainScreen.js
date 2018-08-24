@@ -6,6 +6,7 @@ import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
 import { firebase } from '@firebase/app';
 import Winner from './Winner';
+import MatchBanner from './MatchBanner';
 
 class MainScreen extends Component {
 
@@ -17,7 +18,10 @@ class MainScreen extends Component {
 		showBid: false,
 		offer: '',
 		driverId: '',
-		winner: false
+		winner: false,
+		// Added by Thomas. This is for the component that a passenger can see on home
+		// It shows the status of the Lot
+		lotId: ''
 	}
 
 	async componentDidMount() {
@@ -73,6 +77,7 @@ class MainScreen extends Component {
 
 	render(){
 		const { marker, showBid, driverId, offer} = this.state;
+		console.log("This is state: ", this.state);
 		return(
 			<View style={styles.container}>
 			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
@@ -106,6 +111,7 @@ class MainScreen extends Component {
 						color='grey'
 						onPress={this.handleSubmit} />
 
+			{!!this.state.lotId && <Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
 
 		</View>
 		)
@@ -141,6 +147,11 @@ const styles = StyleSheet.create({
 	button: {
 		zIndex: 10,
 		top: 70
+	},
+
+	match: {
+		zIndex: 20,
+		top: 80
 	}
 });
 

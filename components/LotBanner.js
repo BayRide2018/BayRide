@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import style from '../public/style';
 import firebase from 'firebase';
-import { store, auth } from '../fire';
+import { store, auth, imgStorageRef } from '../fire';
 
 
 export default class LotBanner extends React.Component {
@@ -24,6 +24,12 @@ export default class LotBanner extends React.Component {
   //   });
 	// }
 
+	componentDidMount () {
+		imgStorageRef.child(this.state.lotData.passengerId).child(this.state.lotData.screenshot).getDownloadURL().then(url => {
+			this.setState({ imgURL: url });
+		})
+	}
+
 
 	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
 		const driverEmail = await auth.currentUser.email;
@@ -41,13 +47,14 @@ export default class LotBanner extends React.Component {
 	}
 
 	render () {
-		const buttonTitle = this.state.driverId ? "Offer a lower price" : "Bid at this price!";
+		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
 			<View>
 				<Text>BayRide</Text>
 				<View>
-					{!!this.state.lotData.screenshot &&
-						<Image source={{ uri: this.state.lotData.imgURL }} style={{ width: 200, height: 200 }} />}
+					{!!this.state.imgURL &&
+						<Image source={{ uri: this.state.imgURL }} style={{ width: 200, height: 200 }} />
+					}
 					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
 					<Text>Pick Up: {this.state.lotData.pickupTime.seconds}</Text>
 

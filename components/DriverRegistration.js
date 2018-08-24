@@ -21,7 +21,8 @@ export default class DriverRegistration extends Component {
       })
     })
     await store.collection("users").doc(userId).update({
-      drivingInformation: { canDrive: true }
+      drivingInformation: { canDrive: true },
+      currentlyPassenger: false
     })
     this.props.navigation.navigate('DriverHome');
   }

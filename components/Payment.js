@@ -4,9 +4,7 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 import { store, auth } from '../fire';
 import firebase from 'firebase';
 
-
-
-export default class Account extends Component {
+export default class Payment extends Component {
 
 	state = {
         name: '',
@@ -14,11 +12,11 @@ export default class Account extends Component {
 		password: '',
         phone: '',
         defaultSetting: '',
-        paymentInformation: {}, // I think that these two will be editable somewhere else.. There will be other forms that it 
+        paymentInformation: {}, // I think that these two will be editable somewhere else.. There will be other forms that it
         drivingInformation: {}, // Takes them to.. The other tabs in the drawer
         id: '' // This is here for when we want to add an edit button later
     };
-    
+
     componentDidMount () {
         store.collection("users").where("email", "==", auth.currentUser.email).get()
         .then(users => {

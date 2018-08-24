@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import { store } from '../fire';
 import LotBanner from './LotBanner';
@@ -45,9 +45,11 @@ export default class DriverHome extends Component {
   render(){
     return(
       <View>
+        <ScrollView>
           {this.state.allLots.map((lot, i) => {
             return <LotBannerWrapper key={i} lotData={lot} />;
           })}
+        </ScrollView>
       </View>
     )
   }

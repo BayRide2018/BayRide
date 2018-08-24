@@ -32,7 +32,6 @@ class SideMenu extends Component {
 	render () {
 		return (
 			<View style={styles.container}>
-				<ScrollView>
 					<View style={styles.navSectionStyle}>
 						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Account')}>
 							My Account
@@ -55,7 +54,6 @@ class SideMenu extends Component {
 							Log Out
 						</Text>
 					</View>
-				</ScrollView>
 				<View style={styles.footerContainer}>
 					<Text>Welcome to BayRide</Text>
 				</View>

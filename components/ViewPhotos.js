@@ -17,7 +17,8 @@ export default class ViewPhotos extends Component {
 	};
 
 	askPermissionsAsync = async () => {
-		await Permissions.askAsync(Permissions.CAMERA_ROLL);
+		await Permissions.askAsync(Permissions.CAMERA_ROLL); // Why was this awaited?
+		Permissions.askAsync(Permissions.CAMERA);
 	};
 
 	render(){

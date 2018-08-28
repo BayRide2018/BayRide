@@ -11,7 +11,7 @@ export default class DriverHome extends Component {
 
   state = {
     allLots: [],
-    winner: true,
+    winner: false,
     winningInfo: null
   }
 
@@ -28,9 +28,9 @@ export default class DriverHome extends Component {
 
     store.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
-        this.setState({ allLots: [...this.state.allLots, lot.data()] })
-      })
-    })
+        this.setState({ allLots: [...this.state.allLots, lot.data()] });
+      });
+    });
 
     const driverEmail = auth.currentUser.email;
 		await store.collection('users').where('email',
@@ -44,7 +44,8 @@ export default class DriverHome extends Component {
       await store.collection('lots').where( 'driverId', '==', id ).get()
       .then(lots => {
         lots.forEach(lot => {
-          this.setState( {winningInfo: lot.data()} );
+          this.setState( {winningInfo: lot.data(), winner: true} );
+          console.log('lot.data', lot.data());
           });
       });
   }

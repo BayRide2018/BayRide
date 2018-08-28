@@ -50,6 +50,8 @@ sendPushNotificationUpdate = () => {
     const expoTokenPassenger = 0; // Get the expoToken of the passengerId from the lot
     const expoTokenDriver = 0; // Get the expoToken of the !!!!PREVIOUS!!!! driverId from the lot
 
+    // 
+
     messages.push({
       "to": expoTokenPassenger,
       "sound": "default",

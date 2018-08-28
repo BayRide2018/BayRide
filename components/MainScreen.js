@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MapView, Location, Permissions } from 'expo';
+import { MapView, Location, Permissions, Notifications } from 'expo';
 import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
@@ -36,6 +36,7 @@ class MainScreen extends Component {
 				});
 			});
 		this._getLocationAsync();
+		this.registerForPushNotification();
 		await store.collection('lots').onSnapshot( allLots => {
 
 			allLots.docChanges().forEach(lot => {
@@ -53,6 +54,29 @@ class MainScreen extends Component {
 		});
 	}
 
+	registerForPushNotification = async () => {
+		const { status: existingStatus } = await Permissions.getAsync(
+			Permissions.NOTIFICATIONS
+		);
+		let finalStatus = existingStatus;
+		// only ask if permissions have not already been determined, because
+		// iOS won't necessarily prompt the user a second time.
+		if (existingStatus !== 'granted') {
+			// Android remote notification permissions are granted during the app
+			// install, so this will only ask on iOS
+			const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+			finalStatus = status;
+		}
+		// Stop here if the user did not grant permissions
+		if (finalStatus !== 'granted') {
+			return;
+		}
+
+		// Get the token that uniquely identifies this device
+		let token = await Notifications.getExpoPushTokenAsync();
+
+		store.collection('users').doc(auth.currentUser.email).update({expoToken: token});
+	}
 
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -81,7 +105,6 @@ class MainScreen extends Component {
 
 	render(){
 		const { marker, showBid, driverId, offer} = this.state;
-		console.log("This is state: ", this.state);
 		return(
 			<View style={styles.container}>
 			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
@@ -114,7 +137,7 @@ class MainScreen extends Component {
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
- 
+
 			{<Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
 
 		</View>

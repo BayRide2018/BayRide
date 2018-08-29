@@ -110,7 +110,6 @@ async function expireLot (lotId) {
 	await store.collection("lots").doc(lotId).get().then(lot => {
 		if (lot.data().driverId) {
 			lotObj = lot.data();
-			console.log(">>>>>>", lotObj, "<<<<<<");
 			lot.ref.delete();
 		} else {
 			// If lot has no driverId, delete
@@ -123,7 +122,6 @@ async function expireLot (lotId) {
 		.then(newLot => {
 			newLotId =  newLot.id;
 		});
-		// update history/w/e
 		// Add to driverHistory of Driver &
 		// Get dlh of driver
 		let dlh, plh;
@@ -133,14 +131,14 @@ async function expireLot (lotId) {
 			dlh = driver.data().myDriverLotHistory;
 		});
 		await store.collection("driver_lot_history").doc(dlh).update({
-			lots: store.FieldValue.arrayUnion(lotObj) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+			lots: store.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
 		});
 		// PassengerHistory of Passenger
 		await store.collection("users").doc(lotObj.passengerId).get().then(passenger => {
 			plh = passenger.data().myPassengerLotHistory;
 		});
 		await store.collection("passenger_lot_history").doc(plh).update({
-			lots: store.FieldValue.arrayUnion(lotObj) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+			lots: store.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
 		});
 	}
 }

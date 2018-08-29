@@ -18,6 +18,9 @@ export default class LotBannerWrapper extends React.Component {
 	// and hide this for now
 		this.setState({ showThisBanner: false });
 
+		// Here is where we should call expireLot({lotId});
+		// It should replace the below call
+
 		store.collection('lots').where('passengerId', '==', this.props.lotData.passengerId).get()
 			.then((lots) => {
 				lots.forEach(lot => {

@@ -20,7 +20,9 @@ class MainScreen extends Component {
 		winner: false,
 		// Added by Thomas. This is for the component that a passenger can see on home
 		// It shows the status of the Lot
-		lotId: ''
+		lotId: '',
+		matchBanner: false,
+		passengerId: ''
 	}
 
 	async componentDidMount() {
@@ -41,15 +43,16 @@ class MainScreen extends Component {
 
 			allLots.docChanges().forEach(lot => {
 						driver = lot.doc.data().driverId;
+
 						//Not sure if needs another if statement but bid info should not changed unless its another bid
 						if (lot.doc.data().passengerId === id && lot.doc.data().driverId !== null) {
-							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
+							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
 						}
 			});
 		});
 		store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
 			lots.forEach(lot => {
-				this.setState({ lotId: lot.id });
+				this.setState({ lotId: lot.id, passengerId: lot.data().passengerId });
 			});
 		});
 	}
@@ -104,7 +107,7 @@ class MainScreen extends Component {
 
 
 	render(){
-		const { marker, showBid, driverId, offer} = this.state;
+		const { marker, showBid, driverId, offer, passengerId} = this.state;
 		return(
 			<View style={styles.container}>
 			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
@@ -131,14 +134,14 @@ class MainScreen extends Component {
 						{ cancelable: false }
 					) : null}
 
-			<Button
-						title="Where to?"
-						style={styles.button}
-						backgroundColor='white'
-						color='grey'
-						onPress={this.handleSubmit} />
 
-			{<Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
+				{this.state.passengerId ? <Button title="Look here" style={styles.match} onPress={() => this.setState({matchBanner: true})} /> : <Button
+				title="Where to?"
+				style={styles.button}
+				backgroundColor='white'
+				color='grey'
+				onPress={this.handleSubmit} /> }
+			{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 
 		</View>
 		)

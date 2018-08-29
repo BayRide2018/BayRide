@@ -28,12 +28,10 @@ export default class Login extends Component {
 				bool = user.data().currentlyPassenger;
 			});
 		});
-		if (result === true && bool === true) {
+		if (result && bool) {
 			this.props.navigation.navigate('MainScreen');
 		} else if (result === true && bool === false) {
 			this.props.navigation.navigate('DriverHome');
-
-			// CAUTIOUS !!! Drawer still not being rendered here
 		} else {
 			this.setState({response: result});
 		}

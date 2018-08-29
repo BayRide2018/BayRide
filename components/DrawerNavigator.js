@@ -7,6 +7,18 @@ import MainScreen from './MainScreen';
 import DriverHome from './DriverHome';
 import Account from './Account';
 import Payment from './Payment';
+import History from './History';
+
+////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
+// import { auth, store } from '../fire';
+
+// let initialRouteName = "MainScreen" ;
+// if (auth.currentUser) {
+// 	store.collection("users").doc(auth.currentUser.email).get().then(user => {
+// 		initialRouteName = user.data().currentlyPassenger ? "MainScreen" : "DriverHome";
+// 	});
+// }
+//////////////////////////////
 
 const DrawerNavigator = createDrawerNavigator({
 	MainScreen: {
@@ -25,6 +37,7 @@ const DrawerNavigator = createDrawerNavigator({
 		screen: History
 	}
 }, {
+	initialRouteName: initialRouteName,
 	contentComponent: SideMenu,
 	drawerWidth: Dimensions.get('window').width - 120,
 });

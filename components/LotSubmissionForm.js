@@ -29,7 +29,8 @@ export default class LotSubmissionForm extends Component {
 		showPricePicker: false,
 		pickupTime: 'Pick up time in',
 		location: null,
-		marker: null
+		marker: null,
+		hideButton: null
   }
 
 	async componentDidMount() {
@@ -47,6 +48,8 @@ export default class LotSubmissionForm extends Component {
 	getProps = () => {
 		const { navigation } = this.props;
 		const marker = navigation.getParam('marker', 'null');
+		const handleHideButton = navigation.getParam('handleHideButton', 'null');
+		this.setState({hideButton: handleHideButton});
 		this.setState({marker});
 	}
 
@@ -56,8 +59,8 @@ export default class LotSubmissionForm extends Component {
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
 			this.state.offer);
-			this.props.navigation.navigate('DrawerNavigator');
-
+			this.state.hideButton();
+			this.props.navigation.navigate('MainScreen');
 		// store.collection("lots").add({
 		// 	screenshot,
 		// 	pickupTime,

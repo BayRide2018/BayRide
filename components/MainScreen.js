@@ -46,7 +46,9 @@ class MainScreen extends Component {
 
 						//Not sure if needs another if statement but bid info should not changed unless its another bid
 						if (lot.doc.data().passengerId === id && lot.doc.data().driverId !== null) {
-							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
+
+							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
+							//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
 						}
 			});
 		});

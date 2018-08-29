@@ -10,18 +10,20 @@ import DrawerNavigator from './components/DrawerNavigator';
 import DriverRegistration from './components/DriverRegistration';
 import Payment from './components/Payment';
 import Waiver from './components/Waiver';
+import MatchBanner from './components/MatchBanner';
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
 	Signup: { screen: Signup },
-	Waiver: { screen: Waiver },
 	DrawerNavigator: {screen: DrawerNavigator},
+	Waiver: { screen: Waiver },
 	DriverHome: { screen: DriverHome },
 	DriverRegistration: { screen: DriverRegistration},
 	LotSubmissionForm: { screen: LotSubmissionForm },
 	Account: { screen: Account },
 	Payment: { screen: Payment },
+
 }, {
 	initialRouteName: 'Welcome',
 	navigationOptions: {

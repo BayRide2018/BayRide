@@ -28,7 +28,7 @@ export default class DriverHome extends Component {
 
     store.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
-        this.setState({ allLots: [...this.state.allLots, lot.data()] });
+        this.setState({ allLots: [...this.state.allLots, { ...lot.data(), lotId: lot.id } ] })
       });
     });
 
@@ -45,7 +45,6 @@ export default class DriverHome extends Component {
       .then(lots => {
         lots.forEach(lot => {
           this.setState( {winningInfo: lot.data(), winner: true} );
-          console.log('lot.data', lot.data());
           });
       });
   }

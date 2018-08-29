@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { MapView, Location, Permissions, Notifications } from 'expo';
+import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
 import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
-import { Marker } from 'react-native-maps';
+import { Marker, AnimatedRegion } from 'react-native-maps';
 import Winner from './Winner';
 import MatchBanner from './MatchBanner';
 
@@ -12,7 +12,7 @@ class MainScreen extends Component {
 	state = {
 		location: null,
 		errorMessage: null,
-		marker: { latitude: null, longitude: null },
+		marker: null,
 		showLot: false,
 		showBid: false,
 		offer: '',
@@ -92,11 +92,13 @@ class MainScreen extends Component {
 		}
 
 		let location = await Location.getCurrentPositionAsync({});
-		this.setState({ location });
+		this.setState({ location, marker: location.coords });
 	};
 
 	handleSubmit = async () => {
-		this.props.navigation.navigate('LotSubmissionForm');
+		this.props.navigation.navigate('LotSubmissionForm', {
+			marker: this.state.marker
+		});
 	}
 
 	handleMatch = async () => {
@@ -109,7 +111,9 @@ class MainScreen extends Component {
 
 
 	render(){
-		const { marker, showBid, driverId, offer, passengerId} = this.state;
+
+		const { marker, showBid, driverId, offer, location, passengerId} = this.state;
+
 		return(
 			<View style={styles.container}>
 			<MapView
@@ -117,9 +121,13 @@ class MainScreen extends Component {
 				onRegionChangeComplete={this.onRegionChangeComplete}
 				showsUserLocation={true}
 				followsUserLocation={true}>
-				{marker.latitude ? <Marker
-					coordinate={marker}
-				/> : null}
+
+			{marker !== null && <Marker draggable
+			coordinate={marker}
+			onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate })
+		}
+		/>}
+
 			</MapView>
 
 					{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering

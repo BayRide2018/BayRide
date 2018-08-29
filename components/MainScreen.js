@@ -146,12 +146,15 @@ class MainScreen extends Component {
 						{ cancelable: false }
 					) : null}
 
-			<Button
-						title="Where to?"
-						style={style.buttonMain}
-						backgroundColor='white'
-						color='grey'
-						onPress={this.handleSubmit} />
+
+
+					{this.state.passengerId ? <Button title="Look here" style={styles.match} onPress={() => this.setState({matchBanner: true})} /> : <Button
+					title="Where to?"
+					style={styles.button}
+					backgroundColor='white'
+					color='grey'
+					onPress={this.handleSubmit} /> }
+				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 
 		</View>
 		);

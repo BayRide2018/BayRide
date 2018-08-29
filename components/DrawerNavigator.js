@@ -20,6 +20,9 @@ const DrawerNavigator = createDrawerNavigator({
 	},
 	Payment: {
 		screen: Payment
+	},
+	History: {
+		screnn: History
 	}
 }, {
 	contentComponent: SideMenu,

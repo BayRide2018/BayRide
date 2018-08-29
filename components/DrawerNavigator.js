@@ -37,7 +37,7 @@ const DrawerNavigator = createDrawerNavigator({
 		screen: History
 	}
 }, {
-	initialRouteName: initialRouteName,
+	// initialRouteName: initialRouteName,
 	contentComponent: SideMenu,
 	drawerWidth: Dimensions.get('window').width - 120,
 });

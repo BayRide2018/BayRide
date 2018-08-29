@@ -6,7 +6,36 @@ var {
 } = React;
 
 module.exports = StyleSheet.create({
-
+	containerMain: {
+		...StyleSheet.absoluteFillObject,
+		backgroundColor: 'transparent',
+		flex: 1
+	},
+	lotMain: {
+		flex: 1,
+		alignItems: 'center',
+		backgroundColor: 'black'
+	},
+	scrollviewMain: {
+		alignItems: 'center',
+	},
+	mapMain: {
+		zIndex: -1,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		flex: 1,
+	},
+	buttonMain: {
+		zIndex: 10,
+		top: 70
+	},
+	matchMain: {
+		zIndex: 20,
+		top: 80
+	},
 	button: {
 		margin: 20,
 		marginTop: 50

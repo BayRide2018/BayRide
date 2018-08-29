@@ -29,9 +29,10 @@ export default class Login extends Component {
 			});
 		});
 		if (result === true && bool === true) {
-			this.props.navigation.navigate('DrawerNavigator');
+			this.props.navigation.navigate('MainScreen');
 		} else if (result === true && bool === false) {
 			this.props.navigation.navigate('DriverHome');
+
 			// CAUTIOUS !!! Drawer still not being rendered here
 		} else {
 			this.setState({response: result});

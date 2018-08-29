@@ -4,12 +4,13 @@ import LotBanner from "./LotBanner";
 import style from '../public/style';
 import TimerCountdown from 'react-native-timer-countdown';
 import { store } from '../fire';
+import { expireLot } from '../fireMethods';
 
 
 export default class LotBannerWrapper extends React.Component {
 
 	state = {
-	showThisBanner: true
+		showThisBanner: true
 	}
 
 	handleFinish = () => {
@@ -17,17 +18,7 @@ export default class LotBannerWrapper extends React.Component {
 	// Send a notification to the Passenger (they can adjust the bid [add time or lower price] or just have it deleted)
 	// and hide this for now
 		this.setState({ showThisBanner: false });
-
-		store.collection('lots').where('passengerId', '==', this.props.lotData.passengerId).get()
-			.then((lots) => {
-				lots.forEach(lot => {
-					if (lot.data().driverId) {
-						console.log('i found the driver id', lot.data().driverId);
-					} else {
-						lot.ref.delete();
-					}
-				});
-			});
+		expireLot(this.props.lotData.lotId);
 	}
 
 	render () {

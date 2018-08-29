@@ -11,6 +11,7 @@ import ViewPhotos from './ViewPhotos';
 import GooglePlacesInput from './GooglePlacesInput';
 import { createLot } from '../fireMethods';
 
+
 export default class LotSubmissionForm extends Component {
 
 	// This thing still needs to navigate back to the home
@@ -26,10 +27,12 @@ export default class LotSubmissionForm extends Component {
 		showMinutePicker: false,
 		showPricePicker: false,
 		pickupTime: 'Pick up time in',
-		location: null
+		location: null,
+		marker: null
   }
 
 	async componentDidMount() {
+		this.getProps();
 
 			const passengerEmail = await firebase.auth().currentUser.email;
 			await store.collection('users').where('email', '==', passengerEmail).get()
@@ -38,6 +41,12 @@ export default class LotSubmissionForm extends Component {
 					this.setState({passengerId: user.id});
 				});
 			});
+	}
+
+	getProps = () => {
+		const { navigation } = this.props;
+		const marker = navigation.getParam('marker', 'null');
+		this.setState({marker});
 	}
 
 	handleSubmit = () => {
@@ -59,7 +68,7 @@ export default class LotSubmissionForm extends Component {
 		// });
 	}
 
-	handleUseCurrentLocation = async () => {
+	handleUseMarkerLocation = async () => {
 		/**
 		 * location has this form:
 		 * 	   "location": Object {
@@ -79,6 +88,11 @@ export default class LotSubmissionForm extends Component {
 		this.setState({ pickupLocation: location });
 	}
 
+	handleUseCurrentLocation = async () => {
+		this.setState({ pickupLocation: this.state.marker });
+	}
+
+
 	setScreenshotId =  (photoID) => {
 		this.setState({ screenshot: photoID });
 	}
@@ -89,6 +103,7 @@ export default class LotSubmissionForm extends Component {
 
 
 	render() {
+
 		return (
 			<View style={{ alignItems: 'center', flex: 1 }}>
 
@@ -110,6 +125,8 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					<GooglePlacesInput />
 					<Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
+					<Button title="Use pin location for pick up" onPress={this.handleUseMarkerLocation} />
+
 					<FormLabel>Drop off Location</FormLabel>
 					<FormInput
 					placeholder="Please enter drop off location"
@@ -122,7 +139,7 @@ export default class LotSubmissionForm extends Component {
 					/>
 
 
-					{this.state.showPricePicker 
+					{this.state.showPricePicker
 						?  <Picker
 							style={{ backgroundColor: 'white', width: 300, height: 215 }}
 							selectedValue='4'

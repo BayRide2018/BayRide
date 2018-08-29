@@ -21,8 +21,8 @@ export default class Winner extends React.Component {
 		handleGetDirections = () => {
 			const data = {
 				destination: {
-					latitude: -33.8600024,
-					longitude: 18.697459
+					latitude: this.props.pickupLocation.coords.latitude,
+					longitude: this.props.pickupLocation.coords.longitude
 				},
 				params: [
 					{
@@ -41,8 +41,8 @@ export default class Winner extends React.Component {
 		handleGetDirectionsTwo = () => {
 			const data = {
 				destination: {
-					latitude: this.props.pickupLocation.coords.latitude,
-					longitude: this.props.pickupLocation.coords.longitude
+					// latitude: this.props.pickupLocation.coords.latitude,
+					// longitude: this.props.pickupLocation.coords.longitude
 				},
 				params: [
 					{
@@ -59,8 +59,6 @@ export default class Winner extends React.Component {
 		}
 
 	async componentDidMount () {
-		console.log("winning", this.state)
-		console.log("winningprops", this.props)
     const currEmail = auth.currentUser.email
 
 		await store.collection("lots").where("email", "==", currEmail).get().then(allUsers => {

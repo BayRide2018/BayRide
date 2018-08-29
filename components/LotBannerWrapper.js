@@ -32,7 +32,7 @@ export default class LotBannerWrapper extends React.Component {
 
 	render () {
 	let { pickupTime } = this.props.lotData;
-	pickupTime = pickupTime.toDate();
+	if (pickupTime) pickupTime = pickupTime.toDate();
 	const now = new Date().getTime();
 
 

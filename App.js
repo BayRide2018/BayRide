@@ -18,7 +18,6 @@ export default createStackNavigator({
 	Signup: { screen: Signup },
 	DrawerNavigator: {screen: DrawerNavigator},
 	Waiver: { screen: Waiver },
-	DriverHome: { screen: DriverHome },
 	DriverRegistration: { screen: DriverRegistration},
 	LotSubmissionForm: { screen: LotSubmissionForm },
 	Account: { screen: Account },

@@ -64,14 +64,14 @@ export default class DriverHome extends Component {
   render(){
     return(
       <ScrollView>
-        <View>
-          {this.state.allLots.map((lot, i) => {
-            return <LotBannerWrapper key={i} lotData={lot} />;
-          })}
-            { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
-        </View>
-        <Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
-        }} />
+      <View>
+      {this.state.allLots.map((lot, i) => {
+        return <LotBannerWrapper key={i} lotData={lot} />;
+      })}
+      { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+      </View>
+      <Text style={{top: 80}} onPress={() => {this.props.navigation.toggleDrawer();
+      }}>OPEN </Text>
       </ScrollView>
     );
   }

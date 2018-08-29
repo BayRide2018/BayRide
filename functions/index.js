@@ -41,45 +41,87 @@ exports.sendPushNotification = functions.database.ref('contacts/').onCreate(even
       })
 });
 
-sendPushNotificationUpdate = () => {
-  let messages = [];
-  return functions.firestore.document('lots/{lotId}').onUpdate((change, context) => {
-    const newValue = change.after.data();
-    const previousValue = change.before.data();
+sendPushNotificationUpdate = functions.firestore.document("lots/{lotId}").onUpdate((change, context) => {
+  const newValue = change.after.data();
+  const previousValue = change.before.data();
 
-    const expoTokenPassenger = 0; // Get the expoToken of the passengerId from the lot
-    const expoTokenDriver = 0; // Get the expoToken of the !!!!PREVIOUS!!!! driverId from the lot
+  const oldDriverId = previousValue.driverId;
+  const passengerId = previousValue.passengerId;
+  
+  const expoTokenPassenger = 0; // Get the expoToken of the passengerId from the lot
+  const expoTokenDriver = 0; // Get the expoToken of the !!!!PREVIOUS!!!! driverId from the lot
+})
 
-    // 
 
-    messages.push({
-      "to": expoTokenPassenger,
-      "sound": "default",
-      "body": "Passenger Notification Body"
-    });
-    messages.push({
-      "to": expoTokenDriver,
-      "sound": "default",
-      "body": "Driver Notification Body"
-    });
-    return Promise.all(messages);
-  })
-  .then(messages => {
-    // console.log(messages)
-    fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(messages)
-    });
-  })
-  .catch(err => {
-      console.error(err)
-  });
-}
+//     messages.push({
+//       "to": expoTokenPassenger,
+//       "sound": "default",
+//       "body": "Passenger Notification Body"
+//     });
+//     messages.push({
+//       "to": expoTokenDriver,
+//       "sound": "default",
+//       "body": "Driver Notification Body"
+//     });
+//     return Promise.all(messages);
+//   })
+//   .then(messages => {
+//     // console.log(messages)
+//     fetch('https://exp.host/--/api/v2/push/send', {
+//       method: 'POST',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(messages)
+//     });
+//   })
+//   .catch(err => {
+//       console.error(err)
+//   });
 
-sendPushNotificationConfirmation = () => {}
+
+sendPushNotificationConfirmation = functions.firestore.document("lot_history/{expiredLot}").onCreate((snap, context) => {
+  const lotObj = snap.data();
+  console.log(">>>>>>", lotObj, "<<<<<<");
+  console.log("<<<<<<", context, ">>>>>>");
+})
+  // let messages = [];
+  // return functions.firestore.document('lots/{lotId}').onUpdate((change, context) => {
+  //   const newValue = change.after.data();
+  //   const previousValue = change.before.data();
+
+  //   const expoTokenPassenger = 0; // Get the expoToken of the passengerId from the lot
+  //   const expoTokenDriver = 0; // Get the expoToken of the !!!!PREVIOUS!!!! driverId from the lot
+
+  //   // 
+
+  //   messages.push({
+  //     "to": expoTokenPassenger,
+  //     "sound": "default",
+  //     "body": "Passenger Notification Body"
+  //   });
+  //   messages.push({
+  //     "to": expoTokenDriver,
+  //     "sound": "default",
+  //     "body": "Driver Notification Body"
+  //   });
+  //   return Promise.all(messages);
+  // })
+  // .then(messages => {
+  //   // console.log(messages)
+  //   fetch('https://exp.host/--/api/v2/push/send', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(messages)
+  //   });
+  // })
+  // .catch(err => {
+  //     console.error(err)
+  // });
+
 
 export {}

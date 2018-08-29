@@ -24,13 +24,7 @@ class SideMenu extends Component {
 
 	handleSwitchDriver = async () => {
 		const userEmail = await auth.currentUser.email;
-		let userId;
-		await store.collection("users").where("email", "==", userEmail).get().then(users => {
-			users.forEach(user => {
-				userId = user.id;
-			});
-		});
-		await store.collection("users").doc(userId).update({
+		await store.collection("users").doc(userEmail).update({
 			currentlyPassenger: false
 		});
 		this.navigateToScreen('DriverHome')();
@@ -39,13 +33,7 @@ class SideMenu extends Component {
 
 	handleSwitchPassenger = async () => {
 		const userEmail = await auth.currentUser.email;
-		let userId;
-		await store.collection("users").where("email", "==", userEmail).get().then(users => {
-			users.forEach(user => {
-				userId = user.id;
-			});
-		});
-		await store.collection("users").doc(userId).update({
+		await store.collection("users").doc(userEmail).update({
 			currentlyPassenger: true
 		});
 		this.navigateToScreen('MainScreen')();
@@ -67,13 +55,13 @@ class SideMenu extends Component {
 							My Account
 						</Text>
 						{this.state.currentlyPassenger
-						? <Text style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.navigateToScreen('DriverHome') : this.navigateToScreen('DriverRegistration')}>
+						? <Text style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.navigateToScreen('DriverRegistration')}>
 								Switch to Driver
 							</Text>
-						: <Text style={styles.navItemStyle} onPress={this.navigateToScreen('MainScreen')}>
+						: <Text style={styles.navItemStyle} onPress={this.handleSwitchPassenger}>
 								Switch to Passenger
 							</Text> }
-						
+
 						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Payment')}>
 							Payment
 						</Text>

@@ -41,8 +41,8 @@ export default class Winner extends React.Component {
 		handleGetDirectionsTwo = () => {
 			const data = {
 				destination: {
-					latitude: -33.8602024,
-					longitude: 18.697459
+					latitude: this.props.pickupLocation.coords.latitude,
+					longitude: this.props.pickupLocation.coords.longitude
 				},
 				params: [
 					{
@@ -85,11 +85,11 @@ export default class Winner extends React.Component {
 			</TouchableOpacity>
 			{/** Button toggles this.state.isModalVisible*/}
 			<Modal isVisible={this.state.isModalVisible}>
-				<View style={{ flex: 1, backgroundColor: 'white' }}>
-					<Text>Winner!</Text>
-					<Text>Passenger Name</Text>
+				<View style={{ flex: 1, backgroundColor: 'white', marginTop: 20 }}>
+					<Text> You are the Winner!</Text>
+					<Text>Passenger Name {this.props.winningInfo.driverId}</Text>
 					<Text>Passenger location</Text>
-					<Text>Destination time</Text>
+					<Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text>
 					<Button
 					title="Drive to Passenger!"
 					onPress={this.handleGetDirections} />

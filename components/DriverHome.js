@@ -45,7 +45,6 @@ export default class DriverHome extends Component {
       .then(lots => {
         lots.forEach(lot => {
           this.setState( {winningInfo: lot.data(), winner: true} );
-          console.log('lot.data', lot.data());
           });
       });
   }

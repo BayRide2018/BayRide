@@ -110,8 +110,6 @@ class MainScreen extends Component {
 		const { marker, showBid, driverId, offer, passengerId} = this.state;
 		return(
 			<View style={styles.container}>
-			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
-			}} />
 			<MapView
 				style={styles.map}
 				onRegionChangeComplete={this.onRegionChangeComplete}

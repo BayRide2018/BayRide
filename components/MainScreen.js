@@ -3,9 +3,9 @@ import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
 import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
-import { Marker, AnimatedRegion } from 'react-native-maps';
-import Winner from './Winner';
+import { Marker } from 'react-native-maps';
 import MatchBanner from './MatchBanner';
+import style from '../public/style';
 
 class MainScreen extends Component {
 
@@ -24,6 +24,11 @@ class MainScreen extends Component {
 	}
 
 	async componentDidMount() {
+		//Functions called that will change state
+		//(Can't call setState in component did mount (most of the time))
+		this._getLocationAsync();
+		this.registerForPushNotification();
+
 		let driver = '';
 		let id;
 
@@ -35,8 +40,7 @@ class MainScreen extends Component {
 					id = user.id;
 				});
 			});
-		this._getLocationAsync();
-		this.registerForPushNotification();
+
 		await store.collection('lots').onSnapshot( allLots => {
 
 			allLots.docChanges().forEach(lot => {
@@ -72,10 +76,8 @@ class MainScreen extends Component {
 		if (finalStatus !== 'granted') {
 			return;
 		}
-
 		// Get the token that uniquely identifies this device
 		let token = await Notifications.getExpoPushTokenAsync();
-
 		store.collection('users').doc(auth.currentUser.email).update({expoToken: token});
 	}
 
@@ -86,34 +88,36 @@ class MainScreen extends Component {
 				errorMessage: 'Permission to access location was denied',
 			});
 		}
-
 		let location = await Location.getCurrentPositionAsync({});
+		//Gets location and sets location to location and marker.
+		//Marker is the draggable marker, defaults to user's location
 		this.setState({ location, marker: location.coords });
 	};
 
-	handleSubmit = async () => {
+	handleSubmit = () => {
 		this.props.navigation.navigate('LotSubmissionForm', {
+			//passing marker coordinates as props to lotsubmissionform
 			marker: this.state.marker
 		});
 	}
 
-	handleMatch = async () => {
+	handleMatch = () => {
 		this.setState({showBid: false});
 	}
 
-	handleCancel = async () => {
+	handleCancel = () => {
 		this.setState({showBid: false});
 	}
 
 
 	render(){
-		const { marker, showBid, driverId, offer, location} = this.state;
+		const { marker, showBid, driverId, offer} = this.state;
 		return(
-			<View style={styles.container}>
+			<View style={style.containerMain}>
 			<Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
 			}} />
 			<MapView
-				style={styles.map}
+				style={style.mapMain}
 				onRegionChangeComplete={this.onRegionChangeComplete}
 				showsUserLocation={true}
 				followsUserLocation={true}>
@@ -140,53 +144,15 @@ class MainScreen extends Component {
 
 			<Button
 						title="Where to?"
-						style={styles.button}
+						style={style.buttonMain}
 						backgroundColor='white'
 						color='grey'
 						onPress={this.handleSubmit} />
 
-			{<Button title="Look here" style={styles.match} onPress={() => <MatchBanner style={styles.match} lotId={this.state.lotId} />} />}
-
+			{<Button title="Look here" style={style.matchMain} onPress={() => <MatchBanner style={style.matchMain} lotId={this.state.lotId} />} />}
 		</View>
-		)
+		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		...StyleSheet.absoluteFillObject,
-		backgroundColor: 'transparent',
-		flex: 1
-	},
-	lot: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'black'
-	},
-
-	scrollview: {
-		alignItems: 'center',
-	},
-
-	map: {
-		zIndex: -1,
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		flex: 1,
-	},
-
-	button: {
-		zIndex: 10,
-		top: 70
-	},
-
-	match: {
-		zIndex: 20,
-		top: 80
-	}
-});
 
 export default MainScreen;

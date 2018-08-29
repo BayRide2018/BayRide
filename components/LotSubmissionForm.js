@@ -25,6 +25,7 @@ export default class LotSubmissionForm extends Component {
 		passengerId: '',
 		driverId: '',
 		showMinutePicker: false,
+		showOfferPicker: false,
 		showPricePicker: false,
 		pickupTime: 'Pick up time in',
 		location: null,
@@ -147,7 +148,7 @@ export default class LotSubmissionForm extends Component {
 							onValueChange={pickupTime => this.setState({ pickupTime, showPricePicker: false })}
 							itemSpace={30} // this only support in android
 						/> :  <Button
-							title={`${this.state.pickupTime} minutes`}
+							title={`${this.state.offer} dollars`}
 							onPress={() => this.setState({ showPricePicker: true })}
 					/> }
 

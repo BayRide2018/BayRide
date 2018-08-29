@@ -63,6 +63,11 @@ class MainScreen extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		console.log('Update', this.state);
+
+	}
+
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS
@@ -98,10 +103,14 @@ class MainScreen extends Component {
 		this.setState({ location, marker: location.coords });
 	};
 
+	handleHideButton = () => {
+		this.setState({passengerId: true});
+	}
+
 	handleSubmit = () => {
 		this.props.navigation.navigate('LotSubmissionForm', {
 			//passing marker coordinates as props to lotsubmissionform
-			marker: this.state.marker
+			marker: this.state.marker, handleHideButton: this.handleHideButton
 		});
 	}
 
@@ -116,7 +125,7 @@ class MainScreen extends Component {
 
 	render(){
 
-		const { marker, showBid, driverId, offer, location, passengerId} = this.state;
+		const { marker, showBid, driverId, offer} = this.state;
 
 		return(
 			<View style={style.containerMain}>

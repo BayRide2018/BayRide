@@ -18,6 +18,13 @@ async function signup (name, phone, email, password) {
 	if (res) return res;
 
 	// DB Signup
+	// First creat histories...
+	let passengerLotHistoryId, driverLotHistoryId;
+	store.collection("driver_lot_history").add({ driverId: email, lots: [] })
+		.then(DLH => { driverLotHistoryId = DLH.id });
+	await store.collection("passenger_lot_history").add({ driverId: email, lots: [] })
+		.then(PLH => { passengerLotHistoryId = PLH.id });
+	
 	await store.collection("users").doc(email).set({
 		name,
 		phone,
@@ -26,7 +33,9 @@ async function signup (name, phone, email, password) {
 		location: [],
 		currentlyPassenger: true,
 		paymentInformation: {},
-		drivingInformation: { canDrive: false }
+		drivingInformation: { canDrive: false },
+		myDriverLotHistory: driverLotHistoryId,
+		myPassengerLotHistory: passengerLotHistoryId
 	});
 	return true;
 }
@@ -96,4 +105,41 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	});
 }
 
-export { signup, login, createLot };
+async function expireLot (lotId) {
+	let lotObj, newLotId;
+	await store.collection("lots").doc(lotId).get().then(lot => {
+		if (lot.data().driverId) {
+			lotObj = lot.data();
+			lot.ref.delete();
+		} else {
+			lot.ref.delete();
+		}
+	});
+	if (lotObj) {
+		// Move lot to History
+		await store.collection("lot_history").add(lotObj)
+		.then(newLot => {
+			newLotId =  newLot.id;
+		});
+		// Add to driverHistory of Driver &
+		// Get dlh of driver
+		let dlh, plh;
+		// Please note: the below 4 awaited calls can be optimized by making it "double-threaded"
+		// This isn't a big deal for now, but something to be improved later
+		await store.collection("users").doc(lotObj.driverId).get().then(driver => {
+			dlh = driver.data().myDriverLotHistory;
+		});
+		await store.collection("driver_lot_history").doc(dlh).update({
+			lots: firebase.firestore.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+		});
+		// PassengerHistory of Passenger
+		await store.collection("users").doc(lotObj.passengerId).get().then(passenger => {
+			plh = passenger.data().myPassengerLotHistory;
+		});
+		await store.collection("passenger_lot_history").doc(plh).update({
+			lots: firebase.firestore.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+		});
+	}
+}
+
+export { signup, login, createLot, expireLot };

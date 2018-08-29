@@ -28,7 +28,7 @@ export default class DriverHome extends Component {
 
     store.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
-        this.setState({ allLots: [...this.state.allLots, lot.data()] });
+        this.setState({ allLots: [...this.state.allLots, { ...lot.data(), lotId: lot.id } ] })
       });
     });
 
@@ -45,7 +45,6 @@ export default class DriverHome extends Component {
       .then(lots => {
         lots.forEach(lot => {
           this.setState( {winningInfo: lot.data(), winner: true} );
-          console.log('lot.data', lot.data());
           });
       });
   }
@@ -65,14 +64,14 @@ export default class DriverHome extends Component {
   render(){
     return(
       <ScrollView>
-        <View>
-          {this.state.allLots.map((lot, i) => {
-            return <LotBannerWrapper key={i} lotData={lot} />;
-          })}
-            { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
-        </View>
-        <Button title='Drawer' onPress={() => {this.props.navigation.toggleDrawer();
-        }} />
+      <View>
+      {this.state.allLots.map((lot, i) => {
+        return <LotBannerWrapper key={i} lotData={lot} />;
+      })}
+      { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+      </View>
+      <Text style={{top: 80}} onPress={() => {this.props.navigation.toggleDrawer();
+      }}>OPEN </Text>
       </ScrollView>
     );
   }

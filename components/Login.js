@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { login } from '../fireMethods';
+import { login, expireLot } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
 
@@ -29,9 +29,10 @@ export default class Login extends Component {
 			});
 		});
 		if (result === true && bool === true) {
-			this.props.navigation.navigate('DrawerNavigator');
+			this.props.navigation.navigate('MainScreen');
 		} else if (result === true && bool === false) {
 			this.props.navigation.navigate('DriverHome');
+
 			// CAUTIOUS !!! Drawer still not being rendered here
 		} else {
 			this.setState({response: result});

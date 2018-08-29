@@ -10,20 +10,6 @@ export default class LotBanner extends React.Component {
 
 	state = { lotData: this.props.lotData, imgURL: '' };
 
-	// Why were there two copies of this?
-  // handlePress = async () => { // All this function is doing for now is updating store about who the driver is
-  //   const driverEmail = await auth.currentUser.email;
-  //   let driverId;
-  //   await store.collection("users").where("email", "==", driverEmail).get().then(users => {
-  //     users.forEach(user => {
-  //       driverId = user.id;
-  //     });
-  //   });
-  //   store.collection("lots").doc(this.state.id).update({
-  //     driverId
-  //   });
-	// }
-
 	componentDidMount () {
 		imgStorageRef.child(this.state.lotData.passengerId).child(this.state.lotData.screenshot).getDownloadURL().then(url => {
 			this.setState({ imgURL: url });

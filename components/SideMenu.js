@@ -50,27 +50,24 @@ class SideMenu extends Component {
 	render () {
 		return (
 			<View style={styles.container}>
-					<View style={styles.navSectionStyle}>
-						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Account')}>
-							My Account
-						</Text>
-						{this.state.currentlyPassenger
-						? <Text style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.navigateToScreen('DriverRegistration')}>
-								Switch to Driver
-							</Text>
-						: <Text style={styles.navItemStyle} onPress={this.handleSwitchPassenger}>
-								Switch to Passenger
-							</Text> }
+					<View style={styles.navItemStyle}>
+						<Button title="Home" syle={styles.navItemStyle} onPress={this.navigateToScreen('MainScreen')} />
 
-						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('Payment')}>
-							Payment
-						</Text>
-						<Text style={styles.navItemStyle} onPress={this.navigateToScreen('History')}>
-							History
-						</Text>
-						<Text style={styles.navItemStyle} onPress={this.handleLogout}>
-							Log Out
-						</Text>
+						<Button title="My Account" style={styles.navItemStyle} onPress={this.navigateToScreen('Account')} />
+
+						{  this.state.currentlyPassenger
+						? <Button title="Switch to Driver" style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.navigateToScreen('DriverRegistration')} />
+						: <Button title="Switch to Passenger" style={styles.navItemStyle} onPress={this.handleSwitchPassenger}/>
+						}
+
+						<Button title="Payment" style={styles.navItemStyle} onPress={this.navigateToScreen('Payment')} />
+
+						<Button title="History" style={styles.navItemStyle} onPress={this.navigateToScreen('History')} />
+
+						<Button title="Help" style={styles.navItemStyle} onPress={this.navigateToScreen('Help')} />
+
+						<Button title="Log Out" style={styles.navItemStyle} onPress={this.handleLogout} />
+
 					</View>
 				<View style={styles.footerContainer}>
 					<Text>Welcome to BayRide</Text>

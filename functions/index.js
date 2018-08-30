@@ -86,14 +86,21 @@ exports.sendPushNotificationConfirmation = functions.firestore.document("lot_his
   const lotId = context.params.expiredLot;
   console.log(">>>>>>", lotObj, "<<<<<<");
   console.log("<<<<<<", context, ">>>>>>");
+  console.log("This function d0n't really do anything.. The http request to expo fails because of our firebase plan (the unpaid stuff)");
 
-  console.log("Have we updated at all?");
   const expoTokenPassenger = lotObj.passengerExpoToken;
+  const expoTokenDriver = lotObj.driverExpoToken;
 
-  let message = {
+  let passengerMessage = {
     "to": expoTokenPassenger,
     "sound": "default",
     "body": "Passenger Notification Body"
+  };
+
+  let driverMessage = {
+    "to": expoTokenDriver,
+    "sound": "default",
+    "body": "Driver Notification Body"
   };
 
   fetch('https://exp.host/--/api/v2/push/send', {
@@ -102,7 +109,16 @@ exports.sendPushNotificationConfirmation = functions.firestore.document("lot_his
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(message)
+    body: JSON.stringify(passengerMessage)
+  });
+
+  fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(driverMessage)
   });
 
 })

@@ -69,13 +69,19 @@ async function login (email, password) {
 
 async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer) {
 	const passengerEmail = auth.currentUser.email;
-	let passengerId;
-	await store.collection("users").where("email", "==", passengerEmail).get()
-		.then(users => {
-			users.forEach(user => {
-				passengerId = user.id;
-			});
-		});
+	let passengerId, passengerExpoToken;
+	// await store.collection("users").where("email", "==", passengerEmail).get()
+	// 	.then(users => {
+	// 		users.forEach(user => {
+	// 			passengerId = user.id;
+	// 		});
+	// 	});
+
+	await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+		passengerId = user.id;
+		passengerExpoToken = user.data().expoToken;
+	})
+
 	if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
 		return "Please fill out all of the forms."
 	}
@@ -101,6 +107,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		//		like at the last second, outbidding someone by 1 cent.
 		offer,
 		passengerId,
+		passengerExpoToken,
 		driverId: null
 	});
 }

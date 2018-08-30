@@ -18,18 +18,22 @@ export default class LotBanner extends React.Component {
 
 
 	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
-		// It'd be nice to make this query more efficient
+		let driverExpoToken;
+		await store.collection("users").doc(auth.currentUser.email).get.then(user => {
+			driverExpoToken = user.expoToken;
+		})
 		store.collection("lots").doc(this.state.lotData.lotId).get().then(lot => {
 			if (lot.data().driverId) {
 				let newOffer = lot.data().offer - 0.25 ;
-				lot.ref.update({ driverId: auth.currentUser.email, offer: newOffer});
+				lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email, offer: newOffer});
 			} else {
-				lot.ref.update({ driverId: auth.currentUser.email });
+				lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email });
 			}
 		});
 	}
 
 	render () {
+		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
 			<View>

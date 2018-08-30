@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { MapView, Location, Permissions, Notifications } from 'expo';
+import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
 import {  StyleSheet, View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
-import Winner from './Winner';
 import MatchBanner from './MatchBanner';
+import style from '../public/style';
 
 class MainScreen extends Component {
 
 	state = {
 		location: null,
 		errorMessage: null,
-		marker: { latitude: null, longitude: null },
+		marker: null,
 		showLot: false,
 		showBid: false,
 		offer: '',
@@ -26,6 +26,11 @@ class MainScreen extends Component {
 	}
 
 	async componentDidMount() {
+		//Functions called that will change state
+		//(Can't call setState in component did mount (most of the time))
+		this._getLocationAsync();
+		this.registerForPushNotification();
+
 		let driver = '';
 		let id;
 
@@ -37,8 +42,7 @@ class MainScreen extends Component {
 					id = user.id;
 				});
 			});
-		this._getLocationAsync();
-		this.registerForPushNotification();
+
 		await store.collection('lots').onSnapshot( allLots => {
 
 			allLots.docChanges().forEach(lot => {
@@ -59,6 +63,11 @@ class MainScreen extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		console.log('Update', this.state);
+
+	}
+
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS
@@ -76,10 +85,8 @@ class MainScreen extends Component {
 		if (finalStatus !== 'granted') {
 			return;
 		}
-
 		// Get the token that uniquely identifies this device
 		let token = await Notifications.getExpoPushTokenAsync();
-
 		store.collection('users').doc(auth.currentUser.email).update({expoToken: token});
 	}
 
@@ -90,36 +97,50 @@ class MainScreen extends Component {
 				errorMessage: 'Permission to access location was denied',
 			});
 		}
-
 		let location = await Location.getCurrentPositionAsync({});
-		this.setState({ location });
+		//Gets location and sets location to location and marker.
+		//Marker is the draggable marker, defaults to user's location
+		this.setState({ location, marker: location.coords });
 	};
 
-	handleSubmit = async () => {
-		this.props.navigation.navigate('LotSubmissionForm');
+	handleHideButton = () => {
+		this.setState({passengerId: true});
 	}
 
-	handleMatch = async () => {
+	handleSubmit = () => {
+		this.props.navigation.navigate('LotSubmissionForm', {
+			//passing marker coordinates as props to lotsubmissionform
+			marker: this.state.marker, handleHideButton: this.handleHideButton
+		});
+	}
+
+	handleMatch = () => {
 		this.setState({showBid: false});
 	}
 
-	handleCancel = async () => {
+	handleCancel = () => {
 		this.setState({showBid: false});
 	}
 
 
 	render(){
-		const { marker, showBid, driverId, offer, passengerId} = this.state;
+
+		const { marker, showBid, driverId, offer} = this.state;
+
 		return(
-			<View style={styles.container}>
+			<View style={style.containerMain}>
 			<MapView
-				style={styles.map}
+				style={style.mapMain}
 				onRegionChangeComplete={this.onRegionChangeComplete}
 				showsUserLocation={true}
 				followsUserLocation={true}>
-				{marker.latitude ? <Marker
-					coordinate={marker}
-				/> : null}
+
+			{marker !== null && <Marker draggable
+			coordinate={marker}
+			onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate })
+		}
+		/>}
+
 			</MapView>
 
 					{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering
@@ -135,54 +156,18 @@ class MainScreen extends Component {
 					) : null}
 
 
-				{this.state.passengerId ? <Button title="Look here" style={styles.match} onPress={() => this.setState({matchBanner: true})} /> : <Button
-				title="Where to?"
-				style={styles.button}
-				backgroundColor='white'
-				color='grey'
-				onPress={this.handleSubmit} /> }
-			{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
+
+					{this.state.passengerId ? <Button title="Look here" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} /> : <Button
+					title="Where to?"
+					style={style.buttonMain}
+					backgroundColor='white'
+					color='grey'
+					onPress={this.handleSubmit} /> }
+				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 
 		</View>
-		)
+		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		...StyleSheet.absoluteFillObject,
-		backgroundColor: 'transparent',
-		flex: 1
-	},
-	lot: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'black'
-	},
-
-	scrollview: {
-		alignItems: 'center',
-	},
-
-	map: {
-		zIndex: -1,
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		flex: 1,
-	},
-
-	button: {
-		zIndex: 10,
-		top: 70
-	},
-
-	match: {
-		zIndex: 20,
-		top: 80
-	}
-});
 
 export default MainScreen;

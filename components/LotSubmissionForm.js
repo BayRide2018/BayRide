@@ -11,6 +11,7 @@ import ViewPhotos from './ViewPhotos';
 import GooglePlacesInput from './GooglePlacesInput';
 import { createLot } from '../fireMethods';
 
+
 export default class LotSubmissionForm extends Component {
 
 	// This thing still needs to navigate back to the home
@@ -24,12 +25,16 @@ export default class LotSubmissionForm extends Component {
 		passengerId: '',
 		driverId: '',
 		showMinutePicker: false,
+		showOfferPicker: false,
 		showPricePicker: false,
 		pickupTime: 'Pick up time in',
-		location: null
+		location: null,
+		marker: null,
+		hideButton: null
   }
 
 	async componentDidMount() {
+		this.getProps();
 
 			const passengerEmail = await firebase.auth().currentUser.email;
 			await store.collection('users').where('email', '==', passengerEmail).get()
@@ -40,14 +45,22 @@ export default class LotSubmissionForm extends Component {
 			});
 	}
 
+	getProps = () => {
+		const { navigation } = this.props;
+		const marker = navigation.getParam('marker', 'null');
+		const handleHideButton = navigation.getParam('handleHideButton', 'null');
+		this.setState({hideButton: handleHideButton});
+		this.setState({marker});
+	}
+
 	handleSubmit = () => {
 		createLot(this.state.screenshot,
 			this.state.pickupTime,
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
 			this.state.offer);
-			this.props.navigation.navigate('DrawerNavigator');
-
+			this.state.hideButton();
+			this.props.navigation.navigate('MainScreen');
 		// store.collection("lots").add({
 		// 	screenshot,
 		// 	pickupTime,
@@ -59,7 +72,7 @@ export default class LotSubmissionForm extends Component {
 		// });
 	}
 
-	handleUseCurrentLocation = async () => {
+	handleUseMarkerLocation = async () => {
 		/**
 		 * location has this form:
 		 * 	   "location": Object {
@@ -79,6 +92,11 @@ export default class LotSubmissionForm extends Component {
 		this.setState({ pickupLocation: location });
 	}
 
+	handleUseCurrentLocation = async () => {
+		this.setState({ pickupLocation: this.state.marker });
+	}
+
+
 	setScreenshotId =  (photoID) => {
 		this.setState({ screenshot: photoID });
 	}
@@ -89,6 +107,7 @@ export default class LotSubmissionForm extends Component {
 
 
 	render() {
+
 		return (
 			<View style={{ alignItems: 'center', flex: 1 }}>
 
@@ -110,6 +129,8 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					<GooglePlacesInput />
 					<Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
+					<Button title="Use pin location for pick up" onPress={this.handleUseMarkerLocation} />
+
 					<FormLabel>Drop off Location</FormLabel>
 					<FormInput
 					placeholder="Please enter drop off location"
@@ -122,7 +143,7 @@ export default class LotSubmissionForm extends Component {
 					/>
 
 
-					{this.state.showPricePicker 
+					{this.state.showPricePicker
 						?  <Picker
 							style={{ backgroundColor: 'white', width: 300, height: 215 }}
 							selectedValue='4'
@@ -130,7 +151,7 @@ export default class LotSubmissionForm extends Component {
 							onValueChange={pickupTime => this.setState({ pickupTime, showPricePicker: false })}
 							itemSpace={30} // this only support in android
 						/> :  <Button
-							title={`${this.state.pickupTime} minutes`}
+							title={`${this.state.offer} dollars`}
 							onPress={() => this.setState({ showPricePicker: true })}
 					/> }
 

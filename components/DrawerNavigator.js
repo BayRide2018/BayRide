@@ -9,6 +9,17 @@ import Account from './Account';
 import Payment from './Payment';
 import History from './History';
 
+////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
+// import { auth, store } from '../fire';
+
+// let initialRouteName = "MainScreen" ;
+// if (auth.currentUser) {
+// 	store.collection("users").doc(auth.currentUser.email).get().then(user => {
+// 		initialRouteName = user.data().currentlyPassenger ? "MainScreen" : "DriverHome";
+// 	});
+// }
+//////////////////////////////
+
 const DrawerNavigator = createDrawerNavigator({
 	MainScreen: {
 		screen: MainScreen
@@ -19,13 +30,14 @@ const DrawerNavigator = createDrawerNavigator({
 	Account: {
 		screen: Account
 	},
-	History: {
-		screen: History // I don't know why, but for some reason, this word `History` is highlighted a different color on my machine. It works fine, though
-	},
 	Payment: {
 		screen: Payment
+	},
+	History: {
+		screen: History
 	}
 }, {
+	// initialRouteName: initialRouteName,
 	contentComponent: SideMenu,
 	drawerWidth: Dimensions.get('window').width - 120,
 });

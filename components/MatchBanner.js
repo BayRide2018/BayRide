@@ -18,9 +18,11 @@ export default class MatchBanner extends React.Component {
 		await store.collection("lots").doc(this.props.lotId).get().then(lot => {
 			this.setState({ lotData: lot.data() });
 		});
-		store.collection("users").doc(this.state.lotData.driverId).get().then(driver => {
-			this.setState({ driverInfo: driver.data()});
-		});
+		if (this.state.lotData.driverId) {
+			store.collection("users").doc(this.state.lotData.driverId).get().then(driver => {
+				this.setState({ driverInfo: driver.data()});
+			});
+		}
 	}
 
 	render () {

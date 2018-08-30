@@ -1,6 +1,5 @@
 var React = require('react-native');
 
-
 var {
 	StyleSheet,
 } = React;
@@ -78,24 +77,22 @@ module.exports = StyleSheet.create({
 		backgroundColor: 'white',
 		justifyContent: 'center',
 		alignItems: 'center',
-},
+	},
 	container: {
-		height: 300,
-		width: 450,
-		backgroundColor: '#969694',
+		flex: 1,
+		backgroundColor: '#b0e0e6',
 		justifyContent: 'center',
 		alignItems: 'center'
-},
+	},
 	containerRow: {
 		flex: 1,
 		flexDirection: 'row',
-
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
 	},
 	welcomeButton: {
 		width: 150,
-		borderColor: "white",
+		backgroundColor: 'teal',
 		borderWidth: 1,
 		borderRadius: 5,
 		padding: 2,
@@ -111,9 +108,9 @@ module.exports = StyleSheet.create({
 		fontSize: 75,
 		fontWeight: 'bold',
 		width: 500,
-		backgroundColor: '#969694',
+		backgroundColor: '#b0e0e6',
 		textAlign: 'center',
-		color: 'white'
+		color: 'teal'
 	},
 	font: {
 		fontSize: 15,

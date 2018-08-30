@@ -124,10 +124,13 @@ class MainScreen extends Component {
 				showsUserLocation={true}
 				followsUserLocation={true}>
 
-				{marker !== null && <Marker draggable
-				coordinate={marker}
-				onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate }) }
-				/>}
+			{marker !== null && <Marker draggable
+				image={require('../public/images/marker.png')}
+
+			coordinate={marker}
+			onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate })
+		}
+		/>}
 
 			</MapView>
 

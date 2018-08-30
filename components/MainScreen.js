@@ -58,10 +58,6 @@ class MainScreen extends Component {
 		});
 	}
 
-	componentDidUpdate() { // Is this supposed to do anything important?
-		console.log('Update', this.state);
-	}
-
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS

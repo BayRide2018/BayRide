@@ -75,11 +75,11 @@ class SideMenu extends Component {
 	}
 }
 
-SideMenu.propTypes = { // Do we need this?
+SideMenu.propTypes = {
 	navigation: PropTypes.object
 };
 
-const styles = StyleSheet.create({ // This should be gone, right?
+const styles = StyleSheet.create({ // This needs to be moved to the global stylsheet
 	container: {
 		paddingTop: 20,
 		flex: 1

@@ -2,13 +2,13 @@ import firebase from 'firebase';
 import { store, auth } from '../fire';
 
 async function signup (name, phone, email, password) {
-
 	email = email.toLowerCase();
 	for (let i = 0; i < arguments.length; i++) {
 		if (!arguments[i].length) return "Please enter information for all fields.";
 	}
 	if (password.length < 6) return "Password must be at least 6 characters.";
-	//It might be cool to validate phone number and license with regex, but whatever
+	// It might be cool to validate phone number and license with regex, but whatever
+	// ^No, but really
 
 	// Auth Signup
 	let res = null;
@@ -18,7 +18,6 @@ async function signup (name, phone, email, password) {
 	if (res) return res;
 
 	// DB Signup
-	// First creat histories...
 	let passengerLotHistoryId, driverLotHistoryId;
 	store.collection("driver_lot_history").add({ driverId: email, lots: [] })
 		.then(DLH => { driverLotHistoryId = DLH.id });
@@ -40,9 +39,6 @@ async function signup (name, phone, email, password) {
 	return true;
 }
 
-
-//More consistent promise syntax
-// Login
 async function login (email, password) {
 	email = email.toLowerCase();
 	let exists = false;
@@ -68,14 +64,13 @@ async function login (email, password) {
 }
 
 async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer) {
-	const passengerEmail = auth.currentUser.email;
-	let passengerId;
-	await store.collection("users").where("email", "==", passengerEmail).get()
-		.then(users => {
-			users.forEach(user => {
-				passengerId = user.id;
-			});
-		});
+	let passengerId, passengerExpoToken;
+
+	await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+		passengerId = user.id;
+		passengerExpoToken = user.data().expoToken;
+	})
+
 	if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
 		return "Please fill out all of the forms."
 	}
@@ -85,22 +80,14 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	// This could be better, maybe? Parsefloat should return a float, and cut out random text
 	offer = Number.parseFloat(Number.parseFloat(offer).toFixed(2));
 
-	// With comments for the validations that should be added later, once things are a little more solid
 	store.collection("lots").add({
-		// Needs to actually be a picture.. Can they submit a lot without a screenshot?
 		screenshot,
-		// Pickup Time must be in the next... 4 hours? Verifiable with a menu of options, not text input, right?
 		pickupTime,
-		// To start off, this can be just your location, but I think that it will wind up being important for there to be
-		//		Something similar to Uber's set your pickup location. This would make it more useful for the "I'm going to the airport in 20 minutes"
-		// 		Scenario, because you could do thus while you're 15 minutes away from where you want to be picked up
 		pickupLocation,
 		dropoffLocation,
-		// I think it might be a good idea to round all offers down to the nearest quarter (2.5 => 2.5; 2.3 => 2.25; 2.2 => 2.0) We could skim off
-		//		the difference, and then, when you place an offer, it has to be a multiple of a quarter. This prevents people from doing things
-		//		like at the last second, outbidding someone by 1 cent.
 		offer,
 		passengerId,
+		passengerExpoToken,
 		driverId: null
 	});
 }

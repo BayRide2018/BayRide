@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { View, Button, Text } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements';
 import { store, auth } from '../fire';
-import firebase from 'firebase';
 
 
 
@@ -20,11 +19,8 @@ export default class Account extends Component {
 	};
 
 	componentDidMount () {
-		store.collection("users").where("email", "==", auth.currentUser.email).get()
-		.then(users => {
-			users.forEach(user => {
-				this.setState({name: user.data().name, email: user.data().email, password: user.data().password, phone: user.data().phone, defaultSetting: user.data().defaultSetting , paymentInformation: user.data().paymentInformation, drivingInformation: user.data().drivingInformation, id: user.id})
-			})
+		store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			this.setState({name: user.data().name, email: user.data().email, password: user.data().password, phone: user.data().phone, defaultSetting: user.data().defaultSetting , paymentInformation: user.data().paymentInformation, drivingInformation: user.data().drivingInformation, id: user.id})
 		})
 	}
 

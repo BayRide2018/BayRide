@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, Button } from 'react-native';
-import firebase from 'firebase';
+import { Text, View, ScrollView } from 'react-native';
 import { store, auth } from '../fire';
-import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';
 import Winner from './Winner';
 import { Permissions, Location } from 'expo';
@@ -70,8 +68,6 @@ export default class DriverHome extends Component {
       })}
       { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
       </View>
-      <Text style={{top: 80}} onPress={() => {this.props.navigation.toggleDrawer();
-      }}>OPEN </Text>
       </ScrollView>
     );
   }

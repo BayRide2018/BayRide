@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { imgStorageRef } from '../fire';
-import {
-	Image,
-	View,
-	Button
-} from 'react-native';
+import { Image, View, Button } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import uuid from 'uuid';
 import { FormLabel } from 'react-native-elements';
@@ -17,7 +13,7 @@ export default class ViewPhotos extends Component {
 	};
 
 	askPermissionsAsync = async () => {
-		await Permissions.askAsync(Permissions.CAMERA_ROLL); // Why was this awaited?
+		Permissions.askAsync(Permissions.CAMERA_ROLL);
 		Permissions.askAsync(Permissions.CAMERA);
 	};
 
@@ -46,11 +42,11 @@ export default class ViewPhotos extends Component {
 		});
 
 
-		  const photoId = uuid.v4();
-		  const passengerId = this.props.passengerId;
-		  uploadImageAsync(pickerResult.uri, photoId, passengerId);
+		const photoId = uuid.v4();
+		const passengerId = this.props.passengerId;
+		uploadImageAsync(pickerResult.uri, photoId, passengerId);
 
-		  this.props.setScreenshotId(photoId);
+		this.props.setScreenshotId(photoId);
 
 		if (!pickerResult.cancelled) {
 			this.setState({ image: pickerResult.uri });
@@ -63,7 +59,7 @@ async function uploadImageAsync(uri, photoId, passengerId) {
 	const blob = await response.blob();
 	const ref = imgStorageRef
 		.child(passengerId)
-	  .child(photoId);
+		.child(photoId);
 	const snapshot = await ref.put(blob);
 	return snapshot.downloadURL;
 };

@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { AppRegistry, Dimensions } from 'react-native';
 import { createDrawerNavigator } from 'react-navigation';
 
@@ -8,7 +7,8 @@ import DriverHome from './DriverHome';
 import Account from './Account';
 import Payment from './Payment';
 import History from './History';
-
+import Help from './Help';
+import Web from './Web';
 ////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
 // import { auth, store } from '../fire';
 
@@ -35,6 +35,12 @@ const DrawerNavigator = createDrawerNavigator({
 	},
 	History: {
 		screen: History
+	},
+	Help: {
+		screen: Help
+	},
+	Web: {
+		screen: Web
 	}
 }, {
 	// initialRouteName: initialRouteName,

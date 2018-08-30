@@ -70,8 +70,6 @@ export default class DriverHome extends Component {
       })}
       { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
       </View>
-      <Text style={{top: 80}} onPress={() => {this.props.navigation.toggleDrawer();
-      }}>OPEN </Text>
       </ScrollView>
     );
   }

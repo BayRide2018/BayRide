@@ -19,11 +19,8 @@ export default class Account extends Component {
 	};
 
 	componentDidMount () {
-		store.collection("users").where("email", "==", auth.currentUser.email).get()
-		.then(users => {
-			users.forEach(user => {
-				this.setState({name: user.data().name, email: user.data().email, password: user.data().password, phone: user.data().phone, defaultSetting: user.data().defaultSetting , paymentInformation: user.data().paymentInformation, drivingInformation: user.data().drivingInformation, id: user.id})
-			})
+		store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			this.setState({name: user.data().name, email: user.data().email, password: user.data().password, phone: user.data().phone, defaultSetting: user.data().defaultSetting , paymentInformation: user.data().paymentInformation, drivingInformation: user.data().drivingInformation, id: user.id})
 		})
 	}
 

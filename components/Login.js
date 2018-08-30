@@ -29,7 +29,7 @@ export default class Login extends Component {
 			});
 		});
 		if (result && bool) {
-			this.props.navigation.navigate('MainScreen');
+			this.props.navigation.navigate('Web');
 		} else if (result === true && bool === false) {
 			this.props.navigation.navigate('DriverHome');
 		} else {

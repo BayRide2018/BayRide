@@ -11,6 +11,7 @@ import DriverRegistration from './components/DriverRegistration';
 import Payment from './components/Payment';
 import Waiver from './components/Waiver';
 import MatchBanner from './components/MatchBanner';
+import MyWeb from './components/Web';
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
@@ -22,6 +23,7 @@ export default createStackNavigator({
 	LotSubmissionForm: { screen: LotSubmissionForm },
 	Account: { screen: Account },
 	Payment: { screen: Payment },
+	Web: { screen: MyWeb }
 
 }, {
 	initialRouteName: 'Welcome',

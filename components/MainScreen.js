@@ -63,10 +63,6 @@ class MainScreen extends Component {
 		});
 	}
 
-	componentDidUpdate() {
-		console.log('Update', this.state);
-
-	}
 
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(

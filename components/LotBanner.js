@@ -4,6 +4,7 @@ import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-nativ
 import style from '../public/style';
 import firebase from 'firebase';
 import { store, auth, imgStorageRef } from '../fire';
+import LightBox from 'react-native-lightbox';
 
 
 export default class LotBanner extends React.Component {
@@ -40,7 +41,10 @@ export default class LotBanner extends React.Component {
 				<Text>BayRide</Text>
 				<View>
 					{!!this.state.imgURL &&
-						<Image source={{ uri: this.state.imgURL }} style={{ width: 200, height: 200 }} />
+
+						<LightBox underlayColor='white'>
+							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
+						</LightBox>
 					}
 					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
 					<Text>Pick Up: {this.state.lotData && this.state.lotData.pickupTime && this.state.lotData.pickupTime.seconds}</Text>

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
-import style from '../public/style';
 import { store } from '../fire';
 import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';
@@ -15,11 +14,11 @@ export default class MatchBanner extends React.Component {
 		isModalVisible: true
 	}
 
-	 async componentDidMount () {
+	async componentDidMount () {
 		await store.collection("lots").doc(this.props.lotId).get().then(lot => {
 			this.setState({ lotData: lot.data() });
 		});
-		 store.collection("users").doc(this.state.lotData.driverId).get().then(driver => {
+		store.collection("users").doc(this.state.lotData.driverId).get().then(driver => {
 			this.setState({ driverInfo: driver.data()});
 		});
 	}

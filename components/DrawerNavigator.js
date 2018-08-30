@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { AppRegistry, Dimensions } from 'react-native';
 import { createDrawerNavigator } from 'react-navigation';
 

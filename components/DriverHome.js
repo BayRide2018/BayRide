@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, Button } from 'react-native';
-import firebase from 'firebase';
+import { Text, View, ScrollView } from 'react-native';
 import { store, auth } from '../fire';
-import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';
 import Winner from './Winner';
 import { Permissions, Location } from 'expo';

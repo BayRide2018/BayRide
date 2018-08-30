@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { View, Button, Text } from 'react-native';
 import style from '../public/style';
 
 export default class Waiver extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, WebView, Button } from 'react-native';
+import { View, WebView } from 'react-native';
 
 export default class Web extends Component {
 

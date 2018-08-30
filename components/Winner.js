@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import Modal from "react-native-modal";
@@ -15,65 +15,48 @@ export default class Winner extends React.Component {
 		// passenger : {}
 	};
 
-	_toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+	_toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
-		handleGetDirections = () => {
-			const data = {
-				destination: {
-					latitude: this.props.pickupLocation.coords.latitude,
-					longitude: this.props.pickupLocation.coords.longitude
+	handleGetDirections = () => {
+		const data = {
+			destination: {
+				latitude: this.props.pickupLocation.coords.latitude,
+				longitude: this.props.pickupLocation.coords.longitude
+			},
+			params: [
+				{
+					key: 'travelmode',
+					value: 'driving'
 				},
-				params: [
-					{
-						key: 'travelmode',
-						value: 'driving'
-					},
-					{
-						key: 'dir_action"',
-						value: 'navigate'       // this instantly initializes navigation using the given travel mode
-					}
-				]
-			};
-			getDirections(data);
-		}
-
-		handleGetDirectionsTwo = () => {
-			const data = {
-				destination: {
-					// latitude: this.props.pickupLocation.coords.latitude,
-					// longitude: this.props.pickupLocation.coords.longitude
-				},
-				params: [
-					{
-						key: 'travelmode',
-						value: 'driving'
-					},
-					{
-						key: 'dir_action"',
-						value: 'navigate'       // this instantly initializes navigation using the given travel mode
-					}
-				]
-			};
-			getDirections(data);
-		}
-
-	async componentDidMount () {
-    const currEmail = auth.currentUser.email
-
-		await store.collection("lots").where("email", "==", currEmail).get().then(allUsers => {
-      allUsers.forEach(user => {
-        // spotEmail = user.data().matches.email;
-        // secondEmail = currEmail;
-        if (spotEmail === currEmail) {
-          secondEmail = user.data().matches.email;
-        } else {
-          spotEmail = user.data().matches.email;
-          secondEmail = currEmail;
-        }
-      })
-    })
+				{
+					key: 'dir_action"',
+					value: 'navigate'       // this instantly initializes navigation using the given travel mode
+				}
+			]
+		};
+		getDirections(data);
 	}
+
+	handleGetDirectionsTwo = () => {
+		const data = {
+			destination: {
+				// latitude: this.props.pickupLocation.coords.latitude,
+				// longitude: this.props.pickupLocation.coords.longitude
+			},
+			params: [
+				{
+					key: 'travelmode',
+					value: 'driving'
+				},
+				{
+					key: 'dir_action"',
+					value: 'navigate'       // this instantly initializes navigation using the given travel mode
+				}
+			]
+		};
+		getDirections(data);
+	}
+
 
 	render () {
 		return (

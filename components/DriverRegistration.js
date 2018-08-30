@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, Text, Platform } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { signup } from '../fireMethods';
+import { View, Button, Text } from 'react-native';
 import { store, auth } from '../fire';
-import firebase from 'firebase';
 import style from '../public/style';
-import { Picker, DatePicker } from 'react-native-wheel-pick';
-import ViewPhotos from './ViewPhotos';
 
 
 export default class DriverRegistration extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { login, expireLot } from '../fireMethods';
+import { View, Button, Text } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements';
+import { login } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
 

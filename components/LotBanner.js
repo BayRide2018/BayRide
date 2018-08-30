@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import style from '../public/style';
-import firebase from 'firebase';
+import { Text, View, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 import { store, auth, imgStorageRef } from '../fire';
 
 
@@ -17,7 +15,7 @@ export default class LotBanner extends React.Component {
 	}
 
 
-	handlePress = async () => { // All this function is doing for now is updating store about who the driver is
+	handlePress = async () => {
 		let driverExpoToken;
 		await store.collection("users").doc(auth.currentUser.email).get.then(user => {
 			driverExpoToken = user.expoToken;

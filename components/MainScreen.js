@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
-import {  StyleSheet, View, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
@@ -9,7 +9,7 @@ import style from '../public/style';
 
 class MainScreen extends Component {
 
-	state = {
+	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
 		location: null,
 		errorMessage: null,
 		marker: null,
@@ -34,14 +34,9 @@ class MainScreen extends Component {
 		let driver = '';
 		let id;
 
-		const passengerEmail = auth.currentUser.email;
-		await store.collection('users').where('email',
-			'==', passengerEmail).get()
-			.then(users => {
-				users.forEach(user => {
-					id = user.id;
-				});
-			});
+		await store.collection('users').doc(auth.currentUser.email).get().then(user => {
+			id = user.id;
+		});
 
 		await store.collection('lots').onSnapshot( allLots => {
 
@@ -63,9 +58,8 @@ class MainScreen extends Component {
 		});
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate() { // Is this supposed to do anything important?
 		console.log('Update', this.state);
-
 	}
 
 	registerForPushNotification = async () => {
@@ -124,7 +118,6 @@ class MainScreen extends Component {
 
 
 	render(){
-
 		const { marker, showBid, driverId, offer} = this.state;
 
 		return(
@@ -135,11 +128,10 @@ class MainScreen extends Component {
 				showsUserLocation={true}
 				followsUserLocation={true}>
 
-			{marker !== null && <Marker draggable
-			coordinate={marker}
-			onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate })
-		}
-		/>}
+				{marker !== null && <Marker draggable
+				coordinate={marker}
+				onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate }) }
+				/>}
 
 			</MapView>
 
@@ -156,7 +148,6 @@ class MainScreen extends Component {
 					) : null}
 
 
-
 					{this.state.passengerId ? <Button title="Look here" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} /> : <Button
 					title="Where to?"
 					style={style.buttonMain}
@@ -164,7 +155,6 @@ class MainScreen extends Component {
 					color='grey'
 					onPress={this.handleSubmit} /> }
 				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
-
 		</View>
 		);
 	}

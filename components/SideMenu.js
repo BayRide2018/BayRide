@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
-import {ScrollView, Text, View, StyleSheet, Button} from 'react-native';
+import React, { Component } from 'react';
+import { NavigationActions } from 'react-navigation';
+import { Text, View, StyleSheet, Button} from 'react-native';
 import { StackNavigator, SafeAreaView } from 'react-navigation';
+// ^^^^ I haven't deleted these, because I think that we might want to include SafeAreaView in this, and in some other stuff
+// ^^^^ I think that it helps get around the fact that the iPhone X is shaped oddly
 import { store, auth } from '../fire';
 
 class SideMenu extends Component {
@@ -10,10 +12,8 @@ class SideMenu extends Component {
 	state = {};
 
 	componentDidMount = () => {
-		store.collection("users").where("email", "==", auth.currentUser.email).get().then(users => {
-			users.forEach(user => {
-				this.setState({ ...user.data() })
-			});
+		store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			this.setState({ ...user.data() })
 		});
 	}
 
@@ -23,8 +23,7 @@ class SideMenu extends Component {
 	}
 
 	handleSwitchDriver = async () => {
-		const userEmail = await auth.currentUser.email;
-		await store.collection("users").doc(userEmail).update({
+		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: false
 		});
 		this.navigateToScreen('DriverHome')();
@@ -32,8 +31,7 @@ class SideMenu extends Component {
 	}
 
 	handleSwitchPassenger = async () => {
-		const userEmail = await auth.currentUser.email;
-		await store.collection("users").doc(userEmail).update({
+		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: true
 		});
 		this.navigateToScreen('MainScreen')();
@@ -77,11 +75,11 @@ class SideMenu extends Component {
 	}
 }
 
-SideMenu.propTypes = {
+SideMenu.propTypes = { // Do we need this?
 	navigation: PropTypes.object
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ // This should be gone, right?
 	container: {
 		paddingTop: 20,
 		flex: 1

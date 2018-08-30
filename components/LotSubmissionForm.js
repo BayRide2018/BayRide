@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, Text, Platform } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { View, Button } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements';
 import { Location } from 'expo';
-import { signup } from '../fireMethods';
-import { store } from '../fire';
-import firebase from 'firebase';
+import { store, auth } from '../fire';
 import style from '../public/style';
-import { Picker, DatePicker } from 'react-native-wheel-pick';
+import { Picker } from 'react-native-wheel-pick';
 import ViewPhotos from './ViewPhotos';
 import GooglePlacesInput from './GooglePlacesInput';
 import { createLot } from '../fireMethods';
@@ -14,10 +12,7 @@ import { createLot } from '../fireMethods';
 
 export default class LotSubmissionForm extends Component {
 
-	// This thing still needs to navigate back to the home
-	// Also, consider moving the creation to the firemethods
-
-	state = {
+	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
 		screenshot: '',
 		pickupLocation: '',
 		dropoffLocation: '',
@@ -33,16 +28,11 @@ export default class LotSubmissionForm extends Component {
 		hideButton: null
   }
 
-	async componentDidMount() {
+	componentDidMount() {
 		this.getProps();
-
-			const passengerEmail = await firebase.auth().currentUser.email;
-			await store.collection('users').where('email', '==', passengerEmail).get()
-			.then(users => {
-				users.forEach(user => {
-					this.setState({passengerId: user.id});
-				});
-			});
+		store.collection('users').doc(auth.currentUser.email).get().then(user => {
+			this.setState({passengerId: user.id});
+		});
 	}
 
 	getProps = () => {
@@ -61,15 +51,6 @@ export default class LotSubmissionForm extends Component {
 			this.state.offer);
 			this.state.hideButton();
 			this.props.navigation.navigate('MainScreen');
-		// store.collection("lots").add({
-		// 	screenshot,
-		// 	pickupTime,
-		// 	pickupLocation,
-		// 	dropoffLocation,
-		// 	offer,
-		// 	passengerId,
-		// 	driverId: null
-		// });
 	}
 
 	handleUseMarkerLocation = async () => {
@@ -92,7 +73,7 @@ export default class LotSubmissionForm extends Component {
 		this.setState({ pickupLocation: location });
 	}
 
-	handleUseCurrentLocation = async () => {
+	handleUseCurrentLocation = () => {
 		this.setState({ pickupLocation: this.state.marker });
 	}
 
@@ -101,7 +82,7 @@ export default class LotSubmissionForm extends Component {
 		this.setState({ screenshot: photoID });
 	}
 
-	handleBack = async () => {
+	handleBack = () => {
 		this.props.navigation.navigate('DrawerNavigator');
 	}
 

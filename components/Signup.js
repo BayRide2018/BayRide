@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image, ScrollView, Button } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import React, { Component } from 'react';
+import { Text, View, ScrollView, Button } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements';
 import style from '../public/style';
 import { signup } from '../fireMethods';
 

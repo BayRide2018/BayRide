@@ -4,7 +4,10 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
-//send the push notification
+
+// THIS IS THE EXAMPLE FROM https://www.youtube.com/watch?v=R2D6J10fhA4&feature=youtu.be
+// FROM https://github.com/nathvarun/React-Native-Firebase-Tutorials/tree/master/Project%20Files/6%20Push%20Notifications
+
 // exports.sendPushNotification = functions.database.ref('contacts/').onCreate(event => {
 //   const root = event.data.ref.root
 //   var messages = []
@@ -41,44 +44,6 @@ admin.initializeApp(functions.config().firebase);
 //       })
 // });
 
-// exports.sendPushNotificationUpdate = functions.firestore.document("lots/{lotId}").onUpdate((change, context) => {
-//   const newValue = change.after.data();
-//   const previousValue = change.before.data();
-
-//   const oldDriverId = previousValue.driverId;
-//   const passengerId = previousValue.passengerId;
-  
-//   const expoTokenPassenger = 0; // Get the expoToken of the passengerId from the lot
-//   const expoTokenDriver = 0; // Get the expoToken of the !!!!PREVIOUS!!!! driverId from the lot
-// })
-
-
-//     messages.push({
-//       "to": expoTokenPassenger,
-//       "sound": "default",
-//       "body": "Passenger Notification Body"
-//     });
-//     messages.push({
-//       "to": expoTokenDriver,
-//       "sound": "default",
-//       "body": "Driver Notification Body"
-//     });
-//     return Promise.all(messages);
-//   })
-//   .then(messages => {
-//     // console.log(messages)
-//     fetch('https://exp.host/--/api/v2/push/send', {
-//       method: 'POST',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(messages)
-//     });
-//   })
-//   .catch(err => {
-//       console.error(err)
-//   });
 
 
 exports.sendPushNotificationConfirmation = functions.firestore.document("lot_history/{expiredLot}").onCreate((snap, context) => {
@@ -122,42 +87,3 @@ exports.sendPushNotificationConfirmation = functions.firestore.document("lot_his
   });
 
 })
-  // let messages = [];
-  // return functions.firestore.document('lots/{lotId}').onUpdate((change, context) => {
-  //   const newValue = change.after.data();
-  //   const previousValue = change.before.data();
-
-  //   const expoTokenPassenger = 0; // Get the expoToken of the passengerId from the lot
-  //   const expoTokenDriver = 0; // Get the expoToken of the !!!!PREVIOUS!!!! driverId from the lot
-
-  //   // 
-
-  //   messages.push({
-  //     "to": expoTokenPassenger,
-  //     "sound": "default",
-  //     "body": "Passenger Notification Body"
-  //   });
-  //   messages.push({
-  //     "to": expoTokenDriver,
-  //     "sound": "default",
-  //     "body": "Driver Notification Body"
-  //   });
-  //   return Promise.all(messages);
-  // })
-  // .then(messages => {
-  //   // console.log(messages)
-  //   fetch('https://exp.host/--/api/v2/push/send', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(messages)
-  //   });
-  // })
-  // .catch(err => {
-  //     console.error(err)
-  // });
-
-
-// export {}

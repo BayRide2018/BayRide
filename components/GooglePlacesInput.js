@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, Text, Platform } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
 

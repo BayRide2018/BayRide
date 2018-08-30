@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { store, auth } from '../fire';
 
-
 export default class History extends Component {
 
 	state = {
         name: '',
 		email: ''
     };
-    
+
     componentDidMount () {
         store.collection("users").doc(auth.currentUser.email).get()
         .then(user => {

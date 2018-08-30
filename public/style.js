@@ -10,6 +10,20 @@ module.exports = StyleSheet.create({
 		backgroundColor: 'transparent',
 		flex: 1
 	},
+	submissionFont: {
+		color: 'black',
+	},
+	picker: {
+		backgroundColor: 'white',
+		width: 300,
+		height: 215,
+	},
+	submissionForm: {
+		flex: 1,
+		margin: 20,
+		marginTop: 50,
+		alignItems: 'center'
+	},
 	lotMain: {
 		flex: 1,
 		alignItems: 'center',

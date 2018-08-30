@@ -63,11 +63,6 @@ class MainScreen extends Component {
 		});
 	}
 
-	componentDidUpdate() {
-		console.log('Update', this.state);
-
-	}
-
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS
@@ -136,6 +131,8 @@ class MainScreen extends Component {
 				followsUserLocation={true}>
 
 			{marker !== null && <Marker draggable
+				image={require('../public/images/marker.png')}
+
 			coordinate={marker}
 			onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate })
 		}

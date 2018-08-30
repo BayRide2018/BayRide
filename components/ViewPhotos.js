@@ -6,9 +6,9 @@ import {
 	Button
 } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
-// import { uploadImage } from './uploadImage';
-import firebase from 'firebase';
 import uuid from 'uuid';
+import { FormLabel } from 'react-native-elements';
+
 // ^^This library is used to generate random id's
 
 export default class ViewPhotos extends Component {
@@ -24,7 +24,8 @@ export default class ViewPhotos extends Component {
 	render(){
 		let { image } = this.state;
 		return (
-			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginBottom: 0, paddingBottom: 0 }}>
+			<FormLabel>Screenshot</FormLabel>
 				<Button
 					title="Pick an image from camera roll"
 					onPress={this._pickImage}

@@ -20,9 +20,6 @@ export default class DriverHome extends Component {
     // Much much later, we could worry about things like throttling and maybe more complicated sorting algos.
 
     this._getLocationAsync();
-    let id;
-
-
 
     store.collection("lots").get().then(allLots => {
       allLots.forEach(lot => {
@@ -30,21 +27,14 @@ export default class DriverHome extends Component {
       });
     });
 
-    const driverEmail = auth.currentUser.email;
-		await store.collection('users').where('email',
-			'==', driverEmail).get()
-			.then(users => {
-				users.forEach(user => {
-					id = user.id;
-				});
-      });
-
-      await store.collection('lots').where( 'driverId', '==', id ).get()
-      .then(lots => {
-        lots.forEach(lot => {
-          this.setState( {winningInfo: lot.data(), winner: true} );
-          });
-      });
+    // This isn't exactly the right way to do this..
+    // We can do both of these queries at the same time, but I don't think that we want to do the bottom one
+    // I'll have to think about how we want to do this, though
+    await store.collection('lots').where('driverId', '==', auth.currentUser.email).get().then(lots => {
+      lots.forEach(lot => {
+        this.setState( {winningInfo: lot.data(), winner: true} );
+        });
+    });
   }
 
   _getLocationAsync = async () => {

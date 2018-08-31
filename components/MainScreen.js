@@ -32,11 +32,6 @@ class MainScreen extends Component {
 		this.registerForPushNotification();
 
 		let driver = '';
-		let id;
-
-		await store.collection('users').doc(auth.currentUser.email).get().then(user => {
-			id = user.id;
-		});
 
 		await store.collection('lots').onSnapshot( allLots => {
 
@@ -44,8 +39,7 @@ class MainScreen extends Component {
 						driver = lot.doc.data().driverId;
 
 						//Not sure if needs another if statement but bid info should not changed unless its another bid
-						if (lot.doc.data().passengerId === id && lot.doc.data().driverId !== null) {
-
+						if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
 							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
 							//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
 						}

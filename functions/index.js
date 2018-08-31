@@ -85,5 +85,46 @@ exports.sendPushNotificationConfirmation = functions.firestore.document("lot_his
     },
     body: JSON.stringify(driverMessage)
   });
+})
 
+exports.sendPushNotificationUpdate = functions.firestore.document("lots/{lotId}").onUpdate((change, context) => {
+  const newValue = change.after.data();
+  const previousValue = change.before.data();
+
+  console.log(">>NV>>", newValue);
+  console.log(">>PV>>", previousValue);
+  console.log(">Context>", context);
+
+  const expoTokenPassenger = newValue.passengerExpoToken;
+  const expoTokenDriver = previousValue.driverExpoToken; // We need this to be the PREV driver, so that
+
+  let passengerMessage = {
+    "to": expoTokenPassenger,
+    "sound": "default",
+    "body": "Passenger Notification Body"
+  };
+
+  let driverMessage = {
+    "to": expoTokenDriver,
+    "sound": "default",
+    "body": "Driver Notification Body"
+  };
+  
+  fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(passengerMessage)
+  });
+
+  fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(driverMessage)
+  });
 })

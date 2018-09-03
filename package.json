@@ -26,6 +26,7 @@
     "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.0.5",
     "firebase-tools": "^4.2.0",
+    "google-libphonenumber": "^3.1.12",
     "react": "16.3.1",
     "react-native": "^0.55.4",
     "react-native-elements": "^0.19.1",

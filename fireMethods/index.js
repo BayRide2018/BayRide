@@ -80,6 +80,9 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	// This could be better, maybe? Parsefloat should return a float, and cut out random text
 	offer = Number.parseFloat(Number.parseFloat(offer).toFixed(2));
 
+	// Important
+	let driverExpoToken = '';
+
 	store.collection("lots").add({
 		screenshot,
 		pickupTime,
@@ -88,6 +91,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		offer,
 		passengerId,
 		passengerExpoToken,
+		driverExpoToken,
 		driverId: null
 	});
 }

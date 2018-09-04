@@ -4,6 +4,8 @@ import { store, auth } from '../fire';
 import LotBannerWrapper from './LotBannerWrapper';
 import Winner from './Winner';
 import { Permissions, Location } from 'expo';
+import style from '../public/style';
+import Icon from 'react-native-vector-icons/Octicons';
 
 export default class DriverHome extends Component {
 
@@ -51,14 +53,23 @@ export default class DriverHome extends Component {
 
   render(){
     return(
-      <ScrollView>
       <View>
-      {this.state.allLots.map((lot, i) => {
-        return <LotBannerWrapper key={i} lotData={lot} />;
-      })}
-      { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+        <Icon
+          style={style.drawerIcon}
+          name='three-bars' 
+          size={30} 
+          color='#000' 
+          onPress={() => this.props.navigation.toggleDrawer()}
+        />
+        <ScrollView>
+          <View>
+            {this.state.allLots.map((lot, i) => {
+              return <LotBannerWrapper key={i} lotData={lot} />;
+            })}
+            { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+          </View>
+        </ScrollView>
       </View>
-      </ScrollView>
     );
   }
 }

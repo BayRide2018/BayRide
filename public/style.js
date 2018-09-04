@@ -138,11 +138,18 @@ module.exports = StyleSheet.create({
 		height: 300,
 		margin: 50,
 	},
+	/**
+	 * Starting Thomas's styling
+	 */
 	lotBanner: {
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		alignContent: 'space-around',
+	},
+	drawerIcon: {
+		marginTop: 24,
+		marginLeft: 18
 	}
 });

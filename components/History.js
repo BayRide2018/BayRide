@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { store, auth } from '../fire';
+import Icon from 'react-native-vector-icons/Octicons';
+import style from '../public/style';
 
 export default class History extends Component {
 
@@ -21,6 +23,14 @@ export default class History extends Component {
 		return (
 			<View>
                 <Text></Text>
+                <Icon
+                    style={style.drawerIcon}
+                    name='three-bars' 
+                    size={30} 
+                    color='#000' 
+                    onPress={() => this.props.navigation.toggleDrawer()}
+                />
+
                 <Text>This is your passenger history!!</Text>
                 <Text>You don't currently have any history, because you haven't been on any rides. Take a trip somewhere, and we'll show it here</Text>
                 <Text></Text>

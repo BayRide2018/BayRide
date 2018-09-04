@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Button, Text } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { store, auth } from '../fire';
+import Icon from 'react-native-vector-icons/Octicons';
+import style from '../public/style';
 
 
 
@@ -36,6 +38,14 @@ export default class Account extends Component {
 		return (
 			<View>
 				<Text>This is your profile!!</Text>
+
+				<Icon
+					style={style.drawerIcon}
+					name='three-bars' 
+					size={30} 
+					color='#000' 
+					onPress={() => this.props.navigation.toggleDrawer()}
+				/>
 
 				<FormLabel>Name: </FormLabel>
 				<FormInput placeholder={name} onChangeText={name => this.setState({name: name})}></FormInput>

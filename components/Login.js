@@ -4,7 +4,7 @@ import { FormLabel, FormInput } from 'react-native-elements';
 import { login } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
-
+import PasswordInputText from 'react-native-hide-show-password-input';
 
 export default class Login extends Component {
 
@@ -41,8 +41,8 @@ export default class Login extends Component {
 					<FormInput placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>
-					<FormLabel>Password</FormLabel>
-					<FormInput placeholder="Please enter your password"
+
+					<PasswordInputText value={this.state.password} placeholder="Please enter your password"
 						onChangeText={password => this.setState({ password })}
 					/>
 					<View style={style.button}>

@@ -4,6 +4,9 @@ import { FormLabel, FormInput } from 'react-native-elements';
 import style from '../public/style';
 import { signup } from '../fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
+import {
+	TextField
+} from 'react-native-material-textfield';
 
 export default class Signup extends Component {
 	state = {
@@ -34,16 +37,15 @@ export default class Signup extends Component {
 			<View>
 				<Button style={style.backButton} title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
 				<ScrollView style={style.button}>
-					<FormLabel>Full Name</FormLabel>
-					<FormInput placeholder="Please enter your full name"
+					<TextField label='Full Name' placeholder="Please enter your full name"
 						onChangeText={name => this.setState({ name })}
 					/>
-					<FormLabel>Phone Number</FormLabel>
-					<FormInput placeholder="Please enter your phone number"
+
+					<TextField label='Phone Number' placeholder="Please enter your phone number"
 						onChangeText={phone => this.setState({ phone })}
 					/>
-					<FormLabel>E-mail</FormLabel>
-					<FormInput placeholder="Please enter your email"
+
+					<TextField label='E-mail' placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>
 					<PasswordInputText value={this.state.password} placeholder="Please enter your password"

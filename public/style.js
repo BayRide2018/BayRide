@@ -124,7 +124,8 @@ module.exports = StyleSheet.create({
 		width: 500,
 		backgroundColor: '#b0e0e6',
 		textAlign: 'center',
-		color: 'teal'
+		color: 'teal',
+		top: 70
 	},
 	font: {
 		fontSize: 15,

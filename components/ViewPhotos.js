@@ -27,7 +27,7 @@ export default class ViewPhotos extends Component {
 					onPress={this._pickImage}
 				/>
 				{image &&
-					<Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+					<Image source={{ uri: image }} style={{ width: 200, height: 200}} />}
 			</View>
 		);
 	}
@@ -37,7 +37,7 @@ export default class ViewPhotos extends Component {
 		await this.askPermissionsAsync();
 
 		let pickerResult = await ImagePicker.launchImageLibraryAsync({
-			allowsEditing: true,
+			allowsEditing: false,
 			aspect: [4, 3],
 		});
 

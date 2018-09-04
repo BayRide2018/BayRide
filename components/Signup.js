@@ -3,6 +3,7 @@ import { Text, View, ScrollView, Button } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import style from '../public/style';
 import { signup } from '../fireMethods';
+import PasswordInputText from 'react-native-hide-show-password-input';
 
 export default class Signup extends Component {
 	state = {
@@ -45,8 +46,7 @@ export default class Signup extends Component {
 					<FormInput placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>
-					<FormLabel>Password</FormLabel>
-					<FormInput placeholder="Please enter your password"
+					<PasswordInputText value={this.state.password} placeholder="Please enter your password"
 						onChangeText={password => this.setState({ password })}
 					/>
 					<Text>{this.state.response}</Text>

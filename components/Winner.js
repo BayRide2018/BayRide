@@ -4,7 +4,8 @@ import { Button } from 'react-native-elements';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import Modal from "react-native-modal";
-import getDirections from 'react-native-google-maps-directions'
+import getDirections from 'react-native-google-maps-directions';
+import call from 'react-native-phone-call';
 
 
 export default class Winner extends React.Component {
@@ -15,14 +16,14 @@ export default class Winner extends React.Component {
 		passenger : {}
 	};
 
-	componentDidMount () {
-		store.collection("users").doc(this.props.winningInfo.passengerId).get().then(passenger => {
-			this.setState({ passenger });
+	componentDidMount = async () => {
+		await store.collection("users").doc(this.props.winningInfo.passengerId).get().then(passenger => {
+			this.setState({ passenger: passenger.data() });
 		})
 	}
-
+	
 	_toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
-
+	
 	handleGetDirections = () => {
 		const data = {
 			destination: {
@@ -42,7 +43,7 @@ export default class Winner extends React.Component {
 		};
 		getDirections(data);
 	}
-
+	
 	handleGetDirectionsTwo = () => {
 		const data = {
 			destination: {
@@ -62,8 +63,8 @@ export default class Winner extends React.Component {
 		};
 		getDirections(data);
 	}
-
-
+	
+	
 	render () {
 		return (
 			<View style={{ flex: 1 }}>
@@ -75,7 +76,7 @@ export default class Winner extends React.Component {
 				<View style={{ flex: 1, backgroundColor: 'white', marginTop: 20 }}>
 					<Text> You are the Winner!</Text>
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
-					<Text>Passenger Phone: {this.state.passenger.phone}</Text>
+					<Button title={this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
 					<Text>Passenger location</Text>
 					<Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text>
 					<Button

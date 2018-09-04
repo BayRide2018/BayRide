@@ -3,6 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth, imgStorageRef } from '../fire';
 import LightBox from 'react-native-lightbox';
+import style from '../public/style';
 
 
 export default class LotBanner extends React.Component {
@@ -15,6 +16,11 @@ export default class LotBanner extends React.Component {
 		})
 	}
 
+
+	handleReport = () => {
+		// Mark the lot in the db
+		// Notify a human
+	}
 
 	handlePress = async () => {
 		let driverExpoToken;
@@ -35,8 +41,7 @@ export default class LotBanner extends React.Component {
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
-			<View>
-				<Text>BayRide</Text>
+			<View style={style.lotBanner}>
 				<View>
 					{!!this.state.imgURL &&
 
@@ -44,9 +49,9 @@ export default class LotBanner extends React.Component {
 							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
 						</LightBox>
 					}
-					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
-					<Text>Pick Up: {this.state.lotData && this.state.lotData.pickupTime && this.state.lotData.pickupTime.seconds}</Text>
-
+					<Button title={"Report"} onPress={this.handleReport} />
+				</View>
+				<View>
 					<Text>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
 					<Text>Bid Price: {this.state.lotData.offer}</Text>
 					{!this.state.lotData.driverId && <Text>Be the first one to bid on this!!!</Text>}

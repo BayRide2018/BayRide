@@ -51,7 +51,7 @@ module.exports = StyleSheet.create({
 	},
 	button: {
 		margin: 20,
-		marginTop: 50
+		marginTop: 50,
 	},
 	backButton: {
 		marginTop: 'auto'

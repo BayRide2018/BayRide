@@ -6,6 +6,8 @@ import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
 import MatchBanner from './MatchBanner';
 import style from '../public/style';
+import Icon from 'react-native-vector-icons/Octicons';
+
 
 class MainScreen extends Component {
 
@@ -112,6 +114,15 @@ class MainScreen extends Component {
 
 		return(
 			<View style={style.containerMain}>
+
+			<Icon
+				style={}
+				name='three-bars' 
+				size={30} 
+				color='#000' 
+				onPress={() => this.props.navigation.toggleDrawer()}
+			/>
+
 			<MapView
 				style={style.mapMain}
 				onRegionChangeComplete={this.onRegionChangeComplete}

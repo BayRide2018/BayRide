@@ -146,5 +146,9 @@ module.exports = StyleSheet.create({
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		alignContent: 'space-around',
+	},
+	drawerIcon: {
+		marginTop: 24,
+		marginLeft: 18
 	}
 });

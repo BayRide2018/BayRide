@@ -116,7 +116,7 @@ class MainScreen extends Component {
 			<View style={style.containerMain}>
 
 			<Icon
-				style={}
+				style={style.drawerIcon}
 				name='three-bars' 
 				size={30} 
 				color='#000' 

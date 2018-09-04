@@ -12,8 +12,14 @@ export default class Winner extends React.Component {
 	state = {
 		isModalVisible: true,
 		// lot : {}
-		// passenger : {}
+		passenger : {}
 	};
+
+	componentDidMount () {
+		store.collection("users").doc(this.props.winningInfo.passengerId).get().then(passenger => {
+			this.setState({ passenger });
+		})
+	}
 
 	_toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
@@ -68,7 +74,8 @@ export default class Winner extends React.Component {
 			<Modal isVisible={this.state.isModalVisible}>
 				<View style={{ flex: 1, backgroundColor: 'white', marginTop: 20 }}>
 					<Text> You are the Winner!</Text>
-					<Text>Passenger Name {this.props.winningInfo.driverId}</Text>
+					<Text>Passenger Name: {this.state.passenger.name}</Text>
+					<Text>Passenger Phone: {this.state.passenger.phone}</Text>
 					<Text>Passenger location</Text>
 					<Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text>
 					<Button

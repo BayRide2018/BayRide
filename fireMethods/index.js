@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { store, auth } from '../fire';
+import { PhoneNumberFormat, PhoneNumberUtil} from 'google-libphonenumber';
 
 async function signup (name, phone, email, password) {
 	email = email.toLowerCase();
@@ -9,6 +10,17 @@ async function signup (name, phone, email, password) {
 	if (password.length < 6) return "Password must be at least 6 characters.";
 	// It might be cool to validate phone number and license with regex, but whatever
 	// ^No, but really
+
+	let valid = false;
+
+		const phoneUtil = PhoneNumberUtil.getInstance();
+		// user doesn't have to include +1
+		// an example telling the user that above the field would be great
+		valid = phoneUtil.isValidNumber(phoneUtil.parse('+1' + phone));
+
+	if (!valid){
+		return 'Invalid Phone Number';
+	}
 
 	// Auth Signup
 	let res = null;
@@ -23,7 +35,7 @@ async function signup (name, phone, email, password) {
 		.then(DLH => { driverLotHistoryId = DLH.id });
 	await store.collection("passenger_lot_history").add({ driverId: email, lots: [] })
 		.then(PLH => { passengerLotHistoryId = PLH.id });
-	
+
 	await store.collection("users").doc(email).set({
 		name,
 		phone,

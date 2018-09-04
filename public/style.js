@@ -136,5 +136,12 @@ module.exports = StyleSheet.create({
 		width: 400,
 		height: 300,
 		margin: 50,
+	},
+	lotBanner: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		alignContent: 'space-around',
 	}
 });

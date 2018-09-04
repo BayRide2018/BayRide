@@ -3,6 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth, imgStorageRef } from '../fire';
 import LightBox from 'react-native-lightbox';
+import style from '../public/style';
 
 
 export default class LotBanner extends React.Component {
@@ -40,8 +41,7 @@ export default class LotBanner extends React.Component {
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
-			<View>
-				<Text>BayRide</Text>
+			<View style={style.lotBanner}>
 				<View>
 					{!!this.state.imgURL &&
 
@@ -50,9 +50,8 @@ export default class LotBanner extends React.Component {
 						</LightBox>
 					}
 					<Button title={"Report"} onPress={this.handleReport} />
-					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
-					<Text>Pick Up: {this.state.lotData && this.state.lotData.pickupTime && this.state.lotData.pickupTime.seconds}</Text>
-
+				</View>
+				<View>
 					<Text>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
 					<Text>Bid Price: {this.state.lotData.offer}</Text>
 					{!this.state.lotData.driverId && <Text>Be the first one to bid on this!!!</Text>}

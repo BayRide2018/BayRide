@@ -5,6 +5,9 @@ import { login } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import PasswordInputText from 'react-native-hide-show-password-input';
+import {
+	TextField
+} from 'react-native-material-textfield';
 
 export default class Login extends Component {
 
@@ -37,8 +40,7 @@ export default class Login extends Component {
 			<View>
 				<Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
 				<View style={style.button}>
-					<FormLabel>E-mail</FormLabel>
-					<FormInput placeholder="Please enter your email"
+					<TextField label="Email" placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>
 

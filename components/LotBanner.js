@@ -16,6 +16,11 @@ export default class LotBanner extends React.Component {
 	}
 
 
+	handleReport = () => {
+		// Mark the lot in the db
+		// Notify a human
+	}
+
 	handlePress = async () => {
 		let driverExpoToken;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
@@ -44,6 +49,7 @@ export default class LotBanner extends React.Component {
 							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
 						</LightBox>
 					}
+					<Button title={"Report"} onPress={this.handleReport} />
 					<Text>Screenshot: {this.state.lotData.screenshot}</Text>
 					<Text>Pick Up: {this.state.lotData && this.state.lotData.pickupTime && this.state.lotData.pickupTime.seconds}</Text>
 

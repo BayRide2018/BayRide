@@ -21,13 +21,12 @@ export default class LotBanner extends React.Component {
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			driverExpoToken = user.data().expoToken;
 		})
-		console.log(">>>>>>>", driverExpoToken);
 		store.collection("lots").doc(this.state.lotData.lotId).get().then(lot => {
 			if (lot.data().driverId) {
 				let newOffer = lot.data().offer - 0.25 ;
-				lot.ref.update({ driverExpoToken: driverExpoToken, driverId: auth.currentUser.email, offer: newOffer});
+				lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email, offer: newOffer});
 			} else {
-				lot.ref.update({ driverExpoToken: driverExpoToken, driverId: auth.currentUser.email });
+				lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email });
 			}
 		});
 	}

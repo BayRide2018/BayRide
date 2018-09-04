@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { store } from '../fire';
 import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';
+import call from 'react-native-phone-call';
 
 
 export default class MatchBanner extends React.Component {
@@ -40,7 +41,7 @@ export default class MatchBanner extends React.Component {
 				?
 				<View>
 						<Text>You are matched with: {this.state.driverInfo.name}</Text>
-						<Text>Phone Number: {this.state.driverInfo.phone}</Text>
+						<Button title={this.state.driverInfo.phone} onPress={() => { call({ number: this.state.driverInfo.phone, prompt: true }).catch(console.error) }} />
 						<Text>{this.state.driverInfo.drivingInformation && this.state.driverInfo.drivingInformation.info}</Text>
 						</View>
 						: <Text>No one has submitted a bid yet, but be patient</Text>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Button, Text } from 'react-native';
 import { store, auth } from '../fire';
+import Icon from 'react-native-vector-icons/Octicons';
+import style from '../public/style';
 
 export default class Payment extends Component {
 
@@ -25,11 +27,24 @@ export default class Payment extends Component {
         });
     }
 
+    handleSubmit () {
+        // Nice
+    }
+
 	render() {
         const { name, email, password, phone, defaultSetting, paymentInformation, drivingInformation, id } = this.state;
 		return (
 			<View>
                 <Text>This is your Payment Information!!</Text>
+
+                <Icon
+                    style={style.drawerIcon}
+                    name='three-bars' 
+                    size={30} 
+                    color='#000' 
+                    onPress={() => this.props.navigation.toggleDrawer()}
+                />
+
                 <Text>Name: </Text>
                 <Text>{name}</Text>
                 <Text>email: </Text>

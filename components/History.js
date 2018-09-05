@@ -8,30 +8,37 @@ export default class History extends Component {
 
 	state = {
         currentlyPassenger: true,
-        history: []
+        history: [],
+        lots: []
     };
 
     componentDidMount = async () => {
         let myPassengerLotHistory, myDriverLotHistory, currentlyPassenger;
         await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-            // this.setState({ name: user.data().name, email: user.data().email })
             myDriverLotHistory = user.data().myDriverLotHistory;
             myPassengerLotHistory = user.data().myPassengerLotHistory;
             currentlyPassenger = user.data().currentlyPassenger;
-        })
+        });
         if (currentlyPassenger) {
-            store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(history => {
-                this.setState({ history: history.data().lots, currentlyPassenger })
-            })
+            await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(history => {
+                this.setState({ history: history.data().lots, currentlyPassenger });
+            });
         } else {
-            store.collection("driver_lot_history").doc(myDriverLotHistory).get().then(history => {
-                this.setState({ history: history.data().lots, currentlyPassenger })
-            })
+            await store.collection("driver_lot_history").doc(myDriverLotHistory).get().then(history => {
+                this.setState({ history: history.data().lots, currentlyPassenger });
+            });
         }
+        // I don't want to update state a million times, so I'll make this list, and then jsut assign state once
+        let lots = [];
+        for (let id of this.state.history) {
+            await store.collection("lot_history").doc(id).get().then(lot => {
+                lots.push(lot.data());
+            });
+        }
+        this.setState({ lots });
     }
 
 	render() {
-        const { name, email } = this.state;
 		return (
 			<View>
                 <Text></Text>

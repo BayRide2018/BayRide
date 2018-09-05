@@ -7,14 +7,22 @@ import style from '../public/style';
 export default class History extends Component {
 
 	state = {
-        name: '',
-		email: ''
+        driverHistory: [],
+        passengerHistory: []
     };
 
-    componentDidMount () {
-        store.collection("users").doc(auth.currentUser.email).get()
-        .then(user => {
-            this.setState({ name: user.data().name, email: user.data().email })
+    componentDidMount = async () => {
+        let myPassengerLotHistory, myDriverLotHistory;
+        await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+            // this.setState({ name: user.data().name, email: user.data().email })
+            myDriverLotHistory = user.data().myDriverLotHistory;
+            myPassengerLotHistory = user.data().myPassengerLotHistory;
+        })
+        store.collection("driver_lot_history").doc(myDriverLotHistory).get().then(history => {
+            this.setState({ driverHistory: history.data().lots })
+        })
+        store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(history => {
+            this.setState({ passengerHistory: history.data().lots })
         })
     }
 

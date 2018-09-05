@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { store, auth } from '../fire';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
@@ -7,23 +7,27 @@ import style from '../public/style';
 export default class History extends Component {
 
 	state = {
-        driverHistory: [],
-        passengerHistory: []
+        currentlyPassenger: true,
+        history: []
     };
 
     componentDidMount = async () => {
-        let myPassengerLotHistory, myDriverLotHistory;
+        let myPassengerLotHistory, myDriverLotHistory, currentlyPassenger;
         await store.collection("users").doc(auth.currentUser.email).get().then(user => {
             // this.setState({ name: user.data().name, email: user.data().email })
             myDriverLotHistory = user.data().myDriverLotHistory;
             myPassengerLotHistory = user.data().myPassengerLotHistory;
+            currentlyPassenger = user.data().currentlyPassenger;
         })
-        store.collection("driver_lot_history").doc(myDriverLotHistory).get().then(history => {
-            this.setState({ driverHistory: history.data().lots })
-        })
-        store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(history => {
-            this.setState({ passengerHistory: history.data().lots })
-        })
+        if (currentlyPassenger) {
+            store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(history => {
+                this.setState({ history: history.data().lots, currentlyPassenger })
+            })
+        } else {
+            store.collection("driver_lot_history").doc(myDriverLotHistory).get().then(history => {
+                this.setState({ history: history.data().lots, currentlyPassenger })
+            })
+        }
     }
 
 	render() {
@@ -40,15 +44,13 @@ export default class History extends Component {
                 />
 
                 <Text>This is your passenger history!!</Text>
-                <Text>You don't currently have any history, because you haven't been on any rides. Take a trip somewhere, and we'll show it here</Text>
-                <Text></Text>
-                <Text>This is your driver history!!</Text>
-                <Text>You don't currently have any history, because you haven't driven anyone. Take someone out for a spin, and we'll show it here</Text>
-                <Text>This is your profile!!</Text>
-                <Text>Name: </Text>
-                <Text>{name}</Text>
-                <Text>email: </Text>
-                <Text>{email}</Text>
+                <ScrollView>
+                        {this.state.history.map((lot, i) => {
+                            return (<View key={i}>
+                                <Text>{lot}</Text>
+                            </View>)
+                        })}
+                </ScrollView>
 			</View>
 		);
 	}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { store, auth } from '../fire';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
@@ -7,22 +7,40 @@ import style from '../public/style';
 export default class History extends Component {
 
 	state = {
-        name: '',
-		email: ''
+        currentlyPassenger: true,
+        history: [],
+        lots: []
     };
 
-    componentDidMount () {
-        store.collection("users").doc(auth.currentUser.email).get()
-        .then(user => {
-            this.setState({ name: user.data().name, email: user.data().email })
-        })
+    componentDidMount = async () => {
+        let myPassengerLotHistory, myDriverLotHistory, currentlyPassenger;
+        await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+            myDriverLotHistory = user.data().myDriverLotHistory;
+            myPassengerLotHistory = user.data().myPassengerLotHistory;
+            currentlyPassenger = user.data().currentlyPassenger;
+        });
+        if (currentlyPassenger) {
+            await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(history => {
+                this.setState({ history: history.data().lots, currentlyPassenger });
+            });
+        } else {
+            await store.collection("driver_lot_history").doc(myDriverLotHistory).get().then(history => {
+                this.setState({ history: history.data().lots, currentlyPassenger });
+            });
+        }
+        // I don't want to update state a million times, so I'll make this list, and then jsut assign state once
+        let lots = [];
+        for (let id of this.state.history) {
+            await store.collection("lot_history").doc(id).get().then(lot => {
+                lots.push(lot.data());
+            });
+        }
+        this.setState({ lots });
     }
 
 	render() {
-        const { name, email } = this.state;
 		return (
 			<View>
-                <Text></Text>
                 <Icon
                     style={style.drawerIcon}
                     name='three-bars' 
@@ -32,15 +50,17 @@ export default class History extends Component {
                 />
 
                 <Text>This is your passenger history!!</Text>
-                <Text>You don't currently have any history, because you haven't been on any rides. Take a trip somewhere, and we'll show it here</Text>
-                <Text></Text>
-                <Text>This is your driver history!!</Text>
-                <Text>You don't currently have any history, because you haven't driven anyone. Take someone out for a spin, and we'll show it here</Text>
-                <Text>This is your profile!!</Text>
-                <Text>Name: </Text>
-                <Text>{name}</Text>
-                <Text>email: </Text>
-                <Text>{email}</Text>
+                <ScrollView>
+                        {this.state.lots.map((lot, i) => {
+                            return (<View key={i}>
+                                <Text>Driver: {lot.driverId}</Text>
+                                <Text>Passenger: {lot.passengerId}</Text>
+                                <Text>Pick Up Location: {lot.pickupLocation.latitude}, {lot.pickupLocation.longitude}</Text>
+                                <Text>Drop Off Location: {lot.dropoffLocation}</Text>
+                                <Text>Pick Up Time: {lot.pickupTime.toDate().toString()}</Text>
+                            </View>)
+                        })}
+                </ScrollView>
 			</View>
 		);
 	}

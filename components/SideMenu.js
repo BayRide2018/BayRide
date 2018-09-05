@@ -17,11 +17,18 @@ class SideMenu extends Component {
 		});
 	}
 
-	handleLogout = async () => {
-		await auth.signOut();
-		this.navigateToScreen('Welcome')();
+	handleHome = async () => {
+		let currentlyPassenger;
+		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			currentlyPassenger = user.data().currentlyPassenger;
+		});
+		if (currentlyPassenger) {
+			this.navigateToScreen('MainScreen')();
+		} else {
+			this.navigateToScreen('DriverHome')();			
+		}
 	}
-
+	
 	handleSwitchDriver = async () => {
 		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: false
@@ -34,13 +41,18 @@ class SideMenu extends Component {
 		this.navigateToScreen('DriverRegistration')();
 		this.componentDidMount();
 	}
-
+  
 	handleSwitchPassenger = async () => {
 		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: true
 		});
 		this.navigateToScreen('MainScreen')();
 		this.componentDidMount();
+	}
+	
+	handleLogout = async () => {
+		await auth.signOut();
+		this.navigateToScreen('Welcome')();
 	}
 
 	navigateToScreen = (route) => () => {
@@ -54,7 +66,7 @@ class SideMenu extends Component {
 		return (
 			<View style={styles.container}>
 					<View style={styles.navItemStyle}>
-						<Button title="Home" syle={styles.navItemStyle} onPress={this.navigateToScreen('MainScreen')} />
+						<Button title="Home" syle={styles.navItemStyle} onPress={this.handleHome} />
 
 						<Button title="My Account" style={styles.navItemStyle} onPress={this.navigateToScreen('Account')} />
 

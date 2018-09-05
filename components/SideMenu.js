@@ -67,7 +67,7 @@ export default class SideMenu extends Component {
 	render () {
 		return (
 			<View style={style.containerSM}>
-					<View style={style.navItemStyle}>
+					<View style={style.navItemStyleSM}>
 						<Button title="Home" syle={style.navItemStyleSM} onPress={this.handleHome} />
 
 						<Button title="My Account" style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')} />
@@ -97,4 +97,3 @@ export default class SideMenu extends Component {
 SideMenu.propTypes = {
 	navigation: PropTypes.object
 };
-export default SideMenu;

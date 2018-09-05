@@ -139,7 +139,7 @@ module.exports = StyleSheet.create({
 		margin: 50,
 	},
 	/**
-	 * Starting Thomas's styling
+	 * Styling for DriverHome
 	 */
 	lotBanner: {
 		display: 'flex',

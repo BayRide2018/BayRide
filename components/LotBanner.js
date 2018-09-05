@@ -49,13 +49,15 @@ export default class LotBanner extends React.Component {
 							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
 						</LightBox>
 					}
-					<Button title={"Report"} onPress={this.handleReport} />
 				</View>
 				<View>
 					<Text>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
 					<Text>Bid Price: {this.state.lotData.offer}</Text>
 					{!this.state.lotData.driverId && <Text>Be the first one to bid on this!!!</Text>}
-					<Button title={buttonTitle} onPress={this.handlePress} />
+					<View style={style.lotBannerButton}>
+						<Button title={buttonTitle} onPress={this.handlePress} />
+						<Button title={"Report"} onPress={this.handleReport} />
+					</View>
 				</View>
 			</View>
 		);

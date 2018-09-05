@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import LotBanner from "./LotBanner";
 import TimerCountdown from 'react-native-timer-countdown';
 import { expireLot } from '../fireMethods';
+import style from '../public/style';
 
 
 export default class LotBannerWrapper extends Component {
@@ -24,17 +25,18 @@ export default class LotBannerWrapper extends Component {
 
 	return (
 		<View>
-		{this.state.showThisBanner
-		? <View>
-			<TimerCountdown
-				initialSecondsRemaining={pickupTime - now}
-				onTimeElapsed={this.handleFinish}
-				allowFontScaling={true}
-				style={{ fontSize: 20 }}
-			/>
-			<LotBanner lotData={this.props.lotData} />
-			</View>
-		: null}
+			{this.state.showThisBanner
+			?	<View>
+					<TimerCountdown
+						initialSecondsRemaining={pickupTime - now}
+						onTimeElapsed={this.handleFinish}
+						allowFontScaling={true}
+						style={{ fontSize: 20 }}
+					/>
+					<LotBanner lotData={this.props.lotData} />
+					<View style={style.horizontalRule} />
+				</View>
+			: null}
 		</View>
 	)
 	}

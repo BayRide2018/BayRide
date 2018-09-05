@@ -30,6 +30,11 @@ class SideMenu extends Component {
 		this.componentDidMount();
 	}
 
+	handleDriverRegistration = async () => {
+		this.navigateToScreen('DriverRegistration')();
+		this.componentDidMount();
+	}
+
 	handleSwitchPassenger = async () => {
 		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: true
@@ -54,7 +59,7 @@ class SideMenu extends Component {
 						<Button title="My Account" style={styles.navItemStyle} onPress={this.navigateToScreen('Account')} />
 
 						{  this.state.currentlyPassenger
-						? <Button title="Switch to Driver" style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.navigateToScreen('DriverRegistration')} />
+						? <Button title="Switch to Driver" style={styles.navItemStyle} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.handleDriverRegistration} />
 						: <Button title="Switch to Passenger" style={styles.navItemStyle} onPress={this.handleSwitchPassenger}/>
 						}
 

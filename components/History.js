@@ -41,7 +41,6 @@ export default class History extends Component {
 	render() {
 		return (
 			<View>
-                <Text></Text>
                 <Icon
                     style={style.drawerIcon}
                     name='three-bars' 
@@ -52,9 +51,13 @@ export default class History extends Component {
 
                 <Text>This is your passenger history!!</Text>
                 <ScrollView>
-                        {this.state.history.map((lot, i) => {
+                        {this.state.lots.map((lot, i) => {
                             return (<View key={i}>
-                                <Text>{lot}</Text>
+                                <Text>Driver: {lot.driverId}</Text>
+                                <Text>Passenger: {lot.passengerId}</Text>
+                                <Text>Pick Up Location: {lot.pickupLocation.latitude}, {lot.pickupLocation.longitude}</Text>
+                                <Text>Drop Off Location: {lot.dropoffLocation}</Text>
+                                <Text>Pick Up Time: {lot.pickupTime.toDate().toString()}</Text>
                             </View>)
                         })}
                 </ScrollView>

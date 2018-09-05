@@ -147,6 +147,15 @@ module.exports = StyleSheet.create({
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		alignContent: 'space-around',
+		borderBottomColor: 'black',
+		borderBottomWidth: 1,
+	},
+	lotBannerButton: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		alignContent: 'space-around',
 	},
 	drawerIcon: {
 		marginTop: 24,

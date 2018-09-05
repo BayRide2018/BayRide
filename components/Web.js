@@ -7,8 +7,8 @@ export default class Web extends Component {
 
 	render() {
 		return(
-			<View style={{flex: 1}}>
-				 <WebView source={{uri: 'https://github.com/BayRide2018/BayRide'}} style={{marginTop: 20}} />
+			<View>
+				 <WebView source={{uri: 'https://github.com/BayRide2018/BayRide'}} />
 			</View>
 		);
 	}

@@ -18,7 +18,13 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling for SignUp & Login
 	 */
-
+	signUp: {
+		width: 150,
+		borderColor: "white",
+		borderWidth: 1,
+		borderRadius: 5,
+		padding: 2,
+	},
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
@@ -36,6 +42,13 @@ module.exports = StyleSheet.create({
 		margin: 20,
 		marginTop: 50,
 		alignItems: 'center'
+	},
+	viewPhoto: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginBottom: 0,
+		paddingBottom: 0
 	},
 	lotMain: {
 		flex: 1,
@@ -93,13 +106,6 @@ module.exports = StyleSheet.create({
 	welcomeButton: {
 		width: 150,
 		backgroundColor: 'teal',
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 2,
-	},
-	signUp: {
-		width: 150,
-		borderColor: "white",
 		borderWidth: 1,
 		borderRadius: 5,
 		padding: 2,

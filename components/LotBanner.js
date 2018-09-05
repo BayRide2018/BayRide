@@ -45,7 +45,7 @@ export default class LotBanner extends React.Component {
 				<View>
 					{!!this.state.imgURL &&
 
-						<LightBox underlayColor='white'>
+						<LightBox underlayColor='white'>							/** THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */
 							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200, zIndex:25 }} />
 						</LightBox>
 					}

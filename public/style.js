@@ -171,5 +171,15 @@ module.exports = StyleSheet.create({
 		justifyContent: 'flex-end',
 		bottom: 20,
 		alignItems: 'center'
+	},
+
+	/**
+	 * Styling other things
+	 */
+	webView: {
+		marginTop: 20,
+	},
+	webOuterView: {
+		flex: 1
 	}
 });

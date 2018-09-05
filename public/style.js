@@ -10,6 +10,14 @@ module.exports = StyleSheet.create({
 		backgroundColor: 'transparent',
 		flex: 1
 	},
+
+	/**
+	 * Styling for PassengerHome / MainScreen
+	 */
+
+	/**
+	 * Styling for LotSubmissionForm
+	 */
 	picker: {
 		backgroundColor: 'white',
 		width: 300,
@@ -104,6 +112,7 @@ module.exports = StyleSheet.create({
 		height: 300,
 		margin: 50,
 	},
+
 	/**
 	 * Styling for DriverHome
 	 */
@@ -128,11 +137,32 @@ module.exports = StyleSheet.create({
 		borderBottomColor: 'black',
 		borderBottomWidth: 1,
 	},
+
 	/**
 	 * Styling for the drawer
 	 */
 	drawerIcon: {
 		marginTop: 24,
 		marginLeft: 18
+	},
+	/** The rest of these are for the sidemenu */
+	container: {
+		paddingTop: 20,
+		flex: 1,
+		backgroundColor: '#b0e0e6',
+	},
+	navItemStyle: {
+		padding: 15
+	},
+	sectionHeadingStyle: {
+		paddingVertical: 10,
+		paddingHorizontal: 5
+	},
+	footerContainer: {
+		flex: 1,
+		backgroundColor: '#b0e0e6',
+		justifyContent: 'flex-end',
+		bottom: 20,
+		alignItems: 'center'
 	}
 });

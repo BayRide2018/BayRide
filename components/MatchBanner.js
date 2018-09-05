@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Text, View, Button } from 'react-native';
 import { store } from '../fire';
 import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';

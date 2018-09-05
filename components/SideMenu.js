@@ -99,21 +99,22 @@ SideMenu.propTypes = {
 const styles = StyleSheet.create({ // This needs to be moved to the global stylsheet
 	container: {
 		paddingTop: 20,
-		flex: 1
+		flex: 1,
+		backgroundColor: '#b0e0e6',
 	},
 	navItemStyle: {
-		padding: 10
-	},
-	navSectionStyle: {
-		backgroundColor: 'lightgrey'
+		padding: 15
 	},
 	sectionHeadingStyle: {
 		paddingVertical: 10,
 		paddingHorizontal: 5
 	},
 	footerContainer: {
-		padding: 20,
-		backgroundColor: 'lightgrey'
+		flex: 1,
+		backgroundColor: '#b0e0e6',
+		justifyContent: 'flex-end',
+		bottom: 20,
+		alignItems: 'center'
 	}
 });
 

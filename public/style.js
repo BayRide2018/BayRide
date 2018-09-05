@@ -10,9 +10,6 @@ module.exports = StyleSheet.create({
 		backgroundColor: 'transparent',
 		flex: 1
 	},
-	submissionFont: {
-		color: 'black',
-	},
 	picker: {
 		backgroundColor: 'white',
 		width: 300,
@@ -56,36 +53,11 @@ module.exports = StyleSheet.create({
 	backButton: {
 		marginTop: 'auto'
 	},
-	menuButton: {
-		padding: 1,
-		flex: 1,
-		justifyContent: 'space-evenly',
-		alignItems: 'center',
-		backgroundColor: '#FFFFFF',
-	},
 
 	callDrawerContainer: {
 		padding: 25
 	},
 
-	drawerButtonStyle: {
-		backgroundColor: "#C0C0C0",
-		width: 200,
-		height: 45,
-		borderColor: "white",
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 5
-	},
-	menuButtonStyle: {
-		backgroundColor: "rgba(48,48,48,1)",
-		width: 100,
-		height: 45,
-		borderColor: "white",
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 5
-	},
 	banner: {
 		flex: 1,
 		backgroundColor: 'white',
@@ -127,12 +99,6 @@ module.exports = StyleSheet.create({
 		color: 'teal',
 		top: 70
 	},
-	font: {
-		fontSize: 15,
-		backgroundColor: '#969694',
-		textAlign: 'center',
-		color: 'white'
-	},
 	logo: {
 		width: 400,
 		height: 300,
@@ -143,12 +109,11 @@ module.exports = StyleSheet.create({
 	 */
 	lotBanner: {
 		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'space-around',
-		alignItems: 'center',
-		alignContent: 'space-around',
-		borderBottomColor: 'black',
-		borderBottomWidth: 1,
+		flex: 1,
+		// flexDirection: 'row',
+		// justifyContent: 'space-around',
+		// alignItems: 'center',
+		// alignContent: 'space-around',
 	},
 	lotBannerButton: {
 		display: 'flex',
@@ -157,6 +122,15 @@ module.exports = StyleSheet.create({
 		alignItems: 'center',
 		alignContent: 'space-around',
 	},
+	horizontalRule: {
+		marginLeft: 15,
+		marginRight: 15,
+		borderBottomColor: 'black',
+		borderBottomWidth: 1,
+	},
+	/**
+	 * Styling for the drawer
+	 */
 	drawerIcon: {
 		marginTop: 24,
 		marginLeft: 18

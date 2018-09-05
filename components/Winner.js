@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Text, View, TouchableOpacity, Button } from 'react-native';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import Modal from "react-native-modal";
@@ -76,7 +75,7 @@ export default class Winner extends React.Component {
 				<View style={{ flex: 1, backgroundColor: 'white', marginTop: 20 }}>
 					<Text> You are the Winner!</Text>
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
-					<Button title={this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
+					<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
 					<Text>Passenger location</Text>
 					<Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text>
 					<Button
@@ -85,9 +84,9 @@ export default class Winner extends React.Component {
 					<Button
 					title="Drive to Passenger's destination!"
 					onPress={this.handleGetDirectionsTwo} />
-					<TouchableOpacity onPress={this._toggleModal}>
-						<Text style={style.font}>Close</Text>
-					</TouchableOpacity>
+					
+						<Button title="Close" onPress={this._toggleModal} />
+					
 								{/** Button gets directions to start*/}
 											{/** Button gets directions from start to end */}
 				</View>

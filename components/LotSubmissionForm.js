@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, ScrollView } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { Location } from 'expo';
 import { store, auth } from '../fire';
@@ -90,7 +90,7 @@ export default class LotSubmissionForm extends Component {
 	render() {
 
 		return (
-			<View style={{ alignItems: 'center', flex: 1 }}>
+			<ScrollView contentContainerStyle={{ alignItems: 'center', flex: 1 }}>
 
 				<View style={style.submissionForm}>
 				{this.state.showMinutePicker 
@@ -152,7 +152,7 @@ export default class LotSubmissionForm extends Component {
 						<Button style={style.backButton} title='Go Back' onPress={this.handleBack} />
 					</View>
 				</View>
-			</View>
+			</ScrollView>
 		);
 	}
 }

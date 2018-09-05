@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Text, View, Image, Button } from 'react-native';
 import { store, auth, imgStorageRef } from '../fire';
 import LightBox from 'react-native-lightbox';
 import style from '../public/style';
@@ -47,7 +46,7 @@ export default class LotBanner extends React.Component {
 					{!!this.state.imgURL &&
 
 						<LightBox underlayColor='white'>
-							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
+							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200, zIndex:25 }} />
 						</LightBox>
 					}
 				</View>

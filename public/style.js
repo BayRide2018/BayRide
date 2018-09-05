@@ -12,6 +12,14 @@ module.exports = StyleSheet.create({
 	},
 
 	/**
+	 * Styling for Welcome
+	 */
+
+	/**
+	 * Styling for SignUp & Login
+	 */
+
+	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
 
@@ -61,11 +69,9 @@ module.exports = StyleSheet.create({
 	backButton: {
 		marginTop: 'auto'
 	},
-
 	callDrawerContainer: {
 		padding: 25
 	},
-
 	banner: {
 		flex: 1,
 		backgroundColor: 'white',
@@ -107,11 +113,6 @@ module.exports = StyleSheet.create({
 		color: 'teal',
 		top: 70
 	},
-	logo: {
-		width: 400,
-		height: 300,
-		margin: 50,
-	},
 
 	/**
 	 * Styling for DriverHome
@@ -146,19 +147,19 @@ module.exports = StyleSheet.create({
 		marginLeft: 18
 	},
 	/** The rest of these are for the sidemenu */
-	container: {
+	containerSM: {
 		paddingTop: 20,
 		flex: 1,
 		backgroundColor: '#b0e0e6',
 	},
-	navItemStyle: {
+	navItemStyleSM: {
 		padding: 15
 	},
-	sectionHeadingStyle: {
+	sectionHeadingStyleSM: {
 		paddingVertical: 10,
 		paddingHorizontal: 5
 	},
-	footerContainer: {
+	footerContainerSM: {
 		flex: 1,
 		backgroundColor: '#b0e0e6',
 		justifyContent: 'flex-end',

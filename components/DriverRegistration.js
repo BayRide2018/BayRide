@@ -15,7 +15,7 @@ export default class DriverRegistration extends Component {
   }
 
   handleBack = () => {
-    this.props.navigation.navigate('PassengerHome');
+    this.props.navigation.navigate('MainScreen');
   }
 
   render() {

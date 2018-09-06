@@ -116,7 +116,7 @@ export default class LotSubmissionForm extends Component {
 					<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
 
 					<FormLabel>Pickup Location</FormLabel>
-
+					// probably will be changing to GPI eventually
 					<Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
 					<Button title="Use pin location for pick up" onPress={this.handleUseMarkerLocation} />
 

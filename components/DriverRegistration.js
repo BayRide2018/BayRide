@@ -20,7 +20,7 @@ export default class DriverRegistration extends Component {
 
   render() {
     return (
-      <View style={{ alignItems: 'center', flex: 1 }}>
+      <View>
         <Text>This is the sample driver registration page</Text>
         <Text>For now, just click the button, and you'll be registered as a driver!</Text>
         <Text>Later, registration will be a more formal process, with real requirements</Text>

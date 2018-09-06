@@ -31,7 +31,6 @@ export default class LotBannerWrapper extends Component {
 						initialSecondsRemaining={pickupTime - now}
 						onTimeElapsed={this.handleFinish}
 						allowFontScaling={true}
-						style={{ fontSize: 20 }}
 					/>
 					<LotBanner lotData={this.props.lotData} />
 					<View style={style.horizontalRule} />

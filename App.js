@@ -10,6 +10,7 @@ import Payment from './components/Payment';
 import Waiver from './components/Waiver';
 import Help from './components/Help';
 import Web from './components/Web';
+import DriverHome from './components/DriverHome';
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
@@ -22,10 +23,11 @@ export default createStackNavigator({
 	Account: { screen: Account },
 	Payment: { screen: Payment },
 	Help: { screen: Help },
-	Web: { screen: Web }
+	Web: { screen: Web },
+	DriverHome: {screen: DriverHome}
 
 }, {
-	initialRouteName: 'Welcome',
+	initialRouteName: 'DriverHome',
 	navigationOptions: {
 		title: 'BayRide',
 		headerLeft: null,

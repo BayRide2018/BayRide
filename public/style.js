@@ -126,10 +126,6 @@ module.exports = StyleSheet.create({
 	lotBanner: {
 		display: 'flex',
 		flex: 1,
-		// flexDirection: 'row',
-		// justifyContent: 'space-around',
-		// alignItems: 'center',
-		// alignContent: 'space-around',
 	},
 	lotBannerButton: {
 		display: 'flex',
@@ -143,6 +139,13 @@ module.exports = StyleSheet.create({
 		marginRight: 15,
 		borderBottomColor: 'black',
 		borderBottomWidth: 1,
+	},
+	info: {
+		textAlign: 'center'
+	},
+	timer: {
+		display: 'flex',
+		alignItems: 'center'
 	},
 
 	/**

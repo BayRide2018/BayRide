@@ -31,7 +31,7 @@ export default class MatchBanner extends React.Component {
 		const now = new Date().getTime();
 
 		return (
-			<View style={{ flex: 1 }}>
+			<View>
 			<Modal isVisible={this.state.isModalVisible}>
 				<Text>Your Trip to {this.state.lotData.dropoffLocation}</Text>
 				<View>
@@ -47,10 +47,9 @@ export default class MatchBanner extends React.Component {
 					}
 					<Button title='Close' onPress={() => this.props.close()} />
 				<TimerCountdown
-				initialSecondsRemaining={pickupTime - now}
-				onTimeElapsed={this.handleFinish}
-				allowFontScaling={true}
-				style={{ fontSize: 20 }}
+					initialSecondsRemaining={pickupTime - now}
+					onTimeElapsed={this.handleFinish}
+					allowFontScaling={true}
 				/>
 
 				</View>

@@ -10,6 +10,28 @@ module.exports = StyleSheet.create({
 		backgroundColor: 'transparent',
 		flex: 1
 	},
+
+	/**
+	 * Styling for Welcome
+	 */
+
+	/**
+	 * Styling for SignUp & Login
+	 */
+	signUp: {
+		width: 150,
+		borderColor: "white",
+		borderWidth: 1,
+		borderRadius: 5,
+		padding: 2,
+	},
+	/**
+	 * Styling for PassengerHome / MainScreen
+	 */
+
+	/**
+	 * Styling for LotSubmissionForm
+	 */
 	picker: {
 		backgroundColor: 'white',
 		width: 300,
@@ -20,6 +42,13 @@ module.exports = StyleSheet.create({
 		margin: 20,
 		marginTop: 50,
 		alignItems: 'center'
+	},
+	viewPhoto: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginBottom: 0,
+		paddingBottom: 0
 	},
 	lotMain: {
 		flex: 1,
@@ -53,11 +82,9 @@ module.exports = StyleSheet.create({
 	backButton: {
 		marginTop: 'auto'
 	},
-
 	callDrawerContainer: {
 		padding: 25
 	},
-
 	banner: {
 		flex: 1,
 		backgroundColor: 'white',
@@ -83,13 +110,6 @@ module.exports = StyleSheet.create({
 		borderRadius: 5,
 		padding: 2,
 	},
-	signUp: {
-		width: 150,
-		borderColor: "white",
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 2,
-	},
 	title: {
 		fontSize: 75,
 		fontWeight: 'bold',
@@ -99,11 +119,7 @@ module.exports = StyleSheet.create({
 		color: 'teal',
 		top: 70
 	},
-	logo: {
-		width: 400,
-		height: 300,
-		margin: 50,
-	},
+
 	/**
 	 * Styling for DriverHome
 	 */
@@ -128,11 +144,42 @@ module.exports = StyleSheet.create({
 		borderBottomColor: 'black',
 		borderBottomWidth: 1,
 	},
+
 	/**
 	 * Styling for the drawer
 	 */
 	drawerIcon: {
 		marginTop: 24,
 		marginLeft: 18
+	},
+	/** The rest of these are for the sidemenu */
+	containerSM: {
+		paddingTop: 20,
+		flex: 1,
+		backgroundColor: '#b0e0e6',
+	},
+	navItemStyleSM: {
+		padding: 15
+	},
+	sectionHeadingStyleSM: {
+		paddingVertical: 10,
+		paddingHorizontal: 5
+	},
+	footerContainerSM: {
+		flex: 1,
+		backgroundColor: '#b0e0e6',
+		justifyContent: 'flex-end',
+		bottom: 20,
+		alignItems: 'center'
+	},
+
+	/**
+	 * Styling other things
+	 */
+	webView: {
+		marginTop: 20,
+	},
+	webOuterView: {
+		flex: 1
 	}
 });

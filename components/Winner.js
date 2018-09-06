@@ -66,13 +66,13 @@ export default class Winner extends React.Component {
 	
 	render () {
 		return (
-			<View style={{ flex: 1 }}>
+			<View>
 			<TouchableOpacity onPress={this._toggleModal}>
 				<Text>Show Modal</Text>
 			</TouchableOpacity>
 			{/** Button toggles this.state.isModalVisible*/}
 			<Modal isVisible={this.state.isModalVisible}>
-				<View style={{ flex: 1, backgroundColor: 'white', marginTop: 20 }}>
+				<View>
 					<Text> You are the Winner!</Text>
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
 					<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />

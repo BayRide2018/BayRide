@@ -119,6 +119,14 @@ module.exports = StyleSheet.create({
 		color: 'teal',
 		top: 70
 	},
+	/**
+	 * Style for Matchbanner
+	 */
+	matchBanner: {
+		backgroundColor: 'white',
+		margin: 40
+	},
+
 
 	/**
 	 * Styling for DriverHome

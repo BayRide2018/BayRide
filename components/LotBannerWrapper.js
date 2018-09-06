@@ -24,7 +24,7 @@ export default class LotBannerWrapper extends Component {
 
 
 	return (
-		<View>
+		<View style={style.lotBannerWrapper} >
 			{this.state.showThisBanner
 			?	<View>
 					<TimerCountdown

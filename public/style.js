@@ -123,6 +123,7 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling for DriverHome
 	 */
+	myLotBannerWrapper: {},
 	lotBanner: {
 		display: 'flex',
 		flex: 1,

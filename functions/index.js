@@ -13,9 +13,6 @@ admin.initializeApp(functions.config().firebase);
 exports.sendPushNotificationConfirmation = functions.firestore.document("lot_history/{expiredLot}").onCreate((snap, context) => {
   const lotObj = snap.data();
   const lotId = context.params.expiredLot;
-  console.log(">>>>>>", lotObj, "<<<<<<");
-  console.log("<<<<<<", context, ">>>>>>");
-  console.log("This function d0n't really do anything.. The http request to expo fails because of our firebase plan (the unpaid stuff)");
 
   const expoTokenPassenger = lotObj.passengerExpoToken;
   const expoTokenDriver = lotObj.driverExpoToken;
@@ -54,10 +51,6 @@ exports.sendPushNotificationConfirmation = functions.firestore.document("lot_his
 exports.sendPushNotificationUpdate = functions.firestore.document("lots/{lotId}").onUpdate((change, context) => {
   const newValue = change.after.data();
   const previousValue = change.before.data();
-
-  console.log(">>NV>>", newValue);
-  console.log(">>PV>>", previousValue);
-  console.log(">Context>", context);
 
   const expoTokenPassenger = newValue.passengerExpoToken;
   const expoTokenDriver = previousValue.driverExpoToken; // We need this to be the PREV driver, so that

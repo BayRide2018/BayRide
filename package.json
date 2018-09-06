@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "eslint-plugin-promise": "^4.0.0",
     "exp": "^57.0.0",
     "jest-expo": "~27.0.0",
     "react-native-scripts": "1.14.0",

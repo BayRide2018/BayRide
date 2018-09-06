@@ -35,7 +35,7 @@ export default class DriverHome extends Component {
     await store.collection('lots').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
         this.setState( {winningInfo: lot.data(), winner: true} );
-        });
+      });
     });
   }
 

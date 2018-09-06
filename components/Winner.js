@@ -67,31 +67,20 @@ export default class Winner extends React.Component {
 	render () {
 		return (
 			<View>
-			<TouchableOpacity onPress={this._toggleModal}>
-				<Text>Show Modal</Text>
-			</TouchableOpacity>
-			{/** Button toggles this.state.isModalVisible*/}
-			<Modal isVisible={this.state.isModalVisible}>
+				<Button title="Show Modal" onPress={this._toggleModal} />
+				<Modal isVisible={this.state.isModalVisible}>
 				<View>
 					<Text> You are the Winner!</Text>
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
 					<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
 					<Text>Passenger location</Text>
 					<Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text>
-					<Button
-					title="Drive to Passenger!"
-					onPress={this.handleGetDirections} />
-					<Button
-					title="Drive to Passenger's destination!"
-					onPress={this.handleGetDirectionsTwo} />
-					
-						<Button title="Close" onPress={this._toggleModal} />
-					
-								{/** Button gets directions to start*/}
-											{/** Button gets directions from start to end */}
+					<Button title="Drive to Passenger!" onPress={this.handleGetDirections} />
+					<Button title="Drive to Passenger's destination!" onPress={this.handleGetDirectionsTwo} />
+					<Button title="Close" onPress={this._toggleModal} />
 				</View>
-			</Modal>
-		</View>
+				</Modal>
+			</View>
 		);
 	}
 }

@@ -37,7 +37,6 @@ export default class LotBanner extends React.Component {
 	}
 
 	render () {
-		console.log("render state: ", this.state);
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (

@@ -40,18 +40,18 @@ export default class LotBanner extends React.Component {
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
-			<View style={style.lotBanner}>
-				<View> 
+			<View  style={style.lotBanner}>
+				<View>
 					{!!this.state.imgURL &&
 						<LightBox underlayColor='white'>
-							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200, zIndex:25 }} />
+							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
 						</LightBox>
 					}
 				</View> {/* THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */}
 				<View>
-					<Text>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
-					<Text>Bid Price: {this.state.lotData.offer}</Text>
-					{!this.state.lotData.driverId && <Text>Be the first one to bid on this!!!</Text>}
+					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
+					<Text style={style.info}>Bid Price: {this.state.lotData.offer}</Text>
+					{!this.state.lotData.driverId && <Text style={style.info}>Be the first one to bid on this!!!</Text>}
 					<View style={style.lotBannerButton}>
 						<Button title={buttonTitle} onPress={this.handlePress} />
 						<Button title={"Report"} onPress={this.handleReport} />

@@ -27,7 +27,7 @@ export default createStackNavigator({
 	DriverHome: {screen: DriverHome}
 
 }, {
-	initialRouteName: 'DriverHome',
+	initialRouteName: 'Welcome',
 	navigationOptions: {
 		title: 'BayRide',
 		headerLeft: null,

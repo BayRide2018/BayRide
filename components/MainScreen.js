@@ -89,8 +89,8 @@ class MainScreen extends Component {
 		this.setState({ location, marker: location.coords });
 	};
 
-	handleHideButton = () => {
-		this.setState({passengerId: true});
+	handleHideButton = (lotId) => {
+		this.setState({ passengerId: true, lotId });
 	}
 
 	handleSubmit = () => {

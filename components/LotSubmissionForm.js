@@ -43,13 +43,13 @@ export default class LotSubmissionForm extends Component {
 		this.setState({marker});
 	}
 
-	handleSubmit = () => {
-		createLot(this.state.screenshot,
+	handleSubmit = async () => {
+		let x = await createLot(this.state.screenshot,
 			this.state.pickupTime,
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
 			this.state.offer);
-		this.state.hideButton();
+		this.state.hideButton(x); // lotId);
 		this.props.navigation.navigate('MainScreen');
 	}
 

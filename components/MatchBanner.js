@@ -36,6 +36,7 @@ export default class MatchBanner extends React.Component {
 		        <Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
 						{/* <Text>Your Trip to {this.state.lotData.dropoffLocation}</Text> */}
+						{/* This line was breaking it, because for the lot, dropOffLocation was an empty object.. I think it might have something to do with the Google API search bar */}
 						<Text>Current Price: $ {this.state.lotData.offer}</Text>
 						{this.state.lotData.driverId
 						?	<View>

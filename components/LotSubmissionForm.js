@@ -91,7 +91,6 @@ export default class LotSubmissionForm extends Component {
 	}
 
 	render() {
-		console.log(this.state.dropoffLocation);
 		return (
 			<ScrollView contentContainerStyle={style.submissionForm}>
 

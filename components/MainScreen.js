@@ -152,7 +152,7 @@ class MainScreen extends Component {
 					) : null}
 
 
-					{this.state.passengerId ? <Button title="Look here" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} /> : <Button
+					{this.state.passengerId ? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} /> : <Button
 					title="Where to?"
 					style={style.buttonMain}
 					backgroundColor='white'

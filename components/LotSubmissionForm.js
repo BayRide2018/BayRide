@@ -44,12 +44,12 @@ export default class LotSubmissionForm extends Component {
 	}
 
 	handleSubmit = async () => {
-		let x = await createLot(this.state.screenshot,
+		let lotId = await createLot(this.state.screenshot,
 			this.state.pickupTime,
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
 			this.state.offer);
-		this.state.hideButton(x); // lotId);
+		this.state.hideButton(lotId); // lotId);
 		this.props.navigation.navigate('MainScreen');
 	}
 

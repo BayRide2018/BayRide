@@ -49,8 +49,8 @@ export default class LotSubmissionForm extends Component {
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
 			this.state.offer);
-		this.state.hideButton(lotId); // lotId);
-		this.props.navigation.navigate('MainScreen');
+		this.state.hideButton(lotId);
+		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
 
 	handleUseMarkerLocation = async () => {

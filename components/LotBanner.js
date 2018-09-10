@@ -60,22 +60,21 @@ export default class LotBanner extends React.Component {
 		let lotBannerStyle = 		this.state.winningBidder ? style.winningBanner : style.lotBanner;
 
 		return (
-			<View style={lotBannerStyle}>
-				<View>
+			<View  style={style.lotBanner}>
+				<View  style={style.innerLotBannerA}>
 					{!!this.state.imgURL &&
 						<LightBox underlayColor='white'>
-							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
+							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={style.screenshot} />
 						</LightBox>
 					}
 				</View> {/* THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */}
-				<View>
+				<View  style={style.innerLotBannerB}>
 					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation.fullAddress}</Text>
 					<Text style={style.info}>Bid Price: {this.state.bidPrice}</Text>
 					{!this.state.lotData.driverId && <Text style={style.info}>Be the first one to bid on this!!!</Text>}
 					<View style={style.lotBannerButton}>
-						<Button title={buttonTitle} onPress={this.handlePress} />
-						<Button title={"Report"} onPress={this.handleReport} />
-						{/*{this.state.winningBidder ? <View style={{backgroundColor: 'green', flex: 1}}><Text>You are winning on this lot!</Text></View> : null}*/}
+					<Button title={buttonTitle} onPress={this.handlePress} />
+					<Button title={"Report"} onPress={this.handleReport} />
 					</View>
 				</View>
 			</View>

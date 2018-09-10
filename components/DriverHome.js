@@ -11,8 +11,7 @@ export default class DriverHome extends Component {
 
   state = {
     allLots: [],
-    winner: false,
-    winningInfo: null
+    winneringId: ''
   }
 
   async componentDidMount () {
@@ -29,9 +28,12 @@ export default class DriverHome extends Component {
       });
     });
 
+    /**
+     * So what this means is that Winning can only happen if the component mounts
+     */
     await store.collection('lots').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
-        this.setState( {winningInfo: lot.data(), winner: true} );
+        this.setState({ winningId: lot.id });
       });
     });
   }
@@ -64,6 +66,19 @@ export default class DriverHome extends Component {
               return <LotBannerWrapper key={i} lotData={lot} />;
             })}
             {/* { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null } */}
+            {this.state.winningId ? Alert.alert(
+              `You Won!!`,
+              'Please click here to begin your trip',
+              [
+                { text: 'Awesome!', onPress: () => {
+                  this.props.navigation.navigate('Winner', {
+                    // Passing the lotId of the winning lot as props to Winner.js
+                    lotId: this.state,winneringId
+                  })
+                }, style: 'cancel' }
+              ],
+              { cancelable: false }
+            ) : null}
           </View>
         </ScrollView>
       </View>

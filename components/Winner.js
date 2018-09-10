@@ -14,14 +14,17 @@ export default class Winner extends React.Component {
 	};
 
 	componentDidMount = async () => {
+		const { navigation } = this.props;
+		const lotId = navigation.getParam('lotId', 'null');
 		// This prop the id of the lot that the driver WON, should be the only prop you need to pass
-		await store.collection("lots").doc(this.props.lotId).get().then(lot => {
+		await store.collection("lots").doc(lotId).get().then(lot => {
 			this.setState({ lot: lot.data() });
 			store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
 				this.setState({ passenger: passenger.data() })
 			})
 		})
 	}
+	
 		
 	// It seems like these functions could be written more concisely / better, but I don't think it's really a big deal, since it doesn't really affect proformance, and they're pretty readable
 	handleDirectionsToStart = () => {

@@ -57,10 +57,10 @@ export default class LotBanner extends React.Component {
 	render () {
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
-		let lotBannerStyle = 		this.state.winningBidder ? style.winningBanner : style.lotBanner;
+		let lotBannerStyle = this.state.winningBidder ? style.winningBanner : style.lotBanner;
 
 		return (
-			<View  style={style.lotBanner}>
+			<View  style={lotBannerStyle}>
 				<View  style={style.innerLotBannerA}>
 					{!!this.state.imgURL &&
 						<LightBox underlayColor='white'>

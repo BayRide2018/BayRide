@@ -27,15 +27,22 @@ export default class DriverHome extends Component {
 			});
 		});
 
-		/**
-		 * So what this means is that Winning can only happen if the component mounts
-		 */
-		await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
-			lots.forEach(lot => {
-				this.setState({ winningId: lot.id });
-			});
-		});
-	}
+    let myCurrentLot;
+    store.collection("users").doc(auth.currentUser.email).get().then(user => {
+      myCurrentLot = user.data().currentLot;
+    })
+    /**
+     * So what this means is that Winning can only happen if the component mounts
+     */
+    // Also, we can make do this better by simply checking if `myCurrentlot` exists in lot_history.. If it does, then winner
+    await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
+      lots.forEach(lot => {
+        if (lot.id === myCurrentLot) {
+          this.setState({ winningId: lot.id });
+        }
+      });
+    });
+  }
 
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);

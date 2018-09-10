@@ -43,6 +43,7 @@ async function signup (name, phone, email, password) {
 		password,
 		location: [],
 		currentlyPassenger: true,
+		currentLot: '', // Having just this one means that it is important that passengers don't bid on their own lots in testing
 		paymentInformation: {},
 		drivingInformation: { canDrive: false },
 		myDriverLotHistory: driverLotHistoryId,

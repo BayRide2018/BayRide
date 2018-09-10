@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Button } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import style from '../public/style';
-import { store, auth } from '../fire';
+import { store } from '../fire';
 import getDirections from 'react-native-google-maps-directions';
 import call from 'react-native-phone-call';
 
@@ -14,6 +14,7 @@ export default class Winner extends React.Component {
 	};
 
 	componentDidMount = async () => {
+		// This prop the id of the lot that the driver WON, should be the only prop you need to pass
 		await store.collection("lots").doc(this.props.lotId).get().then(lot => {
 			this.setState({ lot: lot.data() });
 			store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
@@ -26,8 +27,8 @@ export default class Winner extends React.Component {
 	handleDirectionsToStart = () => {
 		const data = {
 			destination: {
-				latitude: this.props.pickupLocation.coords.latitude,
-				longitude: this.props.pickupLocation.coords.longitude
+				latitude: this.state.pickupLocation.coords.latitude,
+				longitude: this.state.pickupLocation.coords.longitude
 			},
 			params: [
 				{
@@ -46,8 +47,8 @@ export default class Winner extends React.Component {
 	handleDirectionsForTrip = () => {
 		const data = {
 			destination: {
-				// latitude: this.props.pickupLocation.coords.latitude,
-				// longitude: this.props.pickupLocation.coords.longitude
+				latitude: this.state.dropoffLocation.coords.latitude,
+				longitude: this.state.dropoffLocation.coords.longitude
 			},
 			params: [
 				{

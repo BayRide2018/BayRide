@@ -28,12 +28,18 @@ export default class DriverHome extends Component {
       });
     });
 
+    let myCurrentLot;
+    store.collection("users").doc(auth.currentUser.email).get().then(user => {
+      myCurrentLot = user.data().currentLot;
+    })
     /**
      * So what this means is that Winning can only happen if the component mounts
      */
     await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
-        this.setState({ winningId: lot.id });
+        if (lot.id === myCurrentLot) {
+          this.setState({ winningId: lot.id });
+        }
       });
     });
   }

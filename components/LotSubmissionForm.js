@@ -53,6 +53,24 @@ export default class LotSubmissionForm extends Component {
 		this.props.navigation.navigate('MainScreen');
 	}
 
+
+	/**
+	 *      ???????????
+	 *   ????         ????
+	 *  ???            ????
+	 *  ???             ???
+	 *                  ???
+	 *                 ???
+	 *              ????
+	 *           ????
+	 *          ???
+	 *          ???
+	 *          ???
+	 * 
+	 *          ???
+	 * 
+	 *  I think that these functions (handleUseMarker and handleUseCurrentLocation) are flipped... 
+	 */
 	handleUseMarkerLocation = async () => {
 		/**
 		 * location has this form:

@@ -134,7 +134,8 @@ module.exports = StyleSheet.create({
 	myLotBannerWrapper: {},
 	lotBanner: {
 		display: 'flex',
-		flex: 1,
+		flexDirection: 'row',
+		borderColor: 'red',
 	},
 	lotBannerButton: {
 		display: 'flex',

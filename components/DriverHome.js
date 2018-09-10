@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, Alert } from 'react-native';
 import { store, auth } from '../fire';
 import LotBannerWrapper from './LotBannerWrapper';
 import Winner from './Winner';
@@ -31,7 +31,7 @@ export default class DriverHome extends Component {
     /**
      * So what this means is that Winning can only happen if the component mounts
      */
-    await store.collection('lots').where('driverId', '==', auth.currentUser.email).get().then(lots => {
+    await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
         this.setState({ winningId: lot.id });
       });
@@ -73,7 +73,7 @@ export default class DriverHome extends Component {
                 { text: 'Awesome!', onPress: () => {
                   this.props.navigation.navigate('Winner', {
                     // Passing the lotId of the winning lot as props to Winner.js
-                    lotId: this.state,winneringId
+                    lotId: this.state.winningId
                   })
                 }, style: 'cancel' }
               ],

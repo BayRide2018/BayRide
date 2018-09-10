@@ -79,7 +79,7 @@ export default class LotSubmissionForm extends Component {
 		this.setState({ pickupLocation: this.state.marker });
 	}
 
-	handleUseCurrentLocation = () => {
+	handleUseCurrentLocation = async () => {
 		/**
 		 * location has this form:
 		 * 	   "location": Object {
@@ -100,7 +100,7 @@ export default class LotSubmissionForm extends Component {
 	}
 
 
-	setScreenshotId =  (photoID) => {
+	setScreenshotId = (photoID) => {
 		this.setState({ screenshot: photoID });
 	}
 

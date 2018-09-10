@@ -6,15 +6,16 @@ import { store, auth } from '../fire';
 import style from '../public/style';
 import { Picker } from 'react-native-wheel-pick';
 import ViewPhotos from './ViewPhotos';
-import GooglePlacesInput from './GooglePlacesInput';
+import GoogleDropoff from './GoogleDropoff';
 import { createLot } from '../fireMethods';
+import GooglePickup from './GooglePickup';
 
 
 export default class LotSubmissionForm extends Component {
 
 	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
 		screenshot: '',
-		pickupLocation: '',
+		pickupLocation: {},
 		dropoffLocation: {},
 		offer: 0,
 		passengerId: '',
@@ -113,6 +114,10 @@ export default class LotSubmissionForm extends Component {
 		this.setState({dropoffLocation});
 	}
 
+	handlePickUp = (pickupLocation) => {
+		this.setState({pickupLocation});
+	}
+
 	render() {
 		return (
 			<ScrollView contentContainerStyle={style.submissionForm}>
@@ -138,12 +143,12 @@ export default class LotSubmissionForm extends Component {
 					<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
 
 					<FormLabel>Pickup Location</FormLabel>
-					// probably will be changing to GPI eventually
-					<Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
-					<Button title="Use pin location for pick up" onPress={this.handleUseMarkerLocation} />
-
+						// commented these out for now
+					{ /* <Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
+				<Button title="Use pin location for pick up" onPress={this.handleUseMarkerLocation} /> */ }
+					<GooglePickup pickUp={this.handlePickUp} />
 					<FormLabel>Drop off Location</FormLabel>
-					<GooglePlacesInput dropOff={this.handleDropOff} />
+					<GoogleDropoff dropOff={this.handleDropOff} />
 
 					<FormLabel>Offer</FormLabel>
 					<FormInput

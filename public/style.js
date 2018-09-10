@@ -136,6 +136,12 @@ module.exports = StyleSheet.create({
 		display: 'flex',
 		flex: 1,
 	},
+	winningBanner: {
+		display: 'flex',
+		backgroundColor: 'green',
+		flex: 1,
+	},
+
 	lotBannerButton: {
 		display: 'flex',
 		flexDirection: 'row',

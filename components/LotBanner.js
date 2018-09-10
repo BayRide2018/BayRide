@@ -7,7 +7,12 @@ import style from '../public/style';
 
 export default class LotBanner extends React.Component {
 
-	state = { lotData: this.props.lotData, imgURL: '', bidPrice: 0 };
+	state = {
+		lotData: this.props.lotData,
+		imgURL: '',
+		bidPrice: 0,
+		winningBidder: false
+	 };
 
 	componentDidMount () {
 		imgStorageRef.child(this.state.lotData.passengerId).child(this.state.lotData.screenshot).getDownloadURL()
@@ -16,7 +21,15 @@ export default class LotBanner extends React.Component {
 			});
 		 store.collection('lots').doc(this.state.lotData.lotId).onSnapshot(lot => {
 			this.setState({bidPrice: lot.data().offer});
+
+			if (lot.data().driverId === auth.currentUser.email) {
+				this.setState({winningBidder: true});
+			} else {
+				this.setState({winningBidder: false});
+			}
 		});
+
+
 	}
 
 
@@ -44,8 +57,10 @@ export default class LotBanner extends React.Component {
 	render () {
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
+		let lotBannerStyle = 		this.state.winningBidder ? style.winningBanner : style.lotBanner;
+
 		return (
-			<View  style={style.lotBanner}>
+			<View style={lotBannerStyle}>
 				<View>
 					{!!this.state.imgURL &&
 						<LightBox underlayColor='white'>
@@ -60,6 +75,7 @@ export default class LotBanner extends React.Component {
 					<View style={style.lotBannerButton}>
 						<Button title={buttonTitle} onPress={this.handlePress} />
 						<Button title={"Report"} onPress={this.handleReport} />
+						{/*{this.state.winningBidder ? <View style={{backgroundColor: 'green', flex: 1}}><Text>You are winning on this lot!</Text></View> : null}*/}
 					</View>
 				</View>
 			</View>

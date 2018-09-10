@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, Alert } from 'react-native';
 import { store, auth } from '../fire';
 import LotBannerWrapper from './LotBannerWrapper';
 import Winner from './Winner';
@@ -11,8 +11,7 @@ export default class DriverHome extends Component {
 
   state = {
     allLots: [],
-    winner: false,
-    winningInfo: null
+    winningId: ''
   }
 
   async componentDidMount () {
@@ -29,12 +28,12 @@ export default class DriverHome extends Component {
       });
     });
 
-    // This isn't exactly the right way to do this..
-    // We can do both of these queries at the same time, but I don't think that we want to do the bottom one
-    // I'll have to think about how we want to do this, though
-    await store.collection('lots').where('driverId', '==', auth.currentUser.email).get().then(lots => {
+    /**
+     * So what this means is that Winning can only happen if the component mounts
+     */
+    await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
-        this.setState( {winningInfo: lot.data(), winner: true} );
+        this.setState({ winningId: lot.id });
       });
     });
   }
@@ -66,7 +65,20 @@ export default class DriverHome extends Component {
             {this.state.allLots.map((lot, i) => {
               return <LotBannerWrapper key={i} lotData={lot} />;
             })}
-            { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+            {/* { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null } */}
+            {this.state.winningId ? Alert.alert(
+              `You Won!!`,
+              'Please click here to begin your trip',
+              [
+                { text: 'Awesome!', onPress: () => {
+                  this.props.navigation.navigate('Winner', {
+                    // Passing the lotId of the winning lot as props to Winner.js
+                    lotId: this.state.winningId
+                  })
+                }, style: 'cancel' }
+              ],
+              { cancelable: false }
+            ) : null}
           </View>
         </ScrollView>
       </View>

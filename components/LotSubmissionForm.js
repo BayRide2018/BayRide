@@ -51,10 +51,37 @@ export default class LotSubmissionForm extends Component {
 			this.state.dropoffLocation,
 			this.state.offer);
 		this.state.hideButton(lotId);
+		store.collection("users").doc(auth.currentUser.email).update({ currentLot: newLot.id });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
 
+
+	/**
+	 *      ????????????
+	 *   ????         ????
+	 *  ???             ???
+	 *  ???             ???
+	 *                  ???
+	 *                 ???
+	 *              ????
+	 *           ????
+	 *          ???
+	 *          ???
+	 *          ???
+	 * 
+	 *          ???
+	 * 
+	 *  I think that these functions (handleUseMarker and handleUseCurrentLocation) are flipped... 
+	 *  ... Okay, should be fixed...
+	 */
 	handleUseMarkerLocation = async () => {
+		// Please note that if we use this marker, it needs to have the proper form...
+		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,
+		// but, lots need to be submitted with consistently formatted pickupLocations.
+		this.setState({ pickupLocation: this.state.marker });
+	}
+
+	handleUseCurrentLocation = async () => {
 		/**
 		 * location has this form:
 		 * 	   "location": Object {
@@ -74,12 +101,8 @@ export default class LotSubmissionForm extends Component {
 		this.setState({ pickupLocation: location });
 	}
 
-	handleUseCurrentLocation = () => {
-		this.setState({ pickupLocation: this.state.marker });
-	}
 
-
-	setScreenshotId =  (photoID) => {
+	setScreenshotId = (photoID) => {
 		this.setState({ screenshot: photoID });
 	}
 

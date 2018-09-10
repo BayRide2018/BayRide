@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import LotBanner from "./LotBanner";
 import TimerCountdown from 'react-native-timer-countdown';
 import { expireLot } from '../fireMethods';
+import { store, auth } from '../fire';
 import style from '../public/style';
 
 
@@ -12,9 +13,10 @@ export default class LotBannerWrapper extends Component {
 		showThisBanner: true
 	}
 
-	handleFinish = () => {
+	handleFinish = async () => {
 		this.setState({ showThisBanner: false });
-		expireLot(this.props.lotData.lotId);
+		const newLotId = await expireLot(this.props.lotData.lotId);
+		store.collection("users").doc(auth.currentUser.email).update({ currentLot: newLotId });
 	}
 
 	render () {

@@ -43,6 +43,7 @@ async function signup (name, phone, email, password) {
 		password,
 		location: [],
 		currentlyPassenger: true,
+		currentLot: '', // Having just this one means that it is important that passengers don't bid on their own lots in testing
 		paymentInformation: {},
 		drivingInformation: { canDrive: false },
 		myDriverLotHistory: driverLotHistoryId,
@@ -143,6 +144,7 @@ async function expireLot (lotId) {
 		await store.collection("passenger_lot_history").doc(plh).update({
 			lots: firebase.firestore.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
 		});
+		return newLotId;
 	}
 }
 

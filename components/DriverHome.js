@@ -35,6 +35,7 @@ export default class DriverHome extends Component {
     /**
      * So what this means is that Winning can only happen if the component mounts
      */
+    // Also, we can make do this better by simply checking if `myCurrentlot` exists in lot_history.. If it does, then winner
     await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
         if (lot.id === myCurrentLot) {

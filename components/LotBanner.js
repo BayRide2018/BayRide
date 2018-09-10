@@ -7,12 +7,29 @@ import style from '../public/style';
 
 export default class LotBanner extends React.Component {
 
-	state = { lotData: this.props.lotData, imgURL: '' };
+	state = {
+		lotData: this.props.lotData,
+		imgURL: '',
+		bidPrice: 0,
+		winningBidder: false
+	 };
 
 	componentDidMount () {
-		imgStorageRef.child(this.state.lotData.passengerId).child(this.state.lotData.screenshot).getDownloadURL().then(url => {
-			this.setState({ imgURL: url });
-		})
+		imgStorageRef.child(this.state.lotData.passengerId).child(this.state.lotData.screenshot).getDownloadURL()
+			.then(url => {
+				this.setState({ imgURL: url });
+			});
+		 store.collection('lots').doc(this.state.lotData.lotId).onSnapshot(lot => {
+			this.setState({bidPrice: lot.data().offer});
+
+			if (lot.data().driverId === auth.currentUser.email) {
+				this.setState({winningBidder: true});
+			} else {
+				this.setState({winningBidder: false});
+			}
+		});
+
+
 	}
 
 
@@ -40,6 +57,8 @@ export default class LotBanner extends React.Component {
 	render () {
 		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
+		let lotBannerStyle = 		this.state.winningBidder ? style.winningBanner : style.lotBanner;
+
 		return (
 			<View  style={style.lotBanner}>
 				<View  style={style.innerLotBannerA}>
@@ -51,7 +70,7 @@ export default class LotBanner extends React.Component {
 				</View> {/* THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */}
 				<View  style={style.innerLotBannerB}>
 					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation.fullAddress}</Text>
-					<Text style={style.info}>Bid Price: {this.state.lotData.offer}</Text>
+					<Text style={style.info}>Bid Price: {this.state.bidPrice}</Text>
 					{!this.state.lotData.driverId && <Text style={style.info}>Be the first one to bid on this!!!</Text>}
 					<View style={style.lotBannerButton}>
 					<Button title={buttonTitle} onPress={this.handlePress} />

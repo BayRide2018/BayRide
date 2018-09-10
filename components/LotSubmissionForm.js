@@ -55,9 +55,9 @@ export default class LotSubmissionForm extends Component {
 
 
 	/**
-	 *      ???????????
+	 *      ????????????
 	 *   ????         ????
-	 *  ???            ????
+	 *  ???             ???
 	 *  ???             ???
 	 *                  ???
 	 *                 ???
@@ -70,8 +70,16 @@ export default class LotSubmissionForm extends Component {
 	 *          ???
 	 * 
 	 *  I think that these functions (handleUseMarker and handleUseCurrentLocation) are flipped... 
+	 *  ... Okay, should be fixed...
 	 */
 	handleUseMarkerLocation = async () => {
+		// Please note that if we use this marker, it needs to have the proper form...
+		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,
+		// but, lots need to be submitted with consistently formatted pickupLocations.
+		this.setState({ pickupLocation: this.state.marker });
+	}
+
+	handleUseCurrentLocation = () => {
 		/**
 		 * location has this form:
 		 * 	   "location": Object {
@@ -89,10 +97,6 @@ export default class LotSubmissionForm extends Component {
 		 */
 		let location = await Location.getCurrentPositionAsync({});
 		this.setState({ pickupLocation: location });
-	}
-
-	handleUseCurrentLocation = () => {
-		this.setState({ pickupLocation: this.state.marker });
 	}
 
 

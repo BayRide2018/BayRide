@@ -145,13 +145,14 @@ module.exports = StyleSheet.create({
 	lotBanner: {
 		display: 'flex',
 		flexDirection: 'row',
-		borderColor: 'red',
 		alignItems: 'center'
 	},
 	winningBanner: {
 		display: 'flex',
 		backgroundColor: 'green',
 		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 
 	lotBannerButton: {

@@ -144,6 +144,7 @@ async function expireLot (lotId) {
 		await store.collection("passenger_lot_history").doc(plh).update({
 			lots: firebase.firestore.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
 		});
+		return newLotId;
 	}
 }
 

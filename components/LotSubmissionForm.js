@@ -50,6 +50,7 @@ export default class LotSubmissionForm extends Component {
 			this.state.dropoffLocation,
 			this.state.offer);
 		this.state.hideButton(lotId);
+		store.collection("users").doc(auth.currentUser.email).update({ currentLot: newLot.id });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
 

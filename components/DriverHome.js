@@ -29,9 +29,6 @@ export default class DriverHome extends Component {
       });
     });
 
-    // This isn't exactly the right way to do this..
-    // We can do both of these queries at the same time, but I don't think that we want to do the bottom one
-    // I'll have to think about how we want to do this, though
     await store.collection('lots').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
         this.setState( {winningInfo: lot.data(), winner: true} );
@@ -66,7 +63,7 @@ export default class DriverHome extends Component {
             {this.state.allLots.map((lot, i) => {
               return <LotBannerWrapper key={i} lotData={lot} />;
             })}
-            { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null }
+            {/* { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null } */}
           </View>
         </ScrollView>
       </View>

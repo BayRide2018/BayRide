@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
 
-export default class GooglePlacesInput extends Component {
+export default class GooglePickup extends Component {
 	render() {
 		return(
 			<GooglePlacesAutocomplete
@@ -14,8 +14,9 @@ export default class GooglePlacesInput extends Component {
 				fetchDetails={true}
 				renderDescription={row => row.description} // custom description render
 				onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-					let dropOff = {fullAddress: details.formatted_address, coords: details.geometry.location};
-					this.props.dropOff(dropOff);
+          let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
+          console.log(pickUp);
+					this.props.pickUp(pickUp);
 				}}
 
 				getDefaultValue={() => ''}

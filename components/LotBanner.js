@@ -49,7 +49,7 @@ export default class LotBanner extends React.Component {
 					}
 				</View> {/* THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */}
 				<View>
-				{/*	<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation}</Text> */}
+					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation}</Text>
 					<Text style={style.info}>Bid Price: {this.state.lotData.offer}</Text>
 					{!this.state.lotData.driverId && <Text style={style.info}>Be the first one to bid on this!!!</Text>}
 					<View style={style.lotBannerButton}>

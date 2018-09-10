@@ -42,14 +42,14 @@ export default class LotBanner extends React.Component {
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		return (
 			<View  style={style.lotBanner}>
-				<View>
+				<View  style={style.innerLotBanner}>
 					{!!this.state.imgURL &&
 						<LightBox underlayColor='white'>
 							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={{ flex:1, height: 200 }} />
 						</LightBox>
 					}
 				</View> {/* THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */}
-				<View>
+				<View  style={style.innerLotBanner}>
 					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation.fullAddress}</Text>
 					<Text style={style.info}>Bid Price: {this.state.lotData.offer}</Text>
 					{!this.state.lotData.driverId && <Text style={style.info}>Be the first one to bid on this!!!</Text>}

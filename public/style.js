@@ -132,6 +132,9 @@ module.exports = StyleSheet.create({
 	 * Styling for DriverHome
 	 */
 	myLotBannerWrapper: {},
+	innerLotBanner: {
+		width: React.Dimensions.get('window').width / 2
+	},
 	lotBanner: {
 		display: 'flex',
 		flexDirection: 'row',

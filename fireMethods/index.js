@@ -96,7 +96,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	// Important
 	let driverExpoToken = '';
 
-	store.collection("lots").add({
+	let newLot = await store.collection("lots").add({
 		screenshot,
 		pickupTime,
 		pickupLocation,
@@ -107,6 +107,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		driverExpoToken,
 		driverId: null
 	});
+	return newLot.id;
 }
 
 async function expireLot (lotId) {

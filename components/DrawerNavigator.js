@@ -8,6 +8,7 @@ import Account from './Account';
 import Payment from './Payment';
 import History from './History';
 import Help from './Help';
+import Winner from './Winner';
 import Web from './Web';
 ////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
 // import { auth, store } from '../fire';
@@ -38,6 +39,9 @@ const DrawerNavigator = createDrawerNavigator({
 	},
 	Help: {
 		screen: Help
+	},
+	Winner: {
+		screen: Winner
 	},
 	Web: {
 		screen: Web

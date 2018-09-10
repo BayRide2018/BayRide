@@ -75,7 +75,7 @@ export default class Winner extends React.Component {
 				<Text>Passenger Name: {this.state.passenger.name}</Text>
 				<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
 				<Text>Passenger location</Text>
-				<Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text>
+				{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 				<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
 				<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
 				<Button title="Close" onPress={() => {}} />

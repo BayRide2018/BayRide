@@ -11,7 +11,7 @@ export default class DriverHome extends Component {
 
   state = {
     allLots: [],
-    winneringId: ''
+    winningId: ''
   }
 
   async componentDidMount () {

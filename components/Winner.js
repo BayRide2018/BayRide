@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
 import style from '../public/style';
-import { store } from '../fire';
+import { store, auth } from '../fire';
 import getDirections from 'react-native-google-maps-directions';
 import call from 'react-native-phone-call';
 
@@ -78,7 +78,9 @@ export default class Winner extends React.Component {
 				{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 				<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
 				<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
-				<Button title="Close" onPress={() => {}} />
+				<Button title="Finish trip" onPress={() => {
+					store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' })
+				}} />
 			</View>
 		);
 	}

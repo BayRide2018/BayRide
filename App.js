@@ -24,7 +24,6 @@ export default createStackNavigator({
 	Payment: { screen: Payment },
 	Help: { screen: Help },
 	Web: { screen: Web },
-	DriverHome: {screen: DriverHome}
 
 }, {
 	initialRouteName: 'Welcome',

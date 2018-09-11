@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { imgStorageRef } from '../fire';
-import { Image, View, Button } from 'react-native';
+import { Image, View } from 'react-native';
+import {Text, Button} from 'native-base';
 import { ImagePicker, Permissions } from 'expo';
 import uuid from 'uuid';
 import { FormLabel } from 'react-native-elements';
 import style from '../public/style';
+import UploadPhotoButton from 'react-native-upload-photo-button';
 
 
 
@@ -22,10 +24,8 @@ export default class ViewPhotos extends Component {
 		return (
 			<View style={style.iewPhotos}>
 			<FormLabel>Screenshot</FormLabel>
-				<Button
-					title="Pick an image from camera roll"
-					onPress={this._pickImage}
-				/>
+
+			<View style={{alignSelf:'center'}}><UploadPhotoButton label='Add a photo' color='rgb(0,175,115)' onPress={this._pickImage}/></View>
 				{image &&
 					<Image source={{ uri: image }} />}
 			</View>

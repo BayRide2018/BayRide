@@ -58,7 +58,8 @@ module.exports = StyleSheet.create({
 	},
 	matchMain: {
 		zIndex: 20,
-		top: 80
+		top: 80,
+		alignSelf: 'center'
 	},
 
 	/**
@@ -83,7 +84,8 @@ module.exports = StyleSheet.create({
 		paddingBottom: 0
 	},
 	backButton: {
-		marginTop: 'auto'
+		marginTop: 'auto',
+		alignSelf: 'center'
 	},
 
 	/**
@@ -180,7 +182,7 @@ module.exports = StyleSheet.create({
 		flex: 1
 	},
 	button: {
-		backgroundColor: BRBLUE,
-		color: BROFFWHITE,
-	},
+		alignSelf: 'center',
+		margin: 10,
+	}
 });

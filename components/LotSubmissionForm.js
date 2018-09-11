@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
+import { Button, Text} from 'native-base';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { Location } from 'expo';
 import { store, auth } from '../fire';
@@ -131,11 +132,12 @@ export default class LotSubmissionForm extends Component {
 						pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
 						onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
 						itemSpace={30} // this only support in android
-						/> 
+						/>
 						:  <Button
-						title={`${this.state.offer} dollars`}
+						light
+						style={{alignSelf: 'center'}}
 						onPress={() => this.setState({ showPricePicker: true })}
-						/> 
+						><Text>{this.state.offer} dollars</Text></Button>
 					}
 
 					{this.state.showMinutePicker
@@ -155,12 +157,14 @@ export default class LotSubmissionForm extends Component {
 							</View>
 					}
 
-					<View style={style.button}>
-						<Button title="Submit Request for BayRide" onPress={() => { this.handleSubmit("brx") }} />
-						<Button title="Submit Request for BayRideXL" onPress={() => { this.handleSubmit("brxl") }} />
-						<Button title="Submit Request for BayRide Supreme" onPress={() => { this.handleSubmit("brs") }} />
+					<View>
+						<Button style={style.button} rounded success onPress={() => { this.handleSubmit("brx") }}><Text style={{fontSize: 20}}>Request BayRide</Text></Button>
+						<Button style={style.button} rounded success onPress={() => { this.handleSubmit("brxl") }}><Text style={{fontSize: 20}}>Request BayRideXL</Text></Button>
+						<Button style={style.button} rounded success onPress={() => { this.handleSubmit("brs") }}><Text style={{fontSize: 20}}>Request BayRide Supreme </Text></Button>
 
-						<Button style={style.backButton} title='Go Back' onPress={this.handleBack} />
+
+
+						<Button onPress={this.handleBack} style={style.backButton}><Text>Go Back</Text></Button> />
 					</View>
 				</View>
 			</ScrollView>

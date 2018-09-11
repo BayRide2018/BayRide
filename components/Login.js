@@ -36,7 +36,7 @@ export default class Login extends Component {
 		return (
 			<View>
 				<Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
-				<View>
+				<View style={style.signIn}>
 					<TextField label="Email" placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>

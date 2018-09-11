@@ -32,7 +32,7 @@ export default class Signup extends Component {
 		return (
 			<View>
 				<Button style={style.backButton} title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
-				<ScrollView>
+				<ScrollView style={style.signIn} >
 					<TextField label='Full Name' placeholder="Please enter your full name"
 						onChangeText={name => this.setState({ name })}
 					/>

@@ -5,6 +5,7 @@ var {
 } = React;
 
 const BRBLUE = '#42d5d1'; // also try: c5fef3, c5edfe, c5fed7
+const DRAWERBLUE = 'c5fef3';
 const BROFFWHITE = '#fff1e4'; // also try: fef3c5
 
 module.exports = StyleSheet.create({
@@ -17,16 +18,27 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling for Welcome
 	 */
-	welcomeButtons: {
+	logo: {
+		marginTop: 150,
+		height: 230,
+		width: 230
+	},
+	logoContainer: {
+		display: 'flex',
 		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-evenly',
 		alignItems: 'center',
+		justifyContent: 'center', // no for real, how do I center this thing??
 	},
 
 	/**
 	 * Styling for SignUp & Login
 	 */
+	signIn: {
+		marginLeft: 15,
+		marginRight: 15,
+		paddingRight: 15,
+		height: React.Dimensions.get('window').height,
+	},
 
 	/**
 	 * Styling for PassengerHome / MainScreen

@@ -4,6 +4,10 @@ var {
 	StyleSheet,
 } = React;
 
+const BRBLUE = '#42d5d1'; // also try: c5fef3, c5edfe, c5fed7
+const DRAWERBLUE = 'c5fef3';
+const BROFFWHITE = '#fff1e4'; // also try: fef3c5
+
 module.exports = StyleSheet.create({
 	containerMain: {
 		...StyleSheet.absoluteFillObject,
@@ -14,20 +18,48 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling for Welcome
 	 */
+	logo: {
+		marginTop: 150,
+		height: 230,
+		width: 230
+	},
+	logoContainer: {
+		display: 'flex',
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center', // no for real, how do I center this thing??
+	},
 
 	/**
 	 * Styling for SignUp & Login
 	 */
-	signUp: {
-		width: 150,
-		borderColor: "white",
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 2,
+	signIn: {
+		marginLeft: 15,
+		marginRight: 15,
+		paddingRight: 15,
+		height: React.Dimensions.get('window').height,
 	},
+
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
+	mapMain: {
+		zIndex: -1,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		flex: 1,
+	},
+	whereTo: {
+		zIndex: 10,
+		top: 70
+	},
+	matchMain: {
+		zIndex: 20,
+		top: 80
+	},
 
 	/**
 	 * Styling for LotSubmissionForm
@@ -50,75 +82,10 @@ module.exports = StyleSheet.create({
 		marginBottom: 0,
 		paddingBottom: 0
 	},
-	lotMain: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'black'
-	},
-	scrollviewMain: {
-		alignItems: 'center',
-	},
-	mapMain: {
-		zIndex: -1,
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		flex: 1,
-	},
-	buttonMain: {
-		zIndex: 10,
-		top: 70
-	},
-	matchMain: {
-		zIndex: 20,
-		top: 80
-	},
-	button: {
-		margin: 20,
-		marginTop: 50,
-	},
 	backButton: {
 		marginTop: 'auto'
 	},
-	callDrawerContainer: {
-		padding: 25
-	},
-	banner: {
-		flex: 1,
-		backgroundColor: 'white',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	container: {
-		flex: 1,
-		backgroundColor: '#b0e0e6',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	containerRow: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-evenly',
-		alignItems: 'center',
-	},
-	welcomeButton: {
-		width: 150,
-		backgroundColor: 'teal',
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 2,
-	},
-	title: {
-		fontSize: 75,
-		fontWeight: 'bold',
-		width: 500,
-		backgroundColor: '#b0e0e6',
-		textAlign: 'center',
-		color: 'teal',
-		top: 70
-	},
+
 	/**
 	 * Style for Matchbanner
 	 */
@@ -154,7 +121,6 @@ module.exports = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
-
 	lotBannerButton: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -205,12 +171,16 @@ module.exports = StyleSheet.create({
 	},
 
 	/**
-	 * Styling other things
+	 * Styling other things, or general things
 	 */
 	webView: {
 		marginTop: 20,
 	},
 	webOuterView: {
 		flex: 1
-	}
+	},
+	button: {
+		backgroundColor: BRBLUE,
+		color: BROFFWHITE,
+	},
 });

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Button } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
 import style from '../public/style';
 import { signup } from '../fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
-import {
-	TextField
-} from 'react-native-material-textfield';
+import { TextField } from 'react-native-material-textfield';
 
 export default class Signup extends Component {
 	state = {
@@ -32,11 +29,10 @@ export default class Signup extends Component {
 	}
 
 	render() {
-
 		return (
 			<View>
 				<Button style={style.backButton} title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
-				<ScrollView style={style.button}>
+				<ScrollView style={style.signIn} >
 					<TextField label='Full Name' placeholder="Please enter your full name"
 						onChangeText={name => this.setState({ name })}
 					/>
@@ -52,7 +48,7 @@ export default class Signup extends Component {
 						onChangeText={password => this.setState({ password })}
 					/>
 					<Text>{this.state.response}</Text>
-					<View style={style.button}>
+					<View>
 						<Button
 							title="Signup"
 							onPress={this.handleSubmit}

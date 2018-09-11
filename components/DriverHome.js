@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView, Alert } from 'react-native';
 import { store, auth } from '../fire';
 import LotBannerWrapper from './LotBannerWrapper';
-import Winner from './Winner';
 import { Permissions, Location } from 'expo';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';

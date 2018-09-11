@@ -10,7 +10,7 @@ import Payment from './components/Payment';
 import Waiver from './components/Waiver';
 import Help from './components/Help';
 import Web from './components/Web';
-import DriverHome from './components/DriverHome';
+
 
 export default createStackNavigator({
 	Welcome: { screen: Welcome },

@@ -28,14 +28,13 @@ export default class LotBanner extends React.Component {
 				this.setState({winningBidder: false});
 			}
 		});
-
-
 	}
 
 
 	handleReport = () => {
 		// Mark the lot in the db
 		// Notify a human
+		console.log("The report button doesn't do anything right now, but it's be great for it to do something later...")
 	}
 
 	handlePress = async () => {

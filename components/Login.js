@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { View, Button, Text } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
 import { login } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import PasswordInputText from 'react-native-hide-show-password-input';
-import {
-	TextField
-} from 'react-native-material-textfield';
+import { TextField } from 'react-native-material-textfield';
 
 export default class Login extends Component {
 
@@ -39,7 +36,7 @@ export default class Login extends Component {
 		return (
 			<View>
 				<Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
-				<View style={style.button}>
+				<View style={style.signIn}>
 					<TextField label="Email" placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>
@@ -47,7 +44,7 @@ export default class Login extends Component {
 					<PasswordInputText value={this.state.password} placeholder="Please enter your password"
 						onChangeText={password => this.setState({ password })}
 					/>
-					<View style={style.button}>
+					<View>
 						<Text>{this.state.response}</Text>
 						<Button
 							title="Login"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
+// ^^ Don't forget we need to hide
 
 export default class GooglePickup extends Component {
 	render() {

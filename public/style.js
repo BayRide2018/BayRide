@@ -182,5 +182,7 @@ module.exports = StyleSheet.create({
 	button: {
 		backgroundColor: BRBLUE,
 		color: BROFFWHITE,
+		borderRadius: 10,
+		padding: 5
 	},
 });

@@ -24,7 +24,8 @@ class MainScreen extends Component {
 		// It shows the status of the Lot
 		lotId: '',
 		matchBanner: false,
-		passengerId: ''
+		passengerId: '',
+		currentLot: ''
 	}
 
 	async componentDidMount() {
@@ -36,24 +37,26 @@ class MainScreen extends Component {
 		let driver = '';
 
 		await store.collection('lots').onSnapshot( allLots => {
-
 			allLots.docChanges().forEach(lot => {
 						driver = lot.doc.data().driverId;
-
 						//Not sure if needs another if statement but bid info should not changed unless its another bid
 						if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
-							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver });
+							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
 							//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
 						}
 			});
 		});
-		store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
+
+		await store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
 			lots.forEach(lot => {
-				this.setState({ lotId: lot.id, passengerId: lot.data().passengerId });
+				this.setState({ lotId: lot.id, passengerId: lot.data().passengerId});
 			});
 		});
-	}
 
+		store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
+			this.setState({currentLot: user.data().currentLot});
+		});
+	}
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS
@@ -151,7 +154,7 @@ class MainScreen extends Component {
 				) : null}
 
 
-				{this.state.passengerId 
+				{this.state.currentLot
 				? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} />
 				: <Button
 					title="Where to?"

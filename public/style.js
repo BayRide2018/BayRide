@@ -86,10 +86,9 @@ module.exports = StyleSheet.create({
 	},
 	viewPhoto: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginBottom: 0,
-		paddingBottom: 0
+		alignItems: 'flex-start',
+		justifyContent: 'flex-end',
+		marginRight: 10
 	},
 
 	/**

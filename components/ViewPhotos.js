@@ -22,7 +22,7 @@ export default class ViewPhotos extends Component {
 	render(){
 		let { image } = this.state;
 		return (
-			<View style={style.iewPhotos}>
+			<View style={style.viewPhoto}>
 			<FormLabel>Screenshot</FormLabel>
 
 			<View style={{alignSelf:'center'}}><UploadPhotoButton label='Add a photo' color='rgb(0,175,115)' onPress={this._pickImage}/></View>

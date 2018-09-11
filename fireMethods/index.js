@@ -68,15 +68,15 @@ async function login (email, password) {
 	if (res) return res;
 	if (exists) {
 		// await	auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
-			await auth.signInWithEmailAndPassword(email, password);
-			return true;
+		await auth.signInWithEmailAndPassword(email, password);
+		return true;
 		// This is the successful login case
 	} else {
 		return "That is not a registered user. Try a different email or signing up.";
 	}
 }
 
-async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer) {
+async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocation, offer, carType) {
 	let passengerId, passengerExpoToken;
 
 	await store.collection("users").doc(auth.currentUser.email).get().then(user => {
@@ -102,6 +102,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		pickupLocation,
 		dropoffLocation,
 		offer,
+		carType,
 		passengerId,
 		passengerExpoToken,
 		driverExpoToken,

@@ -44,12 +44,13 @@ export default class LotSubmissionForm extends Component {
 		this.setState({marker});
 	}
 
-	handleSubmit = async () => {
+	handleSubmit = async (carType) => {
 		let lotId = await createLot(this.state.screenshot,
 			this.state.pickupTime,
 			this.state.pickupLocation,
 			this.state.dropoffLocation,
-			this.state.offer);
+			this.state.offer,
+			carType);
 		this.state.hideButton(lotId);
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: lotId});
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
@@ -171,10 +172,9 @@ export default class LotSubmissionForm extends Component {
 
 
 					<View style={style.button}>
-						<Button
-							title="Submit"
-							onPress={this.handleSubmit}
-						/>
+						<Button title="Submit Request for BayRide" onPress={() => { this.handleSubmit("brx") }} />
+						<Button title="Submit Request for BayRideXL" onPress={() => { this.handleSubmit("brxl") }} />
+						<Button title="Submit Request for BayRide Supreme" onPress={() => { this.handleSubmit("brs") }} />
 
 						<Button style={style.backButton} title='Go Back' onPress={this.handleBack} />
 					</View>

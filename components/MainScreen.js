@@ -158,6 +158,7 @@ class MainScreen extends Component {
 					backgroundColor='white'
 					color='grey'
 					onPress={this.handleSubmit} /> }
+					
 				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 		</View>
 		);

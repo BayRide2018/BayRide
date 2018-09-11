@@ -39,7 +39,7 @@ export default class Login extends Component {
 		return (
 			<View>
 				<Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
-				<View style={style.button}>
+				<View>
 					<TextField label="Email" placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
 					/>
@@ -47,7 +47,7 @@ export default class Login extends Component {
 					<PasswordInputText value={this.state.password} placeholder="Please enter your password"
 						onChangeText={password => this.setState({ password })}
 					/>
-					<View style={style.button}>
+					<View>
 						<Text>{this.state.response}</Text>
 						<Button
 							title="Login"

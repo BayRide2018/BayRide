@@ -78,10 +78,6 @@ module.exports = StyleSheet.create({
 		zIndex: 20,
 		top: 80
 	},
-	button: {
-		margin: 20,
-		marginTop: 50,
-	},
 	backButton: {
 		marginTop: 'auto'
 	},
@@ -94,24 +90,11 @@ module.exports = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	container: {
-		flex: 1,
-		backgroundColor: '#b0e0e6',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
 	containerRow: {
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
-	},
-	welcomeButton: {
-		width: 150,
-		backgroundColor: 'teal',
-		borderWidth: 1,
-		borderRadius: 5,
-		padding: 2,
 	},
 	title: {
 		fontSize: 75,
@@ -215,5 +198,9 @@ module.exports = StyleSheet.create({
 	},
 	webOuterView: {
 		flex: 1
-	}
+	},
+	button: {
+		backgroundColor: BRBLUE,
+		color: BROFFWHITE,
+	},
 });

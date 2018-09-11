@@ -36,7 +36,7 @@ export default class Signup extends Component {
 		return (
 			<View>
 				<Button style={style.backButton} title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
-				<ScrollView style={style.button}>
+				<ScrollView>
 					<TextField label='Full Name' placeholder="Please enter your full name"
 						onChangeText={name => this.setState({ name })}
 					/>
@@ -52,7 +52,7 @@ export default class Signup extends Component {
 						onChangeText={password => this.setState({ password })}
 					/>
 					<Text>{this.state.response}</Text>
-					<View style={style.button}>
+					<View>
 						<Button
 							title="Signup"
 							onPress={this.handleSubmit}

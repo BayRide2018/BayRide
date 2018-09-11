@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { View, Button, Text } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
 import { login } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import PasswordInputText from 'react-native-hide-show-password-input';
-import {
-	TextField
-} from 'react-native-material-textfield';
+import { TextField } from 'react-native-material-textfield';
 
 export default class Login extends Component {
 

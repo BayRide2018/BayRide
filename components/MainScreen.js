@@ -109,58 +109,60 @@ class MainScreen extends Component {
 	}
 
 
-	render(){
+	render() {
 		const { marker, showBid, driverId, offer} = this.state;
 
 		return(
 			<View style={style.containerMain}>
 
-			<Icon
-				style={style.drawerIcon}
-				name='three-bars'
-				size={30}
-				color='#000'
-				onPress={() => this.props.navigation.toggleDrawer()}
-			/>
+				<Icon
+					style={style.drawerIcon}
+					name='three-bars'
+					size={30}
+					color='#000'
+					onPress={() => this.props.navigation.toggleDrawer()}
+				/>
 
-			<MapView
-				style={style.mapMain}
-				onRegionChangeComplete={this.onRegionChangeComplete}
-				showsUserLocation={true}
-				followsUserLocation={true}>
+				<MapView
+						style={style.mapMain}
+						onRegionChangeComplete={this.onRegionChangeComplete}
+						showsUserLocation={true}
+						followsUserLocation={true}>
 
-			{marker !== null && <Marker draggable
-				image={require('../public/images/marker.png')}
+					{marker !== null && <Marker draggable
+						image={require('../public/images/marker.png')}
 
-			coordinate={marker}
-			onDragEnd={(e) => this.setState({ marker: e.nativeEvent.coordinate })
-		}
-		/>}
+						coordinate={marker}
+						onDragEnd={ (e) => this.setState({ marker: e.nativeEvent.coordinate }) }
+					/>}
 
-			</MapView>
+				</MapView>
 
-					{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering
-								frequently, and every time it does, a new alert is sent.*/}
-					{showBid ? Alert.alert(
-						`New Bid! ${driverId} has bid ${offer}!`,
-						'Sound Good?',
-						[
-							{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
-							{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
-						],
-						{ cancelable: false }
-					) : null}
+				{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering
+							frequently, and every time it does, a new alert is sent.*/}
+				{showBid ? Alert.alert(
+					`New Bid! ${driverId} has bid ${offer}!`,
+					'Sound Good?',
+					[
+						{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
+						{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
+					],
+					{ cancelable: false }
+				) : null}
 
 
-					{this.state.passengerId ? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} /> : <Button
+				{this.state.passengerId 
+				? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} />
+				: <Button
 					title="Where to?"
 					style={style.whereTo}
 					backgroundColor='white'
 					color='grey'
-					onPress={this.handleSubmit} /> }
+					onPress={this.handleSubmit}
+				/> }
 
 				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
-		</View>
+			</View>
 		);
 	}
 }

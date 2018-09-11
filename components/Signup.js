@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Button } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
 import style from '../public/style';
 import { signup } from '../fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
-import {
-	TextField
-} from 'react-native-material-textfield';
+import { TextField } from 'react-native-material-textfield';
 
 export default class Signup extends Component {
 	state = {
@@ -32,7 +29,6 @@ export default class Signup extends Component {
 	}
 
 	render() {
-
 		return (
 			<View>
 				<Button style={style.backButton} title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />

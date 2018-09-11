@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
-import { Text, View, StyleSheet, Button} from 'react-native';
+import { Text, View, Button} from 'react-native';
 import { StackNavigator, SafeAreaView } from 'react-navigation';
 // ^^^^ I haven't deleted these, because I think that we might want to include SafeAreaView in this, and in some other stuff
 // ^^^^ I think that it helps get around the fact that the iPhone X is shaped oddly

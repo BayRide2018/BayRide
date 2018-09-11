@@ -109,7 +109,6 @@ module.exports = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
-
 	lotBannerButton: {
 		display: 'flex',
 		flexDirection: 'row',

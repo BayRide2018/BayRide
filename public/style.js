@@ -40,6 +40,14 @@ module.exports = StyleSheet.create({
 		height: React.Dimensions.get('window').height,
 	},
 
+	backButton: {
+		marginLeft: 10,
+		marginTop: 35
+	},
+
+	successButtons: {
+		alignSelf: 'center'
+	},
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
@@ -82,10 +90,6 @@ module.exports = StyleSheet.create({
 		justifyContent: 'center',
 		marginBottom: 0,
 		paddingBottom: 0
-	},
-	backButton: {
-		marginTop: 'auto',
-		alignSelf: 'center'
 	},
 
 	/**

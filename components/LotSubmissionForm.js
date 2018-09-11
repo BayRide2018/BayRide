@@ -106,6 +106,7 @@ export default class LotSubmissionForm extends Component {
 		return (
 			<ScrollView contentContainerStyle={style.submissionForm}>
 
+				<Button warning small onPress={this.handleBack}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 				<View style={style.submissionForm}>
 
 					<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
@@ -164,7 +165,7 @@ export default class LotSubmissionForm extends Component {
 
 
 
-						<Button onPress={this.handleBack} style={style.backButton}><Text>Go Back</Text></Button> />
+
 					</View>
 				</View>
 			</ScrollView>

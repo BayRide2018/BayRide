@@ -66,6 +66,12 @@ export default class Winner extends React.Component {
 		};
 		getDirections(data);
 	}
+
+	handleFinishTrip () {
+		store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' });
+		store.collection("users").doc(this.state.lot.passengerId).update({ currentLot: '' });
+		this.props.navigation.navigate('DriverHome');
+	}
 	
 	
 	render () {
@@ -78,9 +84,7 @@ export default class Winner extends React.Component {
 				{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 				<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
 				<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
-				<Button title="Finish trip" onPress={() => {
-					store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' })
-				}} />
+				<Button title="Finish trip" onPress={this.handleFinishTrip} />
 			</View>
 		);
 	}

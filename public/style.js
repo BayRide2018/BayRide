@@ -4,6 +4,9 @@ var {
 	StyleSheet,
 } = React;
 
+const BRBLUE = '#42d5d1'; // also try: c5fef3, c5edfe, c5fed7
+const BROFFWHITE = '#fff1e4'; // also try: fef3c5
+
 module.exports = StyleSheet.create({
 	containerMain: {
 		...StyleSheet.absoluteFillObject,

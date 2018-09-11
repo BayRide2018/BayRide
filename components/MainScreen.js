@@ -154,11 +154,11 @@ class MainScreen extends Component {
 
 					{this.state.passengerId ? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} /> : <Button
 					title="Where to?"
-					style={style.buttonMain}
+					style={style.whereTo}
 					backgroundColor='white'
 					color='grey'
 					onPress={this.handleSubmit} /> }
-					
+
 				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 		</View>
 		);

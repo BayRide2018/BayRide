@@ -27,10 +27,10 @@ export default class SideMenu extends Component {
 		if (currentlyPassenger) {
 			this.navigateToScreen('MainScreen')();
 		} else {
-			this.navigateToScreen('DriverHome')();			
+			this.navigateToScreen('DriverHome')();
 		}
 	}
-	
+
 	handleSwitchDriver = async () => {
 		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: false
@@ -43,7 +43,7 @@ export default class SideMenu extends Component {
 		this.navigateToScreen('DriverRegistration')();
 		this.componentDidMount();
 	}
-  
+
 	handleSwitchPassenger = async () => {
 		await store.collection("users").doc(auth.currentUser.email).update({
 			currentlyPassenger: true
@@ -51,7 +51,7 @@ export default class SideMenu extends Component {
 		this.navigateToScreen('MainScreen')();
 		this.componentDidMount();
 	}
-	
+
 	handleLogout = async () => {
 		await auth.signOut();
 		this.navigateToScreen('Welcome')();

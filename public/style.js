@@ -157,7 +157,7 @@ module.exports = StyleSheet.create({
 	},
 	navItemStyleSM: {
 		padding: 15
-	},
+		},
 	sectionHeadingStyleSM: {
 		paddingVertical: 10,
 		paddingHorizontal: 5

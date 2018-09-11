@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
+import { Location, Permissions, Notifications, Platform } from 'expo';
 import { View, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { store, auth } from '../fire';
-import { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import MatchBanner from './MatchBanner';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
@@ -24,7 +24,8 @@ class MainScreen extends Component {
 		// It shows the status of the Lot
 		lotId: '',
 		matchBanner: false,
-		passengerId: ''
+		passengerId: '',
+		marginBottom: 1
 	}
 
 	async componentDidMount() {
@@ -108,6 +109,8 @@ class MainScreen extends Component {
 		this.setState({showBid: false});
 	}
 
+	_onMapReady = () => this.setState({marginBottom: 0});
+
 
 	render() {
 		const { marker, showBid, driverId, offer} = this.state;
@@ -124,11 +127,18 @@ class MainScreen extends Component {
 				/>
 
 				<MapView
-						style={style.mapMain}
+						style={{flex: 1, marginBottom: this.state.marginBottom, zIndex: -1,
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0
+						}}
+						onMapReady={this._onMapReady}
 						onRegionChangeComplete={this.onRegionChangeComplete}
 						showsUserLocation={true}
+						showsMyLocationButton={true}
 						followsUserLocation={true}>
-
 					{marker !== null && <Marker draggable
 						image={require('../public/images/marker.png')}
 
@@ -151,7 +161,7 @@ class MainScreen extends Component {
 				) : null}
 
 
-				{this.state.passengerId 
+				{this.state.passengerId
 				? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} />
 				: <Button
 					title="Where to?"

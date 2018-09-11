@@ -182,7 +182,11 @@ module.exports = StyleSheet.create({
 		flex: 1
 	},
 	button: {
-		alignSelf: 'center',
+		backgroundColor: BRBLUE,
+		color: BROFFWHITE,
+		borderRadius: 10,
+		padding: 5,
+    alignSelf: 'center',
 		margin: 10,
-	}
+	},
 });

@@ -10,7 +10,9 @@ export default class Winner extends React.Component {
 
 	state = {
 		lot : {},
-		passenger : {}
+		passenger : {},
+		showFinishTrip: false,
+		showDirectionsForTrip: false,
 	};
 
 	componentDidMount = async () => {
@@ -45,6 +47,7 @@ export default class Winner extends React.Component {
 			]
 		};
 		getDirections(data);
+		this.setState({ showDirectionsForTrip: true })
 	}
 	
 	handleDirectionsForTrip = () => {
@@ -65,6 +68,7 @@ export default class Winner extends React.Component {
 			]
 		};
 		getDirections(data);
+		this.setState({ showFinishTrip: true })
 	}
 
 	handleFinishTrip () {
@@ -83,8 +87,14 @@ export default class Winner extends React.Component {
 				<Text>Passenger location</Text>
 				{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 				<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
-				<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
-				<Button title="Finish trip" onPress={this.handleFinishTrip} />
+
+				{this.state.showDirectionsForTrip
+				?	<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
+				:	null}
+
+				{this.state.showFinishTrip
+				?	<Button title="Finish trip" onPress={this.handleFinishTrip} />
+				:	null}
 			</View>
 		);
 	}

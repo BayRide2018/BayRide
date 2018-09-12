@@ -10,6 +10,7 @@ import Payment from './components/Payment';
 import Waiver from './components/Waiver';
 import Help from './components/Help';
 import Web from './components/Web';
+import DropPin from './components/DropPin';
 
 
 export default createStackNavigator({
@@ -24,9 +25,10 @@ export default createStackNavigator({
 	Payment: { screen: Payment },
 	Help: { screen: Help },
 	Web: { screen: Web },
+	DropPin: { screen: DropPin },
 
 }, {
-	initialRouteName: 'Welcome',
+	initialRouteName: 'DropPin',
 	navigationOptions: {
 		title: 'BayRide',
 		headerLeft: null,

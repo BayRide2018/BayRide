@@ -5,7 +5,7 @@ import style from '../public/style';
 
 const Welcome = ({ navigation }) => (
 	<View style={style.logContainer}>
-		<Image source={require('../public/logo1.png')} style={style.logo} />
+		<Image source={require('../public/images/logo1.png')} style={style.logo} />
 		<View>
 			<Button title="Sign Up" onPress={() => navigation.navigate('Signup')} />
 			<Button title="Login" onPress={() => navigation.navigate('Login')} />

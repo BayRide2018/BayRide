@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
@@ -11,16 +11,30 @@ import Icon from 'react-native-vector-icons/Octicons';
 
 export default class DropPin extends Component {
 
+    state = {
+        markerLocation: null,
+    }
+
     handleSubmit () {}
+
+    onRegionChangeComplete () {}
 
     render () {
         return (
-            <View>
+			<View style={style.containerMain}>
                 <MapView 
                     style={style.mapMain}
                     onRegionChangeComplete={this.onRegionChangeComplete}
                     showsUserLocation={true}
                     followsUserLocation={true} />
+
+		        <Image source={require('../public/images/marker.png')} style={{
+                    zIndex: 30,
+                    top: 400,
+                    left: 200,
+                    height: 20,
+                    width: 20,
+                }} />
 
                 <View style={style.matchMain}>
                     <Button rounded info large onPress={this.handleSubmit}>

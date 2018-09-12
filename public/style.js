@@ -40,6 +40,14 @@ module.exports = StyleSheet.create({
 		height: React.Dimensions.get('window').height,
 	},
 
+	backButton: {
+		marginLeft: 10,
+		marginTop: 35
+	},
+
+	successButtons: {
+		alignSelf: 'center'
+	},
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
@@ -58,7 +66,8 @@ module.exports = StyleSheet.create({
 	},
 	matchMain: {
 		zIndex: 20,
-		top: 80
+		top: 80,
+		alignSelf: 'center'
 	},
 
 	/**
@@ -71,19 +80,19 @@ module.exports = StyleSheet.create({
 	},
 	submissionForm: {
 		flex: 1,
-		margin: 20,
-		marginTop: 50,
+		margin: 15,
+
 		alignItems: 'center'
 	},
 	viewPhoto: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginBottom: 0,
-		paddingBottom: 0
+		alignItems: 'flex-end',
+		justifyContent: 'flex-end',
+		flexDirection: 'row'
 	},
-	backButton: {
-		marginTop: 'auto'
+
+	back: {
+		marginLeft: 30
 	},
 
 	/**
@@ -180,9 +189,7 @@ module.exports = StyleSheet.create({
 		flex: 1
 	},
 	button: {
-		backgroundColor: BRBLUE,
-		color: BROFFWHITE,
-		borderRadius: 10,
-		padding: 5
-	},
+		flexDirection: 'row',
+		flexWrap: 'wrap'
+	}
 });

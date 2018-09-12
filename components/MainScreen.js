@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
 import { View, Alert } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Text } from 'native-base';
 import { store, auth } from '../fire';
 import { Marker } from 'react-native-maps';
 import MatchBanner from './MatchBanner';
@@ -155,14 +155,16 @@ class MainScreen extends Component {
 
 
 				{this.state.currentLot
-				? <Button title="View Your Current Trip" style={style.matchMain} onPress={() => this.setState({matchBanner: true})} />
-				: <Button
-					title="Where to?"
-					style={style.whereTo}
-					backgroundColor='white'
-					color='grey'
+				? <View style={style.matchMain}><Button
+				rounded
+				info onPress={() => this.setState({matchBanner: true})}><Text>View your current trip</Text></Button>
+				 /> </View>
+				: <View style={style.matchMain}><Button
+					rounded
+					info
+					large
 					onPress={this.handleSubmit}
-				/> }
+				><Text>Where to?</Text></Button></View> }
 
 				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 			</View>

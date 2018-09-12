@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, Button } from 'react-native';
+import { View, ScrollView} from 'react-native';
+import { Button, Text } from 'native-base';
 import style from '../public/style';
 import { signup } from '../fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
@@ -31,7 +32,7 @@ export default class Signup extends Component {
 	render() {
 		return (
 			<View>
-				<Button style={style.backButton} title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
+				<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 				<ScrollView style={style.signIn} >
 					<TextField label='Full Name' placeholder="Please enter your full name"
 						onChangeText={name => this.setState({ name })}
@@ -50,9 +51,10 @@ export default class Signup extends Component {
 					<Text>{this.state.response}</Text>
 					<View>
 						<Button
-							title="Signup"
+							style={style.successButtons}
+							success
 							onPress={this.handleSubmit}
-						/>
+						><Text>Signup</Text></Button>
 					</View>
 				</ScrollView>
 			</View>

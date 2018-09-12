@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View} from 'react-native';
+import { Button , Text } from 'native-base';
 import { login } from '../fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
@@ -35,7 +36,7 @@ export default class Login extends Component {
 
 		return (
 			<View>
-				<Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
+			<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 				<View style={style.signIn}>
 					<TextField label="Email" placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
@@ -47,8 +48,9 @@ export default class Login extends Component {
 					<View>
 						<Text>{this.state.response}</Text>
 						<Button
+							style={style.successButtons}
 							title="Login"
-							onPress={this.handleSubmit} />
+							onPress={this.handleSubmit}><Text>Login</Text></Button>
 					</View>
 				</View>
 			</View>

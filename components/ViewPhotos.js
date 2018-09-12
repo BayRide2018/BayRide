@@ -26,8 +26,7 @@ export default class ViewPhotos extends Component {
 			<View style={style.viewPhoto}>
 			<View><UploadPhotoButton label='Add a photo' color='rgb(0,175,115)' onPress={this._pickImage}/></View>
 
-				{image &&
-					<Image source={{ uri: image }} />}
+				{image && <Image source={{ uri: image }} />}
 			</View>
 		);
 	}

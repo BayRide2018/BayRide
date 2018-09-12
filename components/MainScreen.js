@@ -12,20 +12,20 @@ import Icon from 'react-native-vector-icons/Octicons';
 class MainScreen extends Component {
 
 	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
-		location: null,
-		errorMessage: null,
-		marker: null,
-		showLot: false,
-		showBid: false,
-		offer: '',
-		driverId: '',
-		winner: false,
+		location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
+		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
+		marker: null, // We should get rid of this.
+		showLot: false, // We're not using this, I think we can get rid of it
+		showBid: false, // We need this if and only if we want to keep the alerts see the note in the render method
+		offer: '', // We need this if and only if we want the alerts
+		driverId: '', // Same as above.. Also, it should be driver's name, not id, which is an email
+		winner: false, // I think that we never use this and can delete it
 		// Added by Thomas. This is for the component that a passenger can see on home
 		// It shows the status of the Lot
-		lotId: '',
-		matchBanner: false,
-		passengerId: '',
-		currentLot: ''
+		lotId: '', // I think that this should be replaced with the field currentLot
+		matchBanner: false, // This is actually important... It is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
+		passengerId: '', // I think that we never use this and can delete it
+		currentLot: '', // This is actually important... It's the id of the lot that passenger has open
 	}
 
 	async componentDidMount() {
@@ -36,7 +36,7 @@ class MainScreen extends Component {
 
 		let driver = '';
 
-		await store.collection('lots').onSnapshot( allLots => {
+		await store.collection('lots').onSnapshot( allLots => { // This query needs to be majorly changed..
 			allLots.docChanges().forEach(lot => {
 						driver = lot.doc.data().driverId;
 						//Not sure if needs another if statement but bid info should not changed unless its another bid
@@ -78,12 +78,16 @@ class MainScreen extends Component {
 		let token = await Notifications.getExpoPushTokenAsync();
 		store.collection('users').doc(auth.currentUser.email).update({expoToken: token});
 	}
-
+ 
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {
 			this.setState({
 				errorMessage: 'Permission to access location was denied',
+				/**
+				 * 		PLEASE SEE THE NOTE IN STATE ABOUT THIS
+				 * 		We can't just set state, we need to basically cut off all functionality, and le the user know that this was the reason why. Also, provide them an opportunity to switch back.
+				 */
 			});
 		}
 		let location = await Location.getCurrentPositionAsync({});
@@ -141,11 +145,10 @@ class MainScreen extends Component {
 
 				</MapView>
 
-				{/** We can't do these alerts won't work as they are. I believe the problem is that the component is re-rendering
-							frequently, and every time it does, a new alert is sent.*/}
+				{/** We probably don't really want these alerts.. Do push notifications still show up if you're in that app?? If not, then having these alerts at that time would be good, but we don't really want them to be spammy */}
 				{showBid ? Alert.alert(
-					`New Bid! ${driverId} has bid ${offer}!`,
-					'Sound Good?',
+					`New Bid! ${driverId} has bid ${offer}!`, /** we really only need to have driverId and offer on state if we want to have this alert. See above*/
+					'Sound Good?', /** Also, driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
 					[
 						{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
 						{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
@@ -155,16 +158,16 @@ class MainScreen extends Component {
 
 
 				{this.state.currentLot
-				? <View style={style.matchMain}><Button
-				rounded
-				info onPress={() => this.setState({matchBanner: true})}><Text>View your current trip</Text></Button>
-				 /> </View>
-				: <View style={style.matchMain}><Button
-					rounded
-					info
-					large
-					onPress={this.handleSubmit}
-				><Text>Where to?</Text></Button></View> }
+				? 	<View style={style.matchMain}>
+						<Button rounded info onPress={() => this.setState({matchBanner: true})}>
+							<Text>View your current trip</Text>
+						</Button>
+					</View>
+				:	<View style={style.matchMain}>
+						<Button rounded info large onPress={this.handleSubmit}>
+							<Text>Where to?</Text>
+						</Button>
+					</View> }
 
 				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
 			</View>

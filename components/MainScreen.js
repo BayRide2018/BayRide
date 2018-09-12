@@ -138,10 +138,10 @@ class MainScreen extends Component {
 
 					{marker !== null && <Marker draggable
 						image={require('../public/images/marker.png')}
-
+						
 						coordinate={marker}
 						onDragEnd={ (e) => this.setState({ marker: e.nativeEvent.coordinate }) }
-					/>}
+						/>}
 
 				</MapView>
 

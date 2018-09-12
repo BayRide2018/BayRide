@@ -28,7 +28,7 @@ export default class ViewPhotos extends Component {
 
 				{image &&
 					<Image source={{ uri: image }} />}
-			// </View>
+			</View>
 		);
 	}
 

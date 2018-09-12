@@ -107,7 +107,7 @@ export default class LotSubmissionForm extends Component {
 			<ScrollView contentContainerStyle={style.submissionForm}>
 
 			<View style={style.submissionForm}>
-			<Button warning small onPress={this.handleBack}><Text style={{fontSize: 15}}>Go Back</Text></Button>
+			<Button warning small onPress={this.handleBack} style={style.back}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
 					<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
 
@@ -126,7 +126,7 @@ export default class LotSubmissionForm extends Component {
 						onChangeText={offer => this.setState({ offer })}
 						/>
 
-					{this.state.showPricePicker
+					{ /* this.state.showPricePicker
 						?  <Picker
 						style={style.picker}
 						selectedValue='4'
@@ -139,7 +139,7 @@ export default class LotSubmissionForm extends Component {
 						style={{alignSelf: 'center'}}
 						onPress={() => this.setState({ showPricePicker: true })}
 						><Text>{this.state.offer} dollars</Text></Button>
-					}
+					*/}
 
 					{this.state.showMinutePicker
 						?	<Picker
@@ -152,16 +152,15 @@ export default class LotSubmissionForm extends Component {
 						: 	<View>
 								<Text>Set pickup time</Text>
 								<Button
-									title={`${this.state.pickupTime} minutes`}
 									onPress={() => this.setState({ showMinutePicker: true })}
-								/>
+								><Text>{`${this.state.pickupTime} minutes`}</Text></Button>
 							</View>
 					}
 
-					<View>
-						<Button style={style.button} rounded success onPress={() => { this.handleSubmit("brx") }}><Text style={{fontSize: 20}}>Request BayRide</Text></Button>
-						<Button style={style.button} rounded success onPress={() => { this.handleSubmit("brxl") }}><Text style={{fontSize: 20}}>Request BayRideXL</Text></Button>
-						<Button style={style.button} rounded success onPress={() => { this.handleSubmit("brs") }}><Text style={{fontSize: 20}}>Request BayRide Supreme </Text></Button>
+					<View style={style.button}>
+						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>Request BayRide</Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text>Request BayRideXL</Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text>Request BayRide Supreme </Text></Button>
 
 
 

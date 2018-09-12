@@ -161,7 +161,7 @@ class MainScreen extends Component {
 				 /> </View>
 				: <View style={style.matchMain}><Button
 					rounded
-					light
+					info
 					large
 					onPress={this.handleSubmit}
 				><Text>Where to?</Text></Button></View> }

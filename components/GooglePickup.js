@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
@@ -11,12 +13,11 @@ export default class GooglePickup extends Component {
 				minLength={2} // minimum length of text to search
 				autoFocus={false}
 				returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-				listViewDisplayed='auto'    // true/false/undefined
+				listViewDisplayed='false'    // true/false/undefined
 				fetchDetails={true}
 				renderDescription={row => row.description} // custom description render
 				onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
           let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
-          console.log(pickUp);
 					this.props.pickUp(pickUp);
 				}}
 
@@ -31,15 +32,17 @@ export default class GooglePickup extends Component {
 				}}
 
 				styles={{
-					textInputContainer: {
-						width: '100%'
+		textInputContainer: {
+     		 width: '100%'
+
 					},
 					description: {
-						fontWeight: 'bold'
+						fontWeight: 'bold',
 					},
 					predefinedPlacesDescription: {
 						color: '#1faadb'
 					},
+
 				}}
 
 				currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list

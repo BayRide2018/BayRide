@@ -80,15 +80,19 @@ module.exports = StyleSheet.create({
 	},
 	submissionForm: {
 		flex: 1,
-		margin: 20,
-		marginTop: 50,
+		margin: 15,
+
 		alignItems: 'center'
 	},
 	viewPhoto: {
 		flex: 1,
-		alignItems: 'flex-start',
+		alignItems: 'flex-end',
 		justifyContent: 'flex-end',
-		marginRight: 10
+		flexDirection: 'row'
+	},
+
+	back: {
+		marginLeft: 30
 	},
 
 	/**
@@ -185,7 +189,7 @@ module.exports = StyleSheet.create({
 		flex: 1
 	},
 	button: {
-		alignSelf: 'center',
-		margin: 10,
+		flexDirection: 'row',
+		flexWrap: 'wrap'
 	}
 });

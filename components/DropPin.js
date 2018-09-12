@@ -21,7 +21,7 @@ export default class DropPin extends Component {
 
     render () {
         return (
-			<View style={style.containerMain}>
+			<View style={[style.containerMain, {justifyContent: 'center', alignItems: 'center',}]}>
                 <MapView 
                     style={style.mapMain}
                     onRegionChangeComplete={this.onRegionChangeComplete}
@@ -30,8 +30,6 @@ export default class DropPin extends Component {
 
 		        <Image source={require('../public/images/marker.png')} style={{
                     zIndex: 30,
-                    top: 400,
-                    left: 200,
                     height: 20,
                     width: 20,
                 }} />

@@ -19,20 +19,20 @@ export default class LotSubmissionForm extends Component {
 		pickupLocation: {},
 		dropoffLocation: {},
 		offer: 0,
-		passengerId: '',
-		driverId: '',
+		passengerId: '', // unnecessary.. we have auth.currentUser.email In fact, we shouldn't be using this inside of View photos, we should just use auth.currentUser.email
+		driverId: '', // We never use this.. when you submit a lot, driverId is an empty string, and this is handled in firemethods, in the createLot function
 		showMinutePicker: false,
-		showOfferPicker: false,
-		showPricePicker: false,
+		showOfferPicker: false, // We never use this, it's the same as the one below
+		showPricePicker: false, // Why is this not used :(
 		pickupTime: 0,
-		location: null,
-		marker: null,
-		hideButton: null
+		location: null, // We never use this, and I don't think we need it
+		marker: null, // I still want this to be handled a little differently. See the issue about DropPin.js
+		hideButton: null // I can't seem to tell what this is for?? It doesn't look like we need it, but I don't know
 	}
 
 	componentDidMount() {
 		this.getProps();
-		store.collection('users').doc(auth.currentUser.email).get().then(user => {
+		store.collection('users').doc(auth.currentUser.email).get().then(user => { // Why are we doing this???
 			this.setState({passengerId: user.id});
 		});
 	}
@@ -157,21 +157,10 @@ export default class LotSubmissionForm extends Component {
 							</View>
 					}
 
-<<<<<<< HEAD
 					<View style={style.button}>
 						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>Request BayRide</Text></Button>
 						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text>Request BayRideXL</Text></Button>
 						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text>Request BayRide Supreme </Text></Button>
-
-
-
-=======
-					<View>
-						<Button style={style.button} rounded success onPress={() => { this.handleSubmit('brx') }}><Text style={{fontSize: 20}}>Request BayRide</Text></Button>
-						<Button style={style.button} rounded success onPress={() => { this.handleSubmit('brxl') }}><Text style={{fontSize: 20}}>Request BayRideXL</Text></Button>
-						<Button style={style.button} rounded success onPress={() => { this.handleSubmit('brs') }}><Text style={{fontSize: 20}}>Request BayRide Supreme </Text></Button>
->>>>>>> 28b23fc0fba54e93bee14ddd9ead2ccebd581e81
-
 					</View>
 				</View>
 			</ScrollView>

@@ -49,16 +49,14 @@ export default class MainScreen extends Component {
 		});
 
 		// This should just be get the passenger (aka the currentUser)'s currentLot... And do we even want to do this??
-		await store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
-			lots.forEach(lot => {
+		await store.collection("lots").doc(auth.currentUser.email).get().then(lot => {
 				this.setState({ currentLot: lot.id });
-			});
 		});
 
 		// Again, I think that this should really be deleted and put in MatchBanner.js ...
-		store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
-			this.setState({currentLot: user.data().currentLot});
-		});
+		// store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
+		// 	this.setState({currentLot: user.data().currentLot});
+		// });
 	}
 
 	registerForPushNotification = async () => {
@@ -112,13 +110,13 @@ export default class MainScreen extends Component {
 		});
 	}
 
-	handleMatch = () => {
+	handleAlert = () => {
 		this.setState({showBid: false});
 	}
 
-	handleCancel = () => {
-		this.setState({showBid: false});
-	}
+	// handleCancel = () => {
+	// 	this.setState({showBid: false});
+	// }
 
 
 	render() {
@@ -155,8 +153,7 @@ export default class MainScreen extends Component {
 					`New Bid! ${driverId} has bid ${offer}!`, /** we really only need to have driverId and offer on state if we want to have this alert. See above*/
 					'Sound Good?', /** Also, driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
 					[
-						{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
-						{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
+						{ text: 'Nice', onPress: () => this.handleAlert(), style: 'cancel' }
 					],
 					{ cancelable: false }
 				) : null}

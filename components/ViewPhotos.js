@@ -42,6 +42,7 @@ export default class ViewPhotos extends Component {
 
 
 		const photoId = uuid.v4();
+		// Simply use auth.currentUser.email instead of this
 		const passengerId = this.props.passengerId;
 		uploadImageAsync(pickerResult.uri, photoId, passengerId);
 

@@ -97,14 +97,13 @@ class MainScreen extends Component {
 		this.setState({ location });
 	}
 
-	// I think that we never actually use this
+	// I think that we don't actually need this, because we can just look up what the users current lot is, right? This might be faster though...
 	handleHideButton = (currentLot) => {
 		this.setState({ currentLot });
 	}
 
 	handleSubmit = () => {
 		this.props.navigation.navigate('LotSubmissionForm', {
-			//passing marker coordinates as props to lotsubmissionform
 			handleHideButton: this.handleHideButton
 		});
 	}

@@ -123,17 +123,9 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Drop off Location</FormLabel>
 					<GoogleDropoff dropOff={this.handleDropOff} />
 
-					<View style={{alignItems:'center', marginBottom: 50}}>
-					<FormLabel>Offer</FormLabel>
-					<FormInput
-						style={{marginLeft: 20, marginRight: 20}}
-						placeholder="Please enter starting bid"
-						onChangeText={offer => this.setState({ offer })}
-						/>
-						<Text>{this.state.offer} dollars</Text>
-
-						</View>
-					{ /* this.state.showPricePicker
+					<Text style={{flexDirection: 'row'}}>Your offer: {this.state.offer} $      Pickup Time: {`${this.state.pickupTime} minutes`}</Text>
+						<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>
+					{ this.state.showPricePicker
 						?  <Picker
 						style={style.picker}
 						selectedValue='4'
@@ -142,11 +134,10 @@ export default class LotSubmissionForm extends Component {
 						itemSpace={30} // this only support in android
 						/>
 						:  <Button
-						light
-						style={{alignSelf: 'center'}}
 						onPress={() => this.setState({ showPricePicker: true })}
 						><Text>{this.state.offer} dollars</Text></Button>
-					*/}
+					}
+
 
 						{this.state.showMinutePicker
 							?	<Picker
@@ -156,14 +147,13 @@ export default class LotSubmissionForm extends Component {
 								onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
 								itemSpace={30} // this only support in android
 							/>
-							: 	<View style={{marginBottom: 30}}>
-								<Text>Set pickup time</Text>
+							:
 								<Button
 									onPress={() => this.setState({ showMinutePicker: true })}
 								><Text>{`${this.state.pickupTime} minutes`}</Text></Button>
-							</View>
-						}
 
+						}
+						</View>
 
 					<View style={style.button}>
 						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>BayRide</Text></Button>

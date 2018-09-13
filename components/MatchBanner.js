@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button, Text } from 'native-base';
 import { store } from '../fire';
 import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';
@@ -46,7 +47,14 @@ export default class MatchBanner extends React.Component {
 							</View>
 						: <Text>No one has submitted a bid yet, but be patient</Text>
 						}
-							<Button title='Close' onPress={() => this.props.close()} />
+
+						<View>
+							<Button rounded info onPress={() => this.props.close()}>
+								<Text>Close</Text>
+							</Button>
+						</View>
+
+
 						<TimerCountdown
 							initialSecondsRemaining={pickupTime - now}
 							onTimeElapsed={this.handleFinish}

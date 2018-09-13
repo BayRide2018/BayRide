@@ -9,7 +9,7 @@ import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
 
 
-class MainScreen extends Component {
+export default class MainScreen extends Component {
 
 	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
 		// location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
@@ -36,14 +36,15 @@ class MainScreen extends Component {
 
 		let driver = '';
 
+		// We should really just get rid of this whole query, and put a better version of this in MatchBanner.js
 		await store.collection('lots').onSnapshot( allLots => { // This query needs to be majorly changed..
 			allLots.docChanges().forEach(lot => {
-						driver = lot.doc.data().driverId;
-						//Not sure if needs another if statement but bid info should not changed unless its another bid
-						if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
-							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
-							//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
-						}
+				driver = lot.doc.data().driverId;
+				//Not sure if needs another if statement but bid info should not changed unless its another bid
+				if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
+					this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
+					//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
+				}
 			});
 		});
 
@@ -54,10 +55,12 @@ class MainScreen extends Component {
 			});
 		});
 
+		// Again, I think that this should really be deleted and put in MatchBanner.js ...
 		store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
 			this.setState({currentLot: user.data().currentLot});
 		});
 	}
+
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS
@@ -77,7 +80,7 @@ class MainScreen extends Component {
 		}
 		// Get the token that uniquely identifies this device
 		let token = await Notifications.getExpoPushTokenAsync();
-		store.collection('users').doc(auth.currentUser.email).update({expoToken: token});
+		store.collection('users').doc(auth.currentUser.email).update({ expoToken: token });
 	}
  
 	_getLocationAsync = async () => {
@@ -91,6 +94,7 @@ class MainScreen extends Component {
 				 */
 			});
 		}
+		// I believe that we don't need anything below this line... Really we just need to get permission, and that's it
 		let location = await Location.getCurrentPositionAsync({});
 		//Gets location and sets location to location and marker.
 		//Marker is the draggable marker, defaults to user's location
@@ -175,5 +179,3 @@ class MainScreen extends Component {
 		);
 	}
 }
-
-export default MainScreen;

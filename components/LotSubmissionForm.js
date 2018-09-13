@@ -32,10 +32,6 @@ export default class LotSubmissionForm extends Component {
 
 	componentDidMount() {
 		this.getProps();
-		// Get rid of this..
-		store.collection('users').doc(auth.currentUser.email).get().then(user => { // Why are we doing this???
-			this.setState({passengerId: user.id});
-		});
 	}
 
 	getProps = () => {
@@ -53,7 +49,7 @@ export default class LotSubmissionForm extends Component {
 			this.state.dropoffLocation,
 			this.state.offer,
 			carType);
-		this.state.hideButton(lotId); // I don't think we actually need it
+		this.state.hideButton(lotId); // I don't think we actually need this because it's doing basically the same thing as the line below...
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: lotId });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}

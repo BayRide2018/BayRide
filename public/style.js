@@ -21,7 +21,8 @@ module.exports = StyleSheet.create({
 	logo: {
 		marginTop: 150,
 		height: 230,
-		width: 230
+		width: 230,
+		alignSelf: 'center'
 	},
 	logoContainer: {
 		display: 'flex',

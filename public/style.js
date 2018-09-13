@@ -101,7 +101,10 @@ module.exports = StyleSheet.create({
 	 */
 	matchBanner: {
 		backgroundColor: 'white',
-		margin: 40
+		alignItems: 'center',
+		margin: 40,
+		padding: 20,
+		borderRadius: 15,
 	},
 
 

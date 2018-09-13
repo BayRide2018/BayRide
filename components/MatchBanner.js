@@ -16,7 +16,7 @@ export default class MatchBanner extends React.Component {
 	}
 
 	async componentDidMount () {
-		await store.collection("lots").doc(this.props.lotId).get().then(lot => {
+		await store.collection("lots").doc(this.props.currentLot).get().then(lot => {
 			this.setState({ lotData: lot.data() });
 		});
 		if (this.state.lotData.driverId) {

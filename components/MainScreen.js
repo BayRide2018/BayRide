@@ -3,28 +3,28 @@ import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
 import { View, Alert } from 'react-native';
 import { Button, Text } from 'native-base';
 import { store, auth } from '../fire';
-import { Marker } from 'react-native-maps';
+// import { Marker } from 'react-native-maps';
 import MatchBanner from './MatchBanner';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
 
 
-class MainScreen extends Component {
+export default class MainScreen extends Component {
 
 	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
-		location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
+		// location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
 		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
-		marker: null, // We should get rid of this.
-		showLot: false, // We're not using this, I think we can get rid of it
+		// marker: null, // We should get rid of this.
+		// showLot: false, // We're not using this, I think we can get rid of it
 		showBid: false, // We need this if and only if we want to keep the alerts see the note in the render method
 		offer: '', // We need this if and only if we want the alerts
 		driverId: '', // Same as above.. Also, it should be driver's name, not id, which is an email
-		winner: false, // I think that we never use this and can delete it
+		// winner: false, // I think that we never use this and can delete it
 		// Added by Thomas. This is for the component that a passenger can see on home
 		// It shows the status of the Lot
-		lotId: '', // I think that this should be replaced with the field currentLot
+		// lotId: '', // I think that this should be replaced with the field currentLot
 		matchBanner: false, // This is actually important... It is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
-		passengerId: '', // I think that we never use this and can delete it
+		// passengerId: '', // I think that we never use this and can delete it
 		currentLot: '', // This is actually important... It's the id of the lot that passenger has open
 	}
 
@@ -36,27 +36,29 @@ class MainScreen extends Component {
 
 		let driver = '';
 
+		// We should really just get rid of this whole query, and put a better version of this in MatchBanner.js
 		await store.collection('lots').onSnapshot( allLots => { // This query needs to be majorly changed..
 			allLots.docChanges().forEach(lot => {
-						driver = lot.doc.data().driverId;
-						//Not sure if needs another if statement but bid info should not changed unless its another bid
-						if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
-							this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
-							//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
-						}
+				driver = lot.doc.data().driverId;
+				//Not sure if needs another if statement but bid info should not changed unless its another bid
+				if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
+					this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
+					//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
+				}
 			});
 		});
 
-		await store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
-			lots.forEach(lot => {
-				this.setState({ lotId: lot.id, passengerId: lot.data().passengerId});
-			});
+		// This should just be get the passenger (aka the currentUser)'s currentLot... And do we even want to do this??
+		await store.collection("lots").doc(auth.currentUser.email).get().then(lot => {
+				this.setState({ currentLot: lot.id });
 		});
 
-		store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
-			this.setState({currentLot: user.data().currentLot});
-		});
+		// Again, I think that this should really be deleted and put in MatchBanner.js ...
+		// store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
+		// 	this.setState({currentLot: user.data().currentLot});
+		// });
 	}
+
 	registerForPushNotification = async () => {
 		const { status: existingStatus } = await Permissions.getAsync(
 			Permissions.NOTIFICATIONS
@@ -76,7 +78,7 @@ class MainScreen extends Component {
 		}
 		// Get the token that uniquely identifies this device
 		let token = await Notifications.getExpoPushTokenAsync();
-		store.collection('users').doc(auth.currentUser.email).update({expoToken: token});
+		store.collection('users').doc(auth.currentUser.email).update({ expoToken: token });
 	}
  
 	_getLocationAsync = async () => {
@@ -90,34 +92,43 @@ class MainScreen extends Component {
 				 */
 			});
 		}
+		// I believe that we don't need anything below this line... Really we just need to get permission, and that's it
+		///
+		////
+		/////
+		//////
 		let location = await Location.getCurrentPositionAsync({});
 		//Gets location and sets location to location and marker.
 		//Marker is the draggable marker, defaults to user's location
-		this.setState({ location, marker: location.coords });
-	};
+		this.setState({ location });
+	}
 
-	handleHideButton = (lotId) => {
-		this.setState({ passengerId: true, lotId });
+	// I think that we don't actually need this, because we can just look up what the users current lot is, right? This might be faster though...
+	/**
+	 * It might be better to leave this though, 
+	 * Does MainScreen Re-render after navigating from LSF?
+	 */
+	handleHideButton = (currentLot) => {
+		this.setState({ currentLot });
 	}
 
 	handleSubmit = () => {
 		this.props.navigation.navigate('LotSubmissionForm', {
-			//passing marker coordinates as props to lotsubmissionform
-			marker: this.state.marker, handleHideButton: this.handleHideButton
+			handleHideButton: this.handleHideButton
 		});
 	}
 
-	handleMatch = () => {
+	handleAlert = () => {
 		this.setState({showBid: false});
 	}
 
-	handleCancel = () => {
-		this.setState({showBid: false});
-	}
+	// handleCancel = () => {
+	// 	this.setState({showBid: false});
+	// }
 
 
 	render() {
-		const { marker, showBid, driverId, offer} = this.state;
+		const { showBid, driverId, offer} = this.state;
 
 		return(
 			<View style={style.containerMain}>
@@ -136,12 +147,12 @@ class MainScreen extends Component {
 						showsUserLocation={true}
 						followsUserLocation={true}>
 
-					{marker !== null && <Marker draggable
+					{/* {marker !== null && <Marker draggable
 						image={require('../public/images/marker.png')}
 						
 						coordinate={marker}
 						onDragEnd={ (e) => this.setState({ marker: e.nativeEvent.coordinate }) }
-						/>}
+						/>} */}
 
 				</MapView>
 
@@ -150,8 +161,7 @@ class MainScreen extends Component {
 					`New Bid! ${driverId} has bid ${offer}!`, /** we really only need to have driverId and offer on state if we want to have this alert. See above*/
 					'Sound Good?', /** Also, driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
 					[
-						{ text: 'Yes!', onPress: () => this.handleMatch(), style: 'cancel' },
-						{ text: 'Cancel', onPress: () => this.handleCancel(), style: 'cancel' }
+						{ text: 'Nice', onPress: () => this.handleAlert(), style: 'cancel' }
 					],
 					{ cancelable: false }
 				) : null}
@@ -169,10 +179,8 @@ class MainScreen extends Component {
 						</Button>
 					</View> }
 
-				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
+				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({matchBanner: false})}  /> : null}
 			</View>
 		);
 	}
 }
-
-export default MainScreen;

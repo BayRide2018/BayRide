@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { imgStorageRef } from '../fire';
+import { imgStorageRef, auth } from '../fire';
 import { Image, View } from 'react-native';
 import {Text, Button} from 'native-base';
 import { ImagePicker, Permissions } from 'expo';
@@ -42,8 +42,9 @@ export default class ViewPhotos extends Component {
 
 
 		const photoId = uuid.v4();
-		const passengerId = this.props.passengerId;
-		uploadImageAsync(pickerResult.uri, photoId, passengerId);
+		// Simply use auth.currentUser.email instead of this
+		// const passengerId = auth.currentUser.email;
+		uploadImageAsync(pickerResult.uri, photoId, auth.currentUser.email);
 
 		this.props.setScreenshotId(photoId);
 

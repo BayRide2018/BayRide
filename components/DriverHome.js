@@ -33,7 +33,13 @@ export default class DriverHome extends Component {
     /**
      * So what this means is that Winning can only happen if the component mounts
      */
-    // Also, we can make do this better by simply checking if `myCurrentlot` exists in lot_history.. If it does, then winner
+		// Also, we can make do this better by simply checking if `myCurrentlot` exists in lot_history.. If it does, then winner
+		// OR REALLY, can't we just navigate there when a lot expires...
+		/**
+		 * Actually, we should do both.. 
+		 * (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js
+		 * (2) While DriverHoe is open, if the winning Lot expires, it takes us to Winner.js
+		 */
     await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => {
         if (lot.id === myCurrentLot) {
@@ -43,6 +49,11 @@ export default class DriverHome extends Component {
     });
   }
 
+	/**
+	 * Do we need this??
+	 * Do we use this??
+	 * Is it even possible for a user to get to DriverHome without having allowed access to his location?
+	 */
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {

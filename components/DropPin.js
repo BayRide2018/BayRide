@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
+import { MapView } from 'expo';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
-import { store, auth } from '../fire';
-import { Marker } from 'react-native-maps';
-import MatchBanner from './MatchBanner';
-import style from '../public/style';
-import Icon from 'react-native-vector-icons/Octicons';
+]import style from '../public/style';
 
 
 export default class DropPin extends Component {
@@ -15,7 +11,11 @@ export default class DropPin extends Component {
         region: null,
     }
 
-    handleSubmit () {}
+    handleSubmit () {
+        // here we just need to return this.state.region to LotSubmissionForm..
+        // I'm not really sure how I want that to happen.. If it should just be something that pops up and then closes, or if we navigate there and then navigate back (and use that thing where we pass props on a navigation)
+        // I think it'd look cooler if it could like slide up on opening, and then down when it closes, but I don't know how that happens
+    }
 
     render () {
         return (
@@ -25,7 +25,7 @@ export default class DropPin extends Component {
                     onRegionChangeComplete={(region) => { this.setState({ region }); }}
                     showsUserLocation={true}
                     followsUserLocation={true} />
-
+                                            {/** Also, this needs to be a better picture... */}
 		        <Image source={require('../public/images/marker.png')} style={{
                     zIndex: 30,
                     height: 20,

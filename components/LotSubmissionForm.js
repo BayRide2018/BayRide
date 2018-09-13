@@ -58,6 +58,7 @@ export default class LotSubmissionForm extends Component {
 	}
 
 
+	// We need to change this function to use DropPin.js
 	handleUseMarkerLocation = async () => {
 		// Please note that if we use this marker, it needs to have the proper form...
 		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,

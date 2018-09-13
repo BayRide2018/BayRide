@@ -3,7 +3,7 @@ import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
 import { View, Alert } from 'react-native';
 import { Button, Text } from 'native-base';
 import { store, auth } from '../fire';
-import { Marker } from 'react-native-maps';
+// import { Marker } from 'react-native-maps';
 import MatchBanner from './MatchBanner';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
@@ -12,19 +12,19 @@ import Icon from 'react-native-vector-icons/Octicons';
 class MainScreen extends Component {
 
 	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
-		location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
+		// location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
 		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
-		marker: null, // We should get rid of this.
-		showLot: false, // We're not using this, I think we can get rid of it
+		// marker: null, // We should get rid of this.
+		// showLot: false, // We're not using this, I think we can get rid of it
 		showBid: false, // We need this if and only if we want to keep the alerts see the note in the render method
 		offer: '', // We need this if and only if we want the alerts
 		driverId: '', // Same as above.. Also, it should be driver's name, not id, which is an email
-		winner: false, // I think that we never use this and can delete it
+		// winner: false, // I think that we never use this and can delete it
 		// Added by Thomas. This is for the component that a passenger can see on home
 		// It shows the status of the Lot
-		lotId: '', // I think that this should be replaced with the field currentLot
+		// lotId: '', // I think that this should be replaced with the field currentLot
 		matchBanner: false, // This is actually important... It is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
-		passengerId: '', // I think that we never use this and can delete it
+		// passengerId: '', // I think that we never use this and can delete it
 		currentLot: '', // This is actually important... It's the id of the lot that passenger has open
 	}
 
@@ -47,9 +47,10 @@ class MainScreen extends Component {
 			});
 		});
 
+		// This should just be get the passenger (aka the currentUser)'s currentLot... And do we even want to do this??
 		await store.collection("lots").where("passengerId", "==", auth.currentUser.email).get().then(lots => {
 			lots.forEach(lot => {
-				this.setState({ lotId: lot.id, passengerId: lot.data().passengerId});
+				this.setState({ currentLot: lot.id });
 			});
 		});
 
@@ -93,17 +94,18 @@ class MainScreen extends Component {
 		let location = await Location.getCurrentPositionAsync({});
 		//Gets location and sets location to location and marker.
 		//Marker is the draggable marker, defaults to user's location
-		this.setState({ location, marker: location.coords });
-	};
+		this.setState({ location });
+	}
 
-	handleHideButton = (lotId) => {
-		this.setState({ passengerId: true, lotId });
+	// I think that we never actually use this
+	handleHideButton = (currentLot) => {
+		this.setState({ currentLot });
 	}
 
 	handleSubmit = () => {
 		this.props.navigation.navigate('LotSubmissionForm', {
 			//passing marker coordinates as props to lotsubmissionform
-			marker: this.state.marker, handleHideButton: this.handleHideButton
+			handleHideButton: this.handleHideButton
 		});
 	}
 
@@ -117,7 +119,7 @@ class MainScreen extends Component {
 
 
 	render() {
-		const { marker, showBid, driverId, offer} = this.state;
+		const { showBid, driverId, offer} = this.state;
 
 		return(
 			<View style={style.containerMain}>
@@ -136,12 +138,12 @@ class MainScreen extends Component {
 						showsUserLocation={true}
 						followsUserLocation={true}>
 
-					{marker !== null && <Marker draggable
+					{/* {marker !== null && <Marker draggable
 						image={require('../public/images/marker.png')}
 						
 						coordinate={marker}
 						onDragEnd={ (e) => this.setState({ marker: e.nativeEvent.coordinate }) }
-						/>}
+						/>} */}
 
 				</MapView>
 
@@ -169,7 +171,7 @@ class MainScreen extends Component {
 						</Button>
 					</View> }
 
-				{this.state.matchBanner ? <MatchBanner lotId={this.state.lotId} close={() => this.setState({matchBanner: false})}  /> : null}
+				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({matchBanner: false})}  /> : null}
 			</View>
 		);
 	}

@@ -56,6 +56,32 @@ export default class Account extends Component {
 				}
 				<View style={style.horizontalRule} />
 
+				{this.state.editPhone
+				?	<View>
+						<TextField label="Phone" placeholder={this.state.user.phone}
+							onChangeText={phone => this.setState({ user: { ...this.state.user, phone: phone } })}
+						/>
+						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editPhone: false }); }} ><Text>Save Changes</Text></Button>
+					</View>
+				:	<View>
+						<Text>Phone: {this.state.user.phone}</Text><Button rounded info onPress={() => this.setState({editPhone: true})}><Text>Edit</Text></Button>
+					</View>
+				}
+				<View style={style.horizontalRule} />
+
+				{this.state.editEmail
+				?	<View>
+						<TextField label="Email" placeholder={this.state.user.email}
+							onChangeText={email => this.setState({ user: { ...this.state.user, email: email } })}
+						/>
+						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editEmail: false }); }} ><Text>Save Changes</Text></Button>
+					</View>
+				:	<View>
+						<Text>Email: {this.state.user.email}</Text><Button rounded info onPress={() => this.setState({editEmail: true})}><Text>Edit</Text></Button>
+					</View>
+				}
+				<View style={style.horizontalRule} />
+
 			</View>
 		);
 	}

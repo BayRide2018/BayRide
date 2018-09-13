@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View } from 'react-native';
+import { Button, Text } from 'native-base';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { store, auth } from '../fire';
 import Icon from 'react-native-vector-icons/Octicons';
@@ -10,35 +11,30 @@ import style from '../public/style';
 export default class Account extends Component {
 
 	state = {
-		name: '',
-		email: '',
-		password: '',
-		phone: '',
-		defaultSetting: '',
-		paymentInformation: {}, // I think that these two will be editable somewhere else.. There will be other forms that it
-		drivingInformation: {}, // Takes them to.. The other tabs in the drawer
-		id: '' // This is here for when we want to add an edit button later
+		user: {},
+		id: '', // This is here for when we want to add an edit button later
+		editName: false,
+		editPhone: false,
+		editEmail: false,
+		editPassword: false,
 	};
 
 	componentDidMount () {
 		store.collection("users").doc(auth.currentUser.email).get().then(user => {
-			this.setState({name: user.data().name, email: user.data().email, password: user.data().password, phone: user.data().phone, defaultSetting: user.data().defaultSetting , paymentInformation: user.data().paymentInformation, drivingInformation: user.data().drivingInformation, id: user.id})
+			this.setState({user: user.data(), id: user.id})
 		})
 	}
 
 	handleSubmit = async () => {
-		store.collection('users').doc(auth.currentUser.email).update({name: this.state.name,   phone: this.state.phone});
+		store.collection('users').doc(auth.currentUser.email).update({ ...this.state.user });
 		// We probably want to add more fields for the user to edit but for now its fine
-		this.props.navigation.navigate('MainScreen');
+		// this.props.navigation.navigate('MainScreen');
 	}
 
 
 	render() {
-		const { name, email, password, phone, defaultSetting, paymentInformation, drivingInformation, id } = this.state;
 		return (
 			<View>
-				<Text>This is your profile!!</Text>
-
 				<Icon
 					style={style.drawerIcon}
 					name='three-bars' 
@@ -46,6 +42,18 @@ export default class Account extends Component {
 					color='#000' 
 					onPress={() => this.props.navigation.toggleDrawer()}
 				/>
+
+				{this.state.editName
+				?	<View>
+						<TextField label="Name" placeholder={this.state.user.name}
+							onChangeText={name => this.setState({ user: { ...user, name: name } })}
+						/>
+						<Button rounded info onPress={this.handleSubmit} ><Text>Save Changes</Text></Button>
+					</View>
+				:	<View>
+						<Text>Name: {this.state.user.name}</Text><Button rounded info onPress={() => this.setState({editName: true})}><Text>Edit</Text></Button>
+					</View>
+				}
 
 				<FormLabel>Name: </FormLabel>
 				<FormInput placeholder={name} onChangeText={name => this.setState({name: name})}></FormInput>

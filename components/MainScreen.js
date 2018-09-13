@@ -49,9 +49,10 @@ export default class MainScreen extends Component {
 		});
 
 		// This should just be get the passenger (aka the currentUser)'s currentLot... And do we even want to do this??
-		await store.collection("lots").doc(auth.currentUser.email).get().then(lot => {
-				this.setState({ currentLot: lot.id });
-		});
+		// await store.collection("lots").doc(auth.currentUser.email).get().then(lot => {
+		// 		this.setState({ currentLot: lot.id });
+		// });
+
 
 		// Again, I think that this should really be deleted and put in MatchBanner.js ...
 		// store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
@@ -167,7 +168,7 @@ export default class MainScreen extends Component {
 				) : null}
 
 
-				{this.state.currentLot
+				{!!this.state.currentLot
 				? 	<View style={style.matchMain}>
 						<Button rounded info onPress={() => this.setState({matchBanner: true})}>
 							<Text>View your current trip</Text>

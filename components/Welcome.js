@@ -7,8 +7,8 @@ const Welcome = ({ navigation }) => (
 	<View style={style.logContainer}>
 		<Image source={require('../public/images/logo1.png')} style={style.logo} />
 		<View style={{flexDirection: 'row', alignSelf: 'center'}}>
-			<Button success onPress={() => navigation.navigate('Signup')}><Text>Sign Up</Text></Button>
-			<Button onPress={() => navigation.navigate('Login')}><Text>Login</Text></Button>
+			<Button full success onPress={() => navigation.navigate('Signup')}><Text>Sign Up</Text></Button>
+			<Button full onPress={() => navigation.navigate('Login')}><Text>Login</Text></Button>
 		</View>
 	</View>
 );

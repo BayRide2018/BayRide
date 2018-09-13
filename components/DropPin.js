@@ -12,19 +12,17 @@ import Icon from 'react-native-vector-icons/Octicons';
 export default class DropPin extends Component {
 
     state = {
-        markerLocation: null,
+        region: null,
     }
 
     handleSubmit () {}
-
-    onRegionChangeComplete () {}
 
     render () {
         return (
 			<View style={[style.containerMain, {justifyContent: 'center', alignItems: 'center',}]}>
                 <MapView 
                     style={style.mapMain}
-                    onRegionChangeComplete={this.onRegionChangeComplete}
+                    onRegionChangeComplete={(region) => { this.setState({ region }); }}
                     showsUserLocation={true}
                     followsUserLocation={true} />
 

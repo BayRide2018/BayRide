@@ -190,6 +190,6 @@ module.exports = StyleSheet.create({
 	},
 	button: {
 		flexDirection: 'row',
-		flexWrap: 'wrap'
+		flexWrap: 'nowrap'
 	}
 });

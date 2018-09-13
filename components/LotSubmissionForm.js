@@ -10,6 +10,7 @@ import ViewPhotos from './ViewPhotos';
 import GoogleDropoff from './GoogleDropoff';
 import { createLot } from '../fireMethods';
 import GooglePickup from './GooglePickup';
+import AwesomeButton from 'react-native-really-awesome-button';
 
 
 export default class LotSubmissionForm extends Component {
@@ -27,7 +28,8 @@ export default class LotSubmissionForm extends Component {
 		pickupTime: 0,
 		location: null, // We never use this, and I don't think we need it
 		marker: null, // I still want this to be handled a little differently. See the issue about DropPin.js
-		hideButton: null // I can't seem to tell what this is for?? It doesn't look like we need it, but I don't know
+		hideButton: null,  // I can't seem to tell what this is for?? It doesn't look like we need it, but I don't know
+		raiseButton: 4
 	}
 
 	componentDidMount() {
@@ -82,7 +84,7 @@ export default class LotSubmissionForm extends Component {
 		 *		   },
 		 */
 		let location = await Location.getCurrentPositionAsync({});
-		this.setState({ pickupLocation: location });
+		this.setState({ pickupLocation: location, raiseButton: 0 });
 	}
 
 
@@ -106,26 +108,31 @@ export default class LotSubmissionForm extends Component {
 		return (
 			<ScrollView contentContainerStyle={style.submissionForm}>
 
-			<View style={style.submissionForm}>
-			<Button warning small onPress={this.handleBack} style={style.back}><Text style={{fontSize: 15}}>Go Back</Text></Button>
+				<View style={style.submissionForm}>
+					<Button warning small onPress={this.handleBack} style={style.back}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
 					<ViewPhotos setScreenshotId={this.setScreenshotId} passengerId={this.state.passengerId} />
 
 					<FormLabel>Pickup Location</FormLabel>
-					{/* // commented these out for now */}
-					{ /* <Button title="Use my current location for pick up" onPress={this.handleUseCurrentLocation} />
-						<Button title="Use pin location for pick up" onPress={this.handleUseMarkerLocation} /> */ }
+					{/* commented these out for now */}
+					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
+					 <AwesomeButton raiseLevel={this.state.raiseButton} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<AwesomeButton onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+					</View>
 					<GooglePickup pickUp={this.handlePickUp} />
 					<FormLabel>Drop off Location</FormLabel>
 					<GoogleDropoff dropOff={this.handleDropOff} />
 
-
+					<View style={{alignItems:'center', marginBottom: 50}}>
 					<FormLabel>Offer</FormLabel>
 					<FormInput
+						style={{marginLeft: 20, marginRight: 20}}
 						placeholder="Please enter starting bid"
 						onChangeText={offer => this.setState({ offer })}
 						/>
+						<Text>{this.state.offer} dollars</Text>
 
+						</View>
 					{ /* this.state.showPricePicker
 						?  <Picker
 						style={style.picker}
@@ -141,26 +148,27 @@ export default class LotSubmissionForm extends Component {
 						><Text>{this.state.offer} dollars</Text></Button>
 					*/}
 
-					{this.state.showMinutePicker
-						?	<Picker
+						{this.state.showMinutePicker
+							?	<Picker
 								style={style.picker}
 								selectedValue='4'
 								pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
 								onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
 								itemSpace={30} // this only support in android
 							/>
-						: 	<View>
+							: 	<View style={{marginBottom: 30}}>
 								<Text>Set pickup time</Text>
 								<Button
 									onPress={() => this.setState({ showMinutePicker: true })}
 								><Text>{`${this.state.pickupTime} minutes`}</Text></Button>
 							</View>
-					}
+						}
+
 
 					<View style={style.button}>
-						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>Request BayRide</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text>Request BayRideXL</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text>Request BayRide Supreme </Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>BayRide</Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text>BayRideXL</Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text>BayRide Supreme </Text></Button>
 					</View>
 				</View>
 			</ScrollView>

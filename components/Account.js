@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
-import { FormLabel, FormInput } from 'react-native-elements';
+import { TextField } from 'react-native-material-textfield';
 import { store, auth } from '../fire';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
@@ -46,20 +46,16 @@ export default class Account extends Component {
 				{this.state.editName
 				?	<View>
 						<TextField label="Name" placeholder={this.state.user.name}
-							onChangeText={name => this.setState({ user: { ...user, name: name } })}
+							onChangeText={name => this.setState({ user: { ...this.state.user, name: name } })}
 						/>
-						<Button rounded info onPress={this.handleSubmit} ><Text>Save Changes</Text></Button>
+						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editName: false }); }} ><Text>Save Changes</Text></Button>
 					</View>
 				:	<View>
 						<Text>Name: {this.state.user.name}</Text><Button rounded info onPress={() => this.setState({editName: true})}><Text>Edit</Text></Button>
 					</View>
 				}
+				<View style={style.horizontalRule} />
 
-				<FormLabel>Name: </FormLabel>
-				<FormInput placeholder={name} onChangeText={name => this.setState({name: name})}></FormInput>
-				<FormLabel>Phone number: </FormLabel>
-				<FormInput placeholder={phone} onChangeText={phone => this.setState({phone: phone})}></FormInput>
-				<Button title="Save Changes" onPress={this.handleSubmit} />
 			</View>
 		);
 	}

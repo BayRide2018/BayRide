@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
-import { Text, View, Button, TouchableOpacity} from 'react-native';
+import { View, TouchableOpacity} from 'react-native';
+import { Button, Text} from 'native-base';
 import { StackNavigator, SafeAreaView } from 'react-navigation';
 // ^^^^ I haven't deleted these, because I think that we might want to include SafeAreaView in this, and in some other stuff
 // ^^^^ I think that it helps get around the fact that the iPhone X is shaped oddly
@@ -69,22 +70,22 @@ export default class SideMenu extends Component {
 
 	render () {
 		let switchButton =  this.state.currentlyPassenger
-			? <Button title="Switch to Driver" style={style.navItemStyleSM} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.handleDriverRegistration} />
-			: <Button title="Switch to Passenger" style={style.navItemStyleSM} onPress={this.handleSwitchPassenger}/>;
+			? <Button full info style={style.navItemStyleSM} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.handleDriverRegistration}><Text>Switch to Driver</Text></Button>
+			: <Button full info style={style.navItemStyleSM} onPress={this.handleSwitchPassenger}><Text>Switch to Passenger</Text></Button>;
 
 		return (
 			<View style={style.containerSM}>
 					<View style={style.navItemStyleSM}>
-						<Button title="Home" syle={style.navItemStyleSM} onPress={this.handleHome} />
-						<Button title="My Account" style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')} />
+						<Button full info style={style.navItemStyleSM} onPress={this.handleHome}><Text>Home</Text></Button>
+						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')}><Text>My Account</Text></Button>
 				{this.state.currentLot ? null : switchButton }
-						<Button title="Payment" style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')} />
+						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text>Payment</Text></Button>
 
-						<Button title="History" style={style.navItemStyleSM} onPress={this.navigateToScreen('History')} />
+						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text>History</Text></Button>
 
-						<Button title="Help" style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')} />
+						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text>Help</Text></Button>
 
-					{this.state.currentLot ? null : <Button title="Log Out" style={style.navItemStyleSM} onPress={this.handleLogout} /> }
+					{this.state.currentLot ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text>Log Out</Text></Button> }
 
 					</View>
 				<View style={style.footerContainerSM}>

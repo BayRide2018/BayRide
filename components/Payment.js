@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View } from 'react-native';
 import { store, auth } from '../fire';
 import Icon from 'react-native-vector-icons/Octicons';
+import { Button, Text} from 'native-base';
 import style from '../public/style';
+import { TextField } from 'react-native-material-textfield';
 
 export default class Payment extends Component {
 
@@ -34,33 +36,21 @@ export default class Payment extends Component {
 	render() {
         const { name, email, password, phone, defaultSetting, paymentInformation, drivingInformation, id } = this.state;
 		return (
+            <View>
+            <Icon
+                style={style.drawerIcon}
+                name='three-bars'
+                size={30}
+                color='#000'
+                onPress={() => this.props.navigation.toggleDrawer()}
+            />
+
 			<View>
-                <Text>This is your Payment Information!!</Text>
-
-                <Icon
-                    style={style.drawerIcon}
-                    name='three-bars' 
-                    size={30} 
-                    color='#000' 
-                    onPress={() => this.props.navigation.toggleDrawer()}
-                />
-
-                <Text>Name: </Text>
-                <Text>{name}</Text>
-                <Text>email: </Text>
-                <Text>{email}</Text>
-                <Text>password: </Text> {/** We'll want something nice here, like have it not show the password. Also editing some of this stuff will be tricky */}
-                <Text>{password}</Text>
-                <Text>Phone number: </Text>
-                <Text>{phone}</Text>
-                <Text>defaultSetting: </Text>
-                <Text>{defaultSetting}</Text>
-                <Text>id: </Text>
-                <Text>{id}</Text>
                 <Text>paymentInformation: </Text>
                 <Text>drivingInformation: (these are empty on purpose for now)</Text>
-                <Button title="Edit" onPress={this.handleSubmit} />
-			</View>
+                <Button onPress={this.handleSubmit}><Text>Save</Text></Button>
+            </View>
+            </View>
 		);
 	}
 }

@@ -93,6 +93,10 @@ export default class MainScreen extends Component {
 			});
 		}
 		// I believe that we don't need anything below this line... Really we just need to get permission, and that's it
+		///
+		////
+		/////
+		//////
 		let location = await Location.getCurrentPositionAsync({});
 		//Gets location and sets location to location and marker.
 		//Marker is the draggable marker, defaults to user's location
@@ -100,6 +104,10 @@ export default class MainScreen extends Component {
 	}
 
 	// I think that we don't actually need this, because we can just look up what the users current lot is, right? This might be faster though...
+	/**
+	 * It might be better to leave this though, 
+	 * Does MainScreen Re-render after navigating from LSF?
+	 */
 	handleHideButton = (currentLot) => {
 		this.setState({ currentLot });
 	}

@@ -82,6 +82,23 @@ export default class Account extends Component {
 				}
 				<View style={style.horizontalRule} />
 
+				{this.state.user.drivingInformation && this.state.user.drivingInformation.canDrive
+				?	<View>
+						<Text>You can drive!! Nice work!</Text>
+						<Text>Here's where the information about your car, etc, will go!</Text>
+					</View>
+				: 	<View>
+						<Text>Sign up to drive and start earning!!</Text>
+						<Text>BayRide puts the control back in the hands of the drivers.</Text><Button rounded info onPress={() => {this.props.navigation.navigate('DriverRegistration')}}><Text>Sign Up to drive</Text></Button>
+					</View>
+				}
+				<View style={style.horizontalRule} />
+
+				<Button rounded info onPress={() => {this.props.navigation.navigate('History')} }>
+					<Text>History</Text>
+				</Button>
+
+
 			</View>
 		);
 	}

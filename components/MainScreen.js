@@ -159,7 +159,7 @@ export default class MainScreen extends Component {
 
 				{/** We probably don't really want these alerts.. Do push notifications still show up if you're in that app?? If not, then having these alerts at that time would be good, but we don't really want them to be spammy */}
 				{showBid ? Alert.alert(
-					`New Bid! ${driverId} has bid ${offer}!`, /** we really only need to have driverId and offer on state if we want to have this alert. See above*/
+					`New Bid! ${driverId} has bid ${offer}!`, /** we really only need to have driverId and offer on state IF we want to have this alert. See above*/
 					'Sound Good?', /** Also, driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
 					[
 						{ text: 'Nice', onPress: () => this.handleAlert(), style: 'cancel' }

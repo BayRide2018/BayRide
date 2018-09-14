@@ -12,11 +12,12 @@ export default class Account extends Component {
 
 	state = {
 		user: {},
-		id: '', // This is here for when we want to add an edit button later
+		id: '', // This is here for when we want to add an edit button later ..... don't know if we need this?
 		editName: false,
 		editPhone: false,
 		editEmail: false,
 		editPassword: false,
+		showAlert: false,
 	};
 
 	componentDidMount () {
@@ -89,9 +90,26 @@ export default class Account extends Component {
 					</View>
 				: 	<View>
 						<Text>Sign up to drive and start earning!!</Text>
-						<Text>BayRide puts the control back in the hands of the drivers.</Text><Button rounded info onPress={() => {this.props.navigation.navigate('DriverRegistration')}}><Text>Sign Up to drive</Text></Button>
+						<Text>BayRide puts the control back in the hands of the drivers.</Text><Button rounded info onPress={() => {
+							// Please note: we can assume that the user, right here, is a Passenger, and not a driver, because canDrive is false
+							if (this.state.user.currentLot) { // the user has a lot currently open
+								this.setState({ showAlert: true })
+							} else { // The user does not have a lot currently open
+								this.props.navigation.navigate('DriverRegistration')
+							}
+						}}><Text>Sign Up to drive</Text></Button>
 					</View>
 				}
+				{this.state.showAlert
+				?	Alert.alert(
+						"Can't switch to Driver",
+						"You can't become a driver while you are looking for a ride. Try signing up once you finish your trip",
+						[
+							{ text: 'OK', onPress: () => this.setState({ showAlert: false }), style: 'cancel' }
+						],
+						{ cancelable: false }
+					)
+				:	null}
 				<View style={style.horizontalRule} />
 
 				<Button rounded info onPress={() => {this.props.navigation.navigate('History')} }>

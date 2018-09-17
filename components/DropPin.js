@@ -10,6 +10,7 @@ export default class DropPin extends Component {
 
     state = {
         region: {lat: 0 ,lng: 0},
+        fullAddress: ''
     }
 
 
@@ -20,6 +21,7 @@ export default class DropPin extends Component {
         // I think it'd look cooler if it could like slide up on opening, and then down when it closes, but I don't know how that happens
         Geocoder.from(this.state.region).then(json => {
             var fullAddress = json.results[0].formatted_address;
+            this.setState({fullAddress});
         });
 
     }

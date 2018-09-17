@@ -29,6 +29,7 @@ export default class MainScreen extends Component {
 	}
 
 	async componentDidMount() {
+		console.log(">>>>>>", this.state, "<<<<<<");
 		//Functions called that will change state
 		//(Can't call setState in component did mount (most of the time))
 		this._getLocationAsync();
@@ -55,9 +56,16 @@ export default class MainScreen extends Component {
 
 
 		// Again, I think that this should really be deleted and put in MatchBanner.js ...
+		// It should onkly be listening in MatchBanner, but LotSubmissionFornm 
+		// Should update the state of MainScreen upon submission
 		// store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
 		// 	this.setState({currentLot: user.data().currentLot});
 		// });
+
+		// This is the query that we want to make: It ensures that the button on MainScreen always displays properly
+		store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			this.setState({ currentLot: user.data().currentLot })
+		})
 	}
 
 	registerForPushNotification = async () => {
@@ -108,9 +116,10 @@ export default class MainScreen extends Component {
 	/**
 	 * It might be better to leave this though, 
 	 * Does MainScreen Re-render after navigating from LSF?
+	 * ^^^ It does, now that I added it to FrawerNavigator
 	 */
 	handleHideButton = (currentLot) => {
-		this.setState({ currentLot });
+		// this.setState({ currentLot });
 	}
 
 	handleSubmit = () => {

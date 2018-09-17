@@ -68,6 +68,7 @@ export default class LotSubmissionForm extends Component {
 		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,
 		// but, lots need to be submitted with consistently formatted pickupLocations.
 		// this.setState({ pickupLocation: this.state.marker });
+		this.props.navigation.navigate('DropPin');
 	}
 
 	handleUseCurrentLocation = async () => {

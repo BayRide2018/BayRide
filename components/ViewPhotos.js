@@ -21,7 +21,6 @@ export default class ViewPhotos extends Component {
 
 	render(){
 		let { image } = this.state;
-		console.log('>>>>', this.state.image);
 		return (
 			// <FormLabel>Screenshot</FormLabel>
 			<View style={style.viewPhoto}>

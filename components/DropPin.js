@@ -42,7 +42,9 @@ export default class DropPin extends Component {
                 }} />
 
 
+
                 <View style={style.matchMain}>
+                    <Text>{this.state.fullAddress}</Text>
                     <Button rounded info large onPress={this.handleSubmit}>
                         <Text>Use this Location</Text>
                     </Button>

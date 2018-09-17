@@ -114,11 +114,14 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 async function expireLot (lotId) {
 	let lotObj, newLotId;
 	await store.collection("lots").doc(lotId).get().then(lot => {
-		if (lot.data().driverId) {
-			lotObj = lot.data();
-			lot.ref.delete();
-		} else {
-			lot.ref.delete();
+		if (lot.exists) {
+			
+			if (lot.data().driverId) {
+				lotObj = lot.data();
+				lot.ref.delete();
+			} else {
+				lot.ref.delete();
+			}
 		}
 	});
 	if (lotObj) {

@@ -41,7 +41,7 @@ export default class LotSubmissionForm extends Component {
 	getProps = () => {
 		const { navigation } = this.props;
 		// const marker = navigation.getParam('marker', 'null');
-		// These are also currently unnecesary, meaning that this function is unneccesary 
+		// These are also currently unnecesary, meaning that this function is unneccesary
 		const handleHideButton = navigation.getParam('handleHideButton', 'null');
 		this.setState({hideButton: handleHideButton});
 		// this.setState({marker});
@@ -95,7 +95,7 @@ export default class LotSubmissionForm extends Component {
 	}
 
 	handleBack = () => {
-		this.props.navigation.navigate('DrawerNavigator');
+		this.props.navigation.navigate('MainScreen');
 	}
 
 	handleDropOff = (dropoffLocation) => {

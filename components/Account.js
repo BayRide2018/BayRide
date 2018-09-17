@@ -38,9 +38,9 @@ export default class Account extends Component {
 			<View>
 				<Icon
 					style={style.drawerIcon}
-					name='three-bars' 
-					size={30} 
-					color='#000' 
+					name='three-bars'
+					size={30}
+					color='#000'
 					onPress={() => this.props.navigation.toggleDrawer()}
 				/>
 

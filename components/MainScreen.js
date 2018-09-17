@@ -56,7 +56,7 @@ export default class MainScreen extends Component {
 
 
 		// Again, I think that this should really be deleted and put in MatchBanner.js ...
-		// It should onkly be listening in MatchBanner, but LotSubmissionFornm 
+		// It should onkly be listening in MatchBanner, but LotSubmissionFornm
 		// Should update the state of MainScreen upon submission
 		// store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
 		// 	this.setState({currentLot: user.data().currentLot});
@@ -89,7 +89,7 @@ export default class MainScreen extends Component {
 		let token = await Notifications.getExpoPushTokenAsync();
 		store.collection('users').doc(auth.currentUser.email).update({ expoToken: token });
 	}
- 
+
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {
@@ -114,7 +114,7 @@ export default class MainScreen extends Component {
 
 	// I think that we don't actually need this, because we can just look up what the users current lot is, right? This might be faster though...
 	/**
-	 * It might be better to leave this though, 
+	 * It might be better to leave this though,
 	 * Does MainScreen Re-render after navigating from LSF?
 	 * ^^^ It does, now that I added it to FrawerNavigator
 	 */
@@ -159,7 +159,7 @@ export default class MainScreen extends Component {
 
 					{/* {marker !== null && <Marker draggable
 						image={require('../public/images/marker.png')}
-						
+
 						coordinate={marker}
 						onDragEnd={ (e) => this.setState({ marker: e.nativeEvent.coordinate }) }
 						/>} */}
@@ -184,7 +184,7 @@ export default class MainScreen extends Component {
 						</Button>
 					</View>
 				:	<View style={style.matchMain}>
-						<Button rounded info large onPress={this.handleSubmit}>
+						<Button full info large onPress={this.handleSubmit}>
 							<Text>Where to?</Text>
 						</Button>
 					</View> }

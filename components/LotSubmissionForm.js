@@ -29,7 +29,8 @@ export default class LotSubmissionForm extends Component {
 		// location: null, // We never use this, and I don't think we need it
 		// marker: null, // I still want this to be handled a little differently. See the issue about DropPin.js
 		hideButton: null, // I can't seem to tell what this is for?? It doesn't look like we need it, but I don't know
-		raiseButton: 4
+		raiseButton: 4,
+		borderWidth: 0
 	}
 
 	// We don't need this
@@ -86,7 +87,7 @@ export default class LotSubmissionForm extends Component {
 		 *		   },
 		 */
 		let location = await Location.getCurrentPositionAsync({});
-		this.setState({ pickupLocation: location, raiseButton: 0 });
+		this.setState({ pickupLocation: location, raiseButton: 0, borderWidth: 2 });
 	}
 
 
@@ -118,7 +119,7 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-					 <AwesomeButton raiseLevel={this.state.raiseButton} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+					 <AwesomeButton raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.borderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
 						<AwesomeButton onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
 					<GooglePickup pickUp={this.handlePickUp} />

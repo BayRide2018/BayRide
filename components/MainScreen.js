@@ -29,7 +29,6 @@ export default class MainScreen extends Component {
 	}
 
 	async componentDidMount() {
-		console.log(">>>>>>", this.state, "<<<<<<");
 		//Functions called that will change state
 		//(Can't call setState in component did mount (most of the time))
 		this._getLocationAsync();

@@ -129,7 +129,7 @@ module.exports = StyleSheet.create({
 	},
 	winningBanner: {
 		display: 'flex',
-		backgroundColor: 'green',
+		backgroundColor: '#aaffaa',
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center'

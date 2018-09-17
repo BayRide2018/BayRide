@@ -32,13 +32,16 @@ export default class LotSubmissionForm extends Component {
 		raiseButton: 4
 	}
 
+	// We don't need this
 	componentDidMount() {
 		this.getProps();
 	}
 
+	// We don't need this
 	getProps = () => {
 		const { navigation } = this.props;
 		// const marker = navigation.getParam('marker', 'null');
+		// These are also currently unnecesary, meaning that this function is unneccesary 
 		const handleHideButton = navigation.getParam('handleHideButton', 'null');
 		this.setState({hideButton: handleHideButton});
 		// this.setState({marker});
@@ -52,6 +55,7 @@ export default class LotSubmissionForm extends Component {
 			this.state.offer,
 			carType);
 		this.state.hideButton(lotId); // I don't think we actually need this because it's doing basically the same thing as the line below...
+		// Yeah, just fixed it so thhat the above line is no longer necessary, and just runs empty code. The below line updates the user and then this update can be read from the componentDidMount in MainScreen
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: lotId });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}

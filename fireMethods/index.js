@@ -84,9 +84,10 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		passengerExpoToken = user.data().expoToken;
 	})
 
-	if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
-		return "Please fill out all of the forms."
-	}
+	// if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
+	// 	return "Please fill out all of the forms."
+	// } Rather, this should be validated in LSF
+
 	const currentTime = new Date();
 	pickupTime = new Date(currentTime.getTime() + pickupTime*60000);
 

@@ -10,6 +10,7 @@ import History from './History';
 import Help from './Help';
 import Winner from './Winner';
 import Web from './Web';
+import LotSubmissionForm from './LotSubmissionForm';
 ////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
 // import { auth, store } from '../fire';
 
@@ -45,6 +46,9 @@ const DrawerNavigator = createDrawerNavigator({
 	},
 	Web: {
 		screen: Web
+	},
+	LotSubmissionForm: {
+		screen: LotSubmissionForm
 	}
 }, {
 	// initialRouteName: initialRouteName,

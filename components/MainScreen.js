@@ -74,7 +74,7 @@ export default class MainScreen extends Component {
             mostRecentLotId = plh.lots[plh.lots.length - 1];
         });
         await store.collection("lot_history").doc(mostRecentLotId).get().then(lot => {
-            this.setState({ showReceipt: lot.data().showReceipt }); // So now finished lots need a property showReceipt
+            this.setState({ showReceipt: lot.data().showReceipt });
 		});
 		
 	}
@@ -143,6 +143,19 @@ export default class MainScreen extends Component {
 		this.setState({showBid: false});
 	}
 
+	handleCloseReceipt = () => {
+		this.setState({ showReceipt: false });
+		// Also, update the lot_h so that it never shows this receipt again...
+		let myPassengerLotHistory, mostRecentLotId;
+        await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+            myPassengerLotHistory = user.data().myPassengerLotHistory
+        });
+        await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
+            mostRecentLotId = plh.lots[plh.lots.length - 1];
+        });
+        await store.collection("lot_history").doc(mostRecentLotId).update({ showReceipt: false });
+	}
+
 	// handleCancel = () => {
 	// 	this.setState({showBid: false});
 	// }
@@ -201,7 +214,7 @@ export default class MainScreen extends Component {
 					</View> }
 
 				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({ matchBanner: false })}  /> : null}
-				{this.state.showReceipt ? <TripReceipt close={() => this.setState({ showReceipt: false })}  /> : null}
+				{this.state.showReceipt ? <TripReceipt close={this.handleCloseReceipt}  /> : null}
 			</View>
 		);
 	}

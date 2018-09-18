@@ -51,10 +51,10 @@ export default class Signup extends Component {
 					<Text>{this.state.response}</Text>
 					<View>
 						<Button
-							style={style.successButtons}
+							style={style.button}
 							success
 							onPress={this.handleSubmit}
-						><Text>Signup</Text></Button>
+						><Text style={style.buttonText} >Signup</Text></Button>
 					</View>
 				</ScrollView>
 			</View>

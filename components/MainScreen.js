@@ -150,12 +150,12 @@ export default class MainScreen extends Component {
 				{!!this.state.currentLot
 				? 	<View style={style.matchMain}>
 						<Button rounded info onPress={() => this.setState({matchBanner: true})}>
-							<Text>View your current trip</Text>
+							<Text style={style.buttonText} >View your current trip</Text>
 						</Button>
 					</View>
 				:	<View style={style.matchMain}>
-						<Button full info large onPress={this.handleSubmit}>
-							<Text>Where to?</Text>
+						<Button rounded info large onPress={this.handleSubmit}>
+							<Text style={style.buttonText} >Where to?</Text>
 						</Button>
 					</View> }
 

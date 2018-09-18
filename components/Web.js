@@ -7,7 +7,7 @@ export default class Web extends Component {
 
 	state = {}
 
-	render() {
+	render () {
 		return(
 			<View style={style.webOuterView}>
 				 <WebView source={{uri: 'https://github.com/BayRide2018/BayRide'}} style={style.webView} />

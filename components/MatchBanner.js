@@ -54,7 +54,6 @@ export default class MatchBanner extends React.Component {
 							</Button>
 						</View>
 
-
 						<TimerCountdown
 							initialSecondsRemaining={pickupTime - now}
 							onTimeElapsed={this.handleFinish}
@@ -63,6 +62,6 @@ export default class MatchBanner extends React.Component {
 					</View>
 				</Modal>
 			</View>
-		)
+		);
 	}
 }

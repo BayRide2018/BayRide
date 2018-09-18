@@ -41,7 +41,7 @@ export default class DriverHome extends Component {
 		 * (2) While DriverHoe is open, if the winning Lot expires, it takes us to Winner.js
 		 */
     await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
-      lots.forEach(lot => {
+      lots.forEach(lot => { // Please note: linear queries, such as this one, are bad
         if (lot.id === myCurrentLot) {
           this.setState({ winningId: lot.id });
         }
@@ -66,7 +66,7 @@ export default class DriverHome extends Component {
 		this.setState({ location });
 	};
 
-	render(){
+	render () {
 		return(
 			<View>
 				<Icon

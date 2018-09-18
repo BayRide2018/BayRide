@@ -19,7 +19,7 @@ export default class DriverRegistration extends Component {
     this.props.navigation.navigate('MainScreen');
   }
 
-  render() {
+  render () {
     const BayRideX = "brx";
     const BayRideXL = "brxl";
     const BayRideSupreme = "brs";

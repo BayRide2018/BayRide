@@ -10,7 +10,7 @@ export default class DropPin extends Component {
 
     state = {
         region: {lat: 0 ,lng: 0},
-        fullAddress: ''
+        fullAddress: '',
     }
 
 

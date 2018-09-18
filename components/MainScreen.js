@@ -11,21 +11,13 @@ import Icon from 'react-native-vector-icons/Octicons';
 
 export default class MainScreen extends Component {
 
-	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
-		// location: null, // It seems that we never use this.. we only need the passengers current location for LotSubmissionForm... We need it for the MapView, right?? But that seems to get it by default..
+	state = {
 		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
-		// marker: null, // We should get rid of this.
-		// showLot: false, // We're not using this, I think we can get rid of it
 		showBid: false, // We need this if and only if we want to keep the alerts see the note in the render method
 		offer: '', // We need this if and only if we want the alerts
 		driverId: '', // Same as above.. Also, it should be driver's name, not id, which is an email
-		// winner: false, // I think that we never use this and can delete it
-		// Added by Thomas. This is for the component that a passenger can see on home
-		// It shows the status of the Lot
-		// lotId: '', // I think that this should be replaced with the field currentLot
-		matchBanner: false, // This is actually important... It is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
-		// passengerId: '', // I think that we never use this and can delete it
-		currentLot: '', // This is actually important... It's the id of the lot that passenger has open
+		matchBanner: false, // This is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
+		currentLot: '', // This is the id of the lot that passenger has open
 	}
 
 	async componentDidMount() {
@@ -47,19 +39,6 @@ export default class MainScreen extends Component {
 				}
 			});
 		});
-
-		// This should just be get the passenger (aka the currentUser)'s currentLot... And do we even want to do this??
-		// await store.collection("lots").doc(auth.currentUser.email).get().then(lot => {
-		// 		this.setState({ currentLot: lot.id });
-		// });
-
-
-		// Again, I think that this should really be deleted and put in MatchBanner.js ...
-		// It should onkly be listening in MatchBanner, but LotSubmissionFornm
-		// Should update the state of MainScreen upon submission
-		// store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
-		// 	this.setState({currentLot: user.data().currentLot});
-		// });
 
 		// This is the query that we want to make: It ensures that the button on MainScreen always displays properly
 		store.collection("users").doc(auth.currentUser.email).get().then(user => {
@@ -100,43 +79,18 @@ export default class MainScreen extends Component {
 				 */
 			});
 		}
-		// I believe that we don't need anything below this line... Really we just need to get permission, and that's it
-		///
-		////
-		/////
-		//////
-		let location = await Location.getCurrentPositionAsync({});
-		//Gets location and sets location to location and marker.
-		//Marker is the draggable marker, defaults to user's location
-		this.setState({ location });
-	}
-
-	// I think that we don't actually need this, because we can just look up what the users current lot is, right? This might be faster though...
-	/**
-	 * It might be better to leave this though,
-	 * Does MainScreen Re-render after navigating from LSF?
-	 * ^^^ It does, now that I added it to FrawerNavigator
-	 */
-	handleHideButton = (currentLot) => {
-		// this.setState({ currentLot });
 	}
 
 	handleSubmit = () => {
-		this.props.navigation.navigate('LotSubmissionForm', {
-			handleHideButton: this.handleHideButton
-		});
+		this.props.navigation.navigate('LotSubmissionForm');
 	}
 
 	handleAlert = () => {
 		this.setState({showBid: false});
 	}
 
-	// handleCancel = () => {
-	// 	this.setState({showBid: false});
-	// }
 
-
-	render() {
+	render () {
 		const { showBid, driverId, offer} = this.state;
 
 		return(
@@ -155,20 +109,12 @@ export default class MainScreen extends Component {
 						onRegionChangeComplete={this.onRegionChangeComplete}
 						showsUserLocation={true}
 						followsUserLocation={true}>
-
-					{/* {marker !== null && <Marker draggable
-						image={require('../public/images/marker.png')}
-
-						coordinate={marker}
-						onDragEnd={ (e) => this.setState({ marker: e.nativeEvent.coordinate }) }
-						/>} */}
-
 				</MapView>
 
-				{/** We probably don't really want these alerts.. Do push notifications still show up if you're in that app?? If not, then having these alerts at that time would be good, but we don't really want them to be spammy */}
+				{/** I believe that we do want to keep these alerts, as push notifications don't actually show up when you're in the app */}
 				{showBid ? Alert.alert(
-					`New Bid! ${driverId} has bid ${offer}!`, /** we really only need to have driverId and offer on state IF we want to have this alert. See above*/
-					'Sound Good?', /** Also, driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
+					`New Bid! ${driverId} has bid ${offer}!`, /** driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
+					'Sound Good?',
 					[
 						{ text: 'Nice', onPress: () => this.handleAlert(), style: 'cancel' }
 					],

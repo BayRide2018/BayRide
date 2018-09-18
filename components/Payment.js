@@ -33,7 +33,7 @@ export default class Payment extends Component {
         // Nice
     }
 
-	render() {
+	render () {
         const { name, email, password, phone, defaultSetting, paymentInformation, drivingInformation, id } = this.state;
 		return (
             <View>

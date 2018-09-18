@@ -30,7 +30,6 @@ export default class LotBanner extends React.Component {
 		});
 	}
 
-
 	handleReport = () => {
 		// Mark the lot in the db
 		// Notify a human
@@ -66,7 +65,7 @@ export default class LotBanner extends React.Component {
 							<Image resizeMode='contain' source={{ uri: this.state.imgURL }} style={style.screenshot} />
 						</LightBox>
 					}
-				</View> {/* THIS NEEDS TO BE MOVED, BUT I DON'T WANT TO BREAK ANYTHING SO, I'M LEAVING IT FOR NOW */}
+				</View>
 				<View  style={style.innerLotBannerB}>
 					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation.fullAddress}</Text>
 					<Text style={style.info}>Bid Price: {this.state.bidPrice}</Text>

@@ -29,7 +29,7 @@ export default class Signup extends Component {
 		}
 	}
 
-	render() {
+	render () {
 		return (
 			<View>
 				<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>

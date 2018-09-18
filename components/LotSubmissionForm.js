@@ -15,37 +15,16 @@ import AwesomeButton from 'react-native-really-awesome-button';
 
 export default class LotSubmissionForm extends Component {
 
-	state = { // This state should be reviewed by everyone to make sure that it isn't redundant, etc.
+	state = {
 		screenshot: '',
 		pickupLocation: {},
 		dropoffLocation: {},
 		offer: 0,
-		// passengerId: '', // unnecessary.. we have auth.currentUser.email In fact, we shouldn't be using this inside of View photos, we should just use auth.currentUser.email
-		// driverId: '', // We never use this.. when you submit a lot, driverId is an empty string, and this is handled in firemethods, in the createLot function
 		showMinutePicker: false,
-		// showOfferPicker: false, // We never use this, it's the same as the one below
-		showPricePicker: false, // Why is this not used :(
+		showPricePicker: false,
 		pickupTime: 0,
-		// location: null, // We never use this, and I don't think we need it
-		// marker: null, // I still want this to be handled a little differently. See the issue about DropPin.js
-		hideButton: null, // I can't seem to tell what this is for?? It doesn't look like we need it, but I don't know
 		raiseButton: 4,
 		borderWidth: 0
-	}
-
-	// We don't need this
-	componentDidMount() {
-		this.getProps();
-	}
-
-	// We don't need this
-	getProps = () => {
-		const { navigation } = this.props;
-		// const marker = navigation.getParam('marker', 'null');
-		// These are also currently unnecesary, meaning that this function is unneccesary
-		const handleHideButton = navigation.getParam('handleHideButton', 'null');
-		this.setState({hideButton: handleHideButton});
-		// this.setState({marker});
 	}
 
 	handleSubmit = async (carType) => {
@@ -55,8 +34,7 @@ export default class LotSubmissionForm extends Component {
 			this.state.dropoffLocation,
 			this.state.offer,
 			carType);
-		this.state.hideButton(lotId); // I don't think we actually need this because it's doing basically the same thing as the line below...
-		// Yeah, just fixed it so thhat the above line is no longer necessary, and just runs empty code. The below line updates the user and then this update can be read from the componentDidMount in MainScreen
+		// The below line updates the user and then this update can be read from the componentDidMount in MainScreen
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: lotId });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
@@ -92,40 +70,24 @@ export default class LotSubmissionForm extends Component {
 	}
 
 
-	setScreenshotId = (photoID) => {
-		this.setState({ screenshot: photoID });
-	}
-
-	handleBack = () => {
-		this.props.navigation.navigate('MainScreen');
-	}
-
-	handleDropOff = (dropoffLocation) => {
-		this.setState({ dropoffLocation });
-	}
-
-	handlePickUp = (pickupLocation) => {
-		this.setState({ pickupLocation });
-	}
-
-	render() {
+	render () {
 		return (
 			<ScrollView contentContainerStyle={style.submissionForm}>
-
 				<View style={style.submissionForm}>
-					<Button warning small onPress={this.handleBack} style={style.back}><Text style={{fontSize: 15}}>Go Back</Text></Button>
+					<Button warning small onPress={() => {this.props.navigation.navigate('MainScreen')} } style={style.back}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
-					<ViewPhotos setScreenshotId={this.setScreenshotId} />
+					<ViewPhotos setScreenshotId={ (photoID) => {this.setState({ screenshot: photoID })} } />
 
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-					 <AwesomeButton raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.borderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<AwesomeButton raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.borderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
 						<AwesomeButton onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
-					<GooglePickup pickUp={this.handlePickUp} />
+
+					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation })} } />
 					<FormLabel>Drop off Location</FormLabel>
-					<GoogleDropoff dropOff={this.handleDropOff} />
+					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation })} } />
 
 					<Text style={{flexDirection: 'row'}}>Your offer: {this.state.offer} $      Pickup Time: {`${this.state.pickupTime} minutes`}</Text>
 						<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>
@@ -143,21 +105,20 @@ export default class LotSubmissionForm extends Component {
 					}
 
 
-						{this.state.showMinutePicker
-							?	<Picker
+					{this.state.showMinutePicker
+						?	<Picker
 								style={style.picker}
 								selectedValue='4'
 								pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
 								onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
 								itemSpace={30} // this only support in android
 							/>
-							:
-								<Button
-									onPress={() => this.setState({ showMinutePicker: true })}
-								><Text>{`${this.state.pickupTime} minutes`}</Text></Button>
-
-						}
-						</View>
+						:
+							<Button
+								onPress={() => this.setState({ showMinutePicker: true })}
+							><Text>{`${this.state.pickupTime} minutes`}</Text></Button>
+					}
+					</View>
 
 					<View style={style.button}>
 						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>BayRide</Text></Button>

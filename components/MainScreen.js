@@ -7,6 +7,7 @@ import { store, auth } from '../fire';
 import MatchBanner from './MatchBanner';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
+import TripReceipt from './tripReceipt';
 
 
 export default class MainScreen extends Component {
@@ -26,6 +27,7 @@ export default class MainScreen extends Component {
 		matchBanner: false, // This is actually important... It is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
 		// passengerId: '', // I think that we never use this and can delete it
 		currentLot: '', // This is actually important... It's the id of the lot that passenger has open
+		showReceipt: false, // this determines whether or not to display the receipt of the passenger's most recent trip (remember, this should only happen the first time).
 	}
 
 	async componentDidMount() {
@@ -62,9 +64,19 @@ export default class MainScreen extends Component {
 		// });
 
 		// This is the query that we want to make: It ensures that the button on MainScreen always displays properly
-		store.collection("users").doc(auth.currentUser.email).get().then(user => {
+		// Now it also makes sure that the receipt displays properly
+		let myPassengerLotHistory, mostRecentLotId;
+        await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			this.setState({ currentLot: user.data().currentLot })
-		})
+            myPassengerLotHistory = user.data().myPassengerLotHistory
+        });
+        await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
+            mostRecentLotId = plh.lots[plh.lots.length - 1];
+        });
+        await store.collection("lot_history").doc(mostRecentLotId).get().then(lot => {
+            this.setState({ showReceipt: lot.data().showReceipt });
+		});
+		
 	}
 
 	registerForPushNotification = async () => {
@@ -96,7 +108,7 @@ export default class MainScreen extends Component {
 				errorMessage: 'Permission to access location was denied',
 				/**
 				 * 		PLEASE SEE THE NOTE IN STATE ABOUT THIS
-				 * 		We can't just set state, we need to basically cut off all functionality, and le the user know that this was the reason why. Also, provide them an opportunity to switch back.
+				 * 		We can't just set state, we need to basically cut off all functionality, and let the user know that this was the reason why. Also, provide them an opportunity to switch back.
 				 */
 			});
 		}
@@ -115,7 +127,7 @@ export default class MainScreen extends Component {
 	/**
 	 * It might be better to leave this though,
 	 * Does MainScreen Re-render after navigating from LSF?
-	 * ^^^ It does, now that I added it to FrawerNavigator
+	 * ^^^ It does, now that I added it to DrawerNavigator
 	 */
 	handleHideButton = (currentLot) => {
 		// this.setState({ currentLot });
@@ -129,6 +141,19 @@ export default class MainScreen extends Component {
 
 	handleAlert = () => {
 		this.setState({showBid: false});
+	}
+
+	handleCloseReceipt = () => {
+		this.setState({ showReceipt: false });
+		// Also, update the lot_h so that it never shows this receipt again...
+		let myPassengerLotHistory, mostRecentLotId;
+        await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+            myPassengerLotHistory = user.data().myPassengerLotHistory
+        });
+        await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
+            mostRecentLotId = plh.lots[plh.lots.length - 1];
+        });
+        await store.collection("lot_history").doc(mostRecentLotId).update({ showReceipt: false });
 	}
 
 	// handleCancel = () => {
@@ -188,7 +213,8 @@ export default class MainScreen extends Component {
 						</Button>
 					</View> }
 
-				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({matchBanner: false})}  /> : null}
+				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({ matchBanner: false })}  /> : null}
+				{this.state.showReceipt ? <TripReceipt close={this.handleCloseReceipt}  /> : null}
 			</View>
 		);
 	}

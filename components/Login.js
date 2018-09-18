@@ -32,8 +32,8 @@ export default class Login extends Component {
 
 	render () {
 		return (
-			<View>
-			<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
+			<View style={style.background} >
+				<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 				<View style={style.signIn}>
 					<TextField label="Email" placeholder="Please enter your email"
 						onChangeText={email => this.setState({ email })}
@@ -46,7 +46,6 @@ export default class Login extends Component {
 						<Text>{this.state.response}</Text>
 						<Button
 							style={style.button}
-							title="Login"
 							onPress={this.handleSubmit}><Text style={style.buttonText} >Login</Text></Button>
 					</View>
 				</View>

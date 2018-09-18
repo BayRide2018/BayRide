@@ -36,7 +36,7 @@ export default class Payment extends Component {
 	render () {
         const { name, email, password, phone, defaultSetting, paymentInformation, drivingInformation, id } = this.state;
 		return (
-            <View>
+            <View style={style.background} >
             <Icon
                 style={style.drawerIcon}
                 name='three-bars'

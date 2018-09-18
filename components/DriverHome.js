@@ -68,7 +68,7 @@ export default class DriverHome extends Component {
 
 	render () {
 		return(
-			<View>
+			<View style={style.background} >
 				<Icon
 					style={style.drawerIcon}
 					name='three-bars'

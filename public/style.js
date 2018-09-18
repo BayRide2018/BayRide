@@ -5,6 +5,7 @@ var {
 } = React;
 
 const BRBLUE = '#40d3cf'; // also try: c5fef3, c5edfe, c5fed7
+const BRDARKBLUE = '#2ec1bd'; // also try: c5fef3, c5edfe, c5fed7
 const BROFFWHITE = '#fff9f2'; // also try: fef3c5
 
 module.exports = StyleSheet.create({
@@ -19,15 +20,31 @@ module.exports = StyleSheet.create({
 	 */
 	logo: {
 		marginTop: 150,
+		marginBottom: 70,
 		height: 230,
 		width: 230,
 		alignSelf: 'center'
 	},
-	logoContainer: {
-		display: 'flex',
-		flex: 1,
+	welcomeSignUp: {
+		backgroundColor: BRBLUE,
+		width: React.Dimensions.get('window').width * .8,
 		alignItems: 'center',
-		justifyContent: 'center', // no for real, how do I center this thing??
+		justifyContent: 'center',
+		alignSelf: 'center',
+		// margin: 20,
+		height: 70,
+	},
+	welcomeSignUpText: {
+		fontSize: 35,
+		color: BROFFWHITE,
+	},
+	welcomeLogIn: {
+		backgroundColor: BRDARKBLUE,
+		width: React.Dimensions.get('window').width * .3,
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		margin: 40,
 	},
 
 	/**
@@ -36,7 +53,6 @@ module.exports = StyleSheet.create({
 	signIn: {
 		marginLeft: 15,
 		marginRight: 15,
-		// paddingRight: 15,
 		height: React.Dimensions.get('window').height,
 	},
 
@@ -192,6 +208,10 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling other things, or general things
 	 */
+	background: {
+		backgroundColor: BROFFWHITE,
+		height: React.Dimensions.get('window').height,
+	},
 	webView: {
 		marginTop: 20,
 	},

@@ -24,7 +24,7 @@ export default class DriverRegistration extends Component {
     const BayRideXL = "brxl";
     const BayRideSupreme = "brs";
     return (
-      <View>
+      <View style={style.background} >
         <Text>This is the sample driver registration page</Text>
         <Text>For now, just click the button, and you'll be registered as a driver!</Text>
         <Text>Later, registration will be a more formal process, with real requirements</Text>

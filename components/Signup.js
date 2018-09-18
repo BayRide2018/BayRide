@@ -31,7 +31,7 @@ export default class Signup extends Component {
 
 	render () {
 		return (
-			<View>
+			<View style={style.background} >
 				<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 				<ScrollView style={style.signIn} >
 					<TextField label='Full Name' placeholder="Please enter your full name"
@@ -52,7 +52,6 @@ export default class Signup extends Component {
 					<View>
 						<Button
 							style={style.button}
-							success
 							onPress={this.handleSubmit}
 						><Text style={style.buttonText} >Signup</Text></Button>
 					</View>

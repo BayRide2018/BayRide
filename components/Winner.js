@@ -89,7 +89,7 @@ export default class Winner extends React.Component {
 	
 	render () {
 		return (
-			<View>
+			<View style={style.background} >
 				<Text> You are the Winner!</Text>
 				<Text>Passenger Name: {this.state.passenger.name}</Text>
 				<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />

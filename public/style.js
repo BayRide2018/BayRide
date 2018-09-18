@@ -6,7 +6,7 @@ var {
 
 const BRBLUE = '#42d5d1'; // also try: c5fef3, c5edfe, c5fed7
 const DRAWERBLUE = 'c5fef3';
-const BROFFWHITE = '#fff1e4'; // also try: fef3c5
+const BROFFWHITE = '#fff9f2'; // also try: fef3c5
 
 module.exports = StyleSheet.create({
 	containerMain: {
@@ -164,20 +164,23 @@ module.exports = StyleSheet.create({
 	},
 	/** The rest of these are for the sidemenu */
 	containerSM: {
-		paddingTop: 20,
+		paddingTop: 45,
 		flex: 1,
-		backgroundColor: '#b0e0e6',
+		backgroundColor: BROFFWHITE,
 	},
 	navItemStyleSM: {
-		padding: 15
+		padding: 10,
+		backgroundColor: BROFFWHITE,
+		height: (React.Dimensions.get('window').height / 12),
 	},
-	sectionHeadingStyleSM: {
-		paddingVertical: 10,
-		paddingHorizontal: 5
+	navItemTextSM: {
+		color: BRBLUE,
+		fontWeight: '300',
+		fontSize: 22,
 	},
 	footerContainerSM: {
 		flex: 1,
-		backgroundColor: '#b0e0e6',
+		backgroundColor: BROFFWHITE,
 		justifyContent: 'flex-end',
 		bottom: 20,
 		alignItems: 'center'

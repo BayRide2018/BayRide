@@ -8,6 +8,14 @@ import call from 'react-native-phone-call';
 
 export default class Winner extends React.Component {
 
+
+	/**
+	 * NOTE:
+	 * 		When you reach Winner.js, the lot that you are working with should be a lot that is in lot_history.
+	 * It should not be in the lots collection. If it is, then this is a mistake.
+	 */
+
+
 	state = {
 		lot : {},
 		passenger : {},
@@ -20,7 +28,7 @@ export default class Winner extends React.Component {
 		const lotId = navigation.getParam('lotId', 'null');
 		// This prop the id of the lot that the driver WON, should be the only prop you need to pass
 		await store.collection("lots").doc(lotId).get().then(lot => {
-			this.setState({ lot: lot.data() });
+			this.setState({ lot: { ...lot.data(), lotId } }); // Now the id of the lot is on state for easy access
 			store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
 				this.setState({ passenger: passenger.data() })
 			})
@@ -74,6 +82,8 @@ export default class Winner extends React.Component {
 	handleFinishTrip () {
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' });
 		store.collection("users").doc(this.state.lot.passengerId).update({ currentLot: '' });
+		// Update the lot_history, so that showReceipt is true
+		store.collection("lot_history").doc(this.state.lot.lotId).update({ showReceipt: true })
 		this.props.navigation.navigate('DriverHome');
 	}
 	

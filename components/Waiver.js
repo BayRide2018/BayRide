@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View } from 'react-native';
+import { Button , Text } from 'native-base';
 import style from '../public/style';
 
 export default class Waiver extends Component {
@@ -17,10 +18,11 @@ export default class Waiver extends Component {
             <Text>This is some filler text. Do you agree to be doing whatever, to not sue, and ride responsibly, and follow the rules of the road, and ....</Text>
             <Text>This is some filler text. Do you agree to be doing whatever, to not sue, and ride responsibly, and follow the rules of the road, and ....</Text>
             <Text>This is some filler text. Do you agree to be doing whatever, to not sue, and ride responsibly, and follow the rules of the road, and ....</Text>
-          <View style={style.button}>
+          <View>
             <Button
-              title="I agree"
-              onPress={() => this.props.navigation.navigate('DrawerNavigator')} />
+              style={style.button}
+              onPress={() => this.props.navigation.navigate('DrawerNavigator')}
+              ><Text style={style.buttonText} >I agree</Text></Button>
           </View>
         </View>
       </View>

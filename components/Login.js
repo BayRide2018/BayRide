@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View} from 'react-native';
+import { View } from 'react-native';
 import { Button , Text } from 'native-base';
 import { login } from '../fireMethods';
 import style from '../public/style';
@@ -45,9 +45,9 @@ export default class Login extends Component {
 					<View>
 						<Text>{this.state.response}</Text>
 						<Button
-							style={style.successButtons}
+							style={style.button}
 							title="Login"
-							onPress={this.handleSubmit}><Text>Login</Text></Button>
+							onPress={this.handleSubmit}><Text style={style.buttonText} >Login</Text></Button>
 					</View>
 				</View>
 			</View>

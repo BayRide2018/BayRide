@@ -70,24 +70,24 @@ export default class SideMenu extends Component {
 
 	render () {
 		let switchButton =  this.state.currentlyPassenger
-			? <Button full info style={style.navItemStyleSM} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.handleDriverRegistration}><Text>Switch to Driver</Text></Button>
-			: <Button full info style={style.navItemStyleSM} onPress={this.handleSwitchPassenger}><Text>Switch to Passenger</Text></Button>;
+			? <Button full info style={style.navItemStyleSM} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.handleDriverRegistration}><Text style={style.navItemTextSM} >SWITCH TO DRIVER</Text></Button>
+			: <Button full info style={style.navItemStyleSM} onPress={this.handleSwitchPassenger}><Text style={style.navItemTextSM} >SWITCH TO PASSENGER</Text></Button>;
 
 		return (
 			<View style={style.containerSM}>
-					<View style={style.navItemStyleSM}>
-						<Button full info style={style.navItemStyleSM} onPress={this.handleHome}><Text>Home</Text></Button>
-						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')}><Text>My Account</Text></Button>
-				{this.state.currentLot ? null : switchButton }
-						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text>Payment</Text></Button>
+				<View>
+					<Button full info style={style.navItemStyleSM} onPress={this.handleHome}><Text style={style.navItemTextSM} >HOME</Text></Button>
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')}><Text style={style.navItemTextSM} >MY ACCOUNT</Text></Button>
+					{this.state.currentLot ? null : switchButton }
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button>
 
-						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text>History</Text></Button>
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text style={style.navItemTextSM} >HISTORY</Text></Button>
 
-						<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text>Help</Text></Button>
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text style={style.navItemTextSM} >HELP</Text></Button>
 
-					{this.state.currentLot ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text>Log Out</Text></Button> }
+					{this.state.currentLot ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text style={style.navItemTextSM} >LOG OUT</Text></Button> }
 
-					</View>
+				</View>
 				<View style={style.footerContainerSM}>
 					<Text>Welcome to BayRide</Text>
 				</View>

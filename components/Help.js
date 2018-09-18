@@ -8,7 +8,7 @@ export default class Help extends Component {
 
 	state = {}
 
-	render() {
+	render () {
 		return(
 			<View>
         <Icon

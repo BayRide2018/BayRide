@@ -38,7 +38,7 @@ export default class History extends Component {
         this.setState({ lots });
     }
 
-	render() {
+	render () {
 		return (
 			<View>
                 <Icon
@@ -52,13 +52,15 @@ export default class History extends Component {
                 <Text>This is your passenger history!!</Text>
                 <ScrollView>
                         {this.state.lots.map((lot, i) => {
-                            return (<View key={i}>
-                                <Text>Driver: {lot.driverId}</Text>
-                                <Text>Passenger: {lot.passengerId}</Text>
-                                <Text>Pick Up Location: {lot.pickupLocation.latitude}, {lot.pickupLocation.longitude}</Text>
-                                <Text>Drop Off Location: {lot.dropoffLocation}</Text>
-                                <Text>Pick Up Time: {lot.pickupTime.toDate().toString()}</Text>
-                            </View>)
+                            return (
+                                <View key={i}>
+                                    <Text>Driver: {lot.driverId}</Text>
+                                    <Text>Passenger: {lot.passengerId}</Text>
+                                    <Text>Pick Up Location: {lot.pickupLocation.latitude}, {lot.pickupLocation.longitude}</Text>
+                                    <Text>Drop Off Location: {lot.dropoffLocation}</Text>
+                                    <Text>Pick Up Time: {lot.pickupTime.toDate().toString()}</Text>
+                                </View>
+                            );
                         })}
                 </ScrollView>
 			</View>

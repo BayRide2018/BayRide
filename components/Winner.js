@@ -34,7 +34,6 @@ export default class Winner extends React.Component {
 			})
 		})
 	}
-	
 		
 	// It seems like these functions could be written more concisely / better, but I don't think it's really a big deal, since it doesn't really affect proformance, and they're pretty readable
 	handleDirectionsToStart = () => {

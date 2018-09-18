@@ -16,9 +16,7 @@ export default class Login extends Component {
 	};
 
 	handleSubmit = async () => {
-		const email = this.state.email;
-		const password = this.state.password;
-		const result = await login(email, password);
+		const result = await login(this.state.email, this.state.password);
 		let bool;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			bool = user.data().currentlyPassenger;
@@ -32,8 +30,7 @@ export default class Login extends Component {
 		}
 	}
 
-	render() {
-
+	render () {
 		return (
 			<View>
 			<Button warning small onPress={() => this.props.navigation.navigate('Welcome')} style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>

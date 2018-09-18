@@ -6,7 +6,7 @@ const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
 // ^^ Don't forget we need to hide
 
 export default class GooglePickup extends Component {
-	render() {
+	render () {
 		return(
 			<GooglePlacesAutocomplete
 				placeholder='Search'
@@ -17,7 +17,7 @@ export default class GooglePickup extends Component {
 				fetchDetails={true}
 				renderDescription={row => row.description} // custom description render
 				onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-          let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
+        			let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
 					this.props.pickUp(pickUp);
 				}}
 
@@ -32,9 +32,8 @@ export default class GooglePickup extends Component {
 				}}
 
 				styles={{
-		textInputContainer: {
-     		 width: '100%'
-
+					textInputContainer: {
+     					width: '100%'
 					},
 					description: {
 						fontWeight: 'bold',
@@ -42,7 +41,6 @@ export default class GooglePickup extends Component {
 					predefinedPlacesDescription: {
 						color: '#1faadb'
 					},
-
 				}}
 
 				currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list

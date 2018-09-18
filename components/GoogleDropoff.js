@@ -4,7 +4,7 @@ const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
 // ^^ Don't forget we need to hide
 
 export default class GoogleDropoff extends Component {
-	render() {
+	render () {
 		return(
 			<GooglePlacesAutocomplete
 				placeholder='Search'

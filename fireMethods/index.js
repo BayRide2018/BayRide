@@ -18,7 +18,7 @@ async function signup (name, phone, email, password) {
 		// an example telling the user that above the field would be great
 		valid = phoneUtil.isValidNumber(phoneUtil.parse('+1' + phone));
 
-	if (!valid){
+	if (!valid) {
 		return 'Invalid Phone Number';
 	}
 

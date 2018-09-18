@@ -3,7 +3,7 @@ import { View, Button, Text } from 'react-native';
 import style from '../public/style';
 
 export default class Waiver extends Component {
-  render(){
+  render () {
     return(
       <View>
         <Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
@@ -24,6 +24,6 @@ export default class Waiver extends Component {
           </View>
         </View>
       </View>
-    )
+    );
   }
 }

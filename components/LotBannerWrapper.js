@@ -61,12 +61,11 @@ export default class LotBannerWrapper extends Component {
 				{this.state.showThisBanner
 				?	<View>
 						<View style={style.timer}>
-						<TimerCountdown
-
-							initialSecondsRemaining={pickupTime - now}
-							onTimeElapsed={this.handleFinish}
-							allowFontScaling={true}
-						/>
+							<TimerCountdown
+								initialSecondsRemaining={pickupTime - now}
+								onTimeElapsed={this.handleFinish}
+								allowFontScaling={true}
+							/>
 						</View>
 						<LotBanner lotData={this.props.lotData} />
 						<View style={style.horizontalRule} />

@@ -33,7 +33,7 @@ export default class Account extends Component {
 	}
 
 
-	render() {
+	render () {
 		return (
 			<View>
 				<Icon

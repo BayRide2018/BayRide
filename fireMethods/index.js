@@ -127,7 +127,7 @@ async function expireLot (lotId) {
 	});
 	if (lotObj) {
 		// Move lot to History
-		await store.collection("lot_history").add(lotObj)
+		await store.collection("lot_history").add({ ...lotObj, showReceipt: false })
 		.then(newLot => {
 			newLotId =  newLot.id;
 		});

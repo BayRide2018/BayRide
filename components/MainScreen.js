@@ -7,7 +7,7 @@ import { store, auth } from '../fire';
 import MatchBanner from './MatchBanner';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
-import TripReceipt from './tripReceipt';
+import TripReceipt from './TripReceipt';
 
 
 export default class MainScreen extends Component {
@@ -56,7 +56,7 @@ export default class MainScreen extends Component {
         await store.collection("lot_history").doc(mostRecentLotId).get().then(lot => {
             this.setState({ showReceipt: lot.data().showReceipt });
 		});
-		
+
 	}
 
 	registerForPushNotification = async () => {
@@ -92,6 +92,7 @@ export default class MainScreen extends Component {
 				 */
 			});
 		}
+	}
 
 	handleSubmit = () => {
 		this.props.navigation.navigate('LotSubmissionForm');
@@ -101,19 +102,18 @@ export default class MainScreen extends Component {
 		this.setState({showBid: false});
 	}
 
-	handleCloseReceipt = () => {
+	handleCloseReceipt = async () => {
 		this.setState({ showReceipt: false });
 		// Also, update the lot_h so that it never shows this receipt again...
 		let myPassengerLotHistory, mostRecentLotId;
-        await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-            myPassengerLotHistory = user.data().myPassengerLotHistory
-        });
+				await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+							myPassengerLotHistory = user.data().myPassengerLotHistory
+					});
         await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
             mostRecentLotId = plh.lots[plh.lots.length - 1];
         });
         await store.collection("lot_history").doc(mostRecentLotId).update({ showReceipt: false });
 	}
-
 
 	render () {
 		const { showBid, driverId, offer} = this.state;

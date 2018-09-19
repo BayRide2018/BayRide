@@ -20,9 +20,12 @@ export default class LotBanner extends React.Component {
 				this.setState({ imgURL: url });
 			});
 		 store.collection('lots').doc(this.state.lotData.lotId).onSnapshot(lot => {
-			this.setState({bidPrice: lot.data().offer});
+			 // It'd be cool for someone to look into these.. do we need all of these &&'s ?
+			 if (lot.data() && lot.data().offer) {
+				 this.setState({ bidPrice: lot.data().offer });
+			 }
 
-			if (lot.data().driverId === auth.currentUser.email) {
+			if (lot.data() && lot.data().driverId === auth.currentUser.email) {
 				this.setState({winningBidder: true});
 			} else {
 				this.setState({winningBidder: false});

@@ -24,9 +24,10 @@ export default class Winner extends React.Component {
 	};
 
 	componentDidMount = async () => {
-		const { navigation } = this.props;
-		const lotId = navigation.getParam('lotId', 'null');
+		// const { navigation } = this.props;
+		// const lotId = navigation.getParam('lotId', 'null');
 		// This prop the id of the lot that the driver WON, should be the only prop you need to pass
+		let lotId = "r1j73J5KEtrgcE0v476h";
 		await store.collection("lots").doc(lotId).get().then(lot => {
 			this.setState({ lot: { ...lot.data(), lotId } }); // Now the id of the lot is on state for easy access
 			store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
@@ -39,8 +40,8 @@ export default class Winner extends React.Component {
 	handleDirectionsToStart = () => {
 		const data = {
 			destination: {
-				latitude: this.state.pickupLocation.coords.latitude,
-				longitude: this.state.pickupLocation.coords.longitude
+				latitude: this.state.lot.pickupLocation.coords.latitude,
+				longitude: this.state.lot.pickupLocation.coords.longitude
 			},
 			params: [
 				{
@@ -60,8 +61,8 @@ export default class Winner extends React.Component {
 	handleDirectionsForTrip = () => {
 		const data = {
 			destination: {
-				latitude: this.state.dropoffLocation.coords.latitude,
-				longitude: this.state.dropoffLocation.coords.longitude
+				latitude: this.state.lot.dropoffLocation.coords.latitude,
+				longitude: this.state.lot.dropoffLocation.coords.longitude
 			},
 			params: [
 				{
@@ -90,6 +91,7 @@ export default class Winner extends React.Component {
 	render () {
 		return (
 			<View style={style.background} >
+			<View style={{top: 50}} >
 				<Text> You are the Winner!</Text>
 				<Text>Passenger Name: {this.state.passenger.name}</Text>
 				<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
@@ -104,6 +106,7 @@ export default class Winner extends React.Component {
 				{this.state.showFinishTrip
 				?	<Button title="Finish trip" onPress={this.handleFinishTrip} />
 				:	null}
+			</View>
 			</View>
 		);
 	}

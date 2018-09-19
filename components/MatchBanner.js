@@ -32,12 +32,22 @@ export default class MatchBanner extends React.Component {
 		if (pickupTime) pickupTime = pickupTime.toDate();
 		const now = new Date().getTime();
 
+		let carType;
+		if (this.state.lotData.carType === "brs") {
+			carType = "BayRide Supreme";
+		} else if (this.state.lotData.carType === "brxl") {
+			carType = "BayRide XL";
+		} else {
+			carType = "BayRide";
+		}
+
 		return (
 			<View>
 		        <Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
 						{/* <Text>Your Trip to {this.state.lotData.dropoffLocation}</Text> */}
 						{/* This line was breaking it, because for the lot, dropOffLocation was an empty object.. I think it might have something to do with the Google API search bar */}
+						<Text>{carType}</Text>
 						<Text>Current Price: $ {this.state.lotData.offer}</Text>
 						{this.state.lotData.driverId
 						?	<View>

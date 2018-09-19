@@ -72,9 +72,9 @@ export default class LotSubmissionForm extends Component {
 
 	render () {
 		return (
-			<ScrollView contentContainerStyle={style.submissionForm}>
+			<ScrollView contentContainerStyle={style.background} >
 				<View style={style.submissionForm}>
-					<Button warning small onPress={() => {this.props.navigation.navigate('MainScreen')} } style={style.back}><Text style={{fontSize: 15}}>Go Back</Text></Button>
+					<Button warning small onPress={() => {this.props.navigation.navigate('MainScreen')} } style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
 					<ViewPhotos setScreenshotId={ (photoID) => {this.setState({ screenshot: photoID })} } />
 
@@ -85,7 +85,7 @@ export default class LotSubmissionForm extends Component {
 						<AwesomeButton onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
 
-					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation })} } />
+					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation })} } style={{marginBottom: 90}} />
 					<FormLabel>Drop off Location</FormLabel>
 					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation })} } />
 
@@ -100,6 +100,8 @@ export default class LotSubmissionForm extends Component {
 								itemSpace={30} // this only support in android
 							/>
 						:	<Button
+								info
+								style={{marginRight: 25}}
 								onPress={() => this.setState({ showPricePicker: true })}
 							><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
 					}
@@ -115,15 +117,17 @@ export default class LotSubmissionForm extends Component {
 							/>
 						:
 							<Button
+								info
+								style={{marginLeft: 25}}
 								onPress={() => this.setState({ showMinutePicker: true })}
 							><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
 					}
 					</View>
 
 					<View style={style.buttonRows} >
-						<Button rounded onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
-						<Button rounded onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
-						<Button rounded onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
+						<Button rounded info onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
+						<Button rounded info onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
+						<Button rounded info onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
 					</View>
 				</View>
 			</ScrollView>

@@ -33,11 +33,20 @@ export default class TripReceipt extends React.Component {
 	}
 
 	render () {
+		let carType;
+		if (this.state.lotData.carType === "brs") {
+			carType = "BayRide Supreme";
+		} else if (this.state.lotData.carType === "brxl") {
+			carType = "BayRide XL";
+		} else {
+			carType = "BayRide";
+		}
 
 		return (
 			<View>
 		        <Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
+						<Text>{carType}</Text>
 						<Text>From {this.state.lotData.pickupLocation}</Text>
 						<Text>To {this.state.lotData.dropoffLocation}</Text>
 						<Text>On {this.state.lotData.pickupTime}</Text>
@@ -48,7 +57,7 @@ export default class TripReceipt extends React.Component {
 
                         <View>
                             <Text>Rate? How many stars?</Text>
-                            <Text>* * * * *</Text>
+                            <Text>*    *    *    *    *</Text>
                         </View>
 
 						<View>
@@ -59,6 +68,6 @@ export default class TripReceipt extends React.Component {
 					</View>
 				</Modal>
 			</View>
-		)
+		);
 	}
 }

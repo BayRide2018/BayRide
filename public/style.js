@@ -56,14 +56,10 @@ module.exports = StyleSheet.create({
 		height: React.Dimensions.get('window').height,
 	},
 
-	backButton: {
-		marginLeft: 10,
-		marginTop: 35
-	},
-
 	successButtons: {
 		alignSelf: 'center'
 	},
+
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
@@ -97,22 +93,22 @@ module.exports = StyleSheet.create({
 	submissionForm: {
 		flex: 1,
 		margin: 15,
-
 		alignItems: 'center'
 	},
 	viewPhoto: {
 		flex: 1,
-		alignItems: 'flex-end',
-		justifyContent: 'flex-end',
-		flexDirection: 'row'
+		alignItems: 'center',
+		justifyContent: 'space-around',
+		flexDirection: 'row',
+		width: React.Dimensions.get('window').width * .9,
+		margin: 30,
 	},
 	buttonRows: {
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
-		justifyContent: 'space-between'
-	},
-	back: {
-		marginLeft: 30
+		justifyContent: 'space-between',
+		// marginBottom: 100,
+		// bottom: -100,
 	},
 
 	/**
@@ -135,8 +131,9 @@ module.exports = StyleSheet.create({
 		width: React.Dimensions.get('window').width / (20/7),
 	},
 	screenshot: {
-		flex: 1,
-		height: 150
+		// flex: 1,
+		height: 140,
+		width: 80,
 	},
 	innerLotBannerB: {
 		width: React.Dimensions.get('window').width / (20/13),
@@ -227,5 +224,9 @@ module.exports = StyleSheet.create({
 	},
 	buttonText: {
 		color: BROFFWHITE,
+	},
+	backButton: {
+		marginLeft: 10,
+		marginTop: 35
 	},
 });

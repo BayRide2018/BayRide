@@ -106,9 +106,9 @@ export default class MainScreen extends Component {
 		this.setState({ showReceipt: false });
 		// Also, update the lot_h so that it never shows this receipt again...
 		let myPassengerLotHistory, mostRecentLotId;
-				await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-							myPassengerLotHistory = user.data().myPassengerLotHistory
-					});
+		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			myPassengerLotHistory = user.data().myPassengerLotHistory
+		});
         await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
             mostRecentLotId = plh.lots[plh.lots.length - 1];
         });

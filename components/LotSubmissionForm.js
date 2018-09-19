@@ -99,9 +99,9 @@ export default class LotSubmissionForm extends Component {
 						onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
 						itemSpace={30} // this only support in android
 						/>
-						:  <Button
-						onPress={() => this.setState({ showPricePicker: true })}
-						><Text>{this.state.offer} dollars</Text></Button>
+						:	<Button
+								onPress={() => this.setState({ showPricePicker: true })}
+							><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
 					}
 
 
@@ -116,14 +116,14 @@ export default class LotSubmissionForm extends Component {
 						:
 							<Button
 								onPress={() => this.setState({ showMinutePicker: true })}
-							><Text>{`${this.state.pickupTime} minutes`}</Text></Button>
+							><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
 					}
 					</View>
 
-					<View style={style.button}>
-						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text>BayRide</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text>BayRideXL</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text>BayRide Supreme </Text></Button>
+					<View style={style.buttonRows} >
+						<Button rounded onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
+						<Button rounded onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
+						<Button rounded onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
 					</View>
 				</View>
 			</ScrollView>

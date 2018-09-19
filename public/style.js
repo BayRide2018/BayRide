@@ -4,8 +4,7 @@ var {
 	StyleSheet,
 } = React;
 
-const BRBLUE = '#42d5d1'; // also try: c5fef3, c5edfe, c5fed7
-const DRAWERBLUE = 'c5fef3';
+const BRBLUE = '#40d3cf'; // also try: c5fef3, c5edfe, c5fed7
 const BROFFWHITE = '#fff9f2'; // also try: fef3c5
 
 module.exports = StyleSheet.create({
@@ -37,7 +36,7 @@ module.exports = StyleSheet.create({
 	signIn: {
 		marginLeft: 15,
 		marginRight: 15,
-		paddingRight: 15,
+		// paddingRight: 15,
 		height: React.Dimensions.get('window').height,
 	},
 
@@ -91,7 +90,11 @@ module.exports = StyleSheet.create({
 		justifyContent: 'flex-end',
 		flexDirection: 'row'
 	},
-
+	buttonRows: {
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-between'
+	},
 	back: {
 		marginLeft: 30
 	},
@@ -196,7 +199,13 @@ module.exports = StyleSheet.create({
 		flex: 1
 	},
 	button: {
-		flexDirection: 'row',
-		flexWrap: 'nowrap'
-	}
+		backgroundColor: BRBLUE,
+		width: React.Dimensions.get('window').width * .9,
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center'
+	},
+	buttonText: {
+		color: BROFFWHITE,
+	},
 });

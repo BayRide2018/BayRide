@@ -51,7 +51,7 @@ export default class MainScreen extends Component {
             myPassengerLotHistory = user.data().myPassengerLotHistory
         });
         await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
-            mostRecentLotId = plh.lots.length ? plh.lots[plh.lots.length - 1] : false;
+            mostRecentLotId = plh.data().lots.length ? plh.data().lots[plh.data().lots.length - 1] : false;
 		});
 		if (mostRecentLotId) { // so if the plh is empty, then we don't try to do this, and showReceipt can remain the default false
 			await store.collection("lot_history").doc(mostRecentLotId).get().then(lot => {

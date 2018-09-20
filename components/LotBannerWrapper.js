@@ -16,6 +16,8 @@ export default class LotBannerWrapper extends Component {
 	// This needs to be fixed!!!!
 	handleFinish = async () => {
 		this.setState({ showThisBanner: false });
+		this.props.navigation.navigate('Winner');
+
 
 		/** 
 		 * In reality, basically nothing below this should be here, because the only thing that we want to happen for every user who is viewing the app is for the lot to disappear when time's up..
@@ -46,7 +48,7 @@ export default class LotBannerWrapper extends Component {
 		if (myCurrentLot === expiringLotId) {
 			store.collection("users").doc(auth.currentUser.email).update({ currentLot: newLotId }); // I don't think that this is right... Won't this mean that anyone on DriverHome will have their currentLot set to the new Lot id?
 			// Here's where, if you're the winner, we navigate you to Winner.js
-			this.props.navigation.navigat('Winner');
+			this.props.navigation.navigate('Winner');
 			// How do we do that? Does this.props.navigation.navigate('Winner') work? Even though LBW isn't in DrawerNavigator?
 		}
 	}

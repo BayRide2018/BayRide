@@ -11,6 +11,8 @@ import Help from './Help';
 import Winner from './Winner';
 import Web from './Web';
 import LotSubmissionForm from './LotSubmissionForm';
+import LotBanner from './LotBanner';
+import LotBannerWrapper from './LotBannerWrapper';
 ////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
 // import { auth, store } from '../fire';
 
@@ -49,7 +51,13 @@ const DrawerNavigator = createDrawerNavigator({
 	},
 	LotSubmissionForm: {
 		screen: LotSubmissionForm
-	}
+	},
+	LotBanner: {
+		screen: LotBanner
+	},
+	LotBannerWrapper: {
+		screen: LotBannerWrapper
+	},
 }, {
 	// initialRouteName: initialRouteName,
 	contentComponent: SideMenu,

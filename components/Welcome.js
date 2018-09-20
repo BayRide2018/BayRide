@@ -4,11 +4,11 @@ import style from '../public/style';
 import { Button, Text } from 'native-base';
 
 const Welcome = ({ navigation }) => (
-	<View style={style.logContainer}>
+	<View style={style.background} >
 		<Image source={require('../public/images/logo1.png')} style={style.logo} />
-		<View style={{flexDirection: 'row', alignSelf: 'center'}}>
-			<Button full success onPress={() => navigation.navigate('Signup')}><Text style={style.buttonText} >Sign Up</Text></Button>
-			<Button full onPress={() => navigation.navigate('Login')}><Text style={style.buttonText} >Login</Text></Button>
+		<View>
+			<Button style={style.welcomeSignUp} onPress={() => navigation.navigate('Signup')}><Text style={style.welcomeSignUpText} >SIGN UP</Text></Button>
+			<Button style={style.welcomeLogIn} onPress={() => navigation.navigate('Login')}><Text style={style.buttonText} >Login</Text></Button>
 		</View>
 	</View>
 );

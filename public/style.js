@@ -5,6 +5,7 @@ var {
 } = React;
 
 const BRBLUE = '#40d3cf'; // also try: c5fef3, c5edfe, c5fed7
+const BRDARKBLUE = '#2ec1bd'; // also try: c5fef3, c5edfe, c5fed7
 const BROFFWHITE = '#fff9f2'; // also try: fef3c5
 
 module.exports = StyleSheet.create({
@@ -19,15 +20,31 @@ module.exports = StyleSheet.create({
 	 */
 	logo: {
 		marginTop: 150,
+		marginBottom: 70,
 		height: 230,
 		width: 230,
 		alignSelf: 'center'
 	},
-	logoContainer: {
-		display: 'flex',
-		flex: 1,
+	welcomeSignUp: {
+		backgroundColor: BRBLUE,
+		width: React.Dimensions.get('window').width * .8,
 		alignItems: 'center',
-		justifyContent: 'center', // no for real, how do I center this thing??
+		justifyContent: 'center',
+		alignSelf: 'center',
+		// margin: 20,
+		height: 70,
+	},
+	welcomeSignUpText: {
+		fontSize: 35,
+		color: BROFFWHITE,
+	},
+	welcomeLogIn: {
+		backgroundColor: BRDARKBLUE,
+		width: React.Dimensions.get('window').width * .3,
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		margin: 40,
 	},
 
 	/**
@@ -36,18 +53,13 @@ module.exports = StyleSheet.create({
 	signIn: {
 		marginLeft: 15,
 		marginRight: 15,
-		// paddingRight: 15,
 		height: React.Dimensions.get('window').height,
-	},
-
-	backButton: {
-		marginLeft: 10,
-		marginTop: 35
 	},
 
 	successButtons: {
 		alignSelf: 'center'
 	},
+
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
@@ -81,22 +93,22 @@ module.exports = StyleSheet.create({
 	submissionForm: {
 		flex: 1,
 		margin: 15,
-
 		alignItems: 'center'
 	},
 	viewPhoto: {
 		flex: 1,
-		alignItems: 'flex-end',
-		justifyContent: 'flex-end',
-		flexDirection: 'row'
+		alignItems: 'center',
+		justifyContent: 'space-around',
+		flexDirection: 'row',
+		width: React.Dimensions.get('window').width * .9,
+		margin: 30,
 	},
 	buttonRows: {
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
-		justifyContent: 'space-between'
-	},
-	back: {
-		marginLeft: 30
+		justifyContent: 'space-between',
+		// marginBottom: 100,
+		// bottom: -100,
 	},
 
 	/**
@@ -119,8 +131,9 @@ module.exports = StyleSheet.create({
 		width: React.Dimensions.get('window').width / (20/7),
 	},
 	screenshot: {
-		flex: 1,
-		height: 150
+		// flex: 1,
+		height: 140,
+		width: 80,
 	},
 	innerLotBannerB: {
 		width: React.Dimensions.get('window').width / (20/13),
@@ -192,6 +205,10 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling other things, or general things
 	 */
+	background: {
+		backgroundColor: BROFFWHITE,
+		height: React.Dimensions.get('window').height,
+	},
 	webView: {
 		marginTop: 20,
 	},
@@ -207,5 +224,9 @@ module.exports = StyleSheet.create({
 	},
 	buttonText: {
 		color: BROFFWHITE,
+	},
+	backButton: {
+		marginLeft: 10,
+		marginTop: 35
 	},
 });

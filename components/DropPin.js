@@ -34,8 +34,11 @@ export default class DropPin extends Component {
                     onRegionChangeComplete={(region) => { this.setState({ region: {lat: region.latitude, lng: region.longitude }}); }}
                     showsUserLocation={true}
                     followsUserLocation={true} />
-                                            {/** Also, this needs to be a better picture... */}
-		        <Image source={require('../public/images/marker.png')} style={{
+
+                <Button warning small onPress={() => {this.props.navigation.navigate('LotSubmissionForm')} } style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
+
+                                    {/** Also, this needs to be a better picture... */}
+                <Image source={require('../public/images/marker.png')} style={{
                     zIndex: 30,
                     height: 20,
                     width: 20,

@@ -13,6 +13,10 @@ export default class Winner extends React.Component {
 	 * NOTE:
 	 * 		When you reach Winner.js, the lot that you are working with should be a lot that is in lot_history.
 	 * It should not be in the lots collection. If it is, then this is a mistake.
+	 * 
+	 * ANOTHER NOTE:
+	 * 		There should be no need to bother with Props. You should simply be able to only direct the correct drivers to winner,
+	 * and then simply query the information.
 	 */
 
 
@@ -24,16 +28,26 @@ export default class Winner extends React.Component {
 	};
 
 	componentDidMount = async () => {
-		// const { navigation } = this.props;
-		// const lotId = navigation.getParam('lotId', 'null');
-		// This prop the id of the lot that the driver WON, should be the only prop you need to pass
-		let lotId = "r1j73J5KEtrgcE0v476h";
-		await store.collection("lots").doc(lotId).get().then(lot => {
-			this.setState({ lot: { ...lot.data(), lotId } }); // Now the id of the lot is on state for easy access
-			store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
-				this.setState({ passenger: passenger.data() })
-			})
+
+		// I believe that this should be the way that we want to do it...
+		let lotId;
+		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			// Since the ride is not complete, then we can find the lotId (which links to a lot_history doc), as currentLot on the user
+			lotid = user.data().currentLot;
+		});
+		await store.collection("lot_history").doc(lotId).get().then(lot => {
+			this.setState({ lot: lot.data() });
+		});
+		await store.collection("users").doc(this.state.lot.passengerId).get().then(passenger => {
+			this.setState({ passenger: passenger.data() })
 		})
+
+		// await store.collection("lots").doc(lotId).get().then(lot => {
+		// 	this.setState({ lot: { ...lot.data(), lotId } }); // Now the id of the lot is on state for easy access
+		// 	store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
+		// 		this.setState({ passenger: passenger.data() })
+		// 	})
+		// })
 	}
 		
 	// It seems like these functions could be written more concisely / better, but I don't think it's really a big deal, since it doesn't really affect proformance, and they're pretty readable

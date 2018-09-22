@@ -10,7 +10,7 @@ export default class DriverHome extends Component {
 
 	state = {
 		allLots: [],
-		winningId: ''
+		showWinnerAlert: false,
 	}
 
 	async componentDidMount () {
@@ -29,24 +29,29 @@ export default class DriverHome extends Component {
     let myCurrentLot;
     store.collection("users").doc(auth.currentUser.email).get().then(user => {
       myCurrentLot = user.data().currentLot;
-    })
-    /**
-     * So what this means is that Winning can only happen if the component mounts
-     */
-		// Also, we can make do this better by simply checking if `myCurrentlot` exists in lot_history.. If it does, then winner
-		// OR REALLY, can't we just navigate there when a lot expires...
+    });
+
 		/**
 		 * Actually, we should do both.. 
-		 * (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js
-		 * (2) While DriverHoe is open, if the winning Lot expires, it takes us to Winner.js
+		 * (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js (This happens below)
+		 * (2) While DriverHome is open, if the winning Lot expires, it takes us to Winner.js (This happens in LotBannerWrapper)
 		 */
-    await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
-      lots.forEach(lot => { // Please note: linear queries, such as this one, are bad
-        if (lot.id === myCurrentLot) {
-          this.setState({ winningId: lot.id });
-        }
-      });
-    });
+		// (1)
+		// It seems that we need to check if the current user's currentLot is in lot_history (in which case they are a winner) or just in lots (in which case they are not)
+		if (myCurrentLot) {
+			store.collection("lot_history").doc(myCurrentLot).get().then(lot => {
+				if (lot.exists) {
+					this.setState({ showWinnerAlert: true });
+				}
+			});
+		}
+    // await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
+    //   lots.forEach(lot => { // Please note: linear queries, such as this one, are bad.. Also, this one is just wrong
+    //     if (lot.id === myCurrentLot) {
+    //       this.setState({ showWinnerAlert: true });
+    //     }
+    //   });
+    // });
   }
 
 	/**
@@ -81,17 +86,12 @@ export default class DriverHome extends Component {
 						{this.state.allLots.map((lot, i) => {
 							return <LotBannerWrapper key={i} lotData={lot} />;
 						})}
-						{/* { this.state.winner ? <Winner winningInfo={this.state.winningInfo} /> : null } */}
-						{this.state.winningId ? Alert.alert(
+						{/** This alert should only show if you have the app closed and then win, and then open it */}
+						{this.state.showWinnerAlert ? Alert.alert(
 							`You Won!!`,
 							'Please click here to begin your trip',
 							[
-								{ text: 'Awesome!', onPress: () => {
-									this.props.navigation.navigate('Winner', {
-										// Passing the lotId of the winning lot as props to Winner.js
-										lotId: this.state.winningId
-									})
-								}, style: 'cancel' }
+								{ text: 'Awesome!', onPress: () => { this.props.navigation.navigate('Winner') }, style: 'cancel' }
 							],
 							{ cancelable: false }
 						) : null}

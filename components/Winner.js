@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button, Text } from 'native-base';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import getDirections from 'react-native-google-maps-directions';
@@ -124,17 +125,30 @@ export default class Winner extends React.Component {
 				<View style={{top: 50}} >
 					<Text> You are the Winner!</Text>
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
-					<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
+					<Button
+						onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} >
+						<Text>{"" + this.state.passenger.phone}</Text>
+					</Button>
 					<Text>Passenger location</Text>
 					{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
-					<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
+
+					<Button
+						onPress={this.handleDirectionsToStart} >
+						<Text>Get Directions to {this.state.lot.pickupLocation.fullAddress}!</Text>
+					</Button>
 
 					{this.state.showDirectionsForTrip
-					?	<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
+					?	<Button
+							onPress={this.handleDirectionsForTrip} >
+							<Text>Get Directions to {this.state.lot.dropoffLocation.fullAddress}!</Text>
+						</Button>
 					:	null}
 
 					{this.state.showFinishTrip
-					?	<Button title="Finish trip" onPress={this.handleFinishTrip} />
+					?	<Button
+							onPress={this.handleFinishTrip} >
+							<Text>Trip is Finished</Text>
+						</Button>
 					:	null}
 				</View>
 			</View>

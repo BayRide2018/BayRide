@@ -70,9 +70,9 @@ export default class LotBanner extends React.Component {
 					}
 				</View>
 				<View  style={style.innerLotBannerB}>
-					<Text style={style.info}>Drop Off location: {this.state.lotData.dropoffLocation.fullAddress}</Text>
-					<Text style={style.info}>Bid Price: {this.state.bidPrice}</Text>
-					{!this.state.lotData.driverId && <Text style={style.info}>Be the first one to bid on this!!!</Text>}
+					<Text style={style.center} >Drop Off location: {this.state.lotData.dropoffLocation.fullAddress}</Text>
+					<Text style={style.center} >Bid Price: {this.state.bidPrice}</Text>
+					{!this.state.lotData.driverId && <Text style={style.center} >Be the first one to bid on this!!!</Text>}
 					<View style={style.lotBannerButton}>
 					<Button title={buttonTitle} onPress={this.handlePress} />
 					<Button title={"Report"} onPress={this.handleReport} />

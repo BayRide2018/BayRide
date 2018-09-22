@@ -78,7 +78,7 @@ export default class SideMenu extends Component {
 			<View style={style.containerSM}>
 				<View>
 					<Button full info style={style.navItemStyleSM} onPress={this.handleHome}><Text style={style.navItemTextSM} >HOME</Text></Button>
-					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Winner')}><Text style={style.navItemTextSM} >MY ACCOUNT</Text></Button>
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')}><Text style={style.navItemTextSM} >MY ACCOUNT</Text></Button>
 					{this.state.currentLot ? null : switchButton }
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button>
 

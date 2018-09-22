@@ -42,12 +42,26 @@ export default class Winner extends React.Component {
 			this.setState({ passenger: passenger.data() })
 		})
 
-		// await store.collection("lots").doc(lotId).get().then(lot => {
-		// 	this.setState({ lot: { ...lot.data(), lotId } }); // Now the id of the lot is on state for easy access
-		// 	store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
-		// 		this.setState({ passenger: passenger.data() })
-		// 	})
-		// })
+		this.handleTransmitLocation();
+	}
+
+	/**
+	 * I think that what we'll do is transmit their location every 5-10 seconds,
+	 * while this.state.showDirectionsForTrip is false
+	 * (once it's true, the driver is there, and the passenger doesn't need to see him on the map)
+	 */
+	handleTransmitLocation = async () => {
+		while (!this.state.showDirectionsForTrip) {
+			let location = await Location.getCurrentPositionAsync({});
+			let myLocation = {
+				coords: {
+					lat: location.coords.latitude,
+					lng: location.coords.longitude
+				},
+				fullAddress: 'N/A', // We don't really need this, but I tried to keep the same format as we used for other locations (ie, pickupLocation and dropoffLocation)
+			};
+			store.collection("users").doc(auth.currentUser.email).update({ location: myLocation });
+		}
 	}
 		
 	// It seems like these functions could be written more concisely / better, but I don't think it's really a big deal, since it doesn't really affect proformance, and they're pretty readable

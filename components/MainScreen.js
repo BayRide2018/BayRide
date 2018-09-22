@@ -20,7 +20,7 @@ export default class MainScreen extends Component {
 		matchBanner: false, // This is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
 		currentLot: '', // This is the id of the lot that passenger has open
 		showReceipt: false, // this determines whether or not to display the receipt of the passenger's most recent trip (remember, this should only happen the first time).
-
+		showDriver: false, // Whether or not to show the driver approaching on the map
 	}
 
 	async componentDidMount() {
@@ -117,6 +117,13 @@ export default class MainScreen extends Component {
         await store.collection("lot_history").doc(mostRecentLotId).update({ showReceipt: false });
 	}
 
+
+	/**
+	 * We still need to add the actual marker of the driver to the map... 
+	 * I'm not sure how to handle it. We want a picture that looks like a car, right?
+	 * And how do we do the thing like Uber does, where you can tell what direction
+	 * it's going??
+	 */
 	render () {
 		const { showBid, driverId, offer} = this.state;
 

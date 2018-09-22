@@ -52,15 +52,17 @@ export default class Winner extends React.Component {
 	 */
 	handleTransmitLocation = async () => {
 		while (!this.state.showDirectionsForTrip) {
-			let location = await Location.getCurrentPositionAsync({});
-			let myLocation = {
-				coords: {
-					lat: location.coords.latitude,
-					lng: location.coords.longitude
-				},
-				fullAddress: 'N/A', // We don't really need this, but I tried to keep the same format as we used for other locations (ie, pickupLocation and dropoffLocation)
-			};
-			store.collection("users").doc(auth.currentUser.email).update({ location: myLocation });
+			setTimeout(() => { // This setTimeout is very important, I think.. 
+				let location = await Location.getCurrentPositionAsync({});
+				let myLocation = {
+					coords: {
+						lat: location.coords.latitude,
+						lng: location.coords.longitude
+					},
+					fullAddress: 'N/A', // We don't really need this, but I tried to keep the same format as we used for other locations (ie, pickupLocation and dropoffLocation)
+				};
+				store.collection("users").doc(auth.currentUser.email).update({ location: myLocation });
+			}, 10000)
 		}
 	}
 		
@@ -119,22 +121,22 @@ export default class Winner extends React.Component {
 	render () {
 		return (
 			<View style={style.background} >
-			<View style={{top: 50}} >
-				<Text> You are the Winner!</Text>
-				<Text>Passenger Name: {this.state.passenger.name}</Text>
-				<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
-				<Text>Passenger location</Text>
-				{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
-				<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
+				<View style={{top: 50}} >
+					<Text> You are the Winner!</Text>
+					<Text>Passenger Name: {this.state.passenger.name}</Text>
+					<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
+					<Text>Passenger location</Text>
+					{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
+					<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
 
-				{this.state.showDirectionsForTrip
-				?	<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
-				:	null}
+					{this.state.showDirectionsForTrip
+					?	<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
+					:	null}
 
-				{this.state.showFinishTrip
-				?	<Button title="Finish trip" onPress={this.handleFinishTrip} />
-				:	null}
-			</View>
+					{this.state.showFinishTrip
+					?	<Button title="Finish trip" onPress={this.handleFinishTrip} />
+					:	null}
+				</View>
 			</View>
 		);
 	}

@@ -68,14 +68,14 @@ export default class MatchBanner extends React.Component {
 						: <Text>No one has submitted a bid yet, but be patient</Text>
 						}
 
-						<View> {/** Can we style this view, so that these buttons are in a row */}
+						<View style={style.buttonRows} > {/** Can we style this view, so that these buttons are in a row */}
 							<Button rounded info onPress={() => this.props.close()}>
 								<Text>Close</Text>
 							</Button>
 							{this.state.lotData.driverId
 							?	null
 							:	<Button rounded info onPress={this.handleDelete}>
-									<Text>Delte this Ride</Text>
+									<Text>Delete this Ride</Text>
 								</Button>
 							}
 						</View>

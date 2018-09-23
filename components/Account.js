@@ -51,7 +51,7 @@ export default class Account extends Component {
 						/>
 						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editName: false }); }} ><Text>Save Changes</Text></Button>
 					</View>
-				:	<View>
+				:	<View style={style.singleLine} >
 						<Text>Name: {this.state.user.name}</Text><Button rounded info onPress={() => this.setState({editName: true})}><Text>Edit</Text></Button>
 					</View>
 				}
@@ -64,7 +64,7 @@ export default class Account extends Component {
 						/>
 						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editPhone: false }); }} ><Text>Save Changes</Text></Button>
 					</View>
-				:	<View>
+				:	<View style={style.singleLine} >
 						<Text>Phone: {this.state.user.phone}</Text><Button rounded info onPress={() => this.setState({editPhone: true})}><Text>Edit</Text></Button>
 					</View>
 				}
@@ -77,18 +77,18 @@ export default class Account extends Component {
 						/>
 						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editEmail: false }); }} ><Text>Save Changes</Text></Button>
 					</View>
-				:	<View>
+				:	<View style={style.singleLine} >
 						<Text>Email: {this.state.user.email}</Text><Button rounded info onPress={() => this.setState({editEmail: true})}><Text>Edit</Text></Button>
 					</View>
 				}
 				<View style={style.horizontalRule} />
 
 				{this.state.user.drivingInformation && this.state.user.drivingInformation.canDrive
-				?	<View>
+				?	<View style={style.center} >
 						<Text>You can drive!! Nice work!</Text>
-						<Text>Here's where the information about your car, etc, will go!</Text>
+						<Text style={{ textAlign: 'center' }} >Here's where the information about your car, etc, will go!</Text>
 					</View>
-				: 	<View>
+				: 	<View style={style.center} >
 						<Text>Sign up to drive and start earning!!</Text>
 						<Text>BayRide puts the control back in the hands of the drivers.</Text><Button rounded info onPress={() => {
 							// Please note: we can assume that the user, right here, is a Passenger, and not a driver, because canDrive is false
@@ -112,9 +112,11 @@ export default class Account extends Component {
 				:	null}
 				<View style={style.horizontalRule} />
 
-				<Button rounded info onPress={() => {this.props.navigation.navigate('History')} }>
-					<Text>History</Text>
-				</Button>
+				<View style={style.center} >
+					<Button rounded info onPress={() => {this.props.navigation.navigate('History')} }>
+						<Text>History</Text>
+					</Button>
+				</View>
 
 
 			</View>

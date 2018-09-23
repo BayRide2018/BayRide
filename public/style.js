@@ -56,10 +56,6 @@ module.exports = StyleSheet.create({
 		height: React.Dimensions.get('window').height,
 	},
 
-	successButtons: {
-		alignSelf: 'center'
-	},
-
 	/**
 	 * Styling for PassengerHome / MainScreen
 	 */
@@ -157,19 +153,6 @@ module.exports = StyleSheet.create({
 		alignItems: 'center',
 		alignContent: 'space-around',
 	},
-	horizontalRule: {
-		marginLeft: 15,
-		marginRight: 15,
-		borderBottomColor: 'black',
-		borderBottomWidth: 1,
-	},
-	info: {
-		textAlign: 'center'
-	},
-	timer: {
-		display: 'flex',
-		alignItems: 'center'
-	},
 
 	/**
 	 * Styling for the drawer
@@ -203,11 +186,32 @@ module.exports = StyleSheet.create({
 	},
 
 	/**
+	 * Styling for Account
+	 */
+	singleLine: {
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+
+	/**
 	 * Styling other things, or general things
 	 */
 	background: {
 		backgroundColor: BROFFWHITE,
 		height: React.Dimensions.get('window').height,
+	},
+	horizontalRule: {
+		marginLeft: 15,
+		marginRight: 15,
+		borderBottomColor: 'black',
+		borderBottomWidth: 1,
+		margin: 3,
+	},
+	center: {
+		alignSelf: 'center',
+		alignItems: 'center',
 	},
 	webView: {
 		marginTop: 20,

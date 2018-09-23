@@ -84,6 +84,8 @@ export default class SideMenu extends Component {
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text style={style.navItemTextSM} >HISTORY</Text></Button>
 
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Safety')}><Text style={style.navItemTextSM} >SAFETY</Text></Button>
+
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text style={style.navItemTextSM} >HELP</Text></Button>
 
 					{this.state.currentLot ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text style={style.navItemTextSM} >LOG OUT</Text></Button> }

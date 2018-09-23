@@ -13,6 +13,7 @@ import Web from './Web';
 import LotSubmissionForm from './LotSubmissionForm';
 import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';
+import Safety from './Safety';
 ////////////////////////////// PART OF PERSISTANCE, DON'T TOUCH
 // import { auth, store } from '../fire';
 
@@ -57,6 +58,9 @@ const DrawerNavigator = createDrawerNavigator({
 	},
 	LotBannerWrapper: {
 		screen: LotBannerWrapper
+	},
+	Safety: {
+		screen: Safety
 	},
 }, {
 	// initialRouteName: initialRouteName,

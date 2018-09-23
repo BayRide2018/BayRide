@@ -6,6 +6,8 @@ import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';
 import call from 'react-native-phone-call';
 import style from '../public/style';
+import { expireLot } from '../fireMethods';
+
 
 
 export default class MatchBanner extends React.Component {
@@ -25,6 +27,14 @@ export default class MatchBanner extends React.Component {
 				this.setState({ driverInfo: driver.data()});
 			});
 		}
+	}
+
+	handleDelete = () => {
+		this.props.close();
+		// actually delete the lot from the db
+		expireLot(this.props.currentLot);
+		// Also, do we need to further update the state of MainScreen?
+		this.props.delete(); // Yes, this
 	}
 
 	render () {
@@ -58,15 +68,21 @@ export default class MatchBanner extends React.Component {
 						: <Text>No one has submitted a bid yet, but be patient</Text>
 						}
 
-						<View>
+						<View> {/** Can we style this view, so that these buttons are in a row */}
 							<Button rounded info onPress={() => this.props.close()}>
 								<Text>Close</Text>
 							</Button>
+							{this.state.lotData.driverId
+							?	null
+							:	<Button rounded info onPress={this.handleDelete}>
+									<Text>Delte this Ride</Text>
+								</Button>
+							}
 						</View>
 
 						<TimerCountdown
 							initialSecondsRemaining={pickupTime - now}
-							onTimeElapsed={this.handleFinish}
+							onTimeElapsed={() => {}}
 							allowFontScaling={true}
 						/>
 					</View>

@@ -12,11 +12,15 @@ import TripReceipt from './TripReceipt';
 
 export default class MainScreen extends Component {
 
+	/**
+	 * NOTE: We do want to keep the alerts! Nice!
+	 */
+
 	state = {
 		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
-		showBid: false, // We need this if and only if we want to keep the alerts see the note in the render method
-		offer: '', // We need this if and only if we want the alerts
-		driverId: '', // Same as above.. Also, it should be driver's name, not id, which is an email
+		showBid: false,
+		offer: '',
+		driverId: '', // This should be driver's name, not id, which is an email
 		matchBanner: false, // This is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
 		currentLot: '', // This is the id of the lot that passenger has open
 		showReceipt: false, // this determines whether or not to display the receipt of the passenger's most recent trip (remember, this should only happen the first time).
@@ -161,7 +165,7 @@ export default class MainScreen extends Component {
 						</Button>
 					</View> }
 
-				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({ matchBanner: false })}  /> : null}
+				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({ matchBanner: false })} delete={() => this.setState({ currentLot: '' })}  /> : null}
 				{this.state.showReceipt ? <TripReceipt close={this.handleCloseReceipt}  /> : null}
 			</View>
 		);

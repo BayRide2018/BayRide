@@ -28,6 +28,7 @@ export default class LotSubmissionForm extends Component {
 		borderWidth: 0
 	}
 
+
 	handleSubmit = async (carType) => {
 		let lotId = await createLot(this.state.screenshot,
 			this.state.pickupTime,
@@ -47,7 +48,9 @@ export default class LotSubmissionForm extends Component {
 		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,
 		// but, lots need to be submitted with consistently formatted pickupLocations.
 		// this.setState({ pickupLocation: this.state.marker });
-		this.props.navigation.navigate('DropPin');
+		this.props.navigation.navigate('DropPin', {
+			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation }); }
+		});
 	}
 
 	handleUseCurrentLocation = async () => {
@@ -82,8 +85,8 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-						<AwesomeButton raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.borderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
-						<AwesomeButton onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+
+						<AwesomeButton width={150} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
 
 					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation })} } style={{marginBottom: 90}} />
@@ -101,7 +104,7 @@ export default class LotSubmissionForm extends Component {
 								itemSpace={30} // this only support in android
 							/>
 						:	<Button
-								info
+								success
 								style={{marginRight: 25}}
 								onPress={() => this.setState({ showPricePicker: true })}
 							><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
@@ -118,7 +121,7 @@ export default class LotSubmissionForm extends Component {
 							/>
 						:
 							<Button
-								info
+								success
 								style={{marginLeft: 25}}
 								onPress={() => this.setState({ showMinutePicker: true })}
 							><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
@@ -126,9 +129,9 @@ export default class LotSubmissionForm extends Component {
 					</View>
 
 					<View style={style.buttonRows} >
-						<Button rounded info onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
-						<Button rounded info onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
-						<Button rounded info onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
+						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
 					</View>
 				</View>
 			</KeyboardAwareScrollView>

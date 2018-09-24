@@ -94,11 +94,11 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-					<AwesomeButton width={150} raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
-						<AwesomeButton width={150} raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+					<AwesomeButton width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<AwesomeButton width={150} borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
 
-					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
+					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation, dropBorderWidth: 0, pickBorderWidth: 0 });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
 					<FormLabel>Drop off Location</FormLabel>
 					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation });} } />
 

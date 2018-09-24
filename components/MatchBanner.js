@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
-import { store } from '../fire';
+import { store, auth } from '../fire';
 import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';
 import call from 'react-native-phone-call';
@@ -29,10 +29,11 @@ export default class MatchBanner extends React.Component {
 		}
 	}
 
-	handleDelete = () => {
+	handleDelete = async () => {
 		this.props.close();
 		// actually delete the lot from the db
 		expireLot(this.props.currentLot);
+		store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' });
 		// Also, do we need to further update the state of MainScreen?
 		this.props.delete(); // Yes, this
 	}
@@ -72,6 +73,7 @@ export default class MatchBanner extends React.Component {
 							<Button rounded info onPress={() => this.props.close()}>
 								<Text>Close</Text>
 							</Button>
+							<Text>  </Text>
 							{this.state.lotData.driverId
 							?	null
 							:	<Button rounded info onPress={this.handleDelete}>

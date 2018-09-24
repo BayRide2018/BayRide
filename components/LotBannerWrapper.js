@@ -18,6 +18,13 @@ export default class LotBannerWrapper extends Component {
 		this.setState({ showThisBanner: false });
 		this.props.navigation.navigate('Winner');
 
+		/**
+		 * Please note: It is very important the order in which we do this.. This query must happen before we expire the lot (Also, the below is not actually fixed...)
+		 */
+		let myCurrentLot;
+		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			myCurrentLot = user.data().currentLot;
+		});
 
 		/** 
 		 * In reality, basically nothing below this should be here, because the only thing that we want to happen for every user who is viewing the app is for the lot to disappear when time's up..
@@ -38,12 +45,6 @@ export default class LotBannerWrapper extends Component {
 		// This should be the case where no one was the  no one was the driver
 		if (!newLotId) { return "The lot was already taken care of"; }
 		// ^^ So do we even need this? I don't think so...
-
-		// Not this..
-		let myCurrentLot;
-		store.collection("users").doc(auth.currentUser.email).get().then(user => {
-			myCurrentLot = user.data().currentLot;
-		});
 
 		if (myCurrentLot === expiringLotId) {
 			store.collection("users").doc(auth.currentUser.email).update({ currentLot: newLotId }); // I don't think that this is right... Won't this mean that anyone on DriverHome will have their currentLot set to the new Lot id?

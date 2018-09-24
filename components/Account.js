@@ -92,7 +92,7 @@ export default class Account extends Component {
 						<Text>Sign up to drive and start earning!!</Text>
 						<Text>BayRide puts the control back in the hands of the drivers.</Text><Button rounded info onPress={() => {
 							// Please note: we can assume that the user, right here, is a Passenger, and not a driver, because canDrive is false
-							if (this.state.user.currentLot) { // the user has a lot currently open
+							if (this.state.user.currentLot.lotId) { // the user has a lot currently open
 								this.setState({ showAlert: true })
 							} else { // The user does not have a lot currently open
 								this.props.navigation.navigate('DriverRegistration')

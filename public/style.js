@@ -99,13 +99,6 @@ module.exports = StyleSheet.create({
 		width: React.Dimensions.get('window').width * .9,
 		margin: 30,
 	},
-	buttonRows: {
-		flexDirection: 'row',
-		flexWrap: 'nowrap',
-		justifyContent: 'space-between',
-		// marginBottom: 100,
-		// bottom: -100,
-	},
 
 	/**
 	 * Style for Matchbanner
@@ -202,23 +195,6 @@ module.exports = StyleSheet.create({
 		backgroundColor: BROFFWHITE,
 		height: React.Dimensions.get('window').height,
 	},
-	horizontalRule: {
-		marginLeft: 15,
-		marginRight: 15,
-		borderBottomColor: 'black',
-		borderBottomWidth: 1,
-		margin: 3,
-	},
-	center: {
-		alignSelf: 'center',
-		alignItems: 'center',
-	},
-	webView: {
-		marginTop: 20,
-	},
-	webOuterView: {
-		flex: 1
-	},
 	button: {
 		backgroundColor: BRBLUE,
 		width: React.Dimensions.get('window').width * .9,
@@ -226,8 +202,30 @@ module.exports = StyleSheet.create({
 		justifyContent: 'center',
 		alignSelf: 'center'
 	},
+	buttonRows: {
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-between',
+	},
 	buttonText: {
 		color: BROFFWHITE,
+	},
+	center: {
+		alignSelf: 'center',
+		alignItems: 'center',
+	},
+	horizontalRule: {
+		marginLeft: 15,
+		marginRight: 15,
+		borderBottomColor: 'black',
+		borderBottomWidth: 1,
+		margin: 3,
+	},
+	webView: {
+		marginTop: 20,
+	},
+	webOuterView: {
+		flex: 1
 	},
 	backButton: {
 		marginLeft: 10,

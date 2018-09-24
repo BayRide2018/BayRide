@@ -26,16 +26,30 @@ export default class DriverHome extends Component {
 			});
 		});
 
-    let myCurrentLot;
+    let myCurrentLotId;
     store.collection("users").doc(auth.currentUser.email).get().then(user => {
-      myCurrentLot = user.data().currentLot;
-    });
 
+      myCurrentLotId = user.data().currentLot.lotId;
+    })
+    /**
+     * So what this means is that Winning can only happen if the component mounts
+     */
+		// Also, we can make do this better by simply checking if `myCurrentlotId` exists in lot_history.. If it does, then winner
+		// OR REALLY, can't we just navigate there when a lot expires...
 		/**
 		 * Actually, we should do both.. 
 		 * (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js (This happens below)
 		 * (2) While DriverHome is open, if the winning Lot expires, it takes us to Winner.js (This happens in LotBannerWrapper)
 		 */
+
+    await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
+      lots.forEach(lot => { // Please note: linear queries, such as this one, are bad
+        if (lot.id === myCurrentLotId) {
+          this.setState({ winningId: lot.id });
+        }
+      });
+    });
+
 		// (1)
 		// It seems that we need to check if the current user's currentLot is in lot_history (in which case they are a winner) or just in lots (in which case they are not)
 		if (myCurrentLot) {
@@ -52,6 +66,7 @@ export default class DriverHome extends Component {
     //     }
     //   });
     // });
+
   }
 
 	/**

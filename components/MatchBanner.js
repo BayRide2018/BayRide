@@ -19,12 +19,12 @@ export default class MatchBanner extends React.Component {
 	}
 
 	async componentDidMount () {
-		await store.collection("lots").doc(this.props.currentLot).get().then(lot => {
+		await store.collection("lots").doc(this.props.currentLotId).get().then(lot => {
 			this.setState({ lotData: lot.data() });
 		});
 		if (this.state.lotData.driverId) {
 			store.collection("users").doc(this.state.lotData.driverId).get().then(driver => {
-				this.setState({ driverInfo: driver.data()});
+				this.setState({ driverInfo: driver.data() });
 			});
 		}
 	}
@@ -32,8 +32,8 @@ export default class MatchBanner extends React.Component {
 	handleDelete = async () => {
 		this.props.close();
 		// actually delete the lot from the db
-		expireLot(this.props.currentLot);
-		store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' });
+		expireLot(this.props.currentLotId);
+		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : '' });
 		// Also, do we need to further update the state of MainScreen?
 		this.props.delete(); // Yes, this
 	}

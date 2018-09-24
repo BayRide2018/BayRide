@@ -26,14 +26,14 @@ export default class DriverHome extends Component {
 			});
 		});
 
-    let myCurrentLot;
+    let myCurrentLotId;
     store.collection("users").doc(auth.currentUser.email).get().then(user => {
-      myCurrentLot = user.data().currentLot;
+      myCurrentLotId = user.data().currentLot.lotId;
     })
     /**
      * So what this means is that Winning can only happen if the component mounts
      */
-		// Also, we can make do this better by simply checking if `myCurrentlot` exists in lot_history.. If it does, then winner
+		// Also, we can make do this better by simply checking if `myCurrentlotId` exists in lot_history.. If it does, then winner
 		// OR REALLY, can't we just navigate there when a lot expires...
 		/**
 		 * Actually, we should do both.. 
@@ -42,7 +42,7 @@ export default class DriverHome extends Component {
 		 */
     await store.collection('lot_history').where('driverId', '==', auth.currentUser.email).get().then(lots => {
       lots.forEach(lot => { // Please note: linear queries, such as this one, are bad
-        if (lot.id === myCurrentLot) {
+        if (lot.id === myCurrentLotId) {
           this.setState({ winningId: lot.id });
         }
       });

@@ -33,7 +33,7 @@ export default class Winner extends React.Component {
 		let lotId;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			// Since the ride is not complete, then we can find the lotId (which links to a lot_history doc), as currentLot on the user
-			lotid = user.data().currentLot;
+			lotid = user.data().currentLot.lotId;
 		});
 		await store.collection("lot_history").doc(lotId).get().then(lot => {
 			this.setState({ lot: lot.data() });
@@ -94,8 +94,8 @@ export default class Winner extends React.Component {
 	}
 
 	handleFinishTrip () {
-		store.collection("users").doc(auth.currentUser.email).update({ currentLot: '' });
-		store.collection("users").doc(this.state.lot.passengerId).update({ currentLot: '' });
+		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : '' });
+		store.collection("users").doc(this.state.lot.passengerId).update({ "currentLot.lotId" : '' });
 		// Update the lot_history, so that showReceipt is true
 		store.collection("lot_history").doc(this.state.lot.lotId).update({ showReceipt: true })
 		this.props.navigation.navigate('DriverHome');

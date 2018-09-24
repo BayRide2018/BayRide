@@ -41,7 +41,7 @@ export default class LotBanner extends React.Component {
 
 	handlePress = async () => {
 		let driverExpoToken;
-		store.collection("users").doc(auth.currentUser.email).update({ currentLot: this.state.lotData.lotId });
+		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : this.state.lotData.lotId });
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			driverExpoToken = user.data().expoToken;
 		})

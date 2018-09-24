@@ -22,7 +22,7 @@ export default class MainScreen extends Component {
 		offer: '',
 		driverId: '', // This should be driver's name, not id, which is an email
 		matchBanner: false, // This is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
-		currentLot: '', // This is the id of the lot that passenger has open
+		currentLotId: '', // This is the id of the lot that passenger has open
 		showReceipt: false, // this determines whether or not to display the receipt of the passenger's most recent trip (remember, this should only happen the first time).
 
 	}
@@ -51,7 +51,7 @@ export default class MainScreen extends Component {
 		// Now it also makes sure that the receipt displays properly
 		let myPassengerLotHistory, mostRecentLotId;
         await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-			this.setState({ currentLot: user.data().currentLot })
+			this.setState({ currentLotId: user.data().currentLot.lotId })
             myPassengerLotHistory = user.data().myPassengerLotHistory
         });
         await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
@@ -153,7 +153,7 @@ export default class MainScreen extends Component {
 				) : null}
 
 
-				{!!this.state.currentLot
+				{!!this.state.currentLotId
 				? 	<View style={style.matchMain}>
 						<Button rounded info onPress={() => this.setState({matchBanner: true})}>
 							<Text style={style.buttonText} >View your current trip</Text>
@@ -165,7 +165,7 @@ export default class MainScreen extends Component {
 						</Button>
 					</View> }
 
-				{this.state.matchBanner ? <MatchBanner currentLot={this.state.currentLot} close={() => this.setState({ matchBanner: false })} delete={() => this.setState({ currentLot: '' })}  /> : null}
+				{this.state.matchBanner ? <MatchBanner currentLotId={this.state.currentLotId} close={() => this.setState({ matchBanner: false })} delete={() => this.setState({ currentLotId: '' })}  /> : null}
 				{this.state.showReceipt ? <TripReceipt close={this.handleCloseReceipt}  /> : null}
 			</View>
 		);

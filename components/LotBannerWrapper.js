@@ -21,9 +21,9 @@ export default class LotBannerWrapper extends Component {
 		/**
 		 * Please note: It is very important the order in which we do this.. This query must happen before we expire the lot (Also, the below is not actually fixed...)
 		 */
-		let myCurrentLot;
+		let myCurrentLotId;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-			myCurrentLot = user.data().currentLot;
+			myCurrentLotId = user.data().currentLot.lotId;
 		});
 
 		/** 
@@ -46,8 +46,8 @@ export default class LotBannerWrapper extends Component {
 		if (!newLotId) { return "The lot was already taken care of"; }
 		// ^^ So do we even need this? I don't think so...
 
-		if (myCurrentLot === expiringLotId) {
-			store.collection("users").doc(auth.currentUser.email).update({ currentLot: newLotId }); // I don't think that this is right... Won't this mean that anyone on DriverHome will have their currentLot set to the new Lot id?
+		if (myCurrentLotId === expiringLotId) {
+			store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : newLotId }); // I don't think that this is right... Won't this mean that anyone on DriverHome will have their currentLot set to the new Lot id?
 			// Here's where, if you're the winner, we navigate you to Winner.js
 			this.props.navigation.navigate('Winner');
 			// How do we do that? Does this.props.navigation.navigate('Winner') work? Even though LBW isn't in DrawerNavigator?

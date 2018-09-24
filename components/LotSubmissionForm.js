@@ -35,7 +35,7 @@ export default class LotSubmissionForm extends Component {
 			this.state.offer,
 			carType);
 		// The below line updates the user and then this update can be read from the componentDidMount in MainScreen
-		store.collection("users").doc(auth.currentUser.email).update({ currentLot: lotId });
+		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : lotId });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
 

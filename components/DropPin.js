@@ -13,17 +13,24 @@ export default class DropPin extends Component {
         fullAddress: '',
     }
 
-
-    handleSubmit = () => {
+    handleChange = (lat, lng) => {
         Geocoder.init('AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0');
         // here we just need to return this.state.region to LotSubmissionForm..
         // I'm not really sure how I want that to happen.. If it should just be something that pops up and then closes, or if we navigate there and then navigate back (and use that thing where we pass props on a navigation)
         // I think it'd look cooler if it could like slide up on opening, and then down when it closes, but I don't know how that happens
-        Geocoder.from(this.state.region).then(json => {
+        let region = { lat: lat, lng: lng };
+        this.setState({ region });
+        Geocoder.from(lat, lng).then(json => {
             var fullAddress = json.results[0].formatted_address;
             this.setState({fullAddress});
         });
+    }
 
+    handleSubmit = () => {
+        const { navigation } = this.props;
+		const handleDropPin = navigation.getParam('handleDropPin');
+        handleDropPin(this.state);
+        this.props.navigation.navigate('LotSubmissionForm');
     }
 
     render () {
@@ -31,7 +38,7 @@ export default class DropPin extends Component {
 			<View style={[style.containerMain, {justifyContent: 'center', alignItems: 'center'}]}>
                 <MapView
                     style={style.mapMain}
-                    onRegionChangeComplete={(region) => { this.setState({ region: {lat: region.latitude, lng: region.longitude }}); }}
+                    onRegionChangeComplete={(region) => this.handleChange(region.latitude, region.longitude)}
                     showsUserLocation={true}
                     followsUserLocation={true} />
 

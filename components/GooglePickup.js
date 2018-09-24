@@ -9,7 +9,7 @@ export default class GooglePickup extends Component {
 	render () {
 		return(
 			<GooglePlacesAutocomplete
-				placeholder='Search'
+				placeholder={this.props.myPlaceHolder}
 				minLength={2} // minimum length of text to search
 				autoFocus={false}
 				returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
@@ -17,7 +17,7 @@ export default class GooglePickup extends Component {
 				fetchDetails={true}
 				renderDescription={row => row.description} // custom description render
 				onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        			let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
+							let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
 					this.props.pickUp(pickUp);
 				}}
 
@@ -39,12 +39,18 @@ export default class GooglePickup extends Component {
 						fontWeight: 'bold',
 					},
 					predefinedPlacesDescription: {
-						color: '#1faadb'
+						color: '#1faadb',
 					},
+					listView: {
+						backgroundColor: 'lightgray'
+					},
+					separator: {
+						backgroundColor: 'black'
+					}
 				}}
 
 				currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
-				currentLocationLabel="Current location"
+				currentLocationLabel="Current Location"
 				nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
 				GoogleReverseGeocodingQuery={{
 					// available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro

@@ -39,6 +39,12 @@ export default class GoogleDropoff extends Component {
 					predefinedPlacesDescription: {
 						color: '#1faadb'
 					},
+					listView: {
+						backgroundColor: 'lightgray'
+					},
+					separator: {
+						backgroundColor: 'black'
+					}
 				}}
 
 				currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list

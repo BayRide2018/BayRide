@@ -18,14 +18,16 @@ export default class LotSubmissionForm extends Component {
 
 	state = {
 		screenshot: '',
-		pickupLocation: {},
+		pickupLocation: {
+			fullAddress: 'Search',
+		},
 		dropoffLocation: {},
 		offer: 0,
 		showMinutePicker: false,
 		showPricePicker: false,
 		pickupTime: 0,
-		raiseButton: 4,
-		borderWidth: 0
+		pickBorderWidth: 0,
+		dropBorderWidth: 0
 	}
 
 
@@ -49,7 +51,7 @@ export default class LotSubmissionForm extends Component {
 		// but, lots need to be submitted with consistently formatted pickupLocations.
 		// this.setState({ pickupLocation: this.state.marker });
 		this.props.navigation.navigate('DropPin', {
-			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation }); }
+			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 2, pickBorderWidth: 0}); }
 		});
 	}
 
@@ -70,7 +72,14 @@ export default class LotSubmissionForm extends Component {
 		 *		   },
 		 */
 		let location = await Location.getCurrentPositionAsync({});
-		this.setState({ pickupLocation: location, raiseButton: 0, borderWidth: 2 });
+		location = {
+			fullAddress: 'Current Location',
+			region: {
+				lat: location.coords.latitude,
+				lng: location.coords.longitude,
+			}
+		};
+		this.setState({ pickupLocation: location, pickBorderWidth: 2, dropBorderWidth: 0 });
 	}
 
 
@@ -85,13 +94,13 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-
-						<AwesomeButton width={150} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+					<AwesomeButton width={150} raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<AwesomeButton width={150} raiseLevel={this.state.raiseButton} borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
 
-					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation })} } style={{marginBottom: 90}} />
+					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
 					<FormLabel>Drop off Location</FormLabel>
-					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation })} } />
+					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation });} } />
 
 					<Text style={{flexDirection: 'row'}}>Your offer: {this.state.offer} $      Pickup Time: {`${this.state.pickupTime} minutes`}</Text>
 						<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>

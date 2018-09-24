@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button, Text } from 'native-base';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import getDirections from 'react-native-google-maps-directions';
@@ -42,12 +43,28 @@ export default class Winner extends React.Component {
 			this.setState({ passenger: passenger.data() })
 		})
 
-		// await store.collection("lots").doc(lotId).get().then(lot => {
-		// 	this.setState({ lot: { ...lot.data(), lotId } }); // Now the id of the lot is on state for easy access
-		// 	store.collection("users").doc(lot.data().passengerId).get().then(passenger => {
-		// 		this.setState({ passenger: passenger.data() })
-		// 	})
-		// })
+		this.handleTransmitLocation();
+	}
+
+	/**
+	 * I think that what we'll do is transmit their location every 5-10 seconds,
+	 * while this.state.showDirectionsForTrip is false
+	 * (once it's true, the driver is there, and the passenger doesn't need to see him on the map)
+	 */
+	handleTransmitLocation = async () => {
+		while (!this.state.showDirectionsForTrip) {
+			setTimeout(() => { // This setTimeout is very important, I think.. 
+				let location = await Location.getCurrentPositionAsync({});
+				let myLocation = {
+					coords: {
+						lat: location.coords.latitude,
+						lng: location.coords.longitude
+					},
+					fullAddress: 'N/A', // We don't really need this, but I tried to keep the same format as we used for other locations (ie, pickupLocation and dropoffLocation)
+				};
+				store.collection("users").doc(auth.currentUser.email).update({ location: myLocation });
+			}, 10000)
+		}
 	}
 		
 	// It seems like these functions could be written more concisely / better, but I don't think it's really a big deal, since it doesn't really affect proformance, and they're pretty readable
@@ -105,22 +122,35 @@ export default class Winner extends React.Component {
 	render () {
 		return (
 			<View style={style.background} >
-			<View style={{top: 50}} >
-				<Text> You are the Winner!</Text>
-				<Text>Passenger Name: {this.state.passenger.name}</Text>
-				<Button title={"" + this.state.passenger.phone} onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} />
-				<Text>Passenger location</Text>
-				{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
-				<Button title="Drive to Passenger!" onPress={this.handleDirectionsToStart} />
+				<View style={{top: 50}} >
+					<Text> You are the Winner!</Text>
+					<Text>Passenger Name: {this.state.passenger.name}</Text>
+					<Button
+						onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} >
+						<Text>{"" + this.state.passenger.phone}</Text>
+					</Button>
+					<Text>Passenger location</Text>
+					{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 
-				{this.state.showDirectionsForTrip
-				?	<Button title="Drive to Passenger's destination!" onPress={this.handleDirectionsForTrip} />
-				:	null}
+					<Button
+						onPress={this.handleDirectionsToStart} >
+						<Text>Get Directions to {this.state.lot.pickupLocation.fullAddress}!</Text>
+					</Button>
 
-				{this.state.showFinishTrip
-				?	<Button title="Finish trip" onPress={this.handleFinishTrip} />
-				:	null}
-			</View>
+					{this.state.showDirectionsForTrip
+					?	<Button
+							onPress={this.handleDirectionsForTrip} >
+							<Text>Get Directions to {this.state.lot.dropoffLocation.fullAddress}!</Text>
+						</Button>
+					:	null}
+
+					{this.state.showFinishTrip
+					?	<Button
+							onPress={this.handleFinishTrip} >
+							<Text>Trip is Finished</Text>
+						</Button>
+					:	null}
+				</View>
 			</View>
 		);
 	}

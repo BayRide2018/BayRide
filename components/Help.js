@@ -2,11 +2,22 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
+import { WebBrowser } from 'expo';
+
 
 
 export default class Help extends Component {
 
-	state = {}
+  state = {}
+
+  /**
+   * This was taken from Expo docs: https://docs.expo.io/versions/latest/workflow/linking
+   * This is so that you know how we want to be pulling our website from the App
+   */
+  
+  _handleOpenWithWebBrowser = () => {
+    WebBrowser.openBrowserAsync('https://expo.io');
+  }
 
 	render () {
 		return(
@@ -18,9 +29,15 @@ export default class Help extends Component {
           color='#000' 
           onPress={() => this.props.navigation.toggleDrawer()}
         />
-
+        
         <Text> Having trouble with your rides? </Text>
-        <Text onPress={() => this.props.navigation.navigate('Web')}> Visit us here for help </Text>
+        <Text onPress={() => this.props.navigation.navigate('Web')}> Visit us here for help... This is using WebView from React Native</Text>
+        
+        <Button
+          title="Open URL with Expo.WebBrowser"
+          onPress={this._handleOpenWithWebBrowser}
+          style={styles.button}
+        />
 			</View>
 		);
 	}

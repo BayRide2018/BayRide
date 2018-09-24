@@ -12,7 +12,6 @@ import Help from './components/Help';
 import Web from './components/Web';
 import DropPin from './components/DropPin';
 
-
 export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
@@ -25,7 +24,7 @@ export default createStackNavigator({
 	Payment: { screen: Payment },
 	Help: { screen: Help },
 	Web: { screen: Web },
-	DropPin: { screen: DropPin }
+	DropPin: { screen: DropPin },
 
 }, {
 	initialRouteName: 'Welcome',

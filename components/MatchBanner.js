@@ -19,6 +19,14 @@ export default class MatchBanner extends React.Component {
 		tripinProgress: false,
 	}
 
+	/**
+	 * Somewhere, we want to set up a listener for changes to the driver
+	 * When it's location changes, calculate the time til he gets here,
+	 * then round it to the nearest minute. When it gets below 2 minutes,
+	 * (or maybe 1:30) then say "Your driver is arriving, please proceed
+	 * to the pickup location."
+	 */
+
 	async componentDidMount () {
 		// check currentLot.inProgress
 		let currentLot;

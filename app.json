@@ -1,7 +1,15 @@
 {
   "expo": {
+    "name": "BayRide",
     "sdkVersion": "27.0.0",
-      "splash": {
+    "icon": "./public/images/icon.png",
+    "description": "Cheapest ride-sharing app, guaranteed",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "ios": {
+      "bundleIdentifier": "com.BayRide.BayRide"
+    },
+        "splash": {
         "image": "./public/images/logo1.png",
         "resizeMode": "cover"
     }

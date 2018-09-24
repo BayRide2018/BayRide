@@ -11,6 +11,7 @@ import GoogleDropoff from './GoogleDropoff';
 import { createLot } from '../fireMethods';
 import GooglePickup from './GooglePickup';
 import AwesomeButton from 'react-native-really-awesome-button';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default class LotSubmissionForm extends Component {
@@ -72,7 +73,7 @@ export default class LotSubmissionForm extends Component {
 
 	render () {
 		return (
-			<ScrollView contentContainerStyle={style.background} >
+			<KeyboardAwareScrollView contentContainerStyle={style.background} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={false} >
 				<View style={style.submissionForm}>
 					<Button warning small onPress={() => {this.props.navigation.navigate('MainScreen')} } style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
@@ -130,7 +131,7 @@ export default class LotSubmissionForm extends Component {
 						<Button rounded info onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
 					</View>
 				</View>
-			</ScrollView>
+			</KeyboardAwareScrollView>
 		);
 	}
 }

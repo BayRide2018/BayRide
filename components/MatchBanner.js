@@ -15,13 +15,25 @@ export default class MatchBanner extends React.Component {
 	state = {
 		lotData: {},
 		driverInfo: {},
-		isModalVisible: true
+		isModalVisible: true,
+		tripinProgress: false,
 	}
 
 	async componentDidMount () {
-		await store.collection("lots").doc(this.props.currentLotId).get().then(lot => {
-			this.setState({ lotData: lot.data() });
-		});
+		// check currentLot.inProgress
+		let currentLot;
+		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			currentLot = user.data().currentLot;
+		})
+		if (currentLot.inProgress) {
+			await store.collection("lot_history").doc(this.props.currentLotId).get().then(lot => {
+				this.setState({ lotData: lot.data(), tripinProgress: true });
+			});			
+		} else {
+			await store.collection("lots").doc(this.props.currentLotId).get().then(lot => {
+				this.setState({ lotData: lot.data() });
+			});
+		}
 		if (this.state.lotData.driverId) {
 			store.collection("users").doc(this.state.lotData.driverId).get().then(driver => {
 				this.setState({ driverInfo: driver.data() });
@@ -56,9 +68,16 @@ export default class MatchBanner extends React.Component {
 			<View>
 		        <Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
-						{/* <Text>Your Trip to {this.state.lotData.dropoffLocation}</Text> */}
-						{/* This line was breaking it, because for the lot, dropOffLocation was an empty object.. I think it might have something to do with the Google API search bar */}
-						<Text>{carType}</Text>
+
+						{this.state.tripinProgress
+						?	<Text>{this.state.driverInfo.name} is on the way to {this.state.lotData.pickupLocation && this.this.state.lotData.pickupLocation.fullAddress}!!</Text>
+						:	<TimerCountdown
+								initialSecondsRemaining={pickupTime - now}
+								onTimeElapsed={() => { this.setState({ tripinProgress: true }) }}
+								allowFontScaling={true}
+							/>
+						}
+						<Text>Your {carType} to {this.state.lotData.dropoffLocation && this.this.state.lotData.dropoffLocation.fullAddress}</Text>
 						<Text>Current Price: $ {this.state.lotData.offer}</Text>
 						{this.state.lotData.driverId
 						?	<View>
@@ -66,7 +85,7 @@ export default class MatchBanner extends React.Component {
 								<Button title={"" + this.state.driverInfo.phone} onPress={() => { call({ number: this.state.driverInfo.phone, prompt: true }).catch(console.error) }} />
 								<Text>{this.state.driverInfo.drivingInformation && this.state.driverInfo.drivingInformation.info}</Text>
 							</View>
-						: <Text>No one has submitted a bid yet, but be patient</Text>
+						:	<Text>No one has submitted a bid yet, but be patient</Text>
 						}
 
 						<View style={style.buttonRows} > {/** Can we style this view, so that these buttons are in a row */}
@@ -82,11 +101,6 @@ export default class MatchBanner extends React.Component {
 							}
 						</View>
 
-						<TimerCountdown
-							initialSecondsRemaining={pickupTime - now}
-							onTimeElapsed={() => {}}
-							allowFontScaling={true}
-						/>
 					</View>
 				</Modal>
 			</View>

@@ -51,10 +51,10 @@ export default class Winner extends React.Component {
 	 * while this.state.showDirectionsForTrip is false
 	 * (once it's true, the driver is there, and the passenger doesn't need to see him on the map)
 	 */
-	handleTransmitLocation = async () => {
+	handleTransmitLocation = () => {
 		while (!this.state.showDirectionsForTrip) {
-			setTimeout(() => { // This setTimeout is very important, I think..
-				let location = Location.getCurrentPositionAsync({});
+			setTimeout(async () => { // This setTimeout is very important, I think..
+				let location = await Location.getCurrentPositionAsync({});
 				let myLocation = {
 					coords: {
 						lat: location.coords.latitude,

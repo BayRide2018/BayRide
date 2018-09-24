@@ -74,7 +74,7 @@ export default class MatchBanner extends React.Component {
 
 		return (
 			<View>
-		        <Modal isVisible={this.state.isModalVisible}>
+						<Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
 
 						{this.state.tripinProgress

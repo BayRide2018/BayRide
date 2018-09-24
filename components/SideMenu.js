@@ -13,7 +13,7 @@ import style from '../public/style';
 export default class SideMenu extends Component {
 
 	state = {};
-	
+
 	componentDidMount =  async () => {
 		var unsubscribe =	await store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
 			this.setState({ ...user.data() });
@@ -79,7 +79,7 @@ export default class SideMenu extends Component {
 				<View>
 					<Button full info style={style.navItemStyleSM} onPress={this.handleHome}><Text style={style.navItemTextSM} >HOME</Text></Button>
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')}><Text style={style.navItemTextSM} >MY ACCOUNT</Text></Button>
-					{this.state.currentLot.lotId ? null : switchButton }
+					{this.state.currentLot && this.state.currentLot.lotId ? null : switchButton }
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button>
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text style={style.navItemTextSM} >HISTORY</Text></Button>
@@ -88,7 +88,7 @@ export default class SideMenu extends Component {
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text style={style.navItemTextSM} >HELP</Text></Button>
 
-					{this.state.currentLot.lotId ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text style={style.navItemTextSM} >LOG OUT</Text></Button> }
+					{this.state.currentLot  && this.state.currentLot.lotId ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text style={style.navItemTextSM} >LOG OUT</Text></Button> }
 
 				</View>
 				<View style={style.footerContainerSM}>

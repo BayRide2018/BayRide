@@ -36,7 +36,7 @@ export default class MatchBanner extends React.Component {
 		if (currentLot.inProgress) {
 			await store.collection("lot_history").doc(this.props.currentLotId).get().then(lot => {
 				this.setState({ lotData: lot.data(), tripinProgress: true });
-			});			
+			});
 		} else {
 			await store.collection("lots").doc(this.props.currentLotId).get().then(lot => {
 				this.setState({ lotData: lot.data() });
@@ -74,7 +74,7 @@ export default class MatchBanner extends React.Component {
 
 		return (
 			<View>
-		        <Modal isVisible={this.state.isModalVisible}>
+						<Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
 
 						{this.state.tripinProgress
@@ -85,7 +85,7 @@ export default class MatchBanner extends React.Component {
 								allowFontScaling={true}
 							/>
 						}
-						<Text>Your {carType} to {this.state.lotData.dropoffLocation && this.this.state.lotData.dropoffLocation.fullAddress}</Text>
+						<Text>Your {carType} to {this.state.lotData.dropoffLocation && this.state.lotData.dropoffLocation.fullAddress}</Text>
 						<Text>Current Price: $ {this.state.lotData.offer}</Text>
 						{this.state.lotData.driverId
 						?	<View>

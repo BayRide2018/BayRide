@@ -37,7 +37,7 @@ export default class DriverHome extends Component {
 		// Also, we can make do this better by simply checking if `myCurrentlotId` exists in lot_history.. If it does, then winner
 		// OR REALLY, can't we just navigate there when a lot expires...
 		/**
-		 * Actually, we should do both.. 
+		 * Actually, we should do both..
 		 * (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js (This happens below)
 		 * (2) While DriverHome is open, if the winning Lot expires, it takes us to Winner.js (This happens in LotBannerWrapper)
 		 */
@@ -52,8 +52,8 @@ export default class DriverHome extends Component {
 
 		// (1)
 		// It seems that we need to check if the current user's currentLot is in lot_history (in which case they are a winner) or just in lots (in which case they are not)
-		if (myCurrentLot) {
-			store.collection("lot_history").doc(myCurrentLot).get().then(lot => {
+		if (myCurrentLotId) {
+			store.collection("lot_history").doc(myCurrentLotId).get().then(lot => {
 				if (lot.exists) {
 					this.setState({ showWinnerAlert: true });
 				}

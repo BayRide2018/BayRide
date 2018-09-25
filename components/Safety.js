@@ -33,7 +33,7 @@ export default class History extends Component {
 
                 <Text>Call Emergency Services:</Text>
                 <Button
-                    onPress={() => { call({ number: '3146469112', prompt: true }).catch(console.error) }}>
+                    onPress={() => { call({ number: '9174705378', prompt: true }).catch(console.error) }}>
                     <Text>911</Text>
                 </Button>
 
@@ -45,7 +45,7 @@ export default class History extends Component {
 
                 <Text>Contact Stealth Air Corp:</Text>
                 <Button
-                    onPress={() => {}}>
+                    onPress={() => { WebBrowser.openBrowserAsync('http://stealthaircorp.com/') }}>
                     <Text>Drones</Text>
                 </Button>
 

@@ -22,10 +22,10 @@ export default class LotSubmissionForm extends Component {
 			fullAddress: 'Search',
 		},
 		dropoffLocation: {},
-		offer: 0,
+		offer: 15,
 		showMinutePicker: false,
 		showPricePicker: false,
-		pickupTime: 0,
+		pickupTime: 20,
 		pickBorderWidth: 0,
 		dropBorderWidth: 0
 	}
@@ -51,7 +51,7 @@ export default class LotSubmissionForm extends Component {
 		// but, lots need to be submitted with consistently formatted pickupLocations.
 		// this.setState({ pickupLocation: this.state.marker });
 		this.props.navigation.navigate('DropPin', {
-			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 2, pickBorderWidth: 0}); }
+			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 3, pickBorderWidth: 0}); }
 		});
 	}
 
@@ -79,7 +79,7 @@ export default class LotSubmissionForm extends Component {
 				lng: location.coords.longitude,
 			}
 		};
-		this.setState({ pickupLocation: location, pickBorderWidth: 2, dropBorderWidth: 0 });
+		this.setState({ pickupLocation: location, pickBorderWidth: 3, dropBorderWidth: 0 });
 	}
 
 
@@ -91,51 +91,56 @@ export default class LotSubmissionForm extends Component {
 
 					<ViewPhotos setScreenshotId={ (photoID) => {this.setState({ screenshot: photoID })} } />
 
+
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-					<AwesomeButton width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
-						<AwesomeButton width={150} borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+						<AwesomeButton backgroundShadow='green' backgroundColor='#28c890' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<Text>  </Text>
+						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#28c890' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
-
 					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation, dropBorderWidth: 0, pickBorderWidth: 0 });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
+
+
 					<FormLabel>Drop off Location</FormLabel>
 					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation });} } />
 
+
 					<Text style={{flexDirection: 'row'}}>Your offer: {this.state.offer} $      Pickup Time: {`${this.state.pickupTime} minutes`}</Text>
-						<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>
-					{ this.state.showPricePicker
-						?	<Picker
-								style={style.picker}
-								selectedValue='4'
-								pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
-								onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
-								itemSpace={30} // this only support in android
-							/>
-						:	<Button
-								success
-								style={{marginRight: 25}}
-								onPress={() => this.setState({ showPricePicker: true })}
-							><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
-					}
+					<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>
+						{ this.state.showPricePicker
+							?	<Picker
+									style={style.picker}
+									selectedValue='4'
+									pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
+									onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
+									itemSpace={30} // this only support in android
+								/>
+							:	<Button
+									success
+									style={{marginRight: 25}}
+									onPress={() => this.setState({ showPricePicker: true })}
+								><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
+						}
 
 
-					{this.state.showMinutePicker
-						?	<Picker
-								style={style.picker}
-								selectedValue='4'
-								pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
-								onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
-								itemSpace={30} // this only support in android
-							/>
-						:
-							<Button
-								success
-								style={{marginLeft: 25}}
-								onPress={() => this.setState({ showMinutePicker: true })}
-							><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
-					}
+						{this.state.showMinutePicker
+							?	<Picker
+									style={style.picker}
+									selectedValue='4'
+									pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
+									onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
+									itemSpace={30} // this only support in android
+								/>
+							:
+								<Button
+									success
+									style={{marginLeft: 25}}
+									onPress={() => this.setState({ showMinutePicker: true })}
+								><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
+						}
 					</View>
+
 
 					<View style={style.buttonRows} >
 						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>

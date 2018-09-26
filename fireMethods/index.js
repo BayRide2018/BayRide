@@ -129,6 +129,11 @@ async function expireLot (lotId) {
 		}
 	});
 	if (lotObj) {
+
+		// First, set both Passenger and Driver's currentlot.inProgress to true; this can be done without await's, because it doesn't matter when it gets finished
+		store.collection("user").doc(lotObj.driverId).update({ "currentLot.inProgress": true });
+		store.collection("user").doc(lotObj.passengerId).update({ "currentLot.inProgress": true });
+
 		// Move lot to History
 		await store.collection("lot_history").add({ ...lotObj, showReceipt: false })
 		.then(newLot => {
@@ -144,6 +149,7 @@ async function expireLot (lotId) {
 		});
 		await store.collection("driver_lot_history").doc(dlh).update({
 			lots: firebase.firestore.FieldValue.arrayUnion(newLotId) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+
 		});
 		// PassengerHistory of Passenger
 		await store.collection("users").doc(lotObj.passengerId).get().then(passenger => {

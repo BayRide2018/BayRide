@@ -111,8 +111,8 @@ export default class Winner extends React.Component {
 	}
 
 	handleFinishTrip () {
-		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : '' });
-		store.collection("users").doc(this.state.lot.passengerId).update({ "currentLot.lotId" : '' });
+		store.collection("users").doc(auth.currentUser.email).update({ currentLot: { lotId: '', inProgress: false } });
+		store.collection("users").doc(this.state.lot.passengerId).update({ currentLot: { lotId: '', inProgress: false } });
 		// Update the lot_history, so that showReceipt is true
 		store.collection("lot_history").doc(this.state.lot.lotId).update({ showReceipt: true })
 		this.props.navigation.navigate('DriverHome');

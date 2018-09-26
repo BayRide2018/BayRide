@@ -16,7 +16,7 @@ export default class LotBannerWrapper extends Component {
 	// This needs to be fixed!!!!
 	handleFinish = async () => {
 		this.setState({ showThisBanner: false });
-		this.props.navigation.navigate('Winner');
+		// this.props.navigation.navigate('Winner');
 
 		/**
 		 * Please note: It is very important the order in which we do this.. This query must happen before we expire the lot (Also, the below is not actually fixed...)

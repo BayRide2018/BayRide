@@ -60,7 +60,7 @@ module.exports = StyleSheet.create({
 		width: React.Dimensions.get('window').width * .9,
 		alignItems: 'center',
 		justifyContent: 'center',
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 
 	/**
@@ -82,7 +82,7 @@ module.exports = StyleSheet.create({
 	matchMain: {
 		zIndex: 20,
 		top: 80,
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 
 	/**
@@ -91,7 +91,7 @@ module.exports = StyleSheet.create({
 	submissionForm: {
 		flex: 1,
 		margin: 15,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	viewPhoto: {
 		flex: 1,
@@ -147,14 +147,13 @@ module.exports = StyleSheet.create({
 	lotBanner: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	winningBanner: {
 		display: 'flex',
-		backgroundColor: '#aaffaa',
-		flex: 1,
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		backgroundColor: '#88ff88',
 	},
 	lotBannerButton: {
 		display: 'flex',
@@ -169,7 +168,7 @@ module.exports = StyleSheet.create({
 	 */
 	drawerIcon: {
 		marginTop: 24,
-		marginLeft: 18
+		marginLeft: 18,
 	},
 	/** The rest of these are for the sidemenu */
 	containerSM: {
@@ -192,7 +191,7 @@ module.exports = StyleSheet.create({
 		backgroundColor: BROFFWHITE,
 		justifyContent: 'flex-end',
 		bottom: 20,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 
 	/**
@@ -241,10 +240,10 @@ module.exports = StyleSheet.create({
 		marginTop: 20,
 	},
 	webOuterView: {
-		flex: 1
+		flex: 1,
 	},
 	backButton: {
 		marginLeft: 10,
-		marginTop: 35
+		marginTop: 35,
 	},
 });

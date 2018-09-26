@@ -41,7 +41,7 @@ export default class DropPin extends Component {
                     style={style.mapMain}
                     onRegionChangeComplete={(region) => this.handleChange(region.latitude, region.longitude)}
                     showsUserLocation={true}
-                    followsUserLocation={this.state.followsUserLoc} />
+                    followsUserLocation={this.state.followsUserLoc} /> {/** The point is that hopefully this makes the map zoom in (I think that sometimes it does need to do this, and somethimes it doesn't), but it doesn't move around when you're trying to drop the pin */}
 
                 <Button warning small onPress={() => {this.props.navigation.navigate('LotSubmissionForm')} } style={{ marginBottom: 25 }}><Text style={{fontSize: 15}}>Go Back</Text></Button>
                                     

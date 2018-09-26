@@ -55,6 +55,13 @@ module.exports = StyleSheet.create({
 		marginRight: 15,
 		height: React.Dimensions.get('window').height,
 	},
+	signInButton: {
+		backgroundColor: BRBLUE,
+		width: React.Dimensions.get('window').width * .9,
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center'
+	},
 
 	/**
 	 * Styling for PassengerHome / MainScreen
@@ -81,11 +88,6 @@ module.exports = StyleSheet.create({
 	/**
 	 * Styling for LotSubmissionForm
 	 */
-	picker: {
-		backgroundColor: 'white',
-		width: 300,
-		height: 215,
-	},
 	submissionForm: {
 		flex: 1,
 		margin: 15,
@@ -98,6 +100,14 @@ module.exports = StyleSheet.create({
 		flexDirection: 'row',
 		width: React.Dimensions.get('window').width * .9,
 		margin: 30,
+	},
+	buttonForPicker: {
+		color: '#2bb88a',
+	},
+	picker: {
+		backgroundColor: 'white',
+		width: 300,
+		height: 215,
 	},
 
 	/**
@@ -197,7 +207,6 @@ module.exports = StyleSheet.create({
 	},
 	button: {
 		backgroundColor: BRBLUE,
-		width: React.Dimensions.get('window').width * .9,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center'

@@ -95,9 +95,9 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-						<AwesomeButton backgroundShadow='green' backgroundColor='#28c890' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<AwesomeButton backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
 						<Text>  </Text>
-						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#28c890' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
 					</View>
 					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation, dropBorderWidth: 0, pickBorderWidth: 0 });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
 
@@ -117,8 +117,7 @@ export default class LotSubmissionForm extends Component {
 									itemSpace={30} // this only support in android
 								/>
 							:	<Button
-									success
-									style={{marginRight: 25}}
+									style={{ marginRight: 25, backgroundColor: '#36c6ac' }}
 									onPress={() => this.setState({ showPricePicker: true })}
 								><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
 						}
@@ -134,8 +133,7 @@ export default class LotSubmissionForm extends Component {
 								/>
 							:
 								<Button
-									success
-									style={{marginLeft: 25}}
+									style={{ marginLeft: 25, backgroundColor: '#36c6ac' }}
 									onPress={() => this.setState({ showMinutePicker: true })}
 								><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
 						}
@@ -143,9 +141,9 @@ export default class LotSubmissionForm extends Component {
 
 
 					<View style={style.buttonRows} >
-						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
 					</View>
 				</View>
 			</KeyboardAwareScrollView>

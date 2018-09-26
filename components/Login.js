@@ -45,7 +45,7 @@ export default class Login extends Component {
 					<View>
 						<Text>{this.state.response}</Text>
 						<Button
-							style={style.button}
+							style={style.signInButton}
 							onPress={this.handleSubmit}><Text style={style.buttonText} >Login</Text></Button>
 					</View>
 				</View>

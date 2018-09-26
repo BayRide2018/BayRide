@@ -13,23 +13,19 @@ export default class LotBannerWrapper extends Component {
 		showThisBanner: true
 	}
 
-	// This needs to be fixed!!!!
+	// I think that this is it...
 	handleFinish = async () => {
 		this.setState({ showThisBanner: false });
-		// this.props.navigation.navigate('Winner');
 
-		/**
-		 * Please note: It is very important the order in which we do this.. This query must happen before we expire the lot (Also, the below is not actually fixed...)
-		 */
-		let myCurrentLotId;
-		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-			myCurrentLotId = user.data().currentLot.lotId;
+		await expireLot(this.props.lotData.lotId);
+		store.collection("users").doc(auth.currentUser.email).get().then(user => {
+			if (user.data().currentLot.inProgress) {
+				this.props.showWin();
+			}
 		});
 
+		// I don't think we need to worry about this too much anymore...
 		/** 
-		 * In reality, basically nothing below this should be here, because the only thing that we want to happen for every user who is viewing the app is for the lot to disappear when time's up..
-		 * ^Except that it should navigate the correct person to Winner.js, right?? Or is there a way to make that easier? Like having that on driverHome
-		 * 
 		 * The code that updates the database should only run once (duh), meaning that it 'should' be (B) backend code or (A) code that only runs on one user's device. This means either
 		 * (A) The code either runs on the device of the passenger or the driver. We can immediately dismiss the possiblity of the passenger, as it needs to be okay for the passenger to close their phone.
 		 * 		The question is then, is it okay to trust that the driver will have the app open?? It seems likely, and I think that Uber drivers sort of always have the app open while driving, but I don't know... 
@@ -38,20 +34,6 @@ export default class LotBannerWrapper extends Component {
 		 * 		a function is run that is just a setTimeout for the correct amount of time.. and then does the expiration.
 		 */
 
-		const expiringLotId = this.props.lotData.lotId;
-		const newLotId = await expireLot(expiringLotId); // ......... We should test this with multiple drivers viewing a lot as it expires... Won't they all call expireLot?
-												// I think maybe we should have some sort of test at the beginning, like when you call it, check to see if it actually exists, and if not, don't do anything.. 
-
-		// This should be the case where no one was the  no one was the driver
-		if (!newLotId) { return "The lot was already taken care of"; }
-		// ^^ So do we even need this? I don't think so...
-
-		if (myCurrentLotId === expiringLotId) {
-			store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : newLotId }); // I don't think that this is right... Won't this mean that anyone on DriverHome will have their currentLot set to the new Lot id?
-			// Here's where, if you're the winner, we navigate you to Winner.js
-			this.props.navigation.navigate('Winner');
-			// How do we do that? Does this.props.navigation.navigate('Winner') work? Even though LBW isn't in DrawerNavigator?
-		}
 	}
 
 	render () {

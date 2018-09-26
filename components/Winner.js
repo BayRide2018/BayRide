@@ -127,20 +127,20 @@ export default class Winner extends React.Component {
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
 					<Button
 						onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} >
-						<Text>{"" + this.state.passenger.phone}</Text>
+						<Text>{this.state.passenger.phone}</Text>
 					</Button>
 					<Text>Passenger location</Text>
 					{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 
 					<Button
 						onPress={this.handleDirectionsToStart} >
-						<Text>Get Directions to {this.state.lot.pickupLocation.fullAddress}!</Text>
+						<Text>Get Directions to {this.state.lot.pickupLocation && this.state.lot.pickupLocation.fullAddress}!</Text>
 					</Button>
 
 					{this.state.showDirectionsForTrip
 					?	<Button
 							onPress={this.handleDirectionsForTrip} >
-							<Text>Get Directions to {this.state.lot.dropoffLocation.fullAddress}!</Text>
+							<Text>Get Directions to {his.state.lot.dropoffLocation && this.state.lot.dropoffLocation.fullAddress}!</Text>
 						</Button>
 					:	null}
 

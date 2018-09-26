@@ -12,7 +12,7 @@ module.exports = StyleSheet.create({
 	containerMain: {
 		...StyleSheet.absoluteFillObject,
 		backgroundColor: 'transparent',
-		flex: 1
+		flex: 1,
 	},
 
 	/**

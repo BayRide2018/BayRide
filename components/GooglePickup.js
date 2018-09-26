@@ -17,7 +17,7 @@ export default class GooglePickup extends Component {
 				fetchDetails={true}
 				renderDescription={row => row.description} // custom description render
 				onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-							let pickUp = {fullAddress: details.formatted_address, coords: details.geometry.location};
+							let pickUp = { fullAddress: details.formatted_address, region: details.geometry.location };
 					this.props.pickUp(pickUp);
 				}}
 

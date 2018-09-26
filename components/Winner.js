@@ -34,7 +34,7 @@ export default class Winner extends React.Component {
 		let lotId;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			// Since the ride is not complete, then we can find the lotId (which links to a lot_history doc), as currentLot on the user
-			lotid = user.data().currentLot.lotId;
+			lotId = user.data().currentLot.lotId;
 		});
 		await store.collection("lot_history").doc(lotId).get().then(lot => {
 			this.setState({ lot: lot.data() });
@@ -56,7 +56,7 @@ export default class Winner extends React.Component {
 			setTimeout(async () => { // This setTimeout is very important, I think..
 				let location = await Location.getCurrentPositionAsync({});
 				let myLocation = {
-					coords: {
+					region: {
 						lat: location.coords.latitude,
 						lng: location.coords.longitude
 					},
@@ -71,8 +71,8 @@ export default class Winner extends React.Component {
 	handleDirectionsToStart = () => {
 		const data = {
 			destination: {
-				latitude: this.state.lot.pickupLocation.coords.latitude,
-				longitude: this.state.lot.pickupLocation.coords.longitude
+				latitude: this.state.lot.pickupLocation.region.lat,
+				longitude: this.state.lot.pickupLocation.region.lng
 			},
 			params: [
 				{
@@ -92,8 +92,8 @@ export default class Winner extends React.Component {
 	handleDirectionsForTrip = () => {
 		const data = {
 			destination: {
-				latitude: this.state.lot.dropoffLocation.coords.latitude,
-				longitude: this.state.lot.dropoffLocation.coords.longitude
+				latitude: this.state.lot.dropoffLocation.region.lat,
+				longitude: this.state.lot.dropoffLocation.region.lng
 			},
 			params: [
 				{

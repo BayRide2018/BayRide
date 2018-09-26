@@ -22,10 +22,10 @@ export default class LotSubmissionForm extends Component {
 			fullAddress: 'Search',
 		},
 		dropoffLocation: {},
-		offer: 15,
+		offer: 20,
 		showMinutePicker: false,
 		showPricePicker: false,
-		pickupTime: 20,
+		pickupTime: 15,
 		pickBorderWidth: 0,
 		dropBorderWidth: 0
 	}
@@ -85,7 +85,7 @@ export default class LotSubmissionForm extends Component {
 
 	render () {
 		return (
-			<KeyboardAwareScrollView contentContainerStyle={style.background} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={false} >
+			<KeyboardAwareScrollView contentContainerStyle={style.background} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true} >
 				<View style={style.submissionForm}>
 					<Button warning small onPress={() => {this.props.navigation.navigate('MainScreen')} } style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
@@ -107,17 +107,17 @@ export default class LotSubmissionForm extends Component {
 
 
 					<Text style={{flexDirection: 'row'}}>Your offer: {this.state.offer} $      Pickup Time: {`${this.state.pickupTime} minutes`}</Text>
-					<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>
+					<View style={style.pickerRow}>
 						{ this.state.showPricePicker
 							?	<Picker
 									style={style.picker}
-									selectedValue='4'
+									selectedValue='20'
 									pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
 									onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
 									itemSpace={30} // this only support in android
 								/>
 							:	<Button
-									style={{ marginRight: 25, backgroundColor: '#36c6ac' }}
+									style={{ backgroundColor: '#36c6ac' }}
 									onPress={() => this.setState({ showPricePicker: true })}
 								><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
 						}
@@ -126,14 +126,14 @@ export default class LotSubmissionForm extends Component {
 						{this.state.showMinutePicker
 							?	<Picker
 									style={style.picker}
-									selectedValue='4'
+									selectedValue='15'
 									pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
 									onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
 									itemSpace={30} // this only support in android
 								/>
 							:
 								<Button
-									style={{ marginLeft: 25, backgroundColor: '#36c6ac' }}
+									style={{ backgroundColor: '#36c6ac' }}
 									onPress={() => this.setState({ showMinutePicker: true })}
 								><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
 						}

@@ -106,8 +106,15 @@ module.exports = StyleSheet.create({
 	},
 	picker: {
 		backgroundColor: 'white',
-		width: 300,
+		width: React.Dimensions.get('window').width * .4,
 		height: 215,
+	},
+	pickerRow: {
+		width: React.Dimensions.get('window').width * .9,
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-around',
+		marginBottom: 20,
 	},
 
 	/**
@@ -203,7 +210,7 @@ module.exports = StyleSheet.create({
 	 */
 	background: {
 		backgroundColor: BROFFWHITE,
-		height: React.Dimensions.get('window').height,
+		height: React.Dimensions.get('window').height*1.4,
 	},
 	button: {
 		backgroundColor: BRBLUE,

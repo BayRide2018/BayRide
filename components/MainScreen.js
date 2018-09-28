@@ -20,7 +20,7 @@ export default class MainScreen extends Component {
 		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
 		showBid: false,
 		offer: '',
-		driverId: '', // This should be driver's name, not id, which is an email
+		driverName: '', // This should be driver's name, not id, which is an email
 		matchBanner: false, // This is the Bool which determines whether or not we display the MatchBanner modal component thing, which shows the status of the trip you want to take
 		currentLotId: '', // This is the id of the lot that passenger has open
 		showReceipt: false, // this determines whether or not to display the receipt of the passenger's most recent trip (remember, this should only happen the first time).
@@ -36,16 +36,16 @@ export default class MainScreen extends Component {
 		let driver = '';
 
 		// We should really just get rid of this whole query, and put a better version of this in MatchBanner.js
-		await store.collection('lots').onSnapshot( allLots => { // This query needs to be majorly changed..
-			allLots.docChanges().forEach(lot => {
-				driver = lot.doc.data().driverId;
-				//Not sure if needs another if statement but bid info should not changed unless its another bid
-				if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
-					this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
-					//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
-				}
-			});
-		});
+		// await store.collection('lots').onSnapshot( allLots => { // This query needs to be majorly changed..
+		// 	allLots.docChanges().forEach(lot => {
+		// 		driver = lot.doc.data().driverId;
+		// 		//Not sure if needs another if statement but bid info should not changed unless its another bid
+		// 		if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
+		// 			this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
+		// 			//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
+		// 		}
+		// 	});
+		// });
 
 		// This is the query that we want to make: It ensures that the button on MainScreen always displays properly
 		// Now it also makes sure that the receipt displays properly
@@ -53,7 +53,19 @@ export default class MainScreen extends Component {
         await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			this.setState({ currentLotId: user.data().currentLot.lotId })
             myPassengerLotHistory = user.data().myPassengerLotHistory
-        });
+		});
+
+		if (this.state.currentLotId) {
+			await store.collection("lots").doc(this.state.currentLotId).onSnapshot(lot => { // Where do we unsubscribe...?
+				this.setState({ showBid: true, offer: lot.data().offer });
+				return lot.data().driverId;
+			}).then(driverId => {
+				store.collection("users").doc(driverId).get().then(driver => {
+					this.setState({ driverName: driver.data().name });
+				})
+			})
+		}
+
         await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
             mostRecentLotId = plh.data().lots.length ? plh.data().lots[plh.data().lots.length - 1] : false;
 		});
@@ -100,14 +112,6 @@ export default class MainScreen extends Component {
 		}
 	}
 
-	handleSubmit = () => {
-		this.props.navigation.navigate('LotSubmissionForm');
-	}
-
-	handleAlert = () => {
-		this.setState({showBid: false});
-	}
-
 	handleCloseReceipt = async () => {
 		this.setState({ showReceipt: false });
 		// Also, update the lot_h so that it never shows this receipt again...
@@ -129,7 +133,7 @@ export default class MainScreen extends Component {
 	 * it's going??
 	 */
 	render () {
-		const { showBid, driverId, offer} = this.state;
+		const { showBid, driverName, offer} = this.state;
 
 		return(
 			<View style={style.containerMain}>
@@ -151,10 +155,10 @@ export default class MainScreen extends Component {
 
 				{/** I believe that we do want to keep these alerts, as push notifications don't actually show up when you're in the app */}
 				{showBid ? Alert.alert(
-					`New Bid! ${driverId} has bid ${offer}!`, /** driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
+					`New Bid! ${driverName} has bid ${offer}!`, /** driverName, shouldn't be the driver's Id, which is an email, it should be his first name */
 					'Sound Good?',
 					[
-						{ text: 'Nice', onPress: () => this.handleAlert(), style: 'cancel' }
+						{ text: 'Nice', onPress: () => this.setState({ showBid: false });, style: 'cancel' }
 					],
 					{ cancelable: false }
 				) : null}
@@ -162,12 +166,12 @@ export default class MainScreen extends Component {
 
 				{!!this.state.currentLotId
 				? 	<View style={style.matchMain}>
-						<Button rounded info onPress={() => this.setState({matchBanner: true})}>
+						<Button rounded info onPress={() => this.setState({ matchBanner: true })}>
 							<Text style={style.buttonText} >View your current trip</Text>
 						</Button>
 					</View>
 				:	<View style={style.matchMain}>
-						<Button rounded info large onPress={this.handleSubmit}>
+						<Button rounded info large onPress={() => this.props.navigation.navigate('LotSubmissionForm')}>
 							<Text style={style.buttonText} >Where to?</Text>
 						</Button>
 					</View> }

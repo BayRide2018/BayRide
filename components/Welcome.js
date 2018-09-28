@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import style from '../public/style';
 import { Button, Text } from 'native-base';
 
+
 const Welcome = ({ navigation }) => (
 	<View style={style.background} >
 		<Image source={require('../public/images/logo1.png')} style={style.logo} />

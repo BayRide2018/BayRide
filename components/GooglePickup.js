@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
@@ -67,4 +65,3 @@ export default class GooglePickup extends Component {
 		);
 	}
 }
-

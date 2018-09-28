@@ -61,6 +61,7 @@ export default class LotBanner extends React.Component {
 			this.setState({ showCantBid: true });
 		}
 	}
+	
 
 	render () {
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";

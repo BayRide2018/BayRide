@@ -6,6 +6,7 @@ import { Permissions, Location } from 'expo';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
 
+
 export default class DriverHome extends Component {
 
 	state = {
@@ -54,6 +55,7 @@ export default class DriverHome extends Component {
 		let location = await Location.getCurrentPositionAsync({});
 		this.setState({ location });
 	};
+
 
 	render () {
 		return(

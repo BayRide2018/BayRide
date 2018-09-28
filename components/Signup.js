@@ -6,6 +6,7 @@ import { signup } from '../fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import { TextField } from 'react-native-material-textfield';
 
+
 export default class Signup extends Component {
 	state = {
 		name: '',
@@ -28,6 +29,7 @@ export default class Signup extends Component {
 			this.props.navigation.navigate('Waiver');
 		}
 	}
+
 
 	render () {
 		return (

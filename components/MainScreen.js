@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MapView, Location, Permissions, Notifications, Platform } from 'expo';
+import { MapView, Permissions, Notifications } from 'expo';
 import { View, Alert } from 'react-native';
 import { Button, Text } from 'native-base';
 import { store, auth } from '../fire';

@@ -9,7 +9,6 @@ import call from 'react-native-phone-call';
 
 export default class Winner extends React.Component {
 
-
 	/**
 	 * NOTE:
 	 * 		When you reach Winner.js, the lot that you are working with should be a lot that is in lot_history.
@@ -20,7 +19,6 @@ export default class Winner extends React.Component {
 	 * and then simply query the information.
 	 */
 
-
 	state = {
 		lot : {},
 		passenger : {},
@@ -29,24 +27,20 @@ export default class Winner extends React.Component {
 	};
 
 	componentDidMount = async () => {
-
-		// I believe that this should be the way that we want to do it...
 		let lotId;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			// Since the ride is not complete, then we can find the lotId (which links to a lot_history doc), as currentLot on the user
 			lotId = user.data().currentLot.lotId;
-			console.log(">>>>>>", lotId);
-		});
+]		});
 		await store.collection("lot_history").doc(lotId).get().then(lot => {
 			this.setState({ lot: lot.data() });
-			console.log("<><><>", lot.data());
 		});
 		await store.collection("users").doc(this.state.lot.passengerId).get().then(passenger => {
 			this.setState({ passenger: passenger.data() })
-		})
+		});
 
 		// We need a way to do this below line, right? But if it's here, then ComponentDidMount never finishes..
-		// this.handleTransmitLocation();
+		// this.handleTransmitLocation(); // We did this in parkupied, right?
 	}
 
 	/**
@@ -116,7 +110,6 @@ export default class Winner extends React.Component {
 	handleFinishTrip () {
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: { lotId: '', inProgress: false } });
 		store.collection("users").doc(this.state.lot.passengerId).update({ currentLot: { lotId: '', inProgress: false } });
-		// Update the lot_history, so that showReceipt is true
 		store.collection("lot_history").doc(this.state.lot.lotId).update({ showReceipt: true })
 		this.props.navigation.navigate('DriverHome');
 	}

@@ -4,6 +4,7 @@ import { store, auth } from '../fire';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
 
+
 export default class History extends Component {
 
 	state = {
@@ -38,6 +39,7 @@ export default class History extends Component {
         this.setState({ lots });
     }
 
+
 	render () {
 		return (
 			<View style={style.background} >
@@ -67,4 +69,3 @@ export default class History extends Component {
 		);
 	}
 }
-

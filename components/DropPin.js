@@ -34,6 +34,7 @@ export default class DropPin extends Component {
         this.props.navigation.navigate('LotSubmissionForm');
     }
 
+    
     render () {
         return (
 			<View style={[style.containerMain, { justifyContent: 'center', alignItems: 'center' }]}>

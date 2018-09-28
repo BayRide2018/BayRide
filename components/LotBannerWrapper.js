@@ -3,8 +3,6 @@ import { View } from "react-native";
 import LotBanner from "./LotBanner";
 import TimerCountdown from 'react-native-timer-countdown';
 import { expireLot } from '../fireMethods';
-import { store, auth } from '../fire';
-import style from '../public/style';
 
 
 export default class LotBannerWrapper extends Component {
@@ -13,7 +11,6 @@ export default class LotBannerWrapper extends Component {
 		showThisBanner: true
 	}
 
-	// I think that this is it...
 	handleFinish = async () => {
 		this.setState({ showThisBanner: false });
 
@@ -35,6 +32,7 @@ export default class LotBannerWrapper extends Component {
 		 */
 
 	}
+	
 
 	render () {
 		let { pickupTime } = this.props.lotData;

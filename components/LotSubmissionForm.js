@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text} from 'native-base';
-import { FormLabel, FormInput } from 'react-native-elements';
+import { FormLabel } from 'react-native-elements';
 import { Location } from 'expo';
 import { store, auth } from '../fire';
 import style from '../public/style';
@@ -38,18 +38,12 @@ export default class LotSubmissionForm extends Component {
 			this.state.dropoffLocation,
 			this.state.offer,
 			carType);
-		// The below line updates the user and then this update can be read from the componentDidMount in MainScreen
 		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : lotId });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
 
-
 	// We need to change this function to use DropPin.js
-	handleUseMarkerLocation = async () => {
-		// Please note that if we use this marker, it needs to have the proper form...
-		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,
-		// but, lots need to be submitted with consistently formatted pickupLocations.
-		// this.setState({ pickupLocation: this.state.marker });
+	handleUseDropPin = async () => {
 		this.props.navigation.navigate('DropPin', {
 			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 3, pickBorderWidth: 0}); }
 		});
@@ -97,7 +91,7 @@ export default class LotSubmissionForm extends Component {
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
 						<AwesomeButton backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
 						<Text>  </Text>
-						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseDropPin}>Drop a pin</AwesomeButton>
 					</View>
 					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation, dropBorderWidth: 0, pickBorderWidth: 0 });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
 

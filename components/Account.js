@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
 
 
-
 export default class Account extends Component {
 
 	state = {
@@ -123,4 +122,3 @@ export default class Account extends Component {
 		);
 	}
 }
-

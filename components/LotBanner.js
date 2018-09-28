@@ -11,7 +11,8 @@ export default class LotBanner extends React.Component {
 		lotData: this.props.lotData,
 		imgURL: '',
 		bidPrice: 0,
-		winningBidder: false
+		winningBidder: false,
+		showCantBid: false,
 	 };
 
 	componentDidMount () {
@@ -26,9 +27,9 @@ export default class LotBanner extends React.Component {
 			 }
 
 			if (lot.data() && lot.data().driverId === auth.currentUser.email) {
-				this.setState({winningBidder: true});
+				this.setState({ winningBidder: true });
 			} else {
-				this.setState({winningBidder: false});
+				this.setState({ winningBidder: false });
 			}
 		});
 	}
@@ -40,23 +41,28 @@ export default class LotBanner extends React.Component {
 	}
 
 	handlePress = async () => {
-		let driverExpoToken;
-		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : this.state.lotData.lotId });
+		let driverExpoToken, currentLot;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			driverExpoToken = user.data().expoToken;
-		})
-		store.collection("lots").doc(this.state.lotData.lotId).get().then(lot => {
-			if (lot.data().driverId) {
-				let newOffer = lot.data().offer - 0.25 ;
-				lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email, offer: newOffer});
-			} else {
-				lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email });
-			}
+			currentLot = user.data().currentLot.lotId;
 		});
+		if (!currentLot || currentLot === this.state.lotData.lotId) {
+			store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : this.state.lotData.lotId });
+			store.collection("lots").doc(this.state.lotData.lotId).get().then(lot => {
+				if (lot.data().driverId) {
+					let newOffer = lot.data().offer - 0.25 ;
+					lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email, offer: newOffer});
+				} else {
+					lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email });
+				}
+			});
+			this.this.setState({ lotData: { ...this.state.lotData, driverId: auth.currentUser.email } });
+		} else {
+			this.setState({ showCantBid: true });
+		}
 	}
 
 	render () {
-		// Here's something that needs to be fixed vv
 		const buttonTitle = this.state.lotData.driverId ? "Offer a lower price" : "Bid at this price!";
 		let lotBannerStyle = this.state.winningBidder ? style.winningBanner : style.lotBanner;
 
@@ -78,6 +84,14 @@ export default class LotBanner extends React.Component {
 					<Button title={"Report"} onPress={this.handleReport} />
 					</View>
 				</View>
+				{this.state.showCantBid ? Alert.alert(
+					`You already have a bid open!`, /** driverId, shouldn't be the driver's Id, which is an email, it should be his first name */
+					'You can\'t bid on other trips while you have a bid open',
+					[
+						{ text: 'Nice', onPress: () => this.setState({ showCantBid: false }), style: 'cancel' }
+					],
+					{ cancelable: false }
+				) : null}
 			</View>
 		);
 	}

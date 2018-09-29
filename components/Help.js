@@ -16,7 +16,7 @@ export default class Help extends Component {
    */
 
   _handleOpenWithWebBrowser = () => {
-    WebBrowser.openBrowserAsync('https://expo.io');
+    WebBrowser.openBrowserAsync('https://github.com/BayRide2018/BayRide');
   }
 
 	render () {
@@ -29,9 +29,6 @@ export default class Help extends Component {
           color='#000'
           onPress={() => this.props.navigation.toggleDrawer()}
         />
-
-        <Text> Having trouble with your rides? </Text>
-        <Text onPress={() => this.props.navigation.navigate('Web')}> Visit us here for help... This is using WebView from React Native</Text>
 
         <Button
           title="Open URL with Expo.WebBrowser"

@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text } from 'native-base';
-import { store, auth } from '../fire';
 import call from 'react-native-phone-call';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
 
+
 export default class History extends Component {
-
-	state = {
-        currentlyPassenger: true,
-        history: [],
-        lots: []
-    };
-
-    componentDidMount = async () => {
-    }
 
 	render () {
 		return (
@@ -33,7 +24,7 @@ export default class History extends Component {
 
                 <Text>Call Emergency Services:</Text>
                 <Button
-                    onPress={() => { call({ number: '3146469112', prompt: true }).catch(console.error) }}>
+                    onPress={() => { call({ number: '9174705378', prompt: true }).catch(console.error) }}>
                     <Text>911</Text>
                 </Button>
 
@@ -45,7 +36,7 @@ export default class History extends Component {
 
                 <Text>Contact Stealth Air Corp:</Text>
                 <Button
-                    onPress={() => {}}>
+                    onPress={() => { WebBrowser.openBrowserAsync('http://stealthaircorp.com/') }}>
                     <Text>Drones</Text>
                 </Button>
 
@@ -58,4 +49,3 @@ export default class History extends Component {
 		);
 	}
 }
-

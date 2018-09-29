@@ -3,7 +3,9 @@ import { View } from 'react-native';
 import { Button , Text } from 'native-base';
 import style from '../public/style';
 
+
 export default class Waiver extends Component {
+  
   render () {
     return(
       <View style={style.background} >

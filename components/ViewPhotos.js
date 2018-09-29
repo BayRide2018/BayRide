@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { imgStorageRef, auth } from '../fire';
 import { Image, View } from 'react-native';
-import {Text, Button} from 'native-base';
 import { ImagePicker, Permissions } from 'expo';
 import uuid from 'uuid';
 import style from '../public/style';
 import UploadPhotoButton from 'react-native-upload-photo-button';
 
 
-
 export default class ViewPhotos extends Component {
+	
 	state = {
 		image: null,
 	};
@@ -17,6 +16,25 @@ export default class ViewPhotos extends Component {
 	askPermissionsAsync = async () => {
 		Permissions.askAsync(Permissions.CAMERA_ROLL);
 	};
+	
+	_pickImage = async () => {
+		await this.askPermissionsAsync();
+		
+		let pickerResult = await ImagePicker.launchImageLibraryAsync({
+			allowsEditing: false,
+			aspect: [4, 3],
+		});
+		
+		const photoId = uuid.v4();
+		uploadImageAsync(pickerResult.uri, photoId, auth.currentUser.email);
+		
+		this.props.setScreenshotId(photoId);
+		
+		if (!pickerResult.cancelled) {
+			this.setState({ image: pickerResult.uri });
+		}
+	}
+
 
 	render () {
 		let { image } = this.state;
@@ -28,25 +46,6 @@ export default class ViewPhotos extends Component {
 				{image && <Image style={style.screenshot} source={{uri: image}} />}
 			</View>
 		);
-	}
-
-
-	_pickImage = async () => {
-		await this.askPermissionsAsync();
-
-		let pickerResult = await ImagePicker.launchImageLibraryAsync({
-			allowsEditing: false,
-			aspect: [4, 3],
-		});
-
-		const photoId = uuid.v4();
-		uploadImageAsync(pickerResult.uri, photoId, auth.currentUser.email);
-
-		this.props.setScreenshotId(photoId);
-
-		if (!pickerResult.cancelled) {
-			this.setState({ image: pickerResult.uri });
-		}
 	}
 }
 

@@ -2,9 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
 import { store } from '../fire';
-// import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal';
-// import call from 'react-native-phone-call';
 import style from '../public/style';
 
 
@@ -32,6 +30,7 @@ export default class TripReceipt extends React.Component {
         });
 	}
 
+	
 	render () {
 		let carType;
 		if (this.state.lotData.carType === "brs") {

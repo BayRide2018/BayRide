@@ -15,7 +15,7 @@ export default class GoogleDropoff extends Component {
 				fetchDetails={true}
 				renderDescription={row => row.description} // custom description render
 				onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-					let dropOff = {fullAddress: details.formatted_address, coords: details.geometry.location};
+					let dropOff = { fullAddress: details.formatted_address, region: details.geometry.location };
 					this.props.dropOff(dropOff);
 				}}
 
@@ -65,4 +65,3 @@ export default class GoogleDropoff extends Component {
 		);
 	}
 }
-

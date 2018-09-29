@@ -7,6 +7,7 @@ import { store, auth } from '../fire';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import { TextField } from 'react-native-material-textfield';
 
+
 export default class Login extends Component {
 
 	state = {
@@ -30,6 +31,7 @@ export default class Login extends Component {
 		}
 	}
 
+
 	render () {
 		return (
 			<View style={style.background} >
@@ -45,7 +47,7 @@ export default class Login extends Component {
 					<View>
 						<Text>{this.state.response}</Text>
 						<Button
-							style={style.button}
+							style={style.signInButton}
 							onPress={this.handleSubmit}><Text style={style.buttonText} >Login</Text></Button>
 					</View>
 				</View>
@@ -53,4 +55,3 @@ export default class Login extends Component {
 		);
 	}
 }
-

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text} from 'native-base';
-import { FormLabel, FormInput } from 'react-native-elements';
+import { FormLabel } from 'react-native-elements';
 import { Location } from 'expo';
 import { store, auth } from '../fire';
 import style from '../public/style';
@@ -22,10 +22,10 @@ export default class LotSubmissionForm extends Component {
 			fullAddress: 'Search',
 		},
 		dropoffLocation: {},
-		offer: 0,
+		offer: 20,
 		showMinutePicker: false,
 		showPricePicker: false,
-		pickupTime: 0,
+		pickupTime: 15,
 		pickBorderWidth: 0,
 		dropBorderWidth: 0
 	}
@@ -38,20 +38,14 @@ export default class LotSubmissionForm extends Component {
 			this.state.dropoffLocation,
 			this.state.offer,
 			carType);
-		// The below line updates the user and then this update can be read from the componentDidMount in MainScreen
 		store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : lotId });
 		this.props.navigation.navigate('MainScreen'); // Should this go first?? Will it make it a faster, smoother user experience? IE: you're navigating to MainScreen immediately, and while that's happening, the request is being fulfilled
 	}
 
-
 	// We need to change this function to use DropPin.js
-	handleUseMarkerLocation = async () => {
-		// Please note that if we use this marker, it needs to have the proper form...
-		// This doesn't necessarily mean the same form as `Location` below, which seems to have a lot of extraneous information,
-		// but, lots need to be submitted with consistently formatted pickupLocations.
-		// this.setState({ pickupLocation: this.state.marker });
+	handleUseDropPin = async () => {
 		this.props.navigation.navigate('DropPin', {
-			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 2, pickBorderWidth: 0}); }
+			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 3, pickBorderWidth: 0}); }
 		});
 	}
 
@@ -79,68 +73,71 @@ export default class LotSubmissionForm extends Component {
 				lng: location.coords.longitude,
 			}
 		};
-		this.setState({ pickupLocation: location, pickBorderWidth: 2, dropBorderWidth: 0 });
+		this.setState({ pickupLocation: location, pickBorderWidth: 3, dropBorderWidth: 0 });
 	}
 
 
 	render () {
 		return (
-			<KeyboardAwareScrollView contentContainerStyle={style.background} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={false} >
+			<KeyboardAwareScrollView contentContainerStyle={style.background} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true} >
 				<View style={style.submissionForm}>
 					<Button warning small onPress={() => {this.props.navigation.navigate('MainScreen')} } style={style.backButton}><Text style={{fontSize: 15}}>Go Back</Text></Button>
 
 					<ViewPhotos setScreenshotId={ (photoID) => {this.setState({ screenshot: photoID })} } />
 
+
 					<FormLabel>Pickup Location</FormLabel>
 					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
-					<AwesomeButton width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
-						<AwesomeButton width={150} borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseMarkerLocation}>Drop a pin</AwesomeButton>
+						<AwesomeButton backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
+						<Text>  </Text>
+						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseDropPin}>Drop a pin</AwesomeButton>
 					</View>
-
 					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation, dropBorderWidth: 0, pickBorderWidth: 0 });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
+
+
 					<FormLabel>Drop off Location</FormLabel>
 					<GoogleDropoff dropOff={ (dropoffLocation) => {this.setState({ dropoffLocation });} } />
 
+
 					<Text style={{flexDirection: 'row'}}>Your offer: {this.state.offer} $      Pickup Time: {`${this.state.pickupTime} minutes`}</Text>
-						<View style={{flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', marginBottom: 70}}>
-					{ this.state.showPricePicker
-						?	<Picker
-								style={style.picker}
-								selectedValue='4'
-								pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
-								onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
-								itemSpace={30} // this only support in android
-							/>
-						:	<Button
-								success
-								style={{marginRight: 25}}
-								onPress={() => this.setState({ showPricePicker: true })}
-							><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
-					}
+					<View style={style.pickerRow}>
+						{ this.state.showPricePicker
+							?	<Picker
+									style={style.picker}
+									selectedValue={this.state.offer}
+									pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
+									onValueChange={pickupPrice => this.setState({ offer: pickupPrice, showPricePicker: false })}
+									itemSpace={30} // this only support in android
+								/>
+							:	<Button
+									style={{ backgroundColor: '#36c6ac' }}
+									onPress={() => this.setState({ showPricePicker: true })}
+								><Text style={style.buttonText} >{this.state.offer} dollars</Text></Button>
+						}
 
 
-					{this.state.showMinutePicker
-						?	<Picker
-								style={style.picker}
-								selectedValue='4'
-								pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
-								onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
-								itemSpace={30} // this only support in android
-							/>
-						:
-							<Button
-								success
-								style={{marginLeft: 25}}
-								onPress={() => this.setState({ showMinutePicker: true })}
-							><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
-					}
+						{this.state.showMinutePicker
+							?	<Picker
+									style={style.picker}
+									selectedValue={this.state.pickupTime}
+									pickerData={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90']}
+									onValueChange={pickupTime => this.setState({ pickupTime, showMinutePicker: false })}
+									itemSpace={30} // this only support in android
+								/>
+							:
+								<Button
+									style={{ backgroundColor: '#36c6ac' }}
+									onPress={() => this.setState({ showMinutePicker: true })}
+								><Text style={style.buttonText} >{`${this.state.pickupTime} minutes`}</Text></Button>
+						}
 					</View>
 
+
 					<View style={style.buttonRows} >
-						<Button rounded success onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
-						<Button rounded success onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
 					</View>
 				</View>
 			</KeyboardAwareScrollView>

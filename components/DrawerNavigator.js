@@ -47,9 +47,6 @@ const DrawerNavigator = createDrawerNavigator({
 	Winner: {
 		screen: Winner
 	},
-	Web: {
-		screen: Web
-	},
 	LotSubmissionForm: {
 		screen: LotSubmissionForm
 	},

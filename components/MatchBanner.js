@@ -9,7 +9,6 @@ import style from '../public/style';
 import { expireLot } from '../fireMethods';
 
 
-
 export default class MatchBanner extends React.Component {
 
 	state = {
@@ -58,6 +57,7 @@ export default class MatchBanner extends React.Component {
 		this.props.delete(); // Yes, this
 	}
 
+
 	render () {
 		let { pickupTime } = this.state.lotData;
 		if (pickupTime) pickupTime = pickupTime.toDate();
@@ -74,7 +74,7 @@ export default class MatchBanner extends React.Component {
 
 		return (
 			<View>
-						<Modal isVisible={this.state.isModalVisible}>
+				<Modal isVisible={this.state.isModalVisible}>
 					<View style={style.matchBanner}>
 
 						{this.state.tripinProgress

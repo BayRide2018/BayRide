@@ -12,7 +12,7 @@ module.exports = StyleSheet.create({
 	containerMain: {
 		...StyleSheet.absoluteFillObject,
 		backgroundColor: 'transparent',
-		flex: 1
+		flex: 1,
 	},
 
 	/**
@@ -55,6 +55,13 @@ module.exports = StyleSheet.create({
 		marginRight: 15,
 		height: React.Dimensions.get('window').height,
 	},
+	signInButton: {
+		backgroundColor: BRBLUE,
+		width: React.Dimensions.get('window').width * .9,
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center',
+	},
 
 	/**
 	 * Styling for PassengerHome / MainScreen
@@ -75,21 +82,16 @@ module.exports = StyleSheet.create({
 	matchMain: {
 		zIndex: 20,
 		top: 80,
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 
 	/**
 	 * Styling for LotSubmissionForm
 	 */
-	picker: {
-		backgroundColor: 'white',
-		width: 300,
-		height: 215,
-	},
 	submissionForm: {
 		flex: 1,
 		margin: 15,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	viewPhoto: {
 		flex: 1,
@@ -98,6 +100,21 @@ module.exports = StyleSheet.create({
 		flexDirection: 'row',
 		width: React.Dimensions.get('window').width * .9,
 		margin: 30,
+	},
+	buttonForPicker: {
+		color: '#2bb88a',
+	},
+	picker: {
+		backgroundColor: 'white',
+		width: React.Dimensions.get('window').width * .4,
+		height: 215,
+	},
+	pickerRow: {
+		width: React.Dimensions.get('window').width * .9,
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		justifyContent: 'space-around',
+		marginBottom: 20,
 	},
 
 	/**
@@ -130,14 +147,13 @@ module.exports = StyleSheet.create({
 	lotBanner: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	winningBanner: {
 		display: 'flex',
-		backgroundColor: '#aaffaa',
-		flex: 1,
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		backgroundColor: '#88ff88',
 	},
 	lotBannerButton: {
 		display: 'flex',
@@ -152,7 +168,7 @@ module.exports = StyleSheet.create({
 	 */
 	drawerIcon: {
 		marginTop: 24,
-		marginLeft: 18
+		marginLeft: 18,
 	},
 	/** The rest of these are for the sidemenu */
 	containerSM: {
@@ -175,7 +191,7 @@ module.exports = StyleSheet.create({
 		backgroundColor: BROFFWHITE,
 		justifyContent: 'flex-end',
 		bottom: 20,
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 
 	/**
@@ -193,11 +209,10 @@ module.exports = StyleSheet.create({
 	 */
 	background: {
 		backgroundColor: BROFFWHITE,
-		height: React.Dimensions.get('window').height,
+		height: React.Dimensions.get('window').height*1.4,
 	},
 	button: {
 		backgroundColor: BRBLUE,
-		width: React.Dimensions.get('window').width * .9,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center'
@@ -225,10 +240,10 @@ module.exports = StyleSheet.create({
 		marginTop: 20,
 	},
 	webOuterView: {
-		flex: 1
+		flex: 1,
 	},
 	backButton: {
 		marginLeft: 10,
-		marginTop: 35
+		marginTop: 35,
 	},
 });

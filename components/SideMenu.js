@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
-import { View, TouchableOpacity} from 'react-native';
+import { View } from 'react-native';
 import { Button, Text} from 'native-base';
 import { StackNavigator, SafeAreaView } from 'react-navigation';
 // ^^^^ I haven't deleted these, because I think that we might want to include SafeAreaView in this, and in some other stuff
@@ -16,7 +16,8 @@ export default class SideMenu extends Component {
 
 	componentDidMount =  async () => {
 		var unsubscribe =	await store.collection('users').doc(auth.currentUser.email).onSnapshot(user => {
-			this.setState({ ...user.data() });
+			// Please note: the below line gives the following warning: Warning: Can't call setState (or forceUpdate) on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
+			this.setState({ ...user.data() }); 
 		})
 	}
 
@@ -69,6 +70,7 @@ export default class SideMenu extends Component {
 		this.props.navigation.dispatch(navigateAction);
 	}
 
+	
 	render () {
 		let switchButton =  this.state.currentlyPassenger
 			? <Button full info style={style.navItemStyleSM} onPress={this.state.drivingInformation.canDrive ? this.handleSwitchDriver : this.handleDriverRegistration}><Text style={style.navItemTextSM} >SWITCH TO DRIVER</Text></Button>

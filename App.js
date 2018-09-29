@@ -23,7 +23,6 @@ export default createStackNavigator({
 	Account: { screen: Account },
 	Payment: { screen: Payment },
 	Help: { screen: Help },
-	Web: { screen: Web },
 	DropPin: { screen: DropPin },
 
 }, {

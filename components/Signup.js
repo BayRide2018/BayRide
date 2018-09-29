@@ -6,6 +6,7 @@ import { signup } from '../fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import { TextField } from 'react-native-material-textfield';
 
+
 export default class Signup extends Component {
 	state = {
 		name: '',
@@ -29,6 +30,7 @@ export default class Signup extends Component {
 		}
 	}
 
+
 	render () {
 		return (
 			<View style={style.background} >
@@ -51,7 +53,7 @@ export default class Signup extends Component {
 					<Text>{this.state.response}</Text>
 					<View>
 						<Button
-							style={style.button}
+							style={style.signInButton}
 							onPress={this.handleSubmit}
 						><Text style={style.buttonText} >Signup</Text></Button>
 					</View>

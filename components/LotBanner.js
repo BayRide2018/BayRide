@@ -56,7 +56,7 @@ export default class LotBanner extends React.Component {
 					lot.ref.update({ driverExpoToken, driverId: auth.currentUser.email });
 				}
 			});
-			this.this.setState({ lotData: { ...this.state.lotData, driverId: auth.currentUser.email } });
+			this.setState({ lotData: { ...this.state.lotData, driverId: auth.currentUser.email } });
 		} else {
 			this.setState({ showCantBid: true });
 		}

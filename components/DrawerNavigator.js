@@ -9,7 +9,6 @@ import Payment from './Payment';
 import History from './History';
 import Help from './Help';
 import Winner from './Winner';
-import Web from './Web';
 import LotSubmissionForm from './LotSubmissionForm';
 import LotBanner from './LotBanner';
 import LotBannerWrapper from './LotBannerWrapper';

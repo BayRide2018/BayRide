@@ -27,7 +27,7 @@ export default class MainScreen extends Component {
 		showDriver: false, // Whether or not to show the driver approaching on the map
 	}
 
-	async componentDidMount() {
+	componentDidMount = async () => {
 		//Functions called that will change state
 		//(Can't call setState in component did mount (most of the time))
 		this._getLocationAsync();
@@ -51,19 +51,22 @@ export default class MainScreen extends Component {
 		// Now it also makes sure that the receipt displays properly
 		let myPassengerLotHistory, mostRecentLotId;
         await store.collection("users").doc(auth.currentUser.email).get().then(user => {
-			this.setState({ currentLotId: user.data().currentLot.lotId })
-            myPassengerLotHistory = user.data().myPassengerLotHistory
+			this.setState({ currentLotId: user.data().currentLot.lotId });
+            myPassengerLotHistory = user.data().myPassengerLotHistory;
 		});
 
 		if (this.state.currentLotId) {
-			await store.collection("lots").doc(this.state.currentLotId).onSnapshot(lot => { // Where do we unsubscribe...?
-				this.setState({ showBid: true, offer: lot.data().offer });
-				return lot.data().driverId;
-			}).then(driverId => {
-				store.collection("users").doc(driverId).get().then(driver => {
-					this.setState({ driverName: driver.data().name });
-				})
-			})
+			await store.collection("lots").doc(this.state.currentLotId).onSnapshot(async lot => { // Where do we unsubscribe...?
+				if (lot.exists) {
+					this.setState({ offer: lot.data().offer });
+					if (lot.data().driverId) {
+						await store.collection("users").doc(lot.data().driverId).get().then(driver => {
+							this.setState({ driverName: driver.data().name });
+						});
+						this.setState({ showBid: true });
+					}
+				}
+			});
 		}
 
         await store.collection("passenger_lot_history").doc(myPassengerLotHistory).get().then(plh => {
@@ -155,10 +158,10 @@ export default class MainScreen extends Component {
 
 				{/** I believe that we do want to keep these alerts, as push notifications don't actually show up when you're in the app */}
 				{showBid ? Alert.alert(
-					`New Bid! ${driverName} has bid ${offer}!`, /** driverName, shouldn't be the driver's Id, which is an email, it should be his first name */
+					`New Bid! ${driverName} has bid $ ${offer}!`, /** driverName, shouldn't be the driver's Id, which is an email, it should be his first name */
 					'Sound Good?',
 					[
-						{ text: 'Nice', onPress: () => this.setState({ showBid: false });, style: 'cancel' }
+						{ text: 'Nice', onPress: () => this.setState({ showBid: false }) , style: 'cancel' }
 					],
 					{ cancelable: false }
 				) : null}

@@ -23,7 +23,7 @@ export default class Payment extends Component {
         id: '' // This is here for when we want to add an edit button later
     };
 
-    componentDidMount () {
+    componentDidMount = () => {
         store.collection("users").doc(auth.currentUser.email).get().then(user => {
             this.setState({name: user.data().name, email: user.data().email, password: user.data().password, phone: user.data().phone, defaultSetting: user.data().defaultSetting , paymentInformation: user.data().paymentInformation, drivingInformation: user.data().drivingInformation, id: user.id})
         });

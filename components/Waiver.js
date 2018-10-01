@@ -7,7 +7,7 @@ import style from '../public/style';
 export default class Waiver extends Component {
   
   render () {
-    return(
+    return (
       <View style={style.background} >
         <Button title='Go Back' onPress={() => this.props.navigation.navigate('Welcome')} />
         <View>

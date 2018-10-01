@@ -26,7 +26,7 @@ export default class MatchBanner extends React.Component {
 	 * to the pickup location."
 	 */
 
-	async componentDidMount () {
+	componentDidMount = async () => {
 		// check currentLot.inProgress
 		let currentLot;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {

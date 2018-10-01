@@ -19,7 +19,7 @@ export default class Account extends Component {
 		showAlert: false,
 	};
 
-	componentDidMount () {
+	componentDidMount = () => {
 		store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			this.setState({user: user.data(), id: user.id})
 		})

@@ -15,7 +15,7 @@ export default class LotBanner extends React.Component {
 		showCantBid: false,
 	 };
 
-	componentDidMount () {
+	componentDidMount = () => {
 		imgStorageRef.child(this.state.lotData.passengerId).child(this.state.lotData.screenshot).getDownloadURL()
 			.then(url => {
 				this.setState({ imgURL: url });

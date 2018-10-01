@@ -9,7 +9,6 @@ import DriverRegistration from './components/DriverRegistration';
 import Payment from './components/Payment';
 import Waiver from './components/Waiver';
 import Help from './components/Help';
-import Web from './components/Web';
 import DropPin from './components/DropPin';
 
 export default createStackNavigator({

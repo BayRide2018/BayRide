@@ -11,7 +11,6 @@ export default class History extends Component {
 	render () {
 		return (
 			<View style={style.background} >
-                <View style={style.center} >
 
                     <Icon
                         style={style.drawerIcon}
@@ -20,6 +19,8 @@ export default class History extends Component {
                         color='#000' 
                         onPress={() => this.props.navigation.toggleDrawer()}
                         />
+                        
+                <View style={style.center} >
 
                     <Text>SAFETY</Text>
 

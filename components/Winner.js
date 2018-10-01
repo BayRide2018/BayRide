@@ -118,32 +118,35 @@ export default class Winner extends React.Component {
 	render () {
 		return (
 			<View style={style.background} >
-				<View style={{top: 50}} >
+				<View style={style.winner} >
 					<Text> You are the Winner!</Text>
 					<Text>Passenger Name: {this.state.passenger.name}</Text>
 					<Button
+						outline
 						onPress={() => { call({ number: this.state.passenger.phone, prompt: true }).catch(console.error) }} >
 						<Text>{this.state.passenger.phone}</Text>
 					</Button>
 					<Text>Passenger location</Text>
-					{/* <Text>Destination time {this.props.winningInfo.pickupTime.seconds}</Text> */}
 
 					<Button
-						onPress={this.handleDirectionsToStart} >
-						<Text>Get Directions to {this.state.lot.pickupLocation && this.state.lot.pickupLocation.fullAddress}!</Text>
+							style={style.button}
+							onPress={this.handleDirectionsToStart} >
+						<Text style={style.buttonText} >Get Directions to {this.state.lot.pickupLocation && this.state.lot.pickupLocation.fullAddress}!</Text>
 					</Button>
 
 					{this.state.showDirectionsForTrip
 					?	<Button
+							style={style.button}
 							onPress={this.handleDirectionsForTrip} >
-							<Text>Get Directions to {this.state.lot.dropoffLocation && this.state.lot.dropoffLocation.fullAddress}!</Text>
+							<Text style={style.buttonText} >Get Directions to {this.state.lot.dropoffLocation && this.state.lot.dropoffLocation.fullAddress}!</Text>
 						</Button>
 					:	null}
 
 					{this.state.showFinishTrip
 					?	<Button
+							style={style.button}
 							onPress={this.handleFinishTrip} >
-							<Text>Trip is Finished</Text>
+							<Text style={style.buttonText} >Trip is Finished</Text>
 						</Button>
 					:	null}
 				</View>

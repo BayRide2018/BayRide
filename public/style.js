@@ -162,6 +162,18 @@ module.exports = StyleSheet.create({
 		alignItems: 'center',
 		alignContent: 'space-around',
 	},
+	/**
+	 * Style for Winner
+	 */
+	winner: {
+		flex: 1,
+		margin: 15,
+		top: 50,
+		alignItems: 'center',
+		justifyContent: 'space-around', // <- What's the difference
+		alignContent: 'space-around', // <- between these two??
+	},
+
 
 	/**
 	 * Styling for the drawer
@@ -203,6 +215,7 @@ module.exports = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
+
 
 	/**
 	 * Styling other things, or general things

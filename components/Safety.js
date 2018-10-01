@@ -19,8 +19,8 @@ export default class History extends Component {
                     onPress={() => this.props.navigation.toggleDrawer()}
                 />
 
-                <Text>This is the safety Component! Gnarly!</Text>
-                <Text>Maybe here (but definitely somewhere) we can have some copy about how safe BayRide is.</Text>
+                <Text>BayRide is totally commited to providing the safest possible ride.</Text>
+                <Text>We never want you to be without the resources to help you in a emergency.</Text>
 
                 <Text>Call Emergency Services:</Text>
                 <Button
@@ -37,10 +37,10 @@ export default class History extends Component {
                 <Text>Contact Stealth Air Corp:</Text>
                 <Button
                     onPress={() => { WebBrowser.openBrowserAsync('http://stealthaircorp.com/') }}>
-                    <Text>Drones</Text>
+                    <Text>On Air</Text>
                 </Button>
 
-                <Text>Contact RJP Detectives:</Text>
+                <Text>Contact RBP Detectives:</Text>
                 <Button
                     onPress={() => {}}>
                     <Text>Detectives</Text>

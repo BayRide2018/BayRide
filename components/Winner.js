@@ -107,7 +107,7 @@ export default class Winner extends React.Component {
 		this.setState({ showFinishTrip: true })
 	}
 
-	handleFinishTrip () {
+	handleFinishTrip = () => {
 		store.collection("users").doc(auth.currentUser.email).update({ currentLot: { lotId: '', inProgress: false } });
 		store.collection("users").doc(this.state.lot.passengerId).update({ currentLot: { lotId: '', inProgress: false } });
 		store.collection("lot_history").doc(this.state.lot.lotId).update({ showReceipt: true })

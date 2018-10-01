@@ -27,25 +27,14 @@ export default class MainScreen extends Component {
 		showDriver: false, // Whether or not to show the driver approaching on the map
 	}
 
+	/**
+	 * We need to unsubscribe somewhere, right??
+	 */
 	componentDidMount = async () => {
 		//Functions called that will change state
 		//(Can't call setState in component did mount (most of the time))
 		this._getLocationAsync();
 		this.registerForPushNotification();
-
-		let driver = '';
-
-		// We should really just get rid of this whole query, and put a better version of this in MatchBanner.js
-		// await store.collection('lots').onSnapshot( allLots => { // This query needs to be majorly changed..
-		// 	allLots.docChanges().forEach(lot => {
-		// 		driver = lot.doc.data().driverId;
-		// 		//Not sure if needs another if statement but bid info should not changed unless its another bid
-		// 		if (lot.doc.data().passengerId === auth.currentUser.email && lot.doc.data().driverId !== null) {
-		// 			this.setState({showBid: true, offer: lot.doc.data().offer, driverId: driver});
-		// 			//UNSUBSCRIBE - STOP LISTENING ON COMPONENT DID UNMOUNT
-		// 		}
-		// 	});
-		// });
 
 		// This is the query that we want to make: It ensures that the button on MainScreen always displays properly
 		// Now it also makes sure that the receipt displays properly
@@ -81,9 +70,7 @@ export default class MainScreen extends Component {
 	}
 
 	registerForPushNotification = async () => {
-		const { status: existingStatus } = await Permissions.getAsync(
-			Permissions.NOTIFICATIONS
-		);
+		const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 		let finalStatus = existingStatus;
 		// only ask if permissions have not already been determined, because
 		// iOS won't necessarily prompt the user a second time.

@@ -77,7 +77,7 @@ export default class DriverHome extends Component {
 							`You Won!!`,
 							'Please click here to begin your trip',
 							[
-								{ text: 'Awesome!', onPress: () => { this.props.navigation.navigate('Winner') }, style: 'cancel' }
+								{ text: 'Awesome!', onPress: () => { this.props.navigation.navigate('Winner'); console.log("Why doesn't this work??"); }, style: 'cancel' }
 							],
 							{ cancelable: false }
 						) : null}

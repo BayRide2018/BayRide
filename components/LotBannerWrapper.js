@@ -4,6 +4,7 @@ import LotBanner from "./LotBanner";
 import TimerCountdown from 'react-native-timer-countdown';
 import { expireLot } from '../fireMethods';
 import { store, auth } from '../fire';
+import style from '../public/style';
 
 
 export default class LotBannerWrapper extends Component {

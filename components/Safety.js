@@ -19,29 +19,30 @@ export default class History extends Component {
                         color='#000' 
                         onPress={() => this.props.navigation.toggleDrawer()}
                         />
-                        
-                <View style={style.center} >
+
+                <View style={[style.center, style.signIn]} >
 
                     <Text>SAFETY</Text>
 
                     <View style={style.horizontalRule} />
 
-                    <Text>BayRide is totally commited to providing the safest possible ride.</Text>
-                    <Text>We never want you to be without the resources to help you in a emergency.</Text>
+                    <Text>BayRide is totally commited to providing the safest possible ride. We never want you to be without the resources to help you in a emergency.</Text>
 
                     <Text>Call Emergency Services:</Text>
                     <Button
+                        bordered
                         danger
-                        outline
                         rounded
+                        style={style.center}
                         onPress={() => { call({ number: '9174705378', prompt: true }).catch(console.error) }}>
-                        <Text>911</Text>
+                        <Text style={{ color: 'red', fontWeight: "900" }} >911</Text>
                     </Button>
 
                     <Text>Transmit your Location:</Text>
                     <Button
                         warning
                         rounded
+                        style={style.center}
                         onPress={() => {}}>
                         <Text>Track</Text>
                     </Button>
@@ -50,6 +51,7 @@ export default class History extends Component {
                     <Button
                         warning
                         rounded
+                        style={style.center}
                         onPress={() => { WebBrowser.openBrowserAsync('http://stealthaircorp.com/') }}>
                         <Text>On Air</Text>
                     </Button>
@@ -58,6 +60,7 @@ export default class History extends Component {
                     <Button
                         info
                         rounded
+                        style={style.center}
                         onPress={() => { WebBrowser.openBrowserAsync('http://www.richardblaise.com/') }}>
                         <Text>Detectives</Text>
                     </Button>

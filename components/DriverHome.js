@@ -14,7 +14,7 @@ export default class DriverHome extends Component {
 		showWinnerAlert: false,
 	}
 
-	async componentDidMount = () => {
+	componentDidMount = async () => {
 		// This will need to be trimmed down. IE, only show trips that are close
 		// Later, we'll need to have it only show lots with a nearby starting point.
 		// We'll also need to have something that show's if they have a bid already in place (I think maybe that banner could be outlined in green).

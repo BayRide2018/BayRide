@@ -248,6 +248,7 @@ module.exports = StyleSheet.create({
 		borderBottomColor: 'black',
 		borderBottomWidth: 1,
 		margin: 3,
+		width: React.Dimensions.get('window').width*.9,
 	},
 	webView: {
 		marginTop: 20,

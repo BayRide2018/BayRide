@@ -26,7 +26,7 @@ export default class MatchBanner extends React.Component {
 	 * to the pickup location."
 	 */
 
-	async componentDidMount () {
+	componentDidMount = async () => {
 		// check currentLot.inProgress
 		let currentLot;
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
@@ -78,7 +78,7 @@ export default class MatchBanner extends React.Component {
 					<View style={style.matchBanner}>
 
 						{this.state.tripinProgress
-						?	<Text>{this.state.driverInfo.name} is on the way to {this.state.lotData.pickupLocation && this.this.state.lotData.pickupLocation.fullAddress}!!</Text>
+						?	<Text>{this.state.driverInfo.name} is on the way to {this.state.lotData.pickupLocation && this.state.lotData.pickupLocation.fullAddress}!!</Text>
 						:	<TimerCountdown
 								initialSecondsRemaining={pickupTime - now}
 								onTimeElapsed={() => { this.setState({ tripinProgress: true }) }}

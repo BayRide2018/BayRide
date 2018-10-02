@@ -5,7 +5,7 @@ const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
 
 export default class GoogleDropoff extends Component {
 	render () {
-		return(
+		return (
 			<GooglePlacesAutocomplete
 				placeholder='Search'
 				minLength={2} // minimum length of text to search

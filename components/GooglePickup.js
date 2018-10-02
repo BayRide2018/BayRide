@@ -5,7 +5,7 @@ const key = 'AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0';
 
 export default class GooglePickup extends Component {
 	render () {
-		return(
+		return (
 			<GooglePlacesAutocomplete
 				placeholder={this.props.myPlaceHolder}
 				minLength={2} // minimum length of text to search

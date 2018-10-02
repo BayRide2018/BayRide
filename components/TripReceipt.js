@@ -14,7 +14,7 @@ export default class TripReceipt extends React.Component {
 		isModalVisible: true
 	}
 
-	async componentDidMount () {
+	componentDidMount = async () => {
         let myPassengerLotHistory, mostRecentLotId;
         await store.collection("users").doc(auth.currentUser.email).get().then(user => {
             myPassengerLotHistory = user.data().myPassengerLotHistory

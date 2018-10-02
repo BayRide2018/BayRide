@@ -8,6 +8,7 @@ import { TextField } from 'react-native-material-textfield';
 
 
 export default class Signup extends Component {
+	
 	state = {
 		name: '',
 		phone: '',

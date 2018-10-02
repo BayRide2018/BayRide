@@ -162,6 +162,18 @@ module.exports = StyleSheet.create({
 		alignItems: 'center',
 		alignContent: 'space-around',
 	},
+	/**
+	 * Style for Winner
+	 */
+	winner: {
+		flex: 1,
+		margin: 15,
+		top: 50,
+		alignItems: 'center',
+		justifyContent: 'space-around', // <- What's the difference
+		alignContent: 'space-around', // <- between these two??
+	},
+
 
 	/**
 	 * Styling for the drawer
@@ -204,6 +216,7 @@ module.exports = StyleSheet.create({
 		alignItems: 'center',
 	},
 
+
 	/**
 	 * Styling other things, or general things
 	 */
@@ -235,6 +248,7 @@ module.exports = StyleSheet.create({
 		borderBottomColor: 'black',
 		borderBottomWidth: 1,
 		margin: 3,
+		width: React.Dimensions.get('window').width*.9,
 	},
 	webView: {
 		marginTop: 20,

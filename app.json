@@ -4,7 +4,7 @@
     "sdkVersion": "27.0.0",
     "icon": "./public/images/icon.png",
     "description": "Cheapest ride-sharing app, guaranteed",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "ios": {
       "bundleIdentifier": "com.BayRide.BayRide"

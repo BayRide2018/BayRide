@@ -33,5 +33,3 @@ export default createStackNavigator({
 		header: null,
 	}
 });
-
-

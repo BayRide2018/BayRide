@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, Button } from 'react-native';
+import { Text, View, Image, Button, Alert } from 'react-native';
 import { store, auth, imgStorageRef } from '../fire';
 import LightBox from 'react-native-lightbox';
 import style from '../public/style';
@@ -47,6 +47,9 @@ export default class LotBanner extends React.Component {
 			currentLot = user.data().currentLot.lotId;
 		});
 		if (!currentLot || currentLot === this.state.lotData.lotId) {
+			if (this.state.lotData.driverId !== auth.currentUser.email) { // If a driver is being out-bid, then we need to update his current lot id
+				store.collection("users").doc(this.state.lotData.driverId).update({ "currentLot.lotId" : '' });
+			}
 			store.collection("users").doc(auth.currentUser.email).update({ "currentLot.lotId" : this.state.lotData.lotId });
 			store.collection("lots").doc(this.state.lotData.lotId).get().then(lot => {
 				if (lot.data().driverId) {

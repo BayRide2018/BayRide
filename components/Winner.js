@@ -31,7 +31,7 @@ export default class Winner extends React.Component {
 		await store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			// Since the ride is not complete, then we can find the lotId (which links to a lot_history doc), as currentLot on the user
 			lotId = user.data().currentLot.lotId;
-]		});
+		});
 		await store.collection("lot_history").doc(lotId).get().then(lot => {
 			this.setState({ lot: lot.data() });
 		});

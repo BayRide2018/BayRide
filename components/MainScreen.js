@@ -117,7 +117,7 @@ export default class MainScreen extends Component {
 
 
 	/**
-	 * We still need to add the actual marker of the driver to the map... 
+	 * We still need to add the actual marker of the driver to the map...
 	 * I'm not sure how to handle it. We want a picture that looks like a car, right?
 	 * And how do we do the thing like Uber does, where you can tell what direction
 	 * it's going??
@@ -148,7 +148,7 @@ export default class MainScreen extends Component {
 					`New Bid! ${driverName} has bid $ ${offer}!`, /** driverName, shouldn't be the driver's Id, which is an email, it should be his first name */
 					'Sound Good?',
 					[
-						{ text: 'Nice', onPress: () => this.setState({ showBid: false }) , style: 'cancel' }
+						{ text: 'Nice', onPress: () => this.setState({ showBid: false }), style: 'cancel' }
 					],
 					{ cancelable: false }
 				) : null}

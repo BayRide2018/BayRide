@@ -2,7 +2,7 @@
   "expo": {
     "name": "BayRide",
     "sdkVersion": "27.0.0",
-    "icon": "./public/images/icon.png",
+    "icon": "./public/images/solid-icon.png",
     "description": "Cheapest ride-sharing app, guaranteed",
     "slug": "bayride-frontend",
     "version": "0.1.0",
@@ -22,8 +22,8 @@
       "fallbackToCacheTimeout": 10000
     },
     "ios": {
-      "bundleIdentifier": "com.BayRide.BayRide",
-      "buildNumber": "0.1.0",
+      "bundleIdentifier": "com.Bayride.Bayride",
+      "buildNumber": "0.1.1",
       "supportsTablet": false
     },
     "android": {

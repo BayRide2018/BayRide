@@ -224,6 +224,10 @@ module.exports = StyleSheet.create({
 		backgroundColor: BROFFWHITE,
 		height: React.Dimensions.get('window').height*1.4,
 	},
+	background2: {
+		backgroundColor: BROFFWHITE,
+		height: React.Dimensions.get('window').height,
+	},
 	button: {
 		backgroundColor: BRBLUE,
 		alignItems: 'center',

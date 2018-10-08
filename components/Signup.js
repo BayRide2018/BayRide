@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView} from 'react-native';
+import { View, ScrollView, TextInput} from 'react-native';
 import { Button, Text } from 'native-base';
 import style from '../public/style';
 import { signup } from '../fireMethods';
@@ -8,7 +8,7 @@ import { TextField } from 'react-native-material-textfield';
 
 
 export default class Signup extends Component {
-	
+
 	state = {
 		name: '',
 		phone: '',
@@ -41,7 +41,7 @@ export default class Signup extends Component {
 						onChangeText={name => this.setState({ name })}
 					/>
 
-					<TextField label='Phone Number' placeholder="Please enter your phone number"
+					<TextInput keyboardType={'numeric'} label='Phone Number' placeholder="Please enter your phone number"
 						onChangeText={phone => this.setState({ phone })}
 					/>
 

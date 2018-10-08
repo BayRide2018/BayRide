@@ -123,7 +123,7 @@ export default class MainScreen extends Component {
 	 * it's going??
 	 */
 	render () {
-		const { showBid, driverName, offer} = this.state;
+		const { showBid, driverName, offer } = this.state;
 
 		return(
 			<View style={style.containerMain}>

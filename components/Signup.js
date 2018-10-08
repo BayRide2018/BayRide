@@ -8,7 +8,7 @@ import { TextField } from 'react-native-material-textfield';
 
 
 export default class Signup extends Component {
-	
+
 	state = {
 		name: '',
 		phone: '',
@@ -41,7 +41,7 @@ export default class Signup extends Component {
 						onChangeText={name => this.setState({ name })}
 					/>
 
-					<TextField label='Phone Number' placeholder="Please enter your phone number"
+					<TextField keyboardType={'numeric'} label='Phone Number' placeholder="Please enter your phone number"
 						onChangeText={phone => this.setState({ phone })}
 					/>
 

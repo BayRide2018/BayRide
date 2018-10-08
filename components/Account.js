@@ -58,7 +58,7 @@ export default class Account extends Component {
 
 				{this.state.editPhone
 				?	<View>
-						<TextField label="Phone" placeholder={this.state.user.phone}
+						<TextField keyboardType={'numeric'} label="Phone" placeholder={this.state.user.phone}
 							onChangeText={phone => this.setState({ user: { ...this.state.user, phone: phone } })}
 						/>
 						<Button rounded info onPress={() => { this.handleSubmit(); this.setState({ editPhone: false }); }} ><Text>Save Changes</Text></Button>

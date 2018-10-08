@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { store, auth } from '../fire';
-import { PhoneNumberFormat, PhoneNumberUtil} from 'google-libphonenumber';
+import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
 
 async function signup (name, phone, email, password) {
 	email = email.toLowerCase();

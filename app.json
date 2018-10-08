@@ -31,7 +31,7 @@
       "supportsTablet": false
     },
     "android": {
-      "package": "com.BayRide.BayRide",
+      "package": "com.Bayride.Bayride",
       "versionCode": 10,
       "permissions": [
         "ACCESS_COARSE_LOCATION",

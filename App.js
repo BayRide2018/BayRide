@@ -15,15 +15,14 @@ export default createStackNavigator({
 	Welcome: { screen: Welcome },
 	Login: { screen: Login },
 	Signup: { screen: Signup },
-	DrawerNavigator: {screen: DrawerNavigator},
+	DrawerNavigator: { screen: DrawerNavigator },
 	Waiver: { screen: Waiver },
-	DriverRegistration: { screen: DriverRegistration},
+	DriverRegistration: { screen: DriverRegistration } ,
 	LotSubmissionForm: { screen: LotSubmissionForm },
 	Account: { screen: Account },
 	Payment: { screen: Payment },
 	Help: { screen: Help },
 	DropPin: { screen: DropPin },
-
 }, {
 	initialRouteName: 'Welcome',
 	navigationOptions: {

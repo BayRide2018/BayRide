@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@firebase/app": "^0.3.3",
+    "blinkid-react-native": "^4.2.0",
     "expo": "^27.0.1",
     "firebase": "^5.4.1",
     "firebase-admin": "^6.0.0",

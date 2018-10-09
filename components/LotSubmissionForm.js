@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Button, Text} from 'native-base';
+import { Button, Text } from 'native-base';
 import { FormLabel } from 'react-native-elements';
 import { Location } from 'expo';
 import { store, auth } from '../fire';

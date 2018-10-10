@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Button, Text } from 'native-base';
 import { store, auth } from '../fire';
 import TimerCountdown from 'react-native-timer-countdown';
-import Modal from 'react-native-modal';
+import Modal from 'react-native-modal'; // We should try using Modal from react-native, to see if that fixes the issue of clicking the 'View your current trip' button
 import call from 'react-native-phone-call';
 import style from '../public/style';
 import { expireLot } from '../fireMethods';
@@ -96,7 +96,7 @@ export default class MatchBanner extends React.Component {
 						:	<Text>No one has submitted a bid yet, but be patient</Text>
 						}
 
-						<View style={style.buttonRows} > {/** Can we style this view, so that these buttons are in a row */}
+						<View style={style.buttonRows} >
 							<Button rounded info onPress={() => this.props.close()}>
 								<Text>Close</Text>
 							</Button>

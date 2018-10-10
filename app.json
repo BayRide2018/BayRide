@@ -28,11 +28,19 @@
         "NSLocationAlwaysUsageDescription": "Bayride uses your location to help match you with appropriate users to provide the bet driving experience",
         "NSPhotoLibraryAddUsageDescription": "Bayride uses your camera roll to allow you to upload screenshots of offers from other competitors"
       },
-      "supportsTablet": false
+      "supportsTablet": false,
+      "config": {
+        "googleMapsApiKey": "AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0"
+      }
     },
     "android": {
       "package": "com.Bayride.Bayride",
       "versionCode": 10,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0"
+        }
+      },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

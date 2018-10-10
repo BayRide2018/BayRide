@@ -22,10 +22,10 @@ export default class LotSubmissionForm extends Component {
 			fullAddress: 'Search',
 		},
 		dropoffLocation: {},
-		offer: 20,
+		offer: '20',	// I think that this change, and the one below to pickupTime, might be why the wheel-pick buttons were crashing. If it's not this, then it's probably just the library itself that we need to replace
 		showMinutePicker: false,
 		showPricePicker: false,
-		pickupTime: 15,
+		pickupTime: '15',
 		pickBorderWidth: 0,
 		dropBorderWidth: 0
 	}
@@ -45,7 +45,7 @@ export default class LotSubmissionForm extends Component {
 	// We need to change this function to use DropPin.js
 	handleUseDropPin = async () => {
 		this.props.navigation.navigate('DropPin', {
-			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 3, pickBorderWidth: 0}); }
+			handleDropPin: (pickupLocation) => { this.setState({ pickupLocation, dropBorderWidth: 3, pickBorderWidth: 0 }) }
 		});
 	}
 
@@ -87,7 +87,6 @@ export default class LotSubmissionForm extends Component {
 
 
 					<FormLabel>Pickup Location</FormLabel>
-					{/* commented these out for now */}
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
 						<AwesomeButton backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
 						<Text>  </Text>

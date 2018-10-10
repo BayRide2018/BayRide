@@ -92,8 +92,10 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	// } Rather, this should be validated in LSF
 
 	const currentTime = new Date();
-	pickupTime = new Date(currentTime.getTime() + pickupTime*60000);
-
+	pickupTime = new Date(currentTime.getTime() + pickupTime*60000); // Here, I believe that pickupTime is a string, due to the react-native-wheel-pick which is used to select the value of pickupTime
+																	 // And so (if this^ is right), then JavaScript is just changing it to a number by multiplication [this kind of nonsense is why people use typescript]
+																	 
+																	 // Something similar is happening with offer (also a string) below.
 	// This could be better, maybe? Parsefloat should return a float, and cut out random text
 	offer = Number.parseFloat(Number.parseFloat(offer).toFixed(2));
 

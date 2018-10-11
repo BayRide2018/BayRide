@@ -98,11 +98,21 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 
 	/**
 	 * ### Here is where we need to do something about sorting lots...
-	 * That is, first find out what city the starting point is in..
-	 * Then, check to see if lots contains a document for that city
-	 * If it does, add the lot object to the list of lots
-	 * If not, then create a dcoument for that city, and then add it
+	 * That is, first find out what state the starting point is in..
 	 */
+	let state = pickupLocation.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
+	state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
+	state = state.substring(1, 3);		  // " NY 10005" -> "NY"
+	/**
+	 * Then, check to see if "states" contains a document for that state
+	 * If it does, add the lot object to the list of lots
+	 * If not, then create a dcoument for that state, and then add it
+	 */
+	await store.collection("states").doc(state).get().then(doc => {
+		if (!doc.exists) {
+			store.collection("states").doc(state).set({ lots: [], info: {} });
+		}
+	});
 
 	let newLot = await store.collection("lots").add({
 		screenshot,
@@ -116,6 +126,11 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		driverExpoToken,
 		driverId: null
 	});
+
+	store.collection("states").doc(state).update({
+		lots: firebase.firestore.FieldValue.arrayUnion(newLot.id) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+	});
+
 	return newLot.id;
 }
 

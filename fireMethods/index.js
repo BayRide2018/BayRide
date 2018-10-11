@@ -104,6 +104,8 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	let state = pickupLocation.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
 	state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
 	state = state.substring(1, 3);		  // " NY 10005" -> "NY"
+	// This will make fire functions easier
+	pickupLocation = { ...pickupLocation, state };
 	/**
 	 * Then, check to see if "states" contains a document for that state
 	 * If it does, add the lot object to the list of lots

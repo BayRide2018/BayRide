@@ -35,7 +35,7 @@ export default class DriverHome extends Component {
 		 * Also, !!! we need to update firestore. Set the driver's drivingInfo.location to whatever it is, so that we can send them notifications
 		 */
 		let state = "NY"; // We need to get this somewhere... Probably using Geocoder....
-		store.collection("user").doc(auth.currentUser.email).update({ "drivingInformation.state": state });
+		store.collection("user").doc(auth.currentUser.email).update({ "drivingInformation.state": state }); // I'm not sure if this is exactly what we want... We might want more.. perhaps to have a list of driver IDs in each state
 		let lotIdList = [];
 		let lotList = [];
 		await store.collection("states").doc(state).get().then(state => {
@@ -51,7 +51,7 @@ export default class DriverHome extends Component {
 		await lotList.sort((a, b) => (Math.hypot(a.pickupLocation.region.lat - this.state.location.coords.latitude, a.pickupLocation.region.lng - this.state.location.coords.longitude) - Math.hypot(b.pickupLocation.region.lat - this.state.location.coords.latitude, b.pickupLocation.region.lng - this.state.location.coords.longitude)));
 		
 		this.setState({ allLots: lotList });
-  }
+	}
 
 	/**
 	 * Is it even possible for a user to get to DriverHome without having allowed access to his location?

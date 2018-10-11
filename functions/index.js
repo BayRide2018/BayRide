@@ -88,3 +88,8 @@ exports.sendPushNotificationUpdate = functions.firestore.document("lots/{lotId}"
     body: JSON.stringify(driverMessage)
   });
 })
+
+/**
+ * ### We also should have a function that, when a lot is created, sends a push notification to all drivers who have their current city set to the city in which the lot is
+ * "Someone wants to take a trip near you."
+ */

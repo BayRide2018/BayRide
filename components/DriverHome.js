@@ -12,14 +12,20 @@ export default class DriverHome extends Component {
 	state = {
 		allLots: [],
 		showWinnerAlert: false,
+		location: '',
 	}
 
 	componentDidMount = async () => {
 		// This will need to be trimmed down. IE, only show trips that are close
 		// Later, we'll need to have it only show lots with a nearby starting point.
-		// We'll also need to have something that show's if they have a bid already in place (I think maybe that banner could be outlined in green).
 		// Much much later, we could worry about things like throttling and maybe more complicated sorting algos.
 		this._getLocationAsync();
+
+		/**
+		 * ### Here, we need to get the lots from the specific city and load them up
+		 * Note, the way that we find what the specific city is is by checking state (what is this.state.location)
+		 * Also, !!! we need to update firestore. Set the driver's drivingInfo.logcation to whatever it is, so that we can send them notifications
+		 */
 
 		store.collection("lots").get().then(allLots => {
 			allLots.forEach(lot => {

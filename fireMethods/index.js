@@ -87,10 +87,6 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		passengerExpoToken = user.data().expoToken;
 	})
 
-	// if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
-	// 	return "Please fill out all of the forms."
-	// } Rather, this should be validated in LSF
-
 	const currentTime = new Date();
 	pickupTime = new Date(currentTime.getTime() + pickupTime*60000);
 
@@ -99,6 +95,14 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 
 	// Important
 	let driverExpoToken = '';
+
+	/**
+	 * ### Here is where we need to do something about sorting lots...
+	 * That is, first find out what city the starting point is in..
+	 * Then, check to see if lots contains a document for that city
+	 * If it does, add the lot object to the list of lots
+	 * If not, then create a dcoument for that city, and then add it
+	 */
 
 	let newLot = await store.collection("lots").add({
 		screenshot,

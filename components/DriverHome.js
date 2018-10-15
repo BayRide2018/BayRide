@@ -12,36 +12,47 @@ export default class DriverHome extends Component {
 	state = {
 		allLots: [],
 		showWinnerAlert: false,
+		location: '',
 	}
 
 	componentDidMount = async () => {
-		// This will need to be trimmed down. IE, only show trips that are close
-		// Later, we'll need to have it only show lots with a nearby starting point.
-		// We'll also need to have something that show's if they have a bid already in place (I think maybe that banner could be outlined in green).
-		// Much much later, we could worry about things like throttling and maybe more complicated sorting algos.
-		this._getLocationAsync();
-
-		store.collection("lots").get().then(allLots => {
-			allLots.forEach(lot => {
-				this.setState({ allLots: [...this.state.allLots, { ...lot.data(), lotId: lot.id } ] })
-			});
-		});
-
-		
 		/**
 		 * (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js (This happens below)
 		 * (2) While DriverHome is open, if the winning Lot expires, it takes us to Winner.js (This happens in LotBannerWrapper)
 		 */
-
+	
 		// (1) When DriverHome renders, check to see if we're a winner, and if we are, take us to Winner.js (This happens below)
 		store.collection("users").doc(auth.currentUser.email).get().then(user => {
 			this.setState({ showWinnerAlert: user.data().currentLot.inProgress });
 		});
-  }
+
+		this._getLocationAsync();
+
+		/**
+		 * ### Here, we need to get the lots from the specific state and load them up
+		 * Note, the way that we find what the specific state is is by checking state (what is this.state.location)
+		 * Also, !!! we need to update firestore. Set the driver's drivingInfo.location to whatever it is, so that we can send them notifications
+		 */
+		let state = "NY"; // We need to get this somewhere... Probably using Geocoder....
+		store.collection("user").doc(auth.currentUser.email).update({ "drivingInformation.state": state }); // I'm not sure if this is exactly what we want... We might want more.. perhaps to have a list of driver IDs in each state
+		let lotIdList = [];
+		let lotList = [];
+		await store.collection("states").doc(state).get().then(state => {
+			lotIdList = state.data().lots;
+		});
+		for (let id of lotIdList) {
+			await store.collection("lots").doc(id).get().then(lot => {
+				lotList.push({ ...lot.data(), lotId: lot.id });
+			});
+		}
+		// Now sort them and add them to state
+		// Really, really long one-liner that sorts based on geometric distance of starting point to the user
+		await lotList.sort((a, b) => (Math.hypot(a.pickupLocation.region.lat - this.state.location.coords.latitude, a.pickupLocation.region.lng - this.state.location.coords.longitude) - Math.hypot(b.pickupLocation.region.lat - this.state.location.coords.latitude, b.pickupLocation.region.lng - this.state.location.coords.longitude)));
+		
+		this.setState({ allLots: lotList });
+	}
 
 	/**
-	 * Do we need this??
-	 * Do we use this??
 	 * Is it even possible for a user to get to DriverHome without having allowed access to his location?
 	 */
 	_getLocationAsync = async () => {

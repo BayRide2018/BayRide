@@ -87,10 +87,6 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		passengerExpoToken = user.data().expoToken;
 	})
 
-	// if (!(pickupTime && pickupLocation && dropoffLocation && offer && passengerId)) {
-	// 	return "Please fill out all of the forms."
-	// } Rather, this should be validated in LSF
-
 	const currentTime = new Date();
 	pickupTime = new Date(currentTime.getTime() + pickupTime*60000); // Here, I believe that pickupTime is a string, due to the react-native-wheel-pick which is used to select the value of pickupTime
 																	 // And so (if this^ is right), then JavaScript is just changing it to a number by multiplication [this kind of nonsense is why people use typescript]
@@ -101,6 +97,27 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 
 	// Important
 	let driverExpoToken = '';
+
+	/**
+	 * ### Here is where we need to do something about sorting lots...
+	 * That is, first find out what state the starting point is in..
+	 */
+	// The below only works if they didn't use "Current Location"..........
+	let state = pickupLocation.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
+	state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
+	state = state.substring(1, 3);		  // " NY 10005" -> "NY"
+	// This will make fire functions easier
+	pickupLocation = { ...pickupLocation, state };
+	/**
+	 * Then, check to see if "states" contains a document for that state
+	 * If it does, add the lot object to the list of lots
+	 * If not, then create a dcoument for that state, and then add it
+	 */
+	await store.collection("states").doc(state).get().then(doc => {
+		if (!doc.exists) {
+			store.collection("states").doc(state).set({ lots: [], info: {} });
+		}
+	});
 
 	let newLot = await store.collection("lots").add({
 		screenshot,
@@ -114,6 +131,11 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 		driverExpoToken,
 		driverId: null
 	});
+
+	store.collection("states").doc(state).update({
+		lots: firebase.firestore.FieldValue.arrayUnion(newLot.id) // taken from https://firebase.google.com/docs/firestore/manage-data/add-data
+	});
+
 	return newLot.id;
 }
 

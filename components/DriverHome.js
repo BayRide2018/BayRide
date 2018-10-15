@@ -5,7 +5,6 @@ import LotBannerWrapper from './LotBannerWrapper';
 import { Permissions, Location } from 'expo';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
-import { stat } from 'fs';
 
 
 export default class DriverHome extends Component {

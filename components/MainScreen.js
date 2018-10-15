@@ -12,9 +12,6 @@ import TripReceipt from './TripReceipt';
 
 export default class MainScreen extends Component {
 
-	/**
-	 * NOTE: We do want to keep the alerts! Nice!
-	 */
 
 	state = {
 		errorMessage: null, // We never use this, just set it if the user won't allow access to their location. We need to not let the app do anything if that's the case... See below
@@ -143,9 +140,8 @@ export default class MainScreen extends Component {
 						followsUserLocation={true}>
 				</MapView>
 
-				{/** I believe that we do want to keep these alerts, as push notifications don't actually show up when you're in the app */}
 				{showBid ? Alert.alert(
-					`New Bid! ${driverName} has bid $ ${offer}!`, /** driverName, shouldn't be the driver's Id, which is an email, it should be his first name */
+					`New Bid! ${driverName} has bid $ ${offer}!`,
 					'Sound Good?',
 					[
 						{ text: 'Nice', onPress: () => this.setState({ showBid: false }), style: 'cancel' }

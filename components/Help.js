@@ -16,7 +16,7 @@ export default class Help extends Component {
    */
 
   _handleOpenWithWebBrowser = () => {
-    WebBrowser.openBrowserAsync('https://github.com/BayRide2018/BayRide');
+    WebBrowser.openBrowserAsync('https://github.com/Bayride2018/Bayride');
   }
 
 	render () {

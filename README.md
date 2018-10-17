@@ -1,4 +1,4 @@
-## BayRide
+## Bayride
 
 # THIS IS BAYRIDE
 

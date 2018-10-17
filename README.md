@@ -1,30 +1,7 @@
-## Bayride
+# BayRide
 
-# THIS IS BAYRIDE
+ Bayride is the new standard for ride-sharing. It differentiates itself from all other apps in a number of ways. It is the only app of its kind that allows for payment with digital currencies, and the only one to have its own digital currency, designed specifically for improving the experience of everyone using Bayride. The diverse payment options available ensure that everyone can operate comfortably.
 
-## Customizing App Display Name and Icon
+ Bayride also sets the new industry standard for safety. It vets all drivers, and also includes several emergency features, such as single-click 911 calls and several strategic business alliances.
 
-You can edit `app.json` to include [configuration keys](https://docs.expo.io/versions/latest/guides/configuration.html) under the `expo` key.
-
-To change your app's display name, set the `expo.name` key in `app.json` to an appropriate string.
-
-To set an app icon, set the `expo.icon` key in `app.json` to be either a local path or a URL. It's recommended that you use a 512x512 png file with transparency.
-
-## Writing and Running Tests
-
-This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test` extension to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/App.test.js) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/en/getting-started.html) is also a wonderful resource, as is the [React Native testing tutorial](https://facebook.github.io/jest/docs/en/tutorial-react-native.html).
-
-## Environment Variables
-
-You can configure some of Create React Native App's behavior using environment variables.
-
-## Sharing and Deployment
-
-Create React Native App does a lot of work to make app setup and development simple and straightforward, but it's very difficult to do the same for deploying to Apple's App Store or Google's Play Store without relying on a hosted service.
-
-### Ejecting from Create React Native App
-
-If you want to build and deploy your app yourself, you'll need to eject from CRNA and use Xcode and Android Studio.
-
-This is usually as simple as running `npm run eject` in your project, which will walk you through the process. Make sure to install `react-native-cli` and follow the [native code getting started guide for React Native](https://facebook.github.io/react-native/docs/getting-started.html).
-
+ Bayride is also the best-priced option--for both drivers and passengers. It avoids the greed of other ride-sharing platforms by taking a step back. Bayride takes no fees on any trip, ever. This means more money for drivers. When drivers are offered the opportunity to give rides that are 30-40% higher than they would be on an opposing platform, they will happily compete in order to secure these deals. In the end, both parties can be happy knowing that they were better served than they would have otherwise been.

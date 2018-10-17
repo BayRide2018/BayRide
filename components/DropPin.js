@@ -16,8 +16,9 @@ export default class DropPin extends Component {
 
     handleChange = (region) => {
         Geocoder.init('AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0');
-        let region = { lat: region.latitude, lng: region.longitude };
-        this.setState({ region, followsUserLoc: false });
+        // had to rename this since state is already named region
+        let coords = { lat: region.latitude, lng: region.longitude };
+        this.setState({ region: coords, followsUserLoc: false });
         Geocoder.from(lat, lng).then(json => {
             var fullAddress = json.results[0].formatted_address;
             this.setState({ fullAddress });
@@ -31,7 +32,7 @@ export default class DropPin extends Component {
         this.props.navigation.navigate('LotSubmissionForm');
     }
 
-    
+
     render () {
         return (
 			<View style={[style.containerMain, { justifyContent: 'center', alignItems: 'center' }]}>
@@ -42,7 +43,7 @@ export default class DropPin extends Component {
                     followsUserLocation={this.state.followsUserLoc} /> {/** The point is that hopefully this makes the map zoom in (I think that sometimes it does need to do this, and somethimes it doesn't), but it doesn't move around when you're trying to drop the pin */}
 
                 <Button warning small onPress={() => {this.props.navigation.navigate('LotSubmissionForm')} } style={{ marginBottom: 25 }}><Text style={{fontSize: 15}}>Go Back</Text></Button>
-                                    
+
                 <View style={{ backgroundColor: 'white', padding: 8, borderRadius: 4, borderColor: 'gray', borderWidth: 2 }} >
                     <Text>{this.state.fullAddress}</Text>
                 </View>

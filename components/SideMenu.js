@@ -99,7 +99,7 @@ export default class SideMenu extends Component {
 
 				</View>
 				<View style={style.footerContainerSM}>
-					<Text onPress={this.navigateToScreen('Beta')} >BayRide 0.1.0</Text>
+					<Text onPress={this.navigateToScreen('Beta')} >Bayride 0.1.0</Text>
 				</View>
 			</View>
 		);

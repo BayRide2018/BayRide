@@ -26,7 +26,7 @@ export default class History extends Component {
 
                     <View style={style.horizontalRule} />
 
-                    <Text>BayRide is totally commited to providing the safest possible ride. We never want you to be without the resources to help you in a emergency.</Text>
+                    <Text>Bayride is totally commited to providing the safest possible ride. We never want you to be without the resources to help you in a emergency.</Text>
 
                     <Text>Call Emergency Services:</Text>
                     <Button

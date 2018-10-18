@@ -134,9 +134,9 @@ export default class LotSubmissionForm extends Component {
 
 
 					<View style={style.buttonRows} >
-						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >BayRide</Text></Button>
-						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayRideXL</Text></Button>
-						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >BayRide Supreme </Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brx") }}><Text style={style.buttonText} >Bayride</Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brxl") }}><Text style={style.buttonText} >BayrideXL</Text></Button>
+						<Button rounded style={style.button} onPress={() => { this.handleSubmit("brs") }}><Text style={style.buttonText} >Bayride Supreme </Text></Button>
 					</View>
 				</View>
 			</KeyboardAwareScrollView>

@@ -65,11 +65,11 @@ export default class MatchBanner extends React.Component {
 
 		let carType;
 		if (this.state.lotData.carType === "brs") {
-			carType = "BayRide Supreme";
+			carType = "Bayride Supreme";
 		} else if (this.state.lotData.carType === "brxl") {
-			carType = "BayRide XL";
+			carType = "Bayride XL";
 		} else {
-			carType = "BayRide";
+			carType = "Bayride";
 		}
 
 		return (

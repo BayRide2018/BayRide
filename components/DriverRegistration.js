@@ -20,17 +20,17 @@ export default class DriverRegistration extends Component {
   }
 
   render () {
-    const BayRideX = "brx";
-    const BayRideXL = "brxl";
-    const BayRideSupreme = "brs";
+    const BayrideX = "brx";
+    const BayrideXL = "brxl";
+    const BayrideSupreme = "brs";
     return (
       <View style={style.background} >
         <Text>This is the sample driver registration page</Text>
         <Text>For now, just click the button, and you'll be registered as a driver!</Text>
         <Text>Later, registration will be a more formal process, with real requirements</Text>
-        <Button title="Sign up to Drive BayRide" onPress={() => { this.handleSubmit(BayRideX) } } />
-        <Button title="Sign up to Drive BayRideXL" onPress={() => { this.handleSubmit(BayRideXL) } } />
-        <Button title="Sign up to Drive BayRide Supreme" onPress={() => { this.handleSubmit(BayRideSupreme) } } />
+        <Button title="Sign up to Drive Bayride" onPress={() => { this.handleSubmit(BayrideX) } } />
+        <Button title="Sign up to Drive BayrideXL" onPress={() => { this.handleSubmit(BayrideXL) } } />
+        <Button title="Sign up to Drive Bayride Supreme" onPress={() => { this.handleSubmit(BayrideSupreme) } } />
         <Button style={style.backButton} title='Go Back' onPress={this.handleBack} />
       </View>
     );

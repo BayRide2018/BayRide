@@ -3,7 +3,7 @@ import { MapView } from 'expo';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
 import style from '../public/style';
-import Geocoder from 'react-native-geocoding';
+import geocoder from '../util/geocoder';
 
 
 export default class DropPin extends Component {
@@ -15,13 +15,11 @@ export default class DropPin extends Component {
     }
 
     handleChange = (region) => {
-        Geocoder.init('AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0');
-        let region = { lat: region.latitude, lng: region.longitude };
-        this.setState({ region, followsUserLoc: false });
-        Geocoder.from(lat, lng).then(json => {
-            var fullAddress = json.results[0].formatted_address;
-            this.setState({ fullAddress });
-        });
+        let lat = region.latitude;
+        let lng = region.longitude;
+        this.setState({ region: { lat, lng }, followsUserLoc: false });
+        let fullAddress = geocoder(lat, lng);
+        this.setState({ fullAddress });
     }
 
     handleSubmit = () => {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import LotBanner from "./LotBanner";
 import TimerCountdown from 'react-native-timer-countdown';
-import { expireLot } from '../fireMethods';
+import { expireLot } from '../util/fireMethods';
 import { store, auth } from '../fire';
 import style from '../public/style';
 

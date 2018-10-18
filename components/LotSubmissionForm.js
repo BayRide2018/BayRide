@@ -8,7 +8,7 @@ import style from '../public/style';
 import { Picker } from 'react-native-wheel-pick';
 import ViewPhotos from './ViewPhotos';
 import GoogleDropoff from './GoogleDropoff';
-import { createLot } from '../fireMethods';
+import { createLot } from '../util/fireMethods';
 import GooglePickup from './GooglePickup';
 import AwesomeButton from 'react-native-really-awesome-button';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';

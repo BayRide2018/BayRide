@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'native-base';
-import { login } from '../fireMethods';
+import { login } from '../util/fireMethods';
 import style from '../public/style';
 import { store, auth } from '../fire';
 import PasswordInputText from 'react-native-hide-show-password-input';

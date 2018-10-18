@@ -16,8 +16,8 @@ export default class DropPin extends Component {
 
     handleChange = (region) => {
         Geocoder.init('AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0');
-        let region = { lat: region.latitude, lng: region.longitude };
-        this.setState({ region, followsUserLoc: false });
+        let lat = region.latitude, lng = region.longitude;
+        this.setState({ region: { lat, lng }, followsUserLoc: false });
         Geocoder.from(lat, lng).then(json => {
             var fullAddress = json.results[0].formatted_address;
             this.setState({ fullAddress });

@@ -50,10 +50,10 @@ export default class Help extends Component {
 
 					<View style={style.horizontalRule} />
 
-                    <Text>BayRide is currently in its Beta Phase.</Text>
+                    <Text>Bayride is currently in its Beta Phase.</Text>
                     <Text>As such, some features may not be available yet, and certain bugs may exist. We are committed to providing you with the best experience possible, and are working day and night to complete our fully functioning, bug-free version. We appreciate that you are supporting us in this early stage, and it is our hope that we can serve all of your ride-sharing needs</Text>
-                    <Text>In order to help us improve BayRide, we would appreciate any feedback that you have to offer. Found a bug or encountered a problem? We'd love to hear about it, and we'll fix it as soon as we can. Have input about design or functionality? We're all ears!</Text>
-                    <Text>To show our appreciation for your help, if you submit some feedback, we'll give you 20 RideNodes, BayRide's very own digital currency. Use these tokens to pay for your next ride.</Text>
+                    <Text>In order to help us improve Bayride, we would appreciate any feedback that you have to offer. Found a bug or encountered a problem? We'd love to hear about it, and we'll fix it as soon as we can. Have input about design or functionality? We're all ears!</Text>
+                    <Text>To show our appreciation for your help, if you submit some feedback, we'll give you 20 RideNodes, Bayride's very own digital currency. Use these tokens to pay for your next ride.</Text>
 
                     <View style={{ width: 300 }}>
 

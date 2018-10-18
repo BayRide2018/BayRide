@@ -26,7 +26,7 @@ export default createStackNavigator({
 }, {
 	initialRouteName: 'Welcome',
 	navigationOptions: {
-		title: 'BayRide',
+		title: 'Bayride',
 		headerLeft: null,
 		gesturesEnabled: false,
 		header: null,

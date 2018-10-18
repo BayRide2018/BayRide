@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "BayRide",
+    "name": "Bayride",
     "sdkVersion": "27.0.0",
     "icon": "./public/images/solid-icon.png",
     "description": "Cheapest ride-sharing app, guaranteed",
@@ -23,7 +23,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.Bayride.Bayride",
-      "buildNumber": "0.1.1",
+      "buildNumber": "0.2.0",
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "Bayride uses your location to help match you with appropriate users to provide the bet driving experience",
         "NSPhotoLibraryAddUsageDescription": "Bayride uses your camera roll to allow you to upload screenshots of offers from other competitors"
@@ -35,7 +35,7 @@
     },
     "android": {
       "package": "com.Bayride.Bayride",
-      "versionCode": 10,
+      "versionCode": 20,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0"

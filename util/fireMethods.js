@@ -103,7 +103,7 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	 * That is, first find out what state the starting point is in..
 	 */
 	// The below only works if they didn't use "Current Location"..........
-	let state = pickupLocation.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
+	let state = pickupLocation.fullAddress.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
 	state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
 	state = state.substring(1, 3);		  // " NY 10005" -> "NY"
 	// This will make fire functions easier

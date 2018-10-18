@@ -27,7 +27,7 @@ export default class LotSubmissionForm extends Component {
 		showPricePicker: false,
 		pickupTime: '15',
 		pickBorderWidth: 0,
-		dropBorderWidth: 0
+		dropBorderWidth: 0,
 	}
 
 

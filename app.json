@@ -25,6 +25,7 @@
       "bundleIdentifier": "com.Bayride.Bayride",
       "buildNumber": "0.2.1",
       "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Bayride uses your location to help match you with appropriate users to provide the bet driving experience",
         "NSLocationAlwaysUsageDescription": "Bayride uses your location to help match you with appropriate users to provide the bet driving experience",
         "NSPhotoLibraryAddUsageDescription": "Bayride uses your camera roll to allow you to upload screenshots of offers from other competitors"
       },

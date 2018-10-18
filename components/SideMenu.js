@@ -93,13 +93,13 @@ export default class SideMenu extends Component {
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text style={style.navItemTextSM} >HELP</Text></Button>
 
-					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Beta')}><Text style={style.navItemTextSM} >BETA VERSION</Text></Button>
+					{/* <Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Beta')}><Text style={style.navItemTextSM} >BETA VERSION</Text></Button> */}
 
 					{this.state.currentLot  && this.state.currentLot.lotId ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text style={style.navItemTextSM} >LOG OUT</Text></Button> }
 
 				</View>
 				<View style={style.footerContainerSM}>
-					<Text onPress={this.navigateToScreen('Beta')} >Bayride 0.1.0</Text>
+					<Text>Bayride 0.2.1</Text>
 				</View>
 			</View>
 		);

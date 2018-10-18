@@ -5,6 +5,7 @@ import LotBannerWrapper from './LotBannerWrapper';
 import { Permissions, Location } from 'expo';
 import style from '../public/style';
 import Icon from 'react-native-vector-icons/Octicons';
+import geocoder from '../util/geocoder';
 
 
 export default class DriverHome extends Component {
@@ -12,7 +13,8 @@ export default class DriverHome extends Component {
 	state = {
 		allLots: [],
 		showWinnerAlert: false,
-		location: '',
+		location: {},
+		locState: '', // This is the state (NY, CA, etc.) that the driver is in
 	}
 
 	componentDidMount = async () => {
@@ -26,14 +28,14 @@ export default class DriverHome extends Component {
 			this.setState({ showWinnerAlert: user.data().currentLot.inProgress });
 		});
 
-		this._getLocationAsync();
+		await this._getLocationAsync();
 
 		/**
 		 * ### Here, we need to get the lots from the specific state and load them up
 		 * Note, the way that we find what the specific state is is by checking state (what is this.state.location)
 		 * Also, !!! we need to update firestore. Set the driver's drivingInfo.location to whatever it is, so that we can send them notifications
 		 */
-		let state = "NY"; // We need to get this somewhere... Probably using Geocoder....
+		let state = this.state.state;
 		store.collection("user").doc(auth.currentUser.email).update({ "drivingInformation.state": state }); // I'm not sure if this is exactly what we want... We might want more.. perhaps to have a list of driver IDs in each state
 		let lotIdList = [];
 		let lotList = [];
@@ -64,7 +66,15 @@ export default class DriverHome extends Component {
 		}
 
 		let location = await Location.getCurrentPositionAsync({});
-		this.setState({ location });
+
+		let lat = location.coords.latitude;
+        let lng = location.coords.longitude;
+		let fullAddress = geocoder(lat, lng);
+		let state = fullAddress.split(','); 	  // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
+		state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
+		state = state.substring(1, 3);		  	  // " NY 10005" -> "NY"
+
+        this.setState({ state, location });
 	};
 
 

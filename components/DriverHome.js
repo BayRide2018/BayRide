@@ -74,7 +74,7 @@ export default class DriverHome extends Component {
 		state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
 		state = state.substring(1, 3);		  	  // " NY 10005" -> "NY"
 
-        this.setState({ state, location });
+        this.setState({ locState: state, location });
 	};
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { Button } from 'native-base';
 import style from '../public/style';
-import { signup } from '../fireMethods';
+import { signup } from '../util/fireMethods';
 import PasswordInputText from 'react-native-hide-show-password-input';
 import { TextField } from 'react-native-material-textfield';
 

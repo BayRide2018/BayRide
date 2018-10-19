@@ -6,7 +6,7 @@ import TimerCountdown from 'react-native-timer-countdown';
 import Modal from 'react-native-modal'; // We should try using Modal from react-native, to see if that fixes the issue of clicking the 'View your current trip' button
 import call from 'react-native-phone-call';
 import style from '../public/style';
-import { expireLot } from '../fireMethods';
+import { expireLot } from '../util/fireMethods';
 
 
 export default class MatchBanner extends React.Component {

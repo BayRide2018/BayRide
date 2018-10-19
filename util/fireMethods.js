@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import { store, auth } from '../fire';
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
+import geocoder from '../util/geocoder';
+
 
 async function signup (name, phone, email, password) {
 	email = email.toLowerCase();
@@ -102,8 +104,12 @@ async function createLot (screenshot, pickupTime, pickupLocation, dropoffLocatio
 	 * ### Here is where we need to do something about sorting lots...
 	 * That is, first find out what state the starting point is in..
 	 */
-	// The below only works if they didn't use "Current Location"..........
-	let state = pickupLocation.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
+	if (pickupLocation.fullAddress === "Current Location") {
+		let lat = pickupLocation.region.latitude;
+        let lng = pickupLocation.region.longitude;
+        pickupLocation.fullAddress = await geocoder(lat, lng);
+	}
+	let state = pickupLocation.fullAddress.split(','); // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
 	state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
 	state = state.substring(1, 3);		  // " NY 10005" -> "NY"
 	// This will make fire functions easier

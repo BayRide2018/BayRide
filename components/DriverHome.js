@@ -35,7 +35,7 @@ export default class DriverHome extends Component {
 		 * Note, the way that we find what the specific state is is by checking state (what is this.state.location)
 		 * Also, !!! we need to update firestore. Set the driver's drivingInfo.location to whatever it is, so that we can send them notifications
 		 */
-		let state = this.state.state;
+		let state = this.state.locState;
 		store.collection("user").doc(auth.currentUser.email).update({ "drivingInformation.state": state }); // I'm not sure if this is exactly what we want... We might want more.. perhaps to have a list of driver IDs in each state
 		let lotIdList = [];
 		let lotList = [];

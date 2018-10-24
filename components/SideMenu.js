@@ -85,7 +85,7 @@ export default class SideMenu extends Component {
 
 					{this.state.currentLot && this.state.currentLot.lotId ? null : switchButton }
 					
-					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button>
+					{/* <Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button> */}
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text style={style.navItemTextSM} >HISTORY</Text></Button>
 

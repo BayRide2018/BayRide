@@ -133,12 +133,12 @@ export default class MainScreen extends Component {
 					onPress={() => this.props.navigation.toggleDrawer()}
 				/>
 
-				<MapView
+				{/* <MapView
 						style={style.mapMain}
 						onRegionChangeComplete={this.onRegionChangeComplete}
 						showsUserLocation={true}
 						followsUserLocation={true}>
-				</MapView>
+				</MapView> */}
 
 				{showBid ? Alert.alert(
 					`New Bid! ${driverName} has bid $ ${offer}!`,

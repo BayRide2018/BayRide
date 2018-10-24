@@ -6,33 +6,48 @@ import style from '../public/style';
 
 export default class DriverRegistration extends Component {
 
+    state = {
+        showAlert: false,
+        screenshot: '',
+    }
+
 	handleSubmit = async (carType) => {
     // Please test to see if this really needs to be awaited.. If it doesn't (the function still works) then it removing it will be a slightly better UX, I believe
-    await store.collection("users").doc(auth.currentUser.email).update({
-      drivingInformation: { canDrive: true, carType },
-      currentlyPassenger: false
-    })
-    this.props.navigation.navigate('DriverHome');
-  }
+        await store.collection("users").doc(auth.currentUser.email).update({
+            drivingInformation: { canDrive: true, carType, screenshot: this.state.screenshot },
+            currentlyPassenger: false
+        })
+        this.setState({ showAlert: true })
+    }
 
-  handleBack = () => {
-    this.props.navigation.navigate('MainScreen');
-  }
+    handleBack = () => {
+        this.props.navigation.navigate('MainScreen');
+    }
 
-  render () {
-    const BayrideX = "brx";
-    const BayrideXL = "brxl";
-    const BayrideSupreme = "brs";
-    return (
-      <View style={style.background} >
-        <Text>This is the sample driver registration page</Text>
-        <Text>For now, just click the button, and you'll be registered as a driver!</Text>
-        <Text>Later, registration will be a more formal process, with real requirements</Text>
-        <Button title="Sign up to Drive Bayride" onPress={() => { this.handleSubmit(BayrideX) } } />
-        <Button title="Sign up to Drive BayrideXL" onPress={() => { this.handleSubmit(BayrideXL) } } />
-        <Button title="Sign up to Drive Bayride Supreme" onPress={() => { this.handleSubmit(BayrideSupreme) } } />
-        <Button style={style.backButton} title='Go Back' onPress={this.handleBack} />
-      </View>
-    );
-  }
+    render () {
+        const BayrideX = "brx";
+        const BayrideXL = "brxl";
+        const BayrideSupreme = "brs";
+        return (
+            <View style={style.background} >
+                <Text>Please upload a screenshot of your driver's license</Text>
+                <ViewPhotos setScreenshotId={ (photoID) => {this.setState({ screenshot: photoID })} } />
+                <Text>Select which style of car you will be driving:</Text>
+
+				{this.state.showAlert ? Alert.alert(
+					`Your application is under review!`,
+					'Expect an email from us soon letting you know if you\'ll be able to join our team',
+					[
+						{ text: 'Nice', onPress: () => this.props.navigation.navigate('DriverHome'), style: 'cancel' }
+					],
+					{ cancelable: false }
+                ) : null}
+                
+                <Button title="Sign up to Drive Bayride" onPress={() => { this.handleSubmit(BayrideX) } } />
+                <Button title="Sign up to Drive BayrideXL" onPress={() => { this.handleSubmit(BayrideXL) } } />
+                <Button title="Sign up to Drive Bayride Supreme" onPress={() => { this.handleSubmit(BayrideSupreme) } } />
+                <Button style={style.backButton} title='Go Back' onPress={this.handleBack} />
+            </View>
+        );
+    }
 }

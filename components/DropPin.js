@@ -14,11 +14,11 @@ export default class DropPin extends Component {
         followsUserLoc: true,
     }
 
-    handleChange = (region) => {
+    handleChange = async (region) => {
         let lat = region.latitude;
         let lng = region.longitude;
         this.setState({ region: { lat, lng }, followsUserLoc: false });
-        let fullAddress = geocoder(lat, lng);
+        let fullAddress = await geocoder(lat, lng);
         this.setState({ fullAddress });
     }
 

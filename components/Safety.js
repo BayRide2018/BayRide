@@ -4,6 +4,7 @@ import { Button, Text } from 'native-base';
 import call from 'react-native-phone-call';
 import Icon from 'react-native-vector-icons/Octicons';
 import style from '../public/style';
+import { WebBrowser } from 'expo';
 
 
 export default class History extends Component {
@@ -34,7 +35,7 @@ export default class History extends Component {
                         danger
                         rounded
                         style={style.center}
-                        onPress={() => { call({ number: '9174705378', prompt: true }).catch(console.error) }}>
+                        onPress={() => { call({ number: '911', prompt: true }).catch(console.error) }}>
                         <Text style={{ color: 'red', fontWeight: "900" }} >911</Text>
                     </Button>
 

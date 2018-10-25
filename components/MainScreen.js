@@ -133,15 +133,12 @@ export default class MainScreen extends Component {
 					onPress={() => this.props.navigation.toggleDrawer()}
 				/>
 
-				<Text>Welcome to Bayride</Text>
-
-
-				{/* <MapView
+				<MapView
 						style={style.mapMain}
 						onRegionChangeComplete={this.onRegionChangeComplete}
 						showsUserLocation={true}
 						followsUserLocation={true}>
-				</MapView> */}
+				</MapView>
 
 				{showBid ? Alert.alert(
 					`New Bid! ${driverName} has bid $ ${offer}!`,
@@ -151,43 +148,6 @@ export default class MainScreen extends Component {
 					],
 					{ cancelable: false }
 				) : null}
-
-				<Button rounded info large onPress={() => this.props.navigation.navigate('LotSubmissionForm')}>
-					<Text style={style.buttonText} >Where to??</Text>
-				</Button>
-
-				<View style={style.matchMain}>
-					<Button rounded info large onPress={() => this.props.navigation.navigate('LotSubmissionForm')}>
-						<Text style={style.buttonText} >where to?</Text>
-					</Button>
-				</View> 
-
-				{this.state.currentLotId
-				?	<Button rounded info onPress={() => this.setState({ matchBanner: true })}>
-						<Text style={style.buttonText} >View Your Current Trip!</Text>
-					</Button>
-				:	<Button rounded info large onPress={() => this.props.navigation.navigate('LotSubmissionForm')}>
-						<Text style={style.buttonText} >Where To?</Text>
-					</Button>
-				}
-
-				{!!this.state.currentLotId
-				?	<Button rounded info onPress={() => this.setState({ matchBanner: true })}>
-						<Text style={style.buttonText} >View your current trip!</Text>
-					</Button>
-				:	<Button rounded info large onPress={() => this.props.navigation.navigate('LotSubmissionForm')}>
-						<Text style={style.buttonText} >Where To??</Text>
-					</Button>
-				}
-				
-				{!this.state.currentLotId
-				?	<Button rounded info large onPress={() => this.props.navigation.navigate('LotSubmissionForm')}>
-						<Text style={style.buttonText} >where to??</Text>
-					</Button>
-				:	<Button rounded info onPress={() => this.setState({ matchBanner: true })}>
-						<Text style={style.buttonText} >View your current trip.</Text>
-					</Button>
-				}
 
 
 				{!!this.state.currentLotId
@@ -204,8 +164,6 @@ export default class MainScreen extends Component {
 
 				{this.state.matchBanner ? <MatchBanner currentLotId={this.state.currentLotId} close={() => this.setState({ matchBanner: false })} delete={() => this.setState({ currentLotId: '' })}  /> : null}
 				{this.state.showReceipt ? <TripReceipt close={this.handleCloseReceipt}  /> : null}
-
-				<Text>Bayride</Text>
 			</View>
 		);
 	}

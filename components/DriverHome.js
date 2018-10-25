@@ -69,7 +69,8 @@ export default class DriverHome extends Component {
 
 		let lat = location.coords.latitude;
         let lng = location.coords.longitude;
-		let fullAddress = geocoder(lat, lng);
+		let fullAddress = await geocoder(lat, lng);
+		console.log(">>>>>>>", fullAddress);
 		let state = fullAddress.split(','); 	  // "11 Wall St, New York, NY 10005, USA" -> ["11 Wall St", " New York", " NY 10005", " USA"]
 		state = state[state.length - 2];		  // ["11 Wall St", " New York", " NY 10005", " USA"] -> " NY 10005"
 		state = state.substring(1, 3);		  	  // " NY 10005" -> "NY"

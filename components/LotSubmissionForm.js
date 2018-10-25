@@ -89,8 +89,8 @@ export default class LotSubmissionForm extends Component {
 					<FormLabel>Pickup Location</FormLabel>
 					<View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5}}>
 						<AwesomeButton backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' width={150} borderColor='green' borderWidth={this.state.pickBorderWidth} onPress={this.handleUseCurrentLocation}>Current Location</AwesomeButton>
-						{/* <Text>  </Text> */}
-						{/* <AwesomeButton width={150} backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseDropPin}>Drop a pin</AwesomeButton> */}
+						<Text>  </Text>
+						<AwesomeButton width={150} backgroundShadow='green' backgroundColor='#2bb88a' backgroundDarker='#28c890' borderColor='green' borderWidth={this.state.dropBorderWidth} onPress={this.handleUseDropPin}>Drop a pin</AwesomeButton>
 					</View>
 					<GooglePickup pickUp={ (pickupLocation) => {this.setState({ pickupLocation, dropBorderWidth: 0, pickBorderWidth: 0 });} } style={{marginBottom: 90}} myPlaceHolder={this.state.pickupLocation.fullAddress} />
 

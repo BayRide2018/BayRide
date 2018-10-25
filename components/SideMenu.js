@@ -99,7 +99,7 @@ export default class SideMenu extends Component {
 
 				</View>
 				<View style={style.footerContainerSM}>
-					<Text>Bayride 0.2.1</Text>
+					<Text>Bayride 0.2.3</Text>
 				</View>
 			</View>
 		);

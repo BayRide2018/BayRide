@@ -83,7 +83,7 @@ export default class SideMenu extends Component {
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Account')}><Text style={style.navItemTextSM} >MY ACCOUNT</Text></Button>
 
-					{this.state.currentLot && this.state.currentLot.lotId ? null : switchButton }
+					{/* {this.state.currentLot && this.state.currentLot.lotId ? null : switchButton } */}
 					
 					{/* <Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button> */}
 
@@ -99,7 +99,7 @@ export default class SideMenu extends Component {
 
 				</View>
 				<View style={style.footerContainerSM}>
-					<Text>Bayride 0.2.3</Text>
+					<Text>Bayride 0.2.4</Text>
 				</View>
 			</View>
 		);

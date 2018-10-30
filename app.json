@@ -5,7 +5,7 @@
     "icon": "./public/images/solid-icon.png",
     "description": "Cheapest ride-sharing app, guaranteed",
     "slug": "bayride-frontend",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "orientation": "portrait",
     "primaryColor": "#40d3cf",
     "notification": {
@@ -23,7 +23,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.Bayride.Bayride",
-      "buildNumber": "0.2.3",
+      "buildNumber": "0.2.4",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Bayride uses your location to help match you with appropriate users to provide the bet driving experience",
         "NSLocationAlwaysUsageDescription": "Bayride uses your location to help match you with appropriate users to provide the bet driving experience",
@@ -36,7 +36,7 @@
     },
     "android": {
       "package": "com.Bayride.Bayride",
-      "versionCode": 23,
+      "versionCode": 24,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBXFcIJtLv7CMy1SLKQgkdlwByYVTxpXq0"

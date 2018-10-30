@@ -1,6 +1,6 @@
 {
   "name": "Bayride",
-  "version": "0.1.0",
+  "version": "0.2.4",
   "private": true,
   "devDependencies": {
     "eslint-plugin-promise": "^4.0.0",
@@ -42,6 +42,7 @@
     "react-native-maps": "^0.21.0",
     "react-native-modal": "^6.5.0",
     "react-native-phone-call": "^1.0.8",
+    "react-native-platform-touchable": "^1.1.1",
     "react-native-really-awesome-button": "^0.8.3",
     "react-native-timer-countdown": "^2.0.3",
     "react-native-upload-photo-button": "^1.0.0",

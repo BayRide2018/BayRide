@@ -85,7 +85,7 @@ export default class SideMenu extends Component {
 
 					{this.state.currentLot && this.state.currentLot.lotId ? null : switchButton }
 					
-					{/* <Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button> */}
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Payment')}><Text style={style.navItemTextSM} >PAYMENT</Text></Button>
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('History')}><Text style={style.navItemTextSM} >HISTORY</Text></Button>
 
@@ -93,13 +93,13 @@ export default class SideMenu extends Component {
 
 					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Help')}><Text style={style.navItemTextSM} >HELP</Text></Button>
 
-					{/* <Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Beta')}><Text style={style.navItemTextSM} >BETA VERSION</Text></Button> */}
+					<Button full info style={style.navItemStyleSM} onPress={this.navigateToScreen('Beta')}><Text style={style.navItemTextSM} >BETA VERSION</Text></Button>
 
 					{this.state.currentLot  && this.state.currentLot.lotId ? null : <Button full info style={style.navItemStyleSM} onPress={this.handleLogout}><Text style={style.navItemTextSM} >LOG OUT</Text></Button> }
 
 				</View>
 				<View style={style.footerContainerSM}>
-					<Text>Bayride 0.2.3</Text>
+					<Text>Bayride 0.2.4</Text>
 				</View>
 			</View>
 		);
